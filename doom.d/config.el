@@ -1005,7 +1005,7 @@ parent."
 
 ;(use-package mathpix
 ;  :custom ((mathpix-app-id "zmysmile0929_gmail_com")
-;           (mathpix-app-key "11f18e72fba70c0fbe84"))
+;           (mathpix-app-key ""))
 ;  :bind
 ;  ("C-x m" . mathpix-screenshot)
 ;)
