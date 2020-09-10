@@ -23,6 +23,8 @@
   :recipe (:host github :repo "org-roam/org-roam"))
 (unpin! org-roam)
 (package! org-roam-server)
+(package! org-roam-dashboard
+  :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
 ;(package! org-download)
 (package! org-fragtog)
 ;(package! writegood-mode)
@@ -56,11 +58,13 @@
   :recipe (:host github :repo "joaotavora/yasnippet"))
 ;; PDF-related tools
 (package! pdf-tools)
+(package! org-pdftools)
 ;(package! interleave
 ;  :recipe (:host github :repo "rudolfochrist/interleave"))
 ;(package! golden-ratio
 ;  :recipe (:host github :repo "roman/golden-ratio.el"))
 (package! org-noter)
+;(package! org-noter-pdftools)
 (package! cdlatex)
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

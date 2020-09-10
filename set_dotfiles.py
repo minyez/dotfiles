@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Setup dotfiles by symlinks
+"""Setup dotfiles by creating symlinks
 """
 import os
 import subprocess as sp
@@ -15,6 +15,7 @@ SRC_DEST_PAIR = {
         "vimrc"     : ".vimrc",
         "zshrc"     : ".zshrc",
         "bashrc"    : ".bashrc",
+        "gnuplotrc" : ".gnuplot",
         }
 
 def symlink_dotfile(src, dest):

@@ -28,13 +28,32 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+;; light themes
 ;(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-nord-light)
+;; dark themse
 ;(setq doom-theme 'doom-dark+)
-;(setq doom-theme 'doom-nord-light)
 ;(setq doom-theme 'doom-spacegrey)
 ;(setq doom-theme 'doom-peacock)
 ;(setq doom-theme 'doom-monokai-pro)
-(setq doom-theme 'doom-dracula)
+;(setq doom-theme 'doom-dracula)
+; make theme adapt to time. Modified from
+; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
+(defun synchronize-theme ()
+    (setq hour
+        (string-to-number
+        ; get current time by current-times-string
+	; hour value occupies 3 characters (11-13)
+            (substring (current-time-string) 11 13)))
+    (if (member hour (number-sequence 6 20))
+        (setq now 'doom-nord-light)
+        (setq now 'doom-dracula))
+    (if (equal now doom-theme)
+        nil
+        (setq doom-theme now)
+        (doom/reload-theme) ) ) ;; end of (defun ...
+; run every hour
+(run-with-timer 0 3600 'synchronize-theme)
 
 (setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
@@ -72,28 +91,34 @@
 
 ;; Global key bindings
 (map! :ne "M-/" #'comment-or-uncomment-region)
-(map! :nv "s-i" #'evil-insert)
-(map! :e "s-i" #'evil-escape)
 (map! :ne "SPC / r" #'deadgrep)
-(map! :ne "SPC n b" #'org-brain-visualize)
+;(map! :ne "SPC n b" #'org-brain-visualize)
 (map! :ne "SPC n t" #'counsel-org-capture)
 ;; copy to system clipboard
 (map! :nv "SPC s-x" #'ns-copy-including-secondary)
-;; Global keyboard macro
-(fset 'waiting
-   (kmacro-lambda-form [?  ?m ?t ?w] 0 "%d"))
-(fset 'todo
-   (kmacro-lambda-form [?  ?m ?t ?t] 0 "%d"))
-(fset 'inp
-   (kmacro-lambda-form [?  ?m ?t ?i] 0 "%d"))
-;(fset 'add-tags
-; (kmacro-lambda-form [?\s-x ?o ?r ?g ?- ?s ?e ?t ?- ?t return] 0 "%d"))
+
+;; image file extension
+(add-to-list 'image-file-name-extensions "pdf")
+(add-to-list 'image-file-name-extensions "eps")
+(add-to-list 'image-type-file-name-regexps '("\\.eps\\'" . imagemagick))
+(add-to-list 'image-file-name-extensions "eps")
+(add-to-list 'image-type-file-name-regexps '("\\.pdf\\'" . imagemagick))
+(add-to-list 'image-file-name-extensions "pdf")
 
 ;; set zsh to default shell of vterm
 (use-package! vterm
   :config
   (setq vterm-shell "zsh"))
 
+(use-package evil
+  :bind
+  (:map evil-insert-state-map
+        ("s-i" . evil-escape))
+  (:map evil-normal-state-map
+        ("s-i" . evil-insert))
+  (:map evil-visual-state-map
+        ("s-i" . evil-insert))
+)
 
 (use-package! company
   :config
@@ -162,6 +187,10 @@
         ("C-c C-i" . org-time-stamp-inactive)
       )
   :config
+  (map! :map org-mode-map
+        :nv "SPC a a" #'org-agenda-file-to-front
+        :nv "SPC a t" #'org-agenda-todo
+        )
   ; short title for Beamer export
   ;  (add-to-list 'org-export-options-alist
   ;               '(:short_title "SHORT_TITLE" nil nil parse))
@@ -201,7 +230,8 @@
         org-log-done 'time
         org-agenda-use-tag-inheritance '(search timeline agenda)
         org-agenda-window-setup 'reorganize-frame
-        org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w!)" "NEEDREVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
+  )
+  (setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w!)" "NEEDREVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
         org-todo-keyword-faces
           '(("TODO" :foreground "#ffffff" :background "#ff9933" :weight bold)
             ("WAITING" :foreground "#ffffff" :background "#9f7efe")
@@ -211,7 +241,15 @@
             ("CANCELLED" :foreground "#ff6480" :strike-through t)
              )
   )
+  ; quick to-do states
+  (fset 'waiting  ; WAIT
+     (kmacro-lambda-form [?  ?m ?t ?w] 0 "%d"))
+  (fset 'todo     ; TO-DO
+     (kmacro-lambda-form [?  ?m ?t ?t] 0 "%d"))
+  (fset 'inp      ; INPROGRESS
+     (kmacro-lambda-form [?  ?m ?t ?i] 0 "%d"))
   ;(setq org-support-shift-select t)
+
   ;; for paste picture from clipboard to org-mode
   ;; adapted from https://emacs-china.org/t/topic/6601/4
   (defun org-insert-image ()
@@ -232,12 +270,15 @@ Note that =pngpaste= should be installed outside Emacs"
 	    (if (file-exists-p image-file)
 		     (message (format "Stop: found image %s.png in %s" fn path))
          (shell-command (format "pngpaste %s" image-file))
-         ;; TODO add +ATTR_LATEX attributes
          (insert (format "#+NAME: fig:%s\n" fn))
+         (insert "#+CAPTION:\n")
+         (insert ":IMAGE:\n")
          (insert "#+ATTR_ORG: :width 300\n")
-	       (org-insert-link nil (concat "file:./images/" fn ".png") "")
-         (insert "\n:PROPERTIES:\n:CREATED: " (format-time-string "[%Y-%m-%d %a %H:%M]") "\n:END:\n")
-         ;; add further elisp expression to suppress interaction for description
+         (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
+	 (org-insert-link nil (concat "file:./images/" fn ".png") "")
+         ;(insert "\n:PROPERTIES:\n:CREATED: " (format-time-string "[%Y-%m-%d %a %H:%M]") "\n:END:\n")
+         (insert "\n:END:")
+         ;; may add further elisp expression to suppress interaction for description
       )
     ) ;; (org-display-inline-images) ;; inline显示图片
 	)
@@ -444,12 +485,18 @@ parent."
         '(
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U\n#+LAST_MODIFIED: %U
+#+LATEX_CLASS: article
+#+LATEX_COMPILER: xelatex
+#+EXPORT_FILE_NAME: ${slug}
+
+#+LATEX: \\clearpage\n"
            :unnarrowed t)
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil
+#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil email:t f:t
+#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
 * Appendix\n#+LATEX: \\appendix\n** Notes\n"
@@ -460,7 +507,7 @@ parent."
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [ignorenonframetext,presentation]
-#+LATEX_HEADER: \\addbibresource{./bibliography.bib}
+#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
 #+OPTIONS: H:3 date:nil
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
@@ -491,7 +538,8 @@ parent."
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil
+#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil email:t
+#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * References [0/1] :noexport:
 - [ ] refs
@@ -503,11 +551,13 @@ parent."
           ("mc" "math cn" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U\n#+LAST_MODIFIED: %U
+#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: ctexart\n"
            :unnarrowed t)
           ("me" "math en" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U\n#+LAST_MODIFIED: %U
+#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: pdflatex\n#+LATEX_CLASS: article\n" 
            :unnarrowed t)
     	 )
@@ -536,6 +586,30 @@ parent."
 ;            #'my-org-protocol-focus-advice)
 ;  (advice-add 'org-roam-protocol-open-file :around
 ;            #'my-org-protocol-focus-advice)
+  ; use for gnuplot
+  (defun org-init-table-gnuplot()
+    "Create a 2-column table and gnuplot source block for exporting data plot to images directory, used for quick check only"
+    (interactive)
+    (let* 
+      (
+       (title (format "%s" (read-string "Enter data title: ")))
+       (fn (org-roam--title-to-slug title))
+      )
+         (insert (format "#+NAME: tab-%s\n" fn))
+         (insert (format "#+CAPTION: %s\n" title))
+	 (insert "#+ATTR_LATEX: :booktabs t\n")
+         (insert "| x | y | \n")
+         (insert "|---+---| \n")
+         (insert "| 1 | 0 | \n")
+	 (insert (format "#+BEGIN_SRC gnuplot :var data=tab-%s :exports results :file images/%s.png\n" fn fn))
+	 (insert (format "set title \"%s\"\n" title))
+	 (insert "plot data u 1:2 w lp title 'data x:y'\n")
+	 (insert "#+END_SRC\n")
+         (insert (format "#+NAME: fig-%s\n" fn))
+         (insert (format "#+CAPTION: %s\n" title))
+	 (insert "#+ATTR_ORG: :width 400\n")
+	 (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
+    ))
 )
 ;
 
@@ -553,6 +627,8 @@ parent."
         org-roam-server-port 8080
         org-roam-server-export-inline-images t
         org-roam-server-authenticate nil
+	org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4")
         org-roam-server-network-poll t
         org-roam-server-network-arrows nil
         org-roam-server-network-label-truncate t
@@ -635,6 +711,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -665,6 +745,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -695,6 +779,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -719,6 +807,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -742,6 +834,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -769,6 +865,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -812,6 +912,10 @@ parent."
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -862,6 +966,7 @@ parent."
       (""     "textcomp"  t)
       (""     "capt-of"   nil)
       (""     "caption"   nil)
+      (""     "paralist"   nil)
       (""     "parskip"   nil)  ; better paragraph spacing
       (""     "booktabs"   nil) ; better table
 	 )
@@ -1109,6 +1214,15 @@ parent."
   (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
 )
 
+(use-package org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
+
+;(use-package org-noter-pdftools
+;  :after org-noter
+;  :config
+;  (with-eval-after-load 'pdf-annot
+;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
 (use-package! org-noter
   :after (:any org pdf-view)
   :config
@@ -1301,6 +1415,12 @@ parent."
   (org-super-agenda-mode)
 )
 
+(use-package! org-roam-dashboard
+  :after org-roam
+  :bind
+  (("<f12>" . org-roam-dashboard))
+)
+
 ;; agenda 里面时间块彩色显示
 ;; From: https://emacs-china.org/t/org-agenda/8679/3
 ;(defun my/org-agenda-time-grid-spacing ()
@@ -1362,13 +1482,6 @@ parent."
 ;  :config
 ;  (add-hook 'org-mode-hook 'jieba-ensure)
 ;)
-
-; 规避 EmacSQL files.file error
-; https://github.com/org-roam/org-roam/issues/1037
-; (use-package! emacsql-sqlite3
-;   :config
-;   (setq emacsql-sqlite3-executable "/usr/local/Cellar/sqlite/3.32.1/bin/sqlite3")
-; )
 
 ;(use-package asymbol
 ;  :after cdlatex

@@ -105,6 +105,10 @@ vmap fj <esc>
 nnoremap : ;
 nnoremap ; :
 
+" 搜索结果跳转至屏幕中央
+nnoremap n nzz
+nnoremap N Nzz
+
 " 命令模式下，映射到:lclose以关闭编译结果
 nnoremap nm :lclose<CR>
 nnoremap mn :lclose<CR>

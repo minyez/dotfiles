@@ -327,8 +327,7 @@ au BufReadPost *
 " =========================================================
 " Key Mappings
 " =========================================================
-" Disable arrows
-" habbit destroying
+" Disable arrows, habbit destroying
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -360,8 +359,12 @@ nnoremap <silent> -w <C-w>4-
 nnoremap <silent> ==w <C-w>4<
 nnoremap <silent> --w <C-w>4>
 
+" search result in the middle of screen
+nnoremap n nzz
+nnoremap N Nzz
+
 " =========================================================
-" Tab control
+" Tab and indentation control
 " =========================================================
 set noexpandtab " Insert tabs rather than spaces for <Tab>.
 set smarttab " Tab respects 'tabstop', 'shiftwidth', and 'softtabstop'.
@@ -375,7 +378,7 @@ augroup auto_language_selection
     autocmd Filetype c          setlocal ts=4 sw=4 expandtab
     autocmd Filetype tex        setlocal ts=4 sw=4 expandtab
     autocmd Filetype markdown   setlocal ts=4 sw=4 expandtab
-    autocmd Filetype sh         setlocal ts=4 sw=4 expandtab
+    autocmd Filetype sh         setlocal ts=2 sw=2 expandtab
     autocmd Filetype matlab     setlocal ts=4 sw=4 expandtab
     autocmd Filetype cpp        setlocal ts=4 sw=4 expandtab
     autocmd Filetype xml        setlocal ts=2 sw=2 expandtab
@@ -385,8 +388,9 @@ augroup auto_language_selection
     autocmd Filetype python     setlocal ts=4 sw=4 expandtab
     autocmd Filetype fortran    setlocal ts=4 sw=4 expandtab
     autocmd Filetype javascript setlocal ts=4 sw=4 expandtab
-    autocmd FileType json       setlocal ts=4 sw=4 expandtab
-    autocmd Filetype scss       setlocal ts=4 sw=4 expandtab
+    autocmd FileType json       setlocal ts=2 sw=2 expandtab
+    autocmd Filetype scss       setlocal ts=2 sw=2 expandtab
+    autocmd Filetype css       setlocal ts=2 sw=2 expandtab
     autocmd Filetype php        setlocal ts=4 sw=4 expandtab
     autocmd Filetype sql        setlocal ts=4 sw=4 expandtab
     autocmd Filetype java       setlocal ts=4 sw=4 expandtab
