@@ -27,10 +27,10 @@ def symlink_dotfile(src, dest):
         _src = os.path.join(os.path.dirname(os.path.abspath(__file__)), src)
     if os.path.isdir(dest):
         print("found directory at %s (skip)" % dest)
-    elif os.path.exists(dest):
-        print("found file at %s (skip)" % dest)
     elif os.path.islink(dest):
         print("found link at %s (skip)" % dest)
+    elif os.path.isfile(dest):
+        print("found file at %s (skip)" % dest)
     else:
         print("Symlinking %s to %s" % (src, dest))
         sp.check_output(["ln", "-s", _src, dest])

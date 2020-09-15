@@ -12,11 +12,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'kien/ctrlp.vim'
 Plugin 'salsifis/vim-transpose'
+Plugin 'editorconfig/editorconfig-vim'
 "Plugin 'tpope/vim-sensible'
 ""Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 ""Plugin 'tpope/vim-commentary'
-"Plugin 'jiangmiao/auto-pairs'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'ervandew/supertab'
 "Plugin 'bling/vim-airline'
 "Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
@@ -31,17 +32,18 @@ Plugin 'godlygeek/tabular'
 "Plugin 'majutsushi/tagbar'
 ""Plugin 'octol/vim-cpp-enhanced-highlight'
 """ Snippets related
-"Plugin 'sirver/ultisnips'
+Plugin 'sirver/ultisnips'
 "Plugin 'honza/vim-snippets'
 Plugin 'Yggdroot/indentLine'
+Plugin 'neomake/neomake'
 "" auto-compeletion
-""Plugin 'Shougo/neocomplete.vim'
-""Plugin 'Shougo/neocomplcache'
-""Plugin 'ajh17/VimCompletesMe'
-""Plugin 'valloric/youcompleteme'
-""Plugin 'tomtom/tcomment_vim'
-""Plugin 'plasticboy/vim-markdown'
-" deoplete
+"Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Shougo/neocomplcache'
+"Plugin 'ajh17/VimCompletesMe'
+"Plugin 'valloric/youcompleteme'
+"Plugin 'tomtom/tcomment_vim'
+"Plugin 'plasticboy/vim-markdown'
+"" deoplete and jedi
 "if has('nvim')
 "  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "else
@@ -49,13 +51,27 @@ Plugin 'Yggdroot/indentLine'
 "  Plugin 'roxma/nvim-yarp'
 "  Plugin 'roxma/vim-hug-neovim-rpc'
 "endif
-
-let g:deoplete#enable_at_startup = 1
+"Plugin 'zchee/deoplete-jedi',
+Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
 " ============================
 filetype plugin indent on
 filetype plugin on
+
+"" ===== deoplete =====
+"let g:deoplete#enable_at_startup = 1
+"" Pass a dictionary to set multiple options
+"call deoplete#custom#source('ultisnip', 'matchers', ['matcher_fuzzy'])
+"call deoplete#custom#option({
+"\ 'smart_case' : v:true,
+"\ })
+"let g:deoplete#auto_complete=1
+" ===== jedi =====
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
 
 " ==== UltiSnips ====
 "set runtimepath+=~/.vim/bundle/ultisnips
@@ -76,6 +92,35 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " ==== powerline ====
 "set laststatus=2
 
+
+" ==== neomake =====
+let g:neomake_open_list = 0
+let g:neomake_serialize = 1
+let g:neomake_list_height = 6
+let g:neomake_serialize_abort_on_error = 1
+"disabled open error list in a window. used to be 2 to show error in location window
+let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_pylint_maker = {
+    \ 'args' : [ '-d', 'R0913, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n' ],
+    \}
+let g:neomake_sh_enabled_makers = ['shellcheck']
+function! MyOnBattery()
+    if has("unix")
+        let s:uname = system("uname")
+        if s:uname == "Darwin\n"
+            return system("pmset -g batt | awk '/charg/ {print $4}'") != "discharging;\n"
+        elseif s:uname == "Linux\n"
+            if filereadable('/sys/class/power_supply/AC/online')
+                return readfile('/sys/class/power_supply/AC/online') == ['0']
+            else
+                return 1
+            endif
+        endif
+    endif
+endfunction
+if MyOnBattery()
+  call neomake#configure#automake('rnw', 1000)
+endif
 
 " ==== YCM ====
 "let g:ycm_server_python_interpreter = '/usr/local/Cellar/python@2/2.7.14_3/bin/python2'

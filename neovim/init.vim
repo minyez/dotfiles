@@ -38,6 +38,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "    Plug 'scrooloose/syntastic'
 "   Comment YCM due to slow startup ~430ms
 "    Plug 'valloric/youcompleteme'
+    Plug 'editorconfig/editorconfig-vim'
 "   Use deoplete instead
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -144,14 +145,17 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " https://github.com/neomake/neomake/wiki/Makers
 let g:neomake_serialize = 1
 let g:neomake_serialize_abort_on_error = 1
-let g:neomake_open_list = 2
+"disabled open error list in a window. used to be 2 to show error in location window
+let g:neomake_open_list = 0
 let g:neomake_list_height = 6
 let g:neomake_python_enabled_makers = ['pylint']
 let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n' ],
+    \ 'args' : [ '-d', 'R0913, R0904, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n'
+    \],
     \}
 let g:neomake_c_enabled_makers = ['clang', 'icc', 'gcc']
 let g:neomake_cpp_enabled_makers = ['clang++', 'icpc', 'g++']
+let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_fortran_enabled_makers = ['gfortran', 'ifort']
 " Custom warning sign
 let g:neomake_warning_sign = {
@@ -390,12 +394,19 @@ augroup auto_language_selection
     autocmd Filetype javascript setlocal ts=4 sw=4 expandtab
     autocmd FileType json       setlocal ts=2 sw=2 expandtab
     autocmd Filetype scss       setlocal ts=2 sw=2 expandtab
-    autocmd Filetype css       setlocal ts=2 sw=2 expandtab
+    autocmd Filetype css        setlocal ts=2 sw=2 expandtab
     autocmd Filetype php        setlocal ts=4 sw=4 expandtab
     autocmd Filetype sql        setlocal ts=4 sw=4 expandtab
     autocmd Filetype java       setlocal ts=4 sw=4 expandtab
     autocmd Filetype lisp       setlocal ts=2 sw=2 expandtab
     autocmd Filetype java       colorcolumn=121
+augroup END
+
+" remember folding state
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
 augroup END
 
 " always use free-format fortran

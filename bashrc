@@ -5,7 +5,8 @@ case "$0" in
     -bash|bash|*/bash)	modules_shell=bash ;;
 esac
 #module() { eval `/usr/local/opt/tcl-tk/bin/tclsh /Users/stevezhang/software/devtools/modules-4.0.0/libexec/modulecmd.tcl $modules_shell $*`; }
-module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
+#module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
+module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.5.3/libexec/modulecmd.tcl $modules_shell $*`; }
 #!/usr/bin/env bash
 # load alias
 #source ~/.bashrc_alias
@@ -28,7 +29,7 @@ export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
 export CLICOLOR='Yes' #是否输出颜色
 export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
 
-export MODULE_HOME="$HOME/software/devtools/modules-4.2.1"
+export MODULE_HOME="$HOME/software/devtools/modules-4.5.3"
 export SD="$HOME/Documents/SelfDevelopment/"
 export PATH="$MODULE_HOME/bin:$PATH"
 source $MODULE_HOME/init/bash
@@ -91,9 +92,9 @@ if command -v rbenv 1>/dev/null 2>&1; then
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/stevezhang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/stevezhang/google-cloud-sdk/path.bash.inc'; fi
+if [ -f '/Users/stevezhang/code/google-cloud-sdk/path.bash.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/path.bash.inc'; fi
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/stevezhang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/stevezhang/google-cloud-sdk/completion.bash.inc'; fi
+if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/completion.bash.inc'; fi
 
 # Turn on fish when loading bash.
 # Fish can share the environment variables in bash in this way,

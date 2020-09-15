@@ -5,10 +5,10 @@ My personal configuration files.
 Files included:
 
 - [x] Vim
-- [x] Doom Emacs
 - [x] NeoVim
-- [x] z-shell
+- [x] Doom Emacs
 - [x] Bash Shell
+- [x] Z shell
 - [x] SSH config
-- [ ] module files for different OS
+- [x] gnuplot
 - [ ] `configure` file for compiling scientific packages

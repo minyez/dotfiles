@@ -20,8 +20,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Sarasa Term SC" :size 18)
-      doom-big-font (font-spec :family "Sarasa Term SC" :size 22))
+(setq doom-font (font-spec :family "Sarasa Term SC" :size 20)
+      doom-big-font (font-spec :family "Sarasa Term SC" :size 20))
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
@@ -52,8 +52,8 @@
         nil
         (setq doom-theme now)
         (doom/reload-theme) ) ) ;; end of (defun ...
-; run every hour
-(run-with-timer 0 3600 'synchronize-theme)
+;; run every hour
+;(run-with-timer 0 3600 'synchronize-theme)
 
 (setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
@@ -177,7 +177,7 @@
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode)
-   (before-save . zp/org-set-last-modified)
+   ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
   )
   :bind
@@ -197,7 +197,7 @@
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)
-  (setq org-tags-column -80)
+  (setq org-tags-column -60)
   ;(setq org-export-in-background t) ; TODO 需要解决下面的init file问题
   ;(setq org-export-async-init-file "/Users/stevezhang/.doom.d/async-init.el")
   (setq org-extend-today-until 4) ; 设置一天结束的时间
@@ -268,8 +268,8 @@ Note that =pngpaste= should be installed outside Emacs"
       )
 	    (if (not (file-exists-p path)) (mkdir path))
 	    (if (file-exists-p image-file)
-		     (message (format "Stop: found image %s.png in %s" fn path))
-         (shell-command (format "pngpaste %s" image-file))
+		(message (format "Warning: found image %s.png in %s" fn path))
+                (shell-command (format "pngpaste %s" image-file)))
          (insert (format "#+NAME: fig:%s\n" fn))
          (insert "#+CAPTION:\n")
          (insert ":IMAGE:\n")
@@ -279,7 +279,6 @@ Note that =pngpaste= should be installed outside Emacs"
          ;(insert "\n:PROPERTIES:\n:CREATED: " (format-time-string "[%Y-%m-%d %a %H:%M]") "\n:END:\n")
          (insert "\n:END:")
          ;; may add further elisp expression to suppress interaction for description
-      )
     ) ;; (org-display-inline-images) ;; inline显示图片
 	)
   ;; for recent activity search
@@ -367,10 +366,10 @@ it can be passed in POS."
         (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
           (insert now)))))
 
-  (defun zp/org-set-last-modified ()
-    "Update the LAST_MODIFIED file property in the preamble."
-    (when (derived-mode-p 'org-mode)
-      (zp/org-set-time-file-property "LAST_MODIFIED")))
+  ;(defun zp/org-set-last-modified ()
+  ;  "Update the LAST_MODIFIED file property in the preamble."
+  ;  (when (derived-mode-p 'org-mode)
+  ;    (zp/org-set-time-file-property "LAST_MODIFIED")))
   (defun zp/org-capture-set-created-property ()
     "Conditionally set the CREATED property on captured trees."
     (let ((add-created (plist-get org-capture-plist :add-created))
@@ -485,7 +484,7 @@ parent."
         '(
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U\n#+LAST_MODIFIED: %U
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U
 #+LATEX_CLASS: article
 #+LATEX_COMPILER: xelatex
 #+EXPORT_FILE_NAME: ${slug}
@@ -495,7 +494,7 @@ parent."
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil email:t f:t
+#+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
@@ -504,17 +503,23 @@ parent."
           ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
            :file-name "slides/%<%y%m%d>-ZhangMY-${slug}"
            :head "#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+STARTUP: content\n#+ROAM_TAGS: Slides
-#+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+# == Export as beamer slideshow ==
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [ignorenonframetext,presentation]
-#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
+# == Export as beamer article ==
+# #+LATEX_CLASS: article
+# #+LATEX_CLASS_OPTIONS: [a4paper,twoside,11pt]
+# #+LATEX_HEADER: \\usepackage{beamerarticle}
+# ==============================
 #+OPTIONS: H:3 date:nil
+#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
+#+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
-#+BEAMER_HEADER: \\date[\\today]{@Founder313, \\today}
+#+BEAMER_HEADER: \\date[\\today]{@Founder 313, \\today}
 #+BEAMER_HEADER: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
 #+LATEX_COMPILER: xelatex
-#+CREATED: %U\n#+LAST_MODIFIED: %U
+#+CREATED: %U
 
 * Acknowledgement
 :PROPERTIES:
@@ -525,20 +530,28 @@ parent."
 #+BEAMER: \\LARGE Thank you for listening!
 #+BEAMER: \\end{frame}
 
+# * Resources # optional section
+# :PROPERTIES:
+# :BEAMER_ENV: appendix
+# :UNNUMBERED: t
+# :END:
+# #+BEAMER: \\begin{frame}[allowframebreaks]{Resources}
+# #+BEAMER: \\end{frame}
+
 * References
 :PROPERTIES:
 :BEAMER_ENV: appendix
 :UNNUMBERED: t
 :END:
-#+BEAMER: \\begin{frame}{References}
-#+LaTeX: \\printbibliography
+#+BEAMER: \\begin{frame}[allowframebreaks]{References}
+#+LaTeX: \\printbibliography[heading=none]
 #+BEAMER: \\end{frame}
 "
            :unnarrowed t)
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+OPTIONS: toc:nil email:t
+#+CREATED: %U\n#+OPTIONS: toc:nil email:t
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * References [0/1] :noexport:
@@ -550,13 +563,13 @@ parent."
 		  ("m" "math")
           ("mc" "math cn" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U\n#+LAST_MODIFIED: %U
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: ctexart\n"
            :unnarrowed t)
           ("me" "math en" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U\n#+LAST_MODIFIED: %U
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: pdflatex\n#+LATEX_CLASS: article\n" 
            :unnarrowed t)
@@ -566,7 +579,7 @@ parent."
            (function org-roam-capture--get-point)
            ""
            :file-name "{slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n* TODO Notes\n\n"
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* TODO Notes\n\n"
            :unnarrowed t))
     )
   (setq org-roam-graph-exclude-matcher '("journal"
@@ -692,7 +705,7 @@ parent."
   ; general English note
                 ("article"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[11pt,a4paper]{article}
 \\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
 [DEFAULT-PACKAGES]
@@ -726,7 +739,7 @@ parent."
   ;; General Chinese note
                 ("ctexart"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[11pt,a4paper,scheme=plain]{ctexart}
 \\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
 [DEFAULT-PACKAGES]
@@ -760,7 +773,7 @@ parent."
   ;; For org-journal. section for day, subsec for time
                 ("journal"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[11pt,a4paper,scheme=plain]{ctexart}
 \\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
 [DEFAULT-PACKAGES]
@@ -787,15 +800,15 @@ parent."
 [PACKAGES]
 "
                  ("\\section{%s}" . "\\section*{%s}")
-                 ;("\\subsection{%s}" . "\\subsection*{%s}")
-                 ;("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ;("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ;("\\subparagraph{%s}" . "\\subparagraph*{%s}")
 				 )
   ; Note for math. phys. books
                 ("book"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[a4paper,11pt,titlepage]{book}
 [DEFAULT-PACKAGES]
 \\usepackage{physics}
@@ -822,7 +835,7 @@ parent."
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                 ("ctexbook"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[a4paper,11pt,titlepage]{ctexbook}
 [DEFAULT-PACKAGES]
 \\usepackage{physics}
@@ -850,7 +863,7 @@ parent."
 ; General Engilish scientific writing
                 ("sci"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=Red,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[a4paper,11pt]{article}
 \\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
 [DEFAULT-PACKAGES]
@@ -902,9 +915,10 @@ parent."
 ; https://orgmode.org/worg/exporters/beamer/beamer-dual-format.html
                 ("beamer"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{pdfborder={0 0 0}}{hyperref}
+\\PassOptionsToPackage{colorlinks=True,linkcolor=,filecolor=,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0}}{hyperref}
 \\documentclass{beamer}
 [DEFAULT-PACKAGES]
+\\usepackage{physics}
 \\definecolor{bg}{rgb}{0.95,0.95,0.95}
 % alias color in header
 \\colorlet{RED}{Red}
@@ -999,7 +1013,6 @@ parent."
 #+ROAM_KEY: ${ref}
 #+STARTUP: content
 #+CREATED: %U
-#+LAST_MODIFIED: %U
 :PROPERTIES:
 :AUTHOR: ${author-or-editor}
 :JOURNAL: ${journal}

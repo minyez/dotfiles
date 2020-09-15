@@ -1,4 +1,10 @@
 *.pyc
 .DS_Store
+
 vim-dir/bundle
+vim-dir/view
 .netrwhist
+
+auto-commit.sh
+git.log
+*.info

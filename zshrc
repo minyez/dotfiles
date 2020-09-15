@@ -7,7 +7,9 @@ esac
 # module-4.0.0
 #module() { eval `/usr/local/opt/tcl-tk/bin/tclsh /Users/stevezhang/software/devtools/modules-4.0.0/libexec/modulecmd.tcl $modules_shell $*`; }
 # module-4.2.1
-module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
+#module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
+# module-4.5.3
+module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.5.3/libexec/modulecmd.tcl $modules_shell $*`; }
 
 # 重设库路径
 #unset DYLD_LIBRARY_PATH
@@ -21,7 +23,7 @@ export CLICOLOR='Yes' #是否输出颜色
 export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
 #export EMACS="*term*"
 
-export MODULE_HOME="$HOME/software/devtools/modules-4.2.1"
+export MODULE_HOME="$HOME/software/devtools/modules-4.5.3"
 export SD="$HOME/Documents/SelfDevelopment/"
 export PATH="$MODULE_HOME/bin:$PATH"
 source $MODULE_HOME/init/zsh
@@ -71,7 +73,8 @@ module load custom-libbin
 eval $(thefuck --alias)
 # 加载开发个人python项目所需模块
 #module load py-readmana
-module load py-mykit
+#module load py-mykit
+#module load py-mykit
 
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -83,9 +86,9 @@ if command -v rbenv 1>/dev/null 2>&1; then
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/stevezhang/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/stevezhang/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc'; fi
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/stevezhang/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/stevezhang/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'; fi
 
 # If you come from bash you might have to change your $PATH.
 #     export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -241,3 +244,19 @@ eval "$(pandoc --bash-completion)"
 unsetopt nomatch
 
 cd ~
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh" ]; then
+        . "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

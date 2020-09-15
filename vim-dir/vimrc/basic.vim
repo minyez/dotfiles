@@ -66,8 +66,8 @@ set anti enc=utf-8
 
 set shell=/bin/bash
 
-set ruler                       " 显示标尺  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行  
+"set ruler                       " 显示标尺  
+"autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
 
@@ -112,3 +112,10 @@ nnoremap N Nzz
 " 命令模式下，映射到:lclose以关闭编译结果
 nnoremap nm :lclose<CR>
 nnoremap mn :lclose<CR>
+
+" 记住代码折叠状态
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
