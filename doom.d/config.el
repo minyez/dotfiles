@@ -1198,7 +1198,7 @@ parent."
   (setq org-journal-date-format "%A, %d %B %Y" ; format to match date heading
         org-journal-date-prefix "* "
         org-journal-created-property-timestamp-format "%Y%m%d"
-        org-journal-enable-encryption t
+        org-journal-enable-encryption nil
         org-journal-file-type 'weekly
         org-journal-dir (concat org_notes "/journal")
         org-journal-file-format "%Y-%m-%d.org"

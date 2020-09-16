@@ -150,8 +150,8 @@ let g:neomake_open_list = 0
 let g:neomake_list_height = 6
 let g:neomake_python_enabled_makers = ['pylint']
 let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913, R0904, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n'
-    \],
+    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1401,C0303,C0305,R0902,W0612,W0212,E1101',
+    \            '-r', 'n'],
     \}
 let g:neomake_c_enabled_makers = ['clang', 'icc', 'gcc']
 let g:neomake_cpp_enabled_makers = ['clang++', 'icpc', 'g++']
