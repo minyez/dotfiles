@@ -197,7 +197,7 @@
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)
-  (setq org-tags-column -60)
+  (setq org-tags-column -80)
   ;(setq org-export-in-background t) ; TODO 需要解决下面的init file问题
   ;(setq org-export-async-init-file "/Users/stevezhang/.doom.d/async-init.el")
   (setq org-extend-today-until 4) ; 设置一天结束的时间
@@ -505,18 +505,17 @@ parent."
            :head "#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+STARTUP: content\n#+ROAM_TAGS: Slides
 # == Export as beamer slideshow ==
 #+LATEX_CLASS: beamer
-#+LATEX_CLASS_OPTIONS: [ignorenonframetext,presentation]
 # == Export as beamer article ==
-# #+LATEX_CLASS: article
-# #+LATEX_CLASS_OPTIONS: [a4paper,twoside,11pt]
-# #+LATEX_HEADER: \\usepackage{beamerarticle}
+# #+LATEX_CLASS: beamerarticle
 # ==============================
-#+OPTIONS: H:3 date:nil
+#+OPTIONS: H:3
 #+LATEX_HEADER: \\addbibresource{../bibliography.bib}
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
+# redefine date for beamer
 #+BEAMER_HEADER: \\date[\\today]{@Founder 313, \\today}
+# redefine the header of the first page
 #+BEAMER_HEADER: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
 #+LATEX_COMPILER: xelatex
 #+CREATED: %U
@@ -560,16 +559,21 @@ parent."
 * Notes Summary\n
 * Data\n"
            :unnarrowed t)
+          ("t" "language thesaurus" plain (function org-roam-capture--get-point) "%?"
+           :file-name "${slug}"
+           :head "#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
+* Definition\n* Examples\n* Sources"
+           :unnarrowed t)
 		  ("m" "math")
           ("mc" "math cn" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: Math\n#+CREATED: %U
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: ctexart\n"
            :unnarrowed t)
           ("me" "math en" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS:\n#+CREATED: %U
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: Math\n#+CREATED: %U
 #+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: pdflatex\n#+LATEX_CLASS: article\n" 
            :unnarrowed t)
@@ -653,7 +657,7 @@ parent."
 ; Chinese input setting
 (use-package! pangu-spacing
   :config
-  (setq pangu-spacing-include-regexp "\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?1:\\cC\\|\\cH\\|\\cK\\)\\)\\(?2:[\(=0-9A-Za-z\\]\\)\\|\\(?1:[=0-9A-Za-z\)]\\)\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?2:\\cC\\|\\cH\\|\\cK\\)\\)")
+  (setq pangu-spacing-include-regexp "\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?1:\\cC\\|\\cH\\|\\cK\\)\\)\\(?2:[\(=0-9A-Za-z\\$\\]\\)\\|\\(?1:[=0-9A-Za-z\\$\)]\\)\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?2:\\cC\\|\\cH\\|\\cK\\)\\)")
 )
 
 (use-package ox-beamer
@@ -916,7 +920,7 @@ parent."
                 ("beamer"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
 \\PassOptionsToPackage{colorlinks=True,linkcolor=,filecolor=,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0}}{hyperref}
-\\documentclass{beamer}
+\\documentclass[ignorenonframetext,presentation]{beamer}
 [DEFAULT-PACKAGES]
 \\usepackage{physics}
 \\definecolor{bg}{rgb}{0.95,0.95,0.95}
@@ -936,6 +940,41 @@ parent."
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  )
+                ("beamerarticle"
+                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\documentclass[11pt,a4paper]{article}
+\\usepackage{beamerarticle}
+\\usepackage[margin=0.8in,bmargin=1.0in,tmargin=1.0in]{geometry}
+[DEFAULT-PACKAGES]
+\\usepackage{physics}
+% blockquote from eisvogel. 
+\\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\\definecolor{bq-border}{RGB}{0, 63, 126}
+\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
+          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
+\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
+\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
+\\let\\Oldtextbullet\\textbullet
+\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
+% alias color in header
+\\colorlet{RED}{Red}
+\\colorlet{GREEN}{Green}
+\\colorlet{PROCESSBLUE}{ProcessBlue}
+\\colorlet{MAGENTA}{Magenta}
+\\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
+[EXTRA]
+[PACKAGES]
+"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
   ))
   ;(setq org-latex-listings t)
   ;(add-to-list 'org-latex-packages-alist '("newfloat"  "minted"))
@@ -1022,6 +1061,7 @@ parent."
 :DOI: [[${doi}]]
 :END:
 
+- tags ::
 - keywords ::
 
 * Summary
@@ -1121,13 +1161,6 @@ parent."
 ;                                    (?1 . "⚡")))
 ;)
 
-;(use-package mathpix
-;  :custom ((mathpix-app-id "zmysmile0929_gmail_com")
-;           (mathpix-app-key ""))
-;  :bind
-;  ("C-x m" . mathpix-screenshot)
-;)
-;
 ;(golden-ratio-mode 1)
 ;
 ; centaur-tabs
@@ -1432,6 +1465,17 @@ parent."
   :after org-roam
   :bind
   (("<f12>" . org-roam-dashboard))
+)
+
+; rg - ripgrep interface
+; https://rgel.readthedocs.io/en/latest/
+(use-package rg
+  :config
+  (global-set-key (kbd "C-c s") #'rg-menu)
+  (with-eval-after-load 'rg
+     ;; Your settings goes here.
+    (setq rg-ignore-case 'smart)
+  )
 )
 
 ;; agenda 里面时间块彩色显示

@@ -11,4 +11,6 @@ Files included:
 - [x] Z shell
 - [x] SSH config
 - [x] gnuplot
+- [x] NutShare excluding rules
+- [x] Custom $\rm\LaTeX$ commands and themes
 - [ ] `configure` file for compiling scientific packages

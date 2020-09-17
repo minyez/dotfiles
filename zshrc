@@ -225,9 +225,9 @@ zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
     reply=(${(j:|:)tmp})
   }
 '
-# Here, with vi/vim/nvim, ignore .aux/log/pdf/mod/pyc/o/exe files
+# Here, with vi/vim/nvim, ignore files with particular suffixes
 zstyle ':completion:*:*:(vi|vim|nvim):*' file-patterns \
-	'^*.(aux|log|pdf|mod|pyc|o|exe):source-files' '*:all-files'
+	'^*.(aux|pdf|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|toc|fls|bcf):source-files' '*:all-files'
 zstyle ':completion:*:*:(cp|mv):*' file-patterns \
 	'^*.(mod|pyc|o):source-files' '*:all-files'
 # Show up menu
