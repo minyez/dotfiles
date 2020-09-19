@@ -670,13 +670,19 @@ parent."
 ; https://stackoverflow.com/questions/36197545/org-mode-latex-export-making-todos-red
 (use-package ox-latex
   :bind
-  ("C-c e o" . my-org-latex-export-open-pdf)
-  ("C-c e b" . my-org-beamer-export-open-pdf)
+  ("C-c e o" . my-org-latex-export-latex)
+  ;("C-c e o" . org-latex-export-latex)
+  ("C-c e b" . my-org-beamer-export-latex)
+  ;("C-c e b" . org-beamer-export-latex)
   :config
-  (fset 'my-org-latex-export-open-pdf
-   (kmacro-lambda-form [?\C-c ?\C-e ?l ?o] 0 "%d"))
-  (fset 'my-org-beamer-export-open-pdf
-   (kmacro-lambda-form [?\C-c ?\C-e ?l ?O] 0 "%d"))
+  ;(fset 'my-org-latex-export-open-pdf
+  ; (kmacro-lambda-form [?\C-c ?\C-e ?l ?o] 0 "%d"))
+  ;(fset 'my-org-beamer-export-open-pdf
+  ; (kmacro-lambda-form [?\C-c ?\C-e ?l ?O] 0 "%d"))
+  (fset 'my-org-latex-export-latex
+   (kmacro-lambda-form [?\C-c ?\C-e ?l ?l] 0 "%d"))
+  (fset 'my-org-beamer-export-latex
+   (kmacro-lambda-form [?\C-c ?\C-e ?l ?b] 0 "%d"))
   (setq org-latex-pdf-process '("latexmk -latexoption=\"-interaction=nonstopmode -shell-escape\" -pdf -pdflatex=%latex -bibtex -f %f"))
   ;; prefer custom label
   (setq org-latex-prefer-user-labels t)
@@ -943,7 +949,7 @@ parent."
                 ("beamerarticle"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
 \\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper]{article}
+\\documentclass[11pt,a4paper]{article} % add twoside for booklet printing
 \\usepackage{beamerarticle}
 \\usepackage[margin=0.8in,bmargin=1.0in,tmargin=1.0in]{geometry}
 [DEFAULT-PACKAGES]

@@ -12,5 +12,5 @@ Files included:
 - [x] SSH config
 - [x] gnuplot
 - [x] NutShare excluding rules
-- [x] Custom $\rm\LaTeX$ commands and themes
+- [x] Custom $\rm\LaTeX$ commands and themes (`sudo texhash` to activate)
 - [ ] `configure` file for compiling scientific packages
