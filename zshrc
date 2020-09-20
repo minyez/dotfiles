@@ -74,7 +74,7 @@ eval $(thefuck --alias)
 # 加载开发个人python项目所需模块
 #module load py-readmana
 #module load py-mykit
-#module load py-mykit
+module load py-mushroom
 
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then

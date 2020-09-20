@@ -514,7 +514,7 @@ parent."
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
 # redefine date for beamer
-#+BEAMER_HEADER: \\date[\\today]{@Founder 313, \\today}
+#+BEAMER_HEADER: \\date[\\today]{@Founder 312, \\today}
 # redefine the header of the first page
 #+BEAMER_HEADER: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
 #+LATEX_COMPILER: xelatex

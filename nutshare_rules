@@ -17,7 +17,7 @@
 *synctex.gz
 *.synctex(busy)
 *-blx.bib
-*latexmk
+*.fdb_latexmk
 *.info
 __py_cache__
 _minted-*
