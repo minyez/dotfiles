@@ -487,7 +487,6 @@ parent."
            :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U
 #+LATEX_CLASS: article
 #+LATEX_COMPILER: xelatex
-#+EXPORT_FILE_NAME: ${slug}
 
 #+LATEX: \\clearpage\n"
            :unnarrowed t)
@@ -495,17 +494,15 @@ parent."
            :file-name "${slug}"
            :head "#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
-#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
 * Appendix\n#+LATEX: \\appendix\n** Notes\n"
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
-           :file-name "slides/%<%y%m%d>-ZhangMY-${slug}"
-           :head "#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+STARTUP: content\n#+ROAM_TAGS: Slides
-# == Export as beamer slideshow ==
+           :file-name "slides/${slug}"
+           :head "#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+#+STARTUP: overivew beamer\n#+ROAM_TAGS: Slides
 #+LATEX_CLASS: beamer
-# == Export as beamer article ==
 # #+LATEX_CLASS: beamerarticle
 # ==============================
 #+OPTIONS: H:3
@@ -513,9 +510,7 @@ parent."
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
-# redefine date for beamer
 #+BEAMER_HEADER: \\date[\\today]{@Founder 312, \\today}
-# redefine the header of the first page
 #+BEAMER_HEADER: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
 #+LATEX_COMPILER: xelatex
 #+CREATED: %U
@@ -528,6 +523,12 @@ parent."
 #+BEAMER: \\begin{frame}{Acknowledgement}{}
 #+BEAMER: \\LARGE Thank you for listening!
 #+BEAMER: \\end{frame}
+** LaTex acknowledgement                                               :ignore:
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
+I appreciate anyone who reads this handout.
+Suggestions are totally welcome.
 
 # * Resources # optional section
 # :PROPERTIES:
@@ -535,6 +536,7 @@ parent."
 # :UNNUMBERED: t
 # :END:
 # #+BEAMER: \\begin{frame}[allowframebreaks]{Resources}
+# - content here as items
 # #+BEAMER: \\end{frame}
 
 * References
@@ -551,7 +553,6 @@ parent."
            :file-name "${slug}"
            :head "#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t
-#+EXPORT_FILE_NAME: ${slug}
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * References [0/1] :noexport:
 - [ ] refs
@@ -564,18 +565,10 @@ parent."
            :head "#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
 * Definition\n* Examples\n* Sources"
            :unnarrowed t)
-		  ("m" "math")
-          ("mc" "math cn" plain (function org-roam-capture--get-point) "%?"
+          ("m" "math phys book" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: Math\n#+CREATED: %U
-#+EXPORT_FILE_NAME: ${slug}
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: ctexart\n"
-           :unnarrowed t)
-          ("me" "math en" plain (function org-roam-capture--get-point) "%?"
-           :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: Math\n#+CREATED: %U
-#+EXPORT_FILE_NAME: ${slug}
-#+LATEX_COMPILER: pdflatex\n#+LATEX_CLASS: article\n" 
+           :head "#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
+#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: book\n" 
            :unnarrowed t)
     	 )
         org-roam-capture-ref-templates
@@ -583,7 +576,7 @@ parent."
            (function org-roam-capture--get-point)
            ""
            :file-name "{slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* TODO Notes\n\n"
+           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
            :unnarrowed t))
     )
   (setq org-roam-graph-exclude-matcher '("journal"
@@ -990,7 +983,7 @@ parent."
           ("bgcolor" "bg")
           ("breaklines" "true")
           ("autogobble" "true")
-          ("fontsize" "\\scriptsize")
+          ("fontsize" "\\small")
           )
   )
 )
