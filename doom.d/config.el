@@ -45,15 +45,15 @@
         ; get current time by current-times-string
 	; hour value occupies 3 characters (11-13)
             (substring (current-time-string) 11 13)))
-    (if (member hour (number-sequence 6 20))
+    (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
         (setq now 'doom-dracula))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
         (doom/reload-theme) ) ) ;; end of (defun ...
-;; run every hour
-;(run-with-timer 0 3600 'synchronize-theme)
+; run every hour
+(run-with-timer 0 3600 'synchronize-theme)
 
 (setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
@@ -201,6 +201,8 @@
   ;(setq org-export-in-background t) ; TODO 需要解决下面的init file问题
   ;(setq org-export-async-init-file "/Users/stevezhang/.doom.d/async-init.el")
   (setq org-extend-today-until 4) ; 设置一天结束的时间
+  (setq org-table-number-regexp
+        "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%:]*\\|[<>]?[-+]?0[xX][[:xdigit:].]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|N/A\\|[-+u]?inf\\)$")
   ;(fset 'agenda-buffer
   ; (kmacro-lambda-form [?  ?< ?a ?g ?e ?n ?d ?a return] 0 "%d"))
   ; active and inactive timestamp
@@ -219,11 +221,11 @@
   (setq org-enforce-todo-checkbox-dependencies t)
   ; https://orgmode.org/worg/agenda-optimization.html
   (setq org-agenda-files (concat org_notes "/org-agenda.org")
-        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-scheduled-if-done 't
         org-agenda-dim-blocked-tasks nil
-        org-agenda-inhibit-startup t
+        org-agenda-inhibit-startup 't
         ;org-blank-before-new-entry '((heading . t) (plain-list-item . nil)) ; add empty line before new heading
-        org-log-into-drawer t
+        org-log-into-drawer 't
         org-ellipsis " ▼"
         ;org-log-reschedule 'time
         ;org-log-redeadline 'note
@@ -484,7 +486,8 @@ parent."
         '(
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U
 #+LATEX_CLASS: article
 #+LATEX_COMPILER: xelatex
 
@@ -492,7 +495,8 @@ parent."
            :unnarrowed t)
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
-           :head "#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
@@ -500,7 +504,8 @@ parent."
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
            :file-name "slides/${slug}"
-           :head "#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+STARTUP: overivew beamer\n#+ROAM_TAGS: Slides
 #+LATEX_CLASS: beamer
 # #+LATEX_CLASS: beamerarticle
@@ -551,23 +556,25 @@ Suggestions are totally welcome.
            :unnarrowed t)
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
-           :head "#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+OPTIONS: toc:nil email:t
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research
+#+CREATED: %U\n#+OPTIONS: email:t
+#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\clearpage\n
 * References [0/1] :noexport:
 - [ ] refs
-* Paperwork\n
 * Notes Summary\n
 * Data\n"
            :unnarrowed t)
           ("t" "language thesaurus" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
 * Definition\n* Examples\n* Sources"
            :unnarrowed t)
           ("m" "math phys book" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: book\n" 
            :unnarrowed t)
     	 )
@@ -576,7 +583,7 @@ Suggestions are totally welcome.
            (function org-roam-capture--get-point)
            ""
            :file-name "{slug}"
-           :head "#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
+           :head "# -*- truncate-lines: t -*-\n#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
            :unnarrowed t))
     )
   (setq org-roam-graph-exclude-matcher '("journal"
@@ -1046,7 +1053,8 @@ Suggestions are totally welcome.
         '(("r" "ref" plain (function org-roam-capture--get-point) ""
            :file-name "${citekey}"
            :head 
-           "#+TITLE: ${citekey}
+           "# -*- truncate-lines: t -*-
+#+TITLE: ${citekey}
 #+ROAM_ALIAS: \"${citekey}: ${title}\"
 #+ROAM_KEY: ${ref}
 #+STARTUP: content
@@ -1163,32 +1171,32 @@ Suggestions are totally welcome.
 ;(golden-ratio-mode 1)
 ;
 ; centaur-tabs
-(use-package centaur-tabs
-  :demand
-  :config
-  (setq centaur-tabs-set-icons t
-    centaur-tabs-style "bar"
-    centaur-tabs-set-modified-marker t
-      centaur-tabs-height 32
-        centaur-tabs-set-bar 'under
-        x-underline-at-descent-line t
-    ; tab cycling
-        centaur-tabs-cycle-scope 'tabs
-        )
-  (centaur-tabs-headline-match)
-  (centaur-tabs-mode t)
-  (setq uniquify-separator "/")
-  (setq uniquify-buffer-name-style 'forward)
-  :bind
-  ("C-<prior>" . centaur-tabs-backward)
-  ("C-<next>" . centaur-tabs-forward)
-  (:map evil-normal-state-map
-    ("g t" . centaur-tabs-forward)
-    ("g T" . centaur-tabs-backward)
-    )
-  :hook
-  (org-roam-mode . centaur-tabs-mode)
-)
+;(use-package centaur-tabs
+;  :demand
+;  :config
+;  (setq centaur-tabs-set-icons 't
+;    centaur-tabs-style "bar"
+;    centaur-tabs-set-modified-marker 't
+;      centaur-tabs-height 32
+;        centaur-tabs-set-bar 'under
+;        x-underline-at-descent-line 't
+;    ; tab cycling
+;        centaur-tabs-cycle-scope 'tabs
+;        )
+;  (centaur-tabs-headline-match)
+;  (centaur-tabs-mode t)
+;  (setq uniquify-separator "/")
+;  (setq uniquify-buffer-name-style 'forward)
+;  :bind
+;  ("C-<prior>" . centaur-tabs-backward)
+;  ("C-<next>" . centaur-tabs-forward)
+;  (:map evil-normal-state-map
+;    ("g t" . centaur-tabs-forward)
+;    ("g T" . centaur-tabs-backward)
+;    )
+;  :hook
+;  (org-roam-mode . centaur-tabs-mode)
+;)
 
 (use-package org-superstar
   :after org
@@ -1254,7 +1262,9 @@ Suggestions are totally welcome.
     Similar to org-capture like behavior"
     (interactive)
     (save-buffer)
-    (kill-buffer-and-window))
+    ;(kill-buffer-and-window)
+    (kill-current-buffer)
+    )
   (define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
   (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
 )
@@ -1570,6 +1580,7 @@ Suggestions are totally welcome.
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
+ ;'(truncate-lines t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -1577,6 +1588,11 @@ Suggestions are totally welcome.
  ;; If there is more than one, they won't work right.
  '(org-document-title ((t (:box 3 :weight bold :height 1.4))))
  '(org-meta-line ((t (:slant italic))))
- '(org-quote ((t (:slant normal :family "STKaiti"))))
-)
+ '(org-quote ((t (:slant normal :family "STKaiti")))))
 
+;; make side by side buffers function the same as the main window
+(setq truncate-partial-width-windows nil)
+; do not wrap lines for long sentence
+; truncate it by myself
+;(setq-default global-visual-line-mode t)
+(setq-default truncate-lines t)
