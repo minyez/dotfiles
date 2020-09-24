@@ -52,8 +52,8 @@
         nil
         (setq doom-theme now)
         (doom/reload-theme) ) ) ;; end of (defun ...
-; run every hour
-(run-with-timer 0 3600 'synchronize-theme)
+;; run every hour
+;(run-with-timer 0 3600 'synchronize-theme)
 
 (setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
@@ -1055,11 +1055,11 @@ Suggestions are totally welcome.
            :head 
            "# -*- truncate-lines: t -*-
 #+TITLE: ${citekey}
-#+ROAM_ALIAS: \"${citekey}: ${title}\"
 #+ROAM_KEY: ${ref}
 #+STARTUP: content
 #+CREATED: %U
 :PROPERTIES:
+:TITLE: ${title}
 :AUTHOR: ${author-or-editor}
 :JOURNAL: ${journal}
 :DATE: ${date}
