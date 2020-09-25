@@ -511,8 +511,8 @@ parent."
 # #+LATEX_CLASS: beamerarticle
 # ==============================
 #+OPTIONS: H:3
-#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
 #+BEAMER_THEME: CambridgeUSzmy
 #+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
 #+BEAMER_HEADER: \\date[\\today]{@Founder 312, \\today}
@@ -551,19 +551,36 @@ Suggestions are totally welcome.
 :END:
 #+BEAMER: \\begin{frame}[allowframebreaks]{References}
 #+LaTeX: \\printbibliography[heading=none]
-#+BEAMER: \\end{frame}
-"
+#+BEAMER: \\end{frame}"
            :unnarrowed t)
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Research
-#+CREATED: %U\n#+OPTIONS: email:t
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\clearpage\n
-* References [0/1] :noexport:
-- [ ] refs
-* Notes Summary\n
-* Data\n"
+#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}
+#+AUTHOR: Min-Ye Zhang
+#+EMAIL: stevezhang@pku.edu.cn
+#+CREATED: %U
+#+STARTUP: overview
+#+ROAM_TAGS: Research
+#+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
+#+OPTIONS: email:t
+#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n
+#+LATEX: \\clearpage\n
+* Aims
+* Literature Review
+* Proposal
+* Data
+* References
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+#+LATEX: \\printbibliography[heading=none]
+* Changelog
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+- %(format-time-string \"[%Y-%m-%d %a %H:%M]\") : initial file"
            :unnarrowed t)
           ("t" "language thesaurus" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
@@ -1006,8 +1023,8 @@ Suggestions are totally welcome.
       ("AUTO" "inputenc"  t ("pdflatex"))
       ("T1"   "fontenc"   t ("pdflatex"))
       (""     "CJKutf8"   t ("pdflatex"))
-      (""     "xeCJK"     t ("xelatex", "xetex"))
-      (""     "fontspec"  t ("xelatex", "xetex", "lualatex", "luatex"))
+      (""     "xeCJK"     nil ("xelatex", "xetex"))
+      (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
       (""     "graphicx"  t)
       (""     "xcolor"  t)
       ; corresponding to "setq org-latex-listings t"
@@ -1590,9 +1607,9 @@ Suggestions are totally welcome.
  '(org-meta-line ((t (:slant italic))))
  '(org-quote ((t (:slant normal :family "STKaiti")))))
 
-;; make side by side buffers function the same as the main window
-(setq truncate-partial-width-windows nil)
-; do not wrap lines for long sentence
-; truncate it by myself
-;(setq-default global-visual-line-mode t)
-(setq-default truncate-lines t)
+;;; make side by side buffers function the same as the main window
+;(setq truncate-partial-width-windows nil)
+;; do not wrap lines for long sentence
+;; truncate it by myself
+;;(setq-default global-visual-line-mode t)
+;(setq-default truncate-lines t)

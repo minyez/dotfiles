@@ -9,6 +9,7 @@
 *.bcf
 *.run.xml
 *.toc
+*.fls
 *.bbl
 *.o
 *.mod
