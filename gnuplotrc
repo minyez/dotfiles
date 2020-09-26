@@ -1,1 +1,1 @@
-set term wxt enhanced
+#set terminal wxt enhanced

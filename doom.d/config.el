@@ -207,9 +207,9 @@
   ; (kmacro-lambda-form [?  ?< ?a ?g ?e ?n ?d ?a return] 0 "%d"))
   ; active and inactive timestamp
   (fset 'now-act
-   (kmacro-lambda-form [?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
+   (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
   (fset 'now-inact
-   (kmacro-lambda-form [?  ?u ?  ?u ?\C-c ?\C-i] 0 "%d"))
+   (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?\C-i] 0 "%d"))
   ;; set clock to idle state after 10 minutes
   (setq org-clock-persist 'history
   ;      org-clock-idle-time 10
@@ -627,22 +627,22 @@ Suggestions are totally welcome.
     (let* 
       (
        (title (format "%s" (read-string "Enter data title: ")))
-       (fn (org-roam--title-to-slug title))
       )
-         (insert (format "#+NAME: tab-%s\n" fn))
+         (insert (format "#+NAME: tab-%s\n" title))
          (insert (format "#+CAPTION: %s\n" title))
 	 (insert "#+ATTR_LATEX: :booktabs t\n")
-         (insert "| x | y | \n")
-         (insert "|---+---| \n")
-         (insert "| 1 | 0 | \n")
-	 (insert (format "#+BEGIN_SRC gnuplot :var data=tab-%s :exports results :file images/%s.png\n" fn fn))
+	 (insert "| | |\n")
+         (insert (format "#+NAME: gnuplot-%s\n" title))
+	 (insert (format "#+HEADER: :var data=tab-%s\n" title ))
+	 (insert (format "#+HEADER: :exports results :file images/%s.png\n" title))
+	 (insert "#+BEGIN_SRC gnuplot\n")
 	 (insert (format "set title \"%s\"\n" title))
-	 (insert "plot data u 1:2 w lp title 'data x:y'\n")
 	 (insert "#+END_SRC\n")
-         (insert (format "#+NAME: fig-%s\n" fn))
+         (insert (format "#+NAME: fig-%s\n" title))
          (insert (format "#+CAPTION: %s\n" title))
 	 (insert "#+ATTR_ORG: :width 400\n")
 	 (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
+	 (insert (format "#+RESULTS: gnuplot-%s\n" title))
     ))
 )
 ;
@@ -1027,6 +1027,7 @@ Suggestions are totally welcome.
       (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
       (""     "graphicx"  t)
       (""     "xcolor"  t)
+      ("nottoc,numbib"     "tocbibind" nil)
       ; corresponding to "setq org-latex-listings t"
       ;(""           "listings"   nil)
 	    ; but minted is better to use

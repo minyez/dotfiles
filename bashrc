@@ -47,7 +47,7 @@ module load general-alias
 module load ssh-alias
 module load git-alias
 module load qt-5.15.0 
-module load poppler-0.90.1
+module load poppler-20.90.0
 # Tcl/Tk 8.7
 module load tcltk-8.7
 ## JAVA
