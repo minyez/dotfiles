@@ -37,21 +37,21 @@
 ;(setq doom-theme 'doom-peacock)
 ;(setq doom-theme 'doom-monokai-pro)
 ;(setq doom-theme 'doom-dracula)
-; make theme adapt to time. Modified from
-; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
-(defun synchronize-theme ()
-    (setq hour
-        (string-to-number
-        ; get current time by current-times-string
-	; hour value occupies 3 characters (11-13)
-            (substring (current-time-string) 11 13)))
-    (if (member hour (number-sequence 6 19))
-        (setq now 'doom-nord-light)
-        (setq now 'doom-dracula))
-    (if (equal now doom-theme)
-        nil
-        (setq doom-theme now)
-        (doom/reload-theme) ) ) ;; end of (defun ...
+;; make theme adapt to time. Modified from
+;; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
+;(defun synchronize-theme ()
+;    (setq hour
+;        (string-to-number
+;        ; get current time by current-times-string
+;	; hour value occupies 3 characters (11-13)
+;            (substring (current-time-string) 11 13)))
+;    (if (member hour (number-sequence 6 19))
+;        (setq now 'doom-nord-light)
+;        (setq now 'doom-dracula))
+;    (if (equal now doom-theme)
+;        nil
+;        (setq doom-theme now)
+;        (doom/reload-theme) ) ) ;; end of (defun ...
 ;; run every hour
 ;(run-with-timer 0 3600 'synchronize-theme)
 
@@ -589,10 +589,11 @@ Suggestions are totally welcome.
 * Definition\n* Examples\n* Sources"
            :unnarrowed t)
           ("m" "math phys book" plain (function org-roam-capture--get-point) "%?"
-           :file-name "%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: book\n" 
+#+TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
+#+LATEX_CLASS: book\n#+LATEX_COMPILER: xelatex\n"
            :unnarrowed t)
     	 )
         org-roam-capture-ref-templates
@@ -652,7 +653,7 @@ Suggestions are totally welcome.
 ;(add-hook 'after-init-hook 'blink-cursor-mode)
 (add-hook 'org-mode-hook 'org-cdlatex-mode)
 (add-hook 'org-mode-hook 'reftex-mode)
-(add-hook 'org-mode-hook 'org-fragtog-mode)
+;(add-hook 'org-mode-hook 'org-fragtog-mode) ; render latex block
 
 (use-package org-roam-server
   :ensure t
@@ -1027,7 +1028,7 @@ Suggestions are totally welcome.
       (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
       (""     "graphicx"  t)
       (""     "xcolor"  t)
-      ("nottoc,numbib"     "tocbibind" nil)
+      ;("nottoc,numbib"     "tocbibind" nil)
       ; corresponding to "setq org-latex-listings t"
       ;(""           "listings"   nil)
 	    ; but minted is better to use
@@ -1042,7 +1043,7 @@ Suggestions are totally welcome.
       ("normalem" "ulem"  t)    ; strikeout
       (""     "textcomp"  t)
       (""     "capt-of"   nil)
-      (""     "caption"   nil)
+      ("font={small,it}"     "caption"   nil)
       (""     "paralist"   nil)
       (""     "parskip"   nil)  ; better paragraph spacing
       (""     "booktabs"   nil) ; better table
@@ -1253,6 +1254,8 @@ Suggestions are totally welcome.
   ("C-c j h" . org-journal-previous-entry)
   ("C-c j l" . org-journal-next-entry)
   :config
+  (map! :nv "SPC j j" #'org-journal-open-current-journal-file
+        :nv "SPC j n" #'org-journal-new-entry)
   (setq org-journal-date-format "%A, %d %B %Y" ; format to match date heading
         org-journal-date-prefix "* "
         org-journal-created-property-timestamp-format "%Y%m%d"

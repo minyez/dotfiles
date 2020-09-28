@@ -11,6 +11,7 @@ SRC_DEST_PAIR = {
         "oh-my-zsh/"    : "~/.oh-my-zsh",
         "neovim/"       : "~/.config/nvim",
         "vim-dir/"      : "~/.vim",
+        "lyx/"          : "~/.lyx",
         "ssh.config"    : "~/.ssh/config",
         "vimrc"         : "~/.vimrc",
         "zshrc"         : "~/.zshrc",
