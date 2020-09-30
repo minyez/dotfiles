@@ -17,6 +17,7 @@ SRC_DEST_PAIR = {
         "zshrc"         : "~/.zshrc",
         "bashrc"        : "~/.bashrc",
         "gnuplotrc"     : "~/.gnuplot",
+        "mushroomrc.py"     : "~/.mushroomrc",
         "nutshare_rules": "~/.nutstore/db/customExtRules.conf",
         "../latex/latex-cls-and-sty/": "/Library/TeX/Local/tex/latex",
         }

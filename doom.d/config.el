@@ -487,11 +487,7 @@ parent."
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_TAGS: \n#+CREATED: %U
-#+LATEX_CLASS: article
-#+LATEX_COMPILER: xelatex
-
-#+LATEX: \\clearpage\n"
+#+TITLE: ${title}\n#+CREATED: %U\n"
            :unnarrowed t)
           ("i" "index page" plain (function org-roam-capture--get-point) "%?"
            :file-name "index-${slug}"
@@ -537,8 +533,7 @@ parent."
 :PROPERTIES:
 :BEAMER_ENV: ignoreheading
 :END:
-I appreciate anyone who reads this handout.
-Suggestions are totally welcome.
+I appreciate anyone who reads this handout. Suggestions are totally welcome.
 
 # * Resources # optional section
 # :PROPERTIES:
@@ -597,7 +592,7 @@ Suggestions are totally welcome.
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
-#+STARTUP: overview\n#+ROAM_TAGS: Study\n#+CREATED: %U
+#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+CREATED: %U
 #+LATEX_CLASS: book\n#+LATEX_COMPILER: xelatex\n"
            :unnarrowed t)
     	 )
@@ -643,6 +638,7 @@ Suggestions are totally welcome.
 	 (insert (format "#+HEADER: :exports results :file images/%s.png\n" title))
 	 (insert "#+BEGIN_SRC gnuplot\n")
 	 (insert (format "set title \"%s\"\n" title))
+	 (insert "plot data u 1:2 w lp")
 	 (insert "#+END_SRC\n")
          (insert (format "#+NAME: fig-%s\n" title))
          (insert (format "#+CAPTION: %s\n" title))
@@ -658,23 +654,25 @@ Suggestions are totally welcome.
 ;(add-hook 'after-init-hook 'blink-cursor-mode)
 (add-hook 'org-mode-hook 'org-cdlatex-mode)
 (add-hook 'org-mode-hook 'reftex-mode)
-;(add-hook 'org-mode-hook 'org-fragtog-mode) ; render latex block
+;; render latex block, commented due to performance issue
+;(add-hook 'org-mode-hook 'org-fragtog-mode)
 
-(use-package org-roam-server
-  :ensure t
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8080
-        org-roam-server-export-inline-images t
-        org-roam-server-authenticate nil
-	org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 24)
-)
+;; visualize roam graph. commented for low usage and performance
+;(use-package org-roam-server
+;  :ensure t
+;  :config
+;  (setq org-roam-server-host "127.0.0.1"
+;        org-roam-server-port 8080
+;        org-roam-server-export-inline-images t
+;        org-roam-server-authenticate nil
+;	org-roam-server-serve-files nil
+;        org-roam-server-served-file-extensions '("pdf" "mp4")
+;        org-roam-server-network-poll t
+;        org-roam-server-network-arrows nil
+;        org-roam-server-network-label-truncate t
+;        org-roam-server-network-label-truncate-length 60
+;        org-roam-server-network-label-wrap-length 24)
+;)
 ;(org-roam-server-mode)
 
 ; Chinese input setting
@@ -1479,23 +1477,24 @@ Suggestions are totally welcome.
    ("C-c a l" . avy-goto-end-of-line)
 )
 
-; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
-(use-package! org-super-agenda
-  :after org-agenda
-  :init
-  (setq org-super-agenda-groups '((:name "Today"
-                                         :time-grid t
-                                         :scheduled today)
-                                  (:name "Due today"
-                                         :deadline today)
-                                  (:name "Overdue"
-                                         :deadline past)
-                                  (:name "Due soon"
-                                         :deadline future)
-                                ))
-  :config
-  (org-super-agenda-mode)
-)
+;; comment it for performance and low usage
+;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
+;(use-package! org-super-agenda
+;  :after org-agenda
+;  :init
+;  (setq org-super-agenda-groups '((:name "Today"
+;                                         :time-grid t
+;                                         :scheduled today)
+;                                  (:name "Due today"
+;                                         :deadline today)
+;                                  (:name "Overdue"
+;                                         :deadline past)
+;                                  (:name "Due soon"
+;                                         :deadline future)
+;                                ))
+;  :config
+;  (org-super-agenda-mode)
+;)
 
 (use-package! org-roam-dashboard
   :after org-roam
