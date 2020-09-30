@@ -59,7 +59,7 @@
   :recipe (:host github :repo "joaotavora/yasnippet"))
 ;; PDF-related tools
 (package! pdf-tools)
-(package! org-pdftools)
+;(package! org-pdftools)
 ;(package! interleave
 ;  :recipe (:host github :repo "rudolfochrist/interleave"))
 ;(package! golden-ratio

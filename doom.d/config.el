@@ -448,7 +448,7 @@ parent."
   (setq org-roam-graph-executable "/usr/local/bin/dot")
   ;(setq org-roam-graph-executable "/usr/local/bin/neato")
   (setq org-roam-graph-viewer "/usr/bin/open"
-        org-roam-index-file "20200705201000-index.org"
+        org-roam-index-file "index.org"
         org-roam-graph-extra-config '(("overlap" . "false")) ; man dot for attributes setup
         )
   (map! :leader
@@ -492,6 +492,11 @@ parent."
 #+LATEX_COMPILER: xelatex
 
 #+LATEX: \\clearpage\n"
+           :unnarrowed t)
+          ("i" "index page" plain (function org-roam-capture--get-point) "%?"
+           :file-name "index-${slug}"
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: \n#+STARTUP: overview\n#+CREATED: %U\n"
            :unnarrowed t)
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
@@ -839,6 +844,7 @@ Suggestions are totally welcome.
 \\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
 \\documentclass[a4paper,11pt,titlepage]{book}
 [DEFAULT-PACKAGES]
+\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
 \\usepackage{physics}
 \\usepackage{cases}
 \\definecolor{bg}{rgb}{0.95,0.95,0.95}
