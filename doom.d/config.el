@@ -760,8 +760,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
 [EXTRA]
-[PACKAGES]
-"
+[PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -794,8 +793,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
 [EXTRA]
-[PACKAGES]
-"
+[PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -828,8 +826,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
 [EXTRA]
-[PACKAGES]
-"
+[PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -857,8 +854,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
 [EXTRA]
-[PACKAGES]
-"
+[PACKAGES]"
                  ("\\chapter{%s}" . "\\chaper*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -884,8 +880,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
 [EXTRA]
-[PACKAGES]
-"
+[PACKAGES]"
                  ("\\chapter{%s}" . "\\chaper*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
