@@ -85,6 +85,9 @@ module load py-mykit
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
 fi
 # rbenv initialization
 if command -v rbenv 1>/dev/null 2>&1; then

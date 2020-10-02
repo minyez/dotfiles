@@ -79,6 +79,9 @@ module load py-mushroom
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
 fi
 # rbenv initialization
 if command -v rbenv 1>/dev/null 2>&1; then
@@ -245,18 +248,18 @@ unsetopt nomatch
 
 cd ~
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh" ]; then
-        . "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+## >>> conda initialize >>>
+## !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh" ]; then
+#        . "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+## <<< conda initialize <<<
 
