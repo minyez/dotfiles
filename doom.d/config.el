@@ -494,6 +494,15 @@ parent."
            :head "# -*- truncate-lines: t -*-
 #+TITLE: \n#+STARTUP: overview\n#+CREATED: %U\n"
            :unnarrowed t)
+          ("a" "aps manuscript")
+          ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
+           :file-name "paper/${slug}"
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: \n#+STARTUP: overview\n#+CREATED: %U
+#+LATEX_CLASS: prb
+#+LATEX_COMPILER: pdflatex
+"
+           :unnarrowed t)
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
@@ -657,22 +666,22 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; render latex block, commented due to performance issue
 ;(add-hook 'org-mode-hook 'org-fragtog-mode)
 
-;; visualize roam graph. commented for low usage and performance
-;(use-package org-roam-server
-;  :ensure t
-;  :config
-;  (setq org-roam-server-host "127.0.0.1"
-;        org-roam-server-port 8080
-;        org-roam-server-export-inline-images t
-;        org-roam-server-authenticate nil
-;	org-roam-server-serve-files nil
-;        org-roam-server-served-file-extensions '("pdf" "mp4")
-;        org-roam-server-network-poll t
-;        org-roam-server-network-arrows nil
-;        org-roam-server-network-label-truncate t
-;        org-roam-server-network-label-truncate-length 60
-;        org-roam-server-network-label-wrap-length 24)
-;)
+; visualize roam graph. commented for low usage and performance
+(use-package org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+	      org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 24)
+)
 ;(org-roam-server-mode)
 
 ; Chinese input setting
@@ -918,18 +927,21 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 ; PRB paper
-                ("aps"
-                 "\\documentclass[aps,prbtwocolumn,a4paper,floatfix,showpacs]{revtex4-1}
+                ("prb"
+                 "\\documentclass[aps,prb,twocolumn,a4paper,floatfix,showpacs]{revtex4-1}
 \\bibliographystyle{apsrev4-1}
-[DEFAULT-PACKAGES]
+[NO-DEFAULT-PACKAGES]
 \\usepackage[version=3]{mhchem}
 \\usepackage{times,mathptmx}
+\\usepackage{float}
 \\usepackage{array}
 \\usepackage{epstopdf}
 \\usepackage{threeparttable}
 \\usepackage{physics}
+\\usepackage[usenames,dvipsnames]{xcolor}
 \\usepackage{multirow}
 \\usepackage{siunitx}  % align by decimal
+\\usepackage{booktabs}
 [EXTRA]
 [PACKAGES]
 "

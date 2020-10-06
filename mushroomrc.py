@@ -3,8 +3,8 @@
 """configurable parameters for mushroom"""
 
 # logging
-#log_level = "debug"
-#stream_level = "debug"
+log_level = "debug"
+stream_level = "debug"
 
 # numeric precision
 symtol = 1.0e-5
