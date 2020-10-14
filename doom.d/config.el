@@ -601,8 +601,15 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+#+ROAM_KEY:
 #+STARTUP: overview\n#+ROAM_TAGS: Book\n#+CREATED: %U
-#+LATEX_CLASS: book\n#+LATEX_COMPILER: xelatex\n"
+#+LATEX_CLASS: book\n#+LATEX_COMPILER: xelatex\n
+* Notes of Ch01
+
+* MISCs :noexport:
+** Related books
+** Roadmap
+** Changelog"
            :unnarrowed t)
     	 )
         org-roam-capture-ref-templates
@@ -1582,21 +1589,21 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (add-hook 'org-mode-hook 'jieba-ensure)
 ;)
 
-;(use-package asymbol
-;  :after cdlatex
-;  :init
-;  (setq asymbol-help-symbol-linewidth 110
-;        asymbol-help-tag-linewidth 110)
-;  ;; add keybindings
-;  (asymbol-global-input-unicode-symbol-on)
-;  (asymbol-latex-input-symbol-on)
-;  (asymbol-org-input-symbol-on)
-;  :config
-;  (define-key cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol-insert-text-or-symbol)
-;  (add-hook 'org-cdlatex-mode-hook
-;            (lambda () (interactive)
-;            (define-key org-cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol-insert-text-or-symbol)))
-;)
+(use-package asymbol
+  :after cdlatex
+  :init
+  (setq asymbol-help-symbol-linewidth 110
+        asymbol-help-tag-linewidth 110)
+  ;; add keybindings
+  ;(asymbol-global-input-unicode-symbol-on)
+  ;(asymbol-latex-input-symbol-on)
+  ;(asymbol-org-input-symbol-on)
+  :config
+  (define-key cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol-insert-text-or-symbol)
+  (add-hook 'org-cdlatex-mode-hook
+            (lambda () (interactive)
+            (define-key org-cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol-insert-text-or-symbol)))
+)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
