@@ -4,7 +4,7 @@
 
 # logging
 log_level = "debug"
-stream_level = "debug"
+stream_level = "info"
 
 # numeric precision
 symtol = 1.0e-5

@@ -487,7 +487,7 @@ parent."
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+CREATED: %U\n"
+#+TITLE: \n#+CREATED: %U\n"
            :unnarrowed t)
           ("i" "index page" plain (function org-roam-capture--get-point) "%?"
            :file-name "index-${slug}"
@@ -506,7 +506,7 @@ parent."
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: 《${title}》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
+#+TITLE: 《》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
@@ -515,7 +515,7 @@ parent."
           ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
            :file-name "slides/${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+#+TITLE: \n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+STARTUP: overivew beamer\n#+ROAM_TAGS: Slides
 #+LATEX_CLASS: beamer
 # #+LATEX_CLASS: beamerarticle
@@ -565,7 +565,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}
+#+TITLE: \n#+ROAM_ALIAS: ${slug}
 #+AUTHOR: Min-Ye Zhang
 #+EMAIL: stevezhang@pku.edu.cn
 #+CREATED: %U
@@ -594,7 +594,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           ("t" "language thesaurus" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
+#+TITLE: vs. \n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
 * Definition\n* Examples\n* Sources"
            :unnarrowed t)
           ("m" "math phys book" plain (function org-roam-capture--get-point) "%?"
