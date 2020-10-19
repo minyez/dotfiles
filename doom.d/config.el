@@ -420,6 +420,7 @@ parent."
 
 (after! org
   ;(jieba-ensure)
+  :config
   (map! :map org-mode-map
         :nv "M-j" #'org-metadown
         :nv "M-k" #'org-metaup
@@ -1075,6 +1076,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
       (""     "cleveref"   nil)
      )
   )
+  (fset 'make-bold
+   (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
+  :bind
+  ("s-b" . make-bold)
 )
 ;; see
 ;; https://github.com/org-roam/org-roam-bibtex#org-roam-bibtex---bibtex-aware-capture-template-expansion
