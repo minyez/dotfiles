@@ -48,19 +48,6 @@ module load git-alias
 #module load e2fsprogs-1.45.6
 ## JAVA
 export JAVA_HOME="$(/usr/libexec/java_home)"
-# Graphviz
-#module load Graphviz-2.40.1
-#module load vesta-v3
-
-# SQLite 3.25.1
-#module load sqlite-3.25.1
-
-# OpenSSL 1.1
-#module load openssl-1.1.1g
-
-# KSSLOV
-#module load ksslov/crd-ksslov
-
 # VASP POTCARs
 module load vasp/vasppot-5.4
 module load vasp/utils
@@ -71,6 +58,7 @@ module load custom-libbin
 ##export DYLD_LIBRARY_PATH="/usr/lib:$DYLD_LIBRARY_PATH"
 # 自定义环境变量名
 eval $(thefuck --alias)
+
 # 加载开发个人python项目所需模块
 #module load py-readmana
 #module load py-mykit
