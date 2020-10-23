@@ -6,16 +6,19 @@
 log_level = "debug"
 stream_level = "info"
 
-# color map for grace
+# custom color map for grace
 color_map = (
     (140, 0, 0, "pkured"),
     (0, 63, 126, "ghblue"),
     (204, 12, 32, "Red"),
     (30, 30, 101, "Blue"),
+    (18, 147, 210, "ProcessBlue"),
+    (66, 176, 193, "SkyBlue"),
     (18, 139, 57, "Green"),
     (120, 120, 120, "Gray"),
+    (254, 208, 10, "Gold"),
     )
-prefer_gracecolors = ["Red", "blue", "orange", "Green", "Blue"]
+prefer_gracecolors = ["Red", "blue", "orange", "Green", "Gold", "SkyBlue"]
 
 # numeric precision
 symtol = 1.0e-5
