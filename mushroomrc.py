@@ -21,20 +21,30 @@ color_map = (
 prefer_gracecolors = ["Red", "blue", "orange", "Green", "Gold", "SkyBlue"]
 
 # numeric precision
-symtol = 1.0e-5
+symprec = 1.0e-5
 
 # workflow platform header
 sbatch_headers = {
-    "pkuhpc": ["-A hpc0006175276",
-               "--get-user-env",
-               "--nodes=1",
-               "--mail-type=end",
-               "--mail-user=stevezhang@pku.edu.cn",
-               "-n 32",
-               "--qos=low",
-               "--partition=C032M0128G",
-               "-J test",
-               "-o jobid%j-%N.out",]
+    "wmsk": ["-A hpc0006175276",
+             "--get-user-env",
+             "--nodes=1",
+             "--mail-type=end",
+             "--mail-user=stevezhang@pku.edu.cn",
+             "-n 32",
+             "--qos=low",
+             "--partition=C032M0128G",
+             "-J test",
+             "-o jobid%j-%N.out",],
+    "bd": ["-A hpc0006175276",
+           "--get-user-env",
+           "--nodes=1",
+           "--mail-type=end",
+           "--mail-user=stevezhang@pku.edu.cn",
+           "-n 28",
+           "--qos=low",
+           "--partition=C028M256G",
+           "-J test",
+           "-o jobid%j-%N.out",],
 }
 
 pbs_headers = {}
