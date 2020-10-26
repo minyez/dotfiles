@@ -483,6 +483,7 @@ parent."
       org-agenda-files)
     (org-id-update-id-locations))
   )
+  (setq org-roam-rename-file-on-title-change nil)
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
@@ -494,6 +495,20 @@ parent."
            :file-name "index-${slug}"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: \n#+STARTUP: overview\n#+CREATED: %U\n"
+           :unnarrowed t)
+          ("c" "coding related")
+          ("ce" "error info" plain (function org-roam-capture--get-point) "%?"
+           :file-name "error-${slug}"
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: \n#+CREATED: %U
+#+ROAM_TAGS: Unresolved\n
+* 问题描述
+
+* 错误归因
+
+* 案例
+
+* References"
            :unnarrowed t)
           ("a" "aps manuscript")
           ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
@@ -573,7 +588,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 #+STARTUP: overview
 #+ROAM_TAGS: Research
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
-#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
+#+LATEX_HEADER: \\addbibresource{./bibliography.bib}
 #+OPTIONS: email:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n
 #+LATEX: \\clearpage\n
@@ -1035,6 +1050,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 (use-package! org
   :config
   ; packages to load at fisrt i.e. before EXTRA and PACKAGES
+  (add-to-list 'org-link-abbrev-alist
+               '("arxiv" . "https://arxiv.org/abs/%s"))
   (setq org-latex-default-packages-alist
     '(
       ("" "amsmath" t) ; to avoid iint and iiint error
