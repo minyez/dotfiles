@@ -41,6 +41,9 @@
 (package! org-fancy-priorities)
 (package! asymbol
   :recipe (:host github :repo "dwuggh/asymbol"))
+(package! company-jedi)
+;(package! company-jedi
+;  :recipe (:host github :repo " emacsorphanage/company-jedi"))
 ;(package! zotxt)
 ;; equation OCR using Mathpix API
 ;(package! mathpix

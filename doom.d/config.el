@@ -491,6 +491,13 @@ parent."
            :head "# -*- truncate-lines: t -*-
 #+TITLE: \n#+CREATED: %U\n"
            :unnarrowed t)
+          ("l" "lecture" plain (function org-roam-capture--get-point) "%?"
+           :file-name "%<%Y%m%d%H%M%S>-lecture-${slug}"
+           :head "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
+#+LATEX_CLASS: article\n#+LATEX_COMPILER: xelatex
+#+LECTURER:\n#+PLACE:\n"
+           :unnarrowed t)
           ("i" "index page" plain (function org-roam-capture--get-point) "%?"
            :file-name "index-${slug}"
            :head "# -*- truncate-lines: t -*-
@@ -1626,6 +1633,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
             (lambda () (interactive)
             (define-key org-cdlatex-mode-map (vector asymbol-trigger-key) 'asymbol-insert-text-or-symbol)))
 )
+
+; company-jedi
+;     https://github.com/emacsorphanage/company-jedi
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
