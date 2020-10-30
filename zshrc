@@ -219,6 +219,8 @@ zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
 # Here, with vi/vim/nvim, ignore files with particular suffixes
 zstyle ':completion:*:*:(vi|vim|nvim):*' file-patterns \
 	'^*.(aux|pdf|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|toc|fls|bcf|gif|png|jpg|jpeg|eps):source-files' '*:all-files'
+zstyle ':completion:*:*:(open):*' file-patterns \
+	'^*.(aux|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|toc|fls|bcf|):source-files' '*:all-files'
 zstyle ':completion:*:*:(cp|mv):*' file-patterns \
 	'^*.(mod|pyc|o):source-files' '*:all-files'
 # Show up menu
