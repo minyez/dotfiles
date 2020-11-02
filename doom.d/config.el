@@ -489,7 +489,7 @@ parent."
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+CREATED: %U\n"
+#+TITLE: ${title}\n#+CREATED: %U\n"
            :unnarrowed t)
           ("l" "lecture" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-lecture-${slug}"
@@ -501,13 +501,13 @@ parent."
           ("i" "index page" plain (function org-roam-capture--get-point) "%?"
            :file-name "index-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+STARTUP: overview\n#+CREATED: %U\n"
+#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U\n"
            :unnarrowed t)
           ("c" "coding related")
           ("ce" "error info" plain (function org-roam-capture--get-point) "%?"
            :file-name "error-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+CREATED: %U
+#+TITLE: ${title}\n#+CREATED: %U
 #+ROAM_TAGS: Unresolved\n
 * 问题描述
 
@@ -521,7 +521,7 @@ parent."
           ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
            :file-name "paper/${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+STARTUP: overview\n#+CREATED: %U
+#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U
 #+LATEX_CLASS: prb
 #+LATEX_COMPILER: pdflatex
 "
@@ -538,7 +538,7 @@ parent."
           ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
            :file-name "slides/${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
+#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+STARTUP: overivew beamer\n#+ROAM_TAGS: Slides
 #+LATEX_CLASS: beamer
 # #+LATEX_CLASS: beamerarticle
@@ -588,7 +588,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: \n#+ROAM_ALIAS: ${slug}
+#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}
 #+AUTHOR: Min-Ye Zhang
 #+EMAIL: stevezhang@pku.edu.cn
 #+CREATED: %U
