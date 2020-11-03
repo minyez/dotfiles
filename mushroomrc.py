@@ -31,6 +31,7 @@ sbatch_headers = {
              "--mail-type=end",
              "--mail-user=stevezhang@pku.edu.cn",
              "-n 32",
+             "-x a7u03n10",
              "--qos=low",
              "--partition=C032M0128G",
              "-J test",
