@@ -22,7 +22,8 @@
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"))
 (unpin! org-roam)
-(package! org-roam-server)
+(package! org-roam-server
+  :recipe (:host github :repo "org-roam/org-roam-server"))
 (package! rg)
 (package! org-roam-dashboard
   :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
