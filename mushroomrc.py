@@ -25,17 +25,27 @@ symprec = 1.0e-5
 
 # workflow platform header
 sbatch_headers = {
-    "wmsk": ["-A hpc0006175276",
-             "--get-user-env",
-             "--nodes=1",
-             "--mail-type=end",
-             "--mail-user=stevezhang@pku.edu.cn",
-             "-n 32",
-             "-x a7u03n10",
-             "--qos=low",
-             "--partition=C032M0128G",
-             "-J test",
-             "-o jobid%j-%N.out",],
+    "wm": ["-A hpc0006175276",
+           "--get-user-env",
+           "--nodes=1",
+           "--mail-type=end",
+           "--mail-user=stevezhang@pku.edu.cn",
+           "-n 32",
+           "-x a7u03n10",
+           "--qos=low",
+           "--partition=C032M0128G",
+           "-J test",
+           "-o jobid%j-%N.out",],
+    "sk": ["-A hpc0006175276",
+           "--get-user-env",
+           "--nodes=1",
+           "--mail-type=end",
+           "--mail-user=stevezhang@pku.edu.cn",
+           "-n 32",
+           "--qos=low",
+           "--partition=C032M0128G",
+           "-J test",
+           "-o jobid%j-%N.out",],
     "bd": ["-A hpc0006175276",
            "--get-user-env",
            "--nodes=1",
@@ -51,6 +61,15 @@ sbatch_headers = {
 
 pbs_headers = {}
 
+# key: `whoami`@`uname -n`
+# value: (platform: str, use_pbs: bool)
+uname_platforms = {
+        "1501210186@login01.pku.edu.cn": ("wm", False),
+        "1501210186@sk-login01": ("sk", False),
+        "1501210186@bd-login01": ("bd", False),
+        }
+
+# remote servers for rsync distribution 
 dist_remotes = {
     "tmcws": "/home/zhangmy/scripts/",
     "stevezhang@222.29.156.87": "/home/stevezhang/codes/project/",

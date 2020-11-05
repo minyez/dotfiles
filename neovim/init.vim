@@ -68,7 +68,7 @@ if has("unix")
     let s:uname = system("uname")
     " macOS
     if s:uname == "Darwin\n"
-        let g:python_host_prog = "/usr/local/bin/python2"
+        let g:python_host_prog = "/Users/stevezhang/.pyenv/versions/miniconda2-4.7.12/bin/python"
         let g:python3_host_prog = "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/python"
     endif
 endif
