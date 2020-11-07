@@ -64,12 +64,12 @@ pbs_headers = {}
 # key: `whoami`@`uname -n`
 # value: (platform: str, use_pbs: bool)
 uname_platforms = {
-        "1501210186@login01.pku.edu.cn": ("wm", False),
-        "1501210186@sk-login01": ("sk", False),
+        "1501210186@login01.hpc.pku.edu.cn": ("wm", False),
+        "1501210186@sk1-login01": ("sk", False),
         "1501210186@bd-login01": ("bd", False),
         }
 
-# remote servers for rsync distribution 
+# remote servers for rsync distribution
 dist_remotes = {
     "tmcws": "/home/zhangmy/scripts/",
     "stevezhang@222.29.156.87": "/home/stevezhang/codes/project/",

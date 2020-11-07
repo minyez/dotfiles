@@ -98,8 +98,8 @@ noremap <s-tab> gT
 
 
 " 映射ESC
-imap fj <esc>
-vmap fj <esc>
+imap jk <esc>
+vmap jk <esc>
 
 " 命令模式启动
 nnoremap : ;

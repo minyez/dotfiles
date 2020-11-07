@@ -14,6 +14,7 @@ SRC_DEST_PAIR = {
         "lyx/"          : "~/.lyx",
         "ssh.config"    : "~/.ssh/config",
         "vimrc"         : "~/.vimrc",
+        "alacritty.yml" : "~/.alacritty.yml",
         "zshrc"         : "~/.zshrc",
         "bashrc"        : "~/.bashrc",
         "gnuplotrc"     : "~/.gnuplot",

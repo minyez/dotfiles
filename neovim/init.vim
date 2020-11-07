@@ -151,7 +151,7 @@ let g:neomake_list_height = 6
 let g:neomake_python_enabled_makers = ['pylint']
 let g:neomake_latex_enabled_makers = ['']
 let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0303,C0305,R0902,W0612,W0212,E1101',
+    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,R0902,W0612,W0212,E1101',
     \            '-r', 'n'],
     \}
 let g:neomake_c_enabled_makers = ['clang', 'icc', 'gcc']
@@ -251,7 +251,8 @@ let NERDTreeNaturalSort = 1
 let NERDTreeWinSize = 25
 let NERDTreeShowHidden = 1
 let NERDTreeIgnore = ['\~$',  '\.pyc$', '\.swp$', '\.git$','\.o','\.mod$',
-            \ '__py_cache__$', ]
+            \ '__pycache__$', '.pytest_cache', '.python-version', '.coverage$',
+            \ '.DS_Store', '\.eps$', '\.png', '\.jpg', '\.jpeg']
 let NERDTreeQuitOnOpen = 0
 let NERDTreeStatusline = "%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 nnoremap <Leader>nt :NERDTreeFind<CR><C-w>l
@@ -351,8 +352,8 @@ noremap <Right> <C-w>l
 noremap <tab> gt
 noremap <s-tab> gT
 " 映射ESC
-imap fj <esc>
-vmap fj <esc>
+imap jk <esc>
+vmap jk <esc>
 " 命令模式启动
 nnoremap : ;
 nnoremap ; :

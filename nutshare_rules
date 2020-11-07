@@ -43,6 +43,9 @@ _minted-*
 /Users/stevezhang/Documents/SelfDevelopment/Codes/code-practice/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/cpp-primer-plus-6th/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/tmckit/.git
+/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/.git
+/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/target
+/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/release
 /Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/.git
 /Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/vim-dir/bundle
 /Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/vim-dir/view

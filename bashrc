@@ -46,7 +46,7 @@ module load general-lib
 module load general-alias
 module load ssh-alias
 module load git-alias
-module load qt-5.15.0 
+module load qt-5.15.1
 module load poppler-20.90.0
 # Tcl/Tk 8.7
 module load tcltk-8.7
@@ -85,9 +85,9 @@ module load py-mykit
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
-  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
-    eval "$(pyenv virtualenv-init -)"
-  fi
+  #if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+  #  eval "$(pyenv virtualenv-init -)"
+  #fi
 fi
 # rbenv initialization
 if command -v rbenv 1>/dev/null 2>&1; then
