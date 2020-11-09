@@ -43,6 +43,12 @@
 (package! asymbol
   :recipe (:host github :repo "dwuggh/asymbol"))
 (package! company-jedi)
+
+(package! lister
+  :recipe (:host github :repo "publicimageltd/lister" :branch "main"))
+(package! delve
+  :recipe (:host github :repo "publicimageltd/delve" :branch "main"))
+
 ;(package! company-jedi
 ;  :recipe (:host github :repo " emacsorphanage/company-jedi"))
 ;(package! zotxt)

@@ -1539,12 +1539,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (org-super-agenda-mode)
 ;)
 
-(use-package! org-roam-dashboard
-  :after org-roam
-  :bind
-  (("<f12>" . org-roam-dashboard))
-)
-
 ; rg - ripgrep interface
 ; https://rgel.readthedocs.io/en/latest/
 (use-package rg
@@ -1640,6 +1634,31 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 
+(use-package lister)
+(use-package delve
+  :config
+  ;(map! :map delve-mode-map
+  ;      :nv "SPC a a" #'org-agenda-file-to-front
+  ;      :nv "SPC a t" #'org-agenda-todo
+  ;      )
+  (use-package delve-minor-mode
+    :config
+    (add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
+  )
+  :bind
+  (("<f12>" . delve-open-or-select))
+  ;(:map delve-mode-map
+  ;    ("\t"            .   #'delve-expand-toggle-sublist)
+  ;    ((kbd "C-l")     .   #'delve-new-from-sublist)
+  ;    ("r"             .   #'delve-revert)
+  ;    ("."             .   #'delve-update-item-at-point)
+  ;    ((kbd "<left>")  .   #'delve-expand-insert-backlinks)
+  ;    ((kbd "<right>") .   #'delve-expand-insert-tolinks)
+  ;    ((kbd "+")       .   #'delve-add-tag)
+  ;    ((kbd" -")       .   #'delve-remove-tag)
+  ;    ((kbd "g")       .   #'delve-refresh-buffer)
+  ;    )
+)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
