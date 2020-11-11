@@ -493,19 +493,19 @@ parent."
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+CREATED: %U\n"
+#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n"
            :unnarrowed t)
           ("l" "lecture" plain (function org-roam-capture--get-point) "%?"
            :file-name "%<%Y%m%d%H%M%S>-lecture-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
+#+TITLE: ${title}\n#+STARTUP: overview\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
 #+LATEX_CLASS: article\n#+LATEX_COMPILER: xelatex
 #+LECTURER:\n#+PLACE:\n"
            :unnarrowed t)
           ("i" "index page" plain (function org-roam-capture--get-point) "%?"
            :file-name "index-${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U\n"
+#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n"
            :unnarrowed t)
           ("c" "coding related")
           ("ce" "error info" plain (function org-roam-capture--get-point) "%?"
@@ -513,13 +513,13 @@ parent."
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+CREATED: %U
 #+ROAM_TAGS: Unresolved\n
-* 问题描述
+* 问题描述 Question
 
-* 错误归因
+* 错误归因 Attribution
 
-* 案例
+* 案例 Case
 
-* References"
+* 参考资料 References"
            :unnarrowed t)
           ("a" "aps manuscript")
           ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
@@ -533,7 +533,7 @@ parent."
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: 《》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
+#+TITLE: 《${title}》笔记\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
@@ -595,7 +595,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           ("p" "research project" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+ROAM_ALIAS: ${slug}
+#+TITLE: ${title}\n
 #+AUTHOR: Min-Ye Zhang
 #+EMAIL: stevezhang@pku.edu.cn
 #+CREATED: %U
@@ -1662,6 +1662,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   :bind
   (("<f12>" . delve-open-or-select))
   (:map delve-mode-map
+      ("=" . #'delve-add-tag)
       ("j" . #'next-line)
       ("k" . #'previous-line)
       )

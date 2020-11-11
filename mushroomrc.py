@@ -14,11 +14,12 @@ color_map = (
     (30, 30, 101, "Blue"),
     (18, 147, 210, "ProcessBlue"),
     (66, 176, 193, "SkyBlue"),
-    (18, 139, 57, "Green"),
+    (18, 139, 57, "Green"), # same to green4
     (120, 120, 120, "Gray"),
     (254, 208, 10, "Gold"),
+    (209, 149, 26, "Goldenrod"),
     )
-prefer_gracecolors = ["Red", "blue", "orange", "Green", "Gold", "SkyBlue"]
+prefer_gracecolors = ["black", "red", "blue", "orange", "SkyBlue", "Goldenrod", "Green"]
 
 # numeric precision
 symprec = 1.0e-5
