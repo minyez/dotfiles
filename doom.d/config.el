@@ -118,6 +118,10 @@
         ("s-i" . evil-insert))
   (:map evil-visual-state-map
         ("s-i" . evil-insert))
+  :config
+  (progn
+  (evil-set-initial-state 'delve-mode 'emacs)
+  )
 )
 
 (use-package! company
@@ -521,7 +525,7 @@ parent."
           ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
            :file-name "paper/${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U
+#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U#+ROAM_TAGS: Manuscript
 #+LATEX_CLASS: prb
 #+LATEX_COMPILER: pdflatex
 "
@@ -529,7 +533,7 @@ parent."
           ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
            :file-name "${slug}"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: 《》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS:\n#+ROAM_KEY: ${slug}
+#+TITLE: 《》笔记\n#+ROAM_ALIAS: ${slug}\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
@@ -539,9 +543,12 @@ parent."
            :file-name "slides/${slug}"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
-#+STARTUP: overivew beamer\n#+ROAM_TAGS: Slides
+#+STARTUP: overivew beamer
+#+ROAM_TAGS: Slides
 #+LATEX_CLASS: beamer
+#+EXPORT_FILE_NAME: ${slug}_slides
 # #+LATEX_CLASS: beamerarticle
+# #+EXPORT_FILE_NAME: ${slug}_handout
 # ==============================
 #+OPTIONS: H:3
 #+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
@@ -640,7 +647,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            (function org-roam-capture--get-point)
            ""
            :file-name "{slug}"
-           :head "# -*- truncate-lines: t -*-\n#+TITLE: ${title}\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
+           :head "# -*- truncate-lines: t -*-\n#+TITLE: ${title}\n#+ROAM_TAGS: Reference\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
            :unnarrowed t))
     )
   (setq org-roam-graph-exclude-matcher '("journal"
@@ -1122,6 +1129,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            "# -*- truncate-lines: t -*-
 #+TITLE: ${citekey}
 #+ROAM_KEY: ${ref}
+#+ROAM_TAGS: Reference
 #+STARTUP: content
 #+CREATED: %U
 :PROPERTIES:
@@ -1634,6 +1642,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 
+(use-package org-archive
+  :after org
+  :config
+  (setq org-archive-mark-done t) ; change subtree state to DONE when archived
+)
+
 (use-package lister)
 (use-package delve
   :config
@@ -1647,17 +1661,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   )
   :bind
   (("<f12>" . delve-open-or-select))
-  ;(:map delve-mode-map
-  ;    ("\t"            .   #'delve-expand-toggle-sublist)
-  ;    ((kbd "C-l")     .   #'delve-new-from-sublist)
-  ;    ("r"             .   #'delve-revert)
-  ;    ("."             .   #'delve-update-item-at-point)
-  ;    ((kbd "<left>")  .   #'delve-expand-insert-backlinks)
-  ;    ((kbd "<right>") .   #'delve-expand-insert-tolinks)
-  ;    ((kbd "+")       .   #'delve-add-tag)
-  ;    ((kbd" -")       .   #'delve-remove-tag)
-  ;    ((kbd "g")       .   #'delve-refresh-buffer)
-  ;    )
+  (:map delve-mode-map
+      ("j" . #'next-line)
+      ("k" . #'previous-line)
+      )
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -1680,7 +1687,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-document-title ((t (:box 3 :weight bold :height 1.4))))
+ ;'(org-document-title ((t (:box 3 :weight bold :height 1.4))))
+ '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-meta-line ((t (:slant italic))))
  '(org-quote ((t (:slant normal :family "STKaiti")))))
 
