@@ -195,6 +195,7 @@
         :nv "SPC a a" #'org-agenda-file-to-front
         :nv "SPC a t" #'org-agenda-todo
         )
+  (setq org-archive-location (concat org_notes "/archive.org::* From %s"))
   ; short title for Beamer export
   ;  (add-to-list 'org-export-options-alist
   ;               '(:short_title "SHORT_TITLE" nil nil parse))
@@ -653,6 +654,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (setq org-roam-graph-exclude-matcher '("journal"
                                          "slides"
                                          "org-agenda.org"
+                                         "archive.org"
                                          "read.org"
                                          "work.org"
                                          "exercise.org"

@@ -9,7 +9,7 @@ Files included:
 - [x] Doom Emacs
 - [x] Bash Shell
 - [x] Z shell
-- [x] SSH config
+- [x] ~~SSH config~~
 - [x] gnuplot
 - [x] NutShare excluding rules
 - [x] Custom $\rm\LaTeX$ commands and themes (`sudo texhash` to activate)
