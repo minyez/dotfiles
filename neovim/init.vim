@@ -154,10 +154,10 @@ let g:neomake_python_pylint_maker = {
     \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,R0902,W0612,W0212,E1101',
     \            '-r', 'n'],
     \}
-let g:neomake_c_enabled_makers = ['clang', 'icc', 'gcc']
-let g:neomake_cpp_enabled_makers = ['clang++', 'icpc', 'g++']
+let g:neomake_c_enabled_makers = ['gcc']
+let g:neomake_cpp_enabled_makers = ['g++']
 let g:neomake_sh_enabled_makers = ['shellcheck']
-let g:neomake_fortran_enabled_makers = ['gfortran', 'ifort']
+let g:neomake_fortran_enabled_makers = ['gfortran']
 " Custom warning sign
 let g:neomake_warning_sign = {
     \   'text': '!',
@@ -183,7 +183,7 @@ function! MyOnBattery()
     endif
 endfunction
 if MyOnBattery()
-  call neomake#configure#automake('rnw', 1000)
+  call neomake#configure#automake('rnw', 200)
 endif
 " also use key mapping in normal mode
 noremap <Leader>nm :Neomake<CR>
@@ -352,7 +352,7 @@ noremap <Right> <C-w>l
 noremap <tab> gt
 noremap <s-tab> gT
 " 映射ESC
-imap mm <esc>
+imap fj <esc>
 vmap mm <esc>
 " 命令模式启动
 nnoremap : ;
@@ -442,3 +442,27 @@ autocmd bufnewfile *.sh call HeaderBash()
 autocmd bufnewfile *.py call HeaderPython()
 autocmd bufnewfile *.c call HeaderC()
 autocmd bufnewfile *.cpp call HeaderC()
+
+" per-project vimrc
+" from https://blog.binaryminer.com/2018/03/29/Per-project-configuration-in-Vim/
+let vimrc_filename = ".vimrc"
+let tags_filename = "tags"
+" Start looking for .vimrc files from the root dir
+let local_path = "/"
+let current_path = getcwd()
+" If the current path is a child of $HOME directory, start looking from $HOME instead
+if current_path =~ $HOME
+    let local_path = $HOME . local_path
+    let current_path = substitute(current_path, $HOME, '', '')
+endif
+let path_parts = split(current_path, "/")
+for path_part in path_parts
+    let local_path = local_path . path_part . "/"
+    if filereadable(local_path . vimrc_filename)
+        exe ":so " . local_path . vimrc_filename
+    endif
+    if filereadable(local_path . tags_filename)
+        exe ":set tags+=" . local_path . tags_filename
+    endif
+endfor
+unlet path_parts current_path local_path tags_filename vimrc_filename
