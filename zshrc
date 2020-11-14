@@ -221,7 +221,7 @@ zstyle ':completion:*:*:(vi|vim|nvim):*' file-patterns \
 	'^*.(aux|pdf|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|toc|fls|bcf|gif|png|jpg|jpeg|eps):source-files' '*:all-files'
 zstyle ':completion:*:*:(open):*' file-patterns \
 	'^*.(aux|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|toc|fls|bcf|):source-files' '*:all-files'
-zstyle ':completion:*:*:(cp|mv):*' file-patterns \
+zstyle ':completion:*:*:(python|python2|python3|cp|mv):*' file-patterns \
 	'^*.(mod|pyc|o):source-files' '*:all-files'
 # Show up menu
 zstyle ':completion:*' menu yes select

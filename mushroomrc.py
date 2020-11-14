@@ -74,7 +74,7 @@ uname_platforms = {
 dist_remotes = {
     "tmcws": "/home/zhangmy/scripts/",
     "stevezhang@222.29.156.87": "/home/stevezhang/codes/project/",
+    "1501210186@115.27.161.31": "/gpfs/share/home/1501210186/",
     "1501210186@162.105.133.134": "/gpfs/share/home/1501210186/",
     "1501210186@162.105.133.164": "/gpfs/share/home/1501210186/",
-    "1501210186@115.27.161.31": "/gpfs/share/home/1501210186/",
     }

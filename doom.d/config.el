@@ -803,10 +803,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
@@ -837,6 +833,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % compact itemize by paralist packages
+\\usepackage{paralist}
 \\let\\itemize\\compactitem
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
@@ -870,6 +867,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % compact itemize by paralist packages
+\\usepackage{paralist}
 \\let\\itemize\\compactitem
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
@@ -898,6 +896,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % compact itemize by paralist packages
+\\usepackage{paralist}
 \\let\\itemize\\compactitem
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
@@ -924,6 +923,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % compact itemize by paralist packages
+\\usepackage{paralist}
 \\let\\itemize\\compactitem
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
@@ -954,6 +954,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % compact itemize by paralist packages
+\\usepackage{paralist}
 \\let\\itemize\\compactitem
 \\let\\description\\compactdesc
 \\let\\enumerate\\compactenum
@@ -996,7 +997,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\PassOptionsToPackage{colorlinks=True,linkcolor=,filecolor=,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0}}{hyperref}
 \\documentclass[ignorenonframetext,presentation]{beamer}
 [DEFAULT-PACKAGES]
-\\usepackage{physics}
 \\definecolor{bg}{rgb}{0.95,0.95,0.95}
 % alias color in header
 \\colorlet{RED}{Red}
@@ -1004,10 +1004,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
+% space between caption and table
+\captionsetup[table]{skip=0pt}
 [EXTRA]
 [PACKAGES]
 "
@@ -1037,10 +1035,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{PROCESSBLUE}{ProcessBlue}
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
 [EXTRA]
 [PACKAGES]
 "
@@ -1095,8 +1089,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
       ("normalem" "ulem"  t)    ; strikeout
       (""     "textcomp"  t)
       (""     "capt-of"   nil)
-      ("font={small,it}"     "caption"   nil)
-      (""     "paralist"   nil)
+      ("font={small,it},skip=1pt"     "caption"   nil)
       (""     "parskip"   nil)  ; better paragraph spacing
       (""     "booktabs"   nil) ; better table
 	 )
