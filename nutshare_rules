@@ -23,6 +23,7 @@
 __py_cache__
 _minted-*
 *@neomake_*
+.git
 
 /Users/stevezhang/Documents/SelfDevelopment/Scripts/.temp_eq.png
 
@@ -39,6 +40,7 @@ _minted-*
 /Users/stevezhang/Documents/SelfDevelopment/Codes/*/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/gap3a-local/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/gap3a-2dgw/.git
+/Users/stevezhang/Documents/SelfDevelopment/Codes/tmc-discourse/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/mushroom/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/readmanager/.git
 /Users/stevezhang/Documents/SelfDevelopment/Codes/vasptest-zmy/.git
