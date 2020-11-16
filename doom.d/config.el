@@ -1005,7 +1005,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{MAGENTA}{Magenta}
 \\colorlet{ORANGE}{Orange}
 % space between caption and table
-\captionsetup[table]{skip=0pt}
+\\captionsetup[table]{belowskip=-6pt}
 [EXTRA]
 [PACKAGES]
 "
