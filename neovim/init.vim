@@ -442,6 +442,8 @@ autocmd bufnewfile *.sh call HeaderBash()
 autocmd bufnewfile *.py call HeaderPython()
 autocmd bufnewfile *.c call HeaderC()
 autocmd bufnewfile *.cpp call HeaderC()
+" remove trailing space for python
+autocmd BufWritePre *.py %s/\s\+$//e
 
 " per-project vimrc
 " from https://blog.binaryminer.com/2018/03/29/Per-project-configuration-in-Vim/

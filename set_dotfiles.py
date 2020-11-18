@@ -12,6 +12,7 @@ SRC_DEST_PAIR = {
         "neovim/"       : "~/.config/nvim",
         "vim-dir/"      : "~/.vim",
         "lyx/"          : "~/.lyx",
+        "matplotlibrc/" : "~/.matplotlib",
         "vimrc"         : "~/.vimrc",
         "alacritty.yml" : "~/.alacritty.yml",
         "zshrc"         : "~/.zshrc",

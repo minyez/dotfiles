@@ -3,6 +3,7 @@
 
 vim-dir/bundle
 vim-dir/view
+tex.cache
 .netrwhist
 
 auto-commit.sh
