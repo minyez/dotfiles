@@ -39,6 +39,7 @@
 (package! org-journal)
 (package! move-text)
 (package! org-super-agenda)
+(package! org-superstar)
 (package! org-fancy-priorities)
 (package! asymbol
   :recipe (:host github :repo "dwuggh/asymbol"))

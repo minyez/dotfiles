@@ -14,3 +14,8 @@ Files included:
 - [x] NutShare excluding rules
 - [x] Custom $\rm\LaTeX$ commands and themes (`sudo texhash` to activate)
 - [ ] `configure` file for compiling scientific packages
+
+TODO
+
+- [ ] JSON metadata
+- [ ] Platform-specific linking
