@@ -1062,6 +1062,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ; packages to load at fisrt i.e. before EXTRA and PACKAGES
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  (setq org-preview-latex-default-process 'imagemagick)
   (setq org-latex-default-packages-alist
     '(
       ("" "amsmath" t) ; to avoid iint and iiint error
