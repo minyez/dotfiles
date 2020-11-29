@@ -446,6 +446,7 @@ parent."
   (setq reftex-cite-format 'biblatex)
 )
 
+
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam)
   :init
@@ -489,6 +490,11 @@ parent."
     (org-id-update-id-locations))
   )
   (setq org-roam-rename-file-on-title-change nil)
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry (function org-roam-capture--get-point) "%?"
+           :file-name "daily/%<%Y-%m-%d>"
+           :head "#+TITLE: %<%Y-%m-%d>\n"))
+  )
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain (function org-roam-capture--get-point) "%?"
@@ -653,6 +659,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
     )
   (setq org-roam-graph-exclude-matcher '("journal"
                                          "slides"
+                                         "daily"
                                          "org-agenda.org"
                                          "archive.org"
                                          "read.org"
@@ -1119,7 +1126,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
     '(("citekey" . "=key=")  "title" "author-or-editor" "date" "doi" "file" ("journal" . "journaltitle")  "volume" "pages")
       orb-note-actions-frontend 'ivy
         orb-templates
-        '(("r" "ref" plain (function org-roam-capture--get-point) ""
+        '(("d" "default" plain (function org-roam-capture--get-point) ""
            :file-name "${citekey}"
            :head 
            "# -*- truncate-lines: t -*-
