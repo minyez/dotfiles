@@ -182,9 +182,9 @@ function! MyOnBattery()
         endif
     endif
 endfunction
-if MyOnBattery()
-  call neomake#configure#automake('rnw', 200)
-endif
+"if MyOnBattery()
+  call neomake#configure#automake('rnw', 100)
+"endif
 " also use key mapping in normal mode
 noremap <Leader>nm :Neomake<CR>
 
