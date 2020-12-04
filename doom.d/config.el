@@ -493,7 +493,10 @@ parent."
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry (function org-roam-capture--get-point) "%?"
            :file-name "daily/%<%Y-%m-%d>"
-           :head "#+TITLE: %<%Y-%m-%d>\n"))
+           :head "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
+#+ROAM_TAGS: Daily
+#+LATEX_CLASS: mwe\n#+LATEX_COMPILER: pdflatex"
+           :unnarrowed t))
   )
   (setq org-roam-capture-templates
         '(
@@ -812,6 +815,22 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 \\colorlet{ORANGE}{Orange}
 [EXTRA]
 [PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+; minimal working example
+                ("mwe"
+                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\documentclass[11pt,a4paper]{article}
+\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
+\\usepackage{mwe}
+\\usepackage{amsmath,amssymb}
+[NO-DEFAULT-PACKAGES]
+[EXTRA]
+[NO-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
