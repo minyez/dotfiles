@@ -13,6 +13,7 @@
 *.bbl
 *.o
 *.mod
+*genmod*
 .DS_Store
 *.pygtex
 *synctex.gz
@@ -23,39 +24,12 @@
 __py_cache__
 _minted-*
 *@neomake_*
-.git
+*git.log
 
 /Users/stevezhang/Documents/SelfDevelopment/Scripts/.temp_eq.png
 
 # 忽略 /opt/work/test 文件夹, 删除下一行行首的 '#'，不支持相对路径或以'~'开头的路径
 # /opt/work/test
-/Users/stevezhang/Documents/SelfDevelopment/Notes/.git
-/Users/stevezhang/Documents/SelfDevelopment/org-roam/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/c-primer-plus-6th/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/pygraceplot/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap2c-old/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap2e/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap2-testcases/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap3a/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/*/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap3a-local/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/gap3a-2dgw/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/tmc-discourse/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/mushroom/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/readmanager/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/vasptest-zmy/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/mathpixocr_wrapper/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/code-practice/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/cpp-primer-plus-6th/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/tmckit/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/.git
-/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/target
-/Users/stevezhang/Documents/SelfDevelopment/Codes/rust_projects/*/release
-/Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/.git
-/Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/vim-dir/bundle
-/Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/vim-dir/view
-/Users/stevezhang/Documents/SelfDevelopment/Snippets/dotfiles/vim-dir/*/.git
-/Users/stevezhang/Documents/SelfDevelopment/Snippets/latex/latex-cls-and-sty/beamerthemeCambridgeUSzmy/.git
 
 # 强制同步所有扩展名为 .lock 的文件, 删除下一行行首的 '#' 即可 
 # !*.lock
