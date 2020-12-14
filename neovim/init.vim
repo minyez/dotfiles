@@ -382,7 +382,9 @@ set shiftround " Round indent to a multiple of 'shiftwidth'.
 augroup auto_language_selection
     autocmd!
     autocmd Filetype c          setlocal ts=4 sw=4 expandtab
-    autocmd Filetype tex        setlocal ts=4 sw=4 expandtab
+    autocmd Filetype latex      setlocal ts=2 sw=2 expandtab
+    autocmd Filetype plaintex   setlocal ts=2 sw=2 expandtab
+    autocmd Filetype tex        setlocal ts=2 sw=2 expandtab
     autocmd Filetype markdown   setlocal ts=4 sw=4 expandtab
     autocmd Filetype sh         setlocal ts=2 sw=2 expandtab
     autocmd Filetype matlab     setlocal ts=4 sw=4 expandtab
@@ -392,7 +394,7 @@ augroup auto_language_selection
     autocmd Filetype ruby       setlocal ts=4 sw=4 expandtab
     autocmd Filetype vim        setlocal ts=4 sw=4 expandtab
     autocmd Filetype python     setlocal ts=4 sw=4 expandtab
-    autocmd Filetype fortran    setlocal ts=4 sw=4 expandtab
+    autocmd Filetype fortran    setlocal ts=2 sw=2 expandtab
     autocmd Filetype javascript setlocal ts=4 sw=4 expandtab
     autocmd FileType json       setlocal ts=2 sw=2 expandtab
     autocmd Filetype scss       setlocal ts=2 sw=2 expandtab
@@ -416,7 +418,6 @@ let fortran_free_source=1
 
 " =========================================================
 " Header part
-" =========================================================
 function! HeaderPython()
     call setline(1, "#!/usr/bin/env python3")
     call append(1, "# -*- coding: utf-8 -*-")
@@ -438,10 +439,23 @@ function! HeaderC()
     normal G
     normal o
 endf
+function! HeaderTeX()
+    call setline(1, "% !TeX root = ")
+    call append(1, "\\documentclass{article}")
+    call append(2, "\\usepackge{mwe}")
+    call append(3, "\\begin{document}")
+    call append(4, "\\author{Min-Ye Zhang}")
+    call append(5, "")
+    call append(6, "\\end{document}")
+    normal G
+    normal o
+endf
 autocmd bufnewfile *.sh call HeaderBash()
 autocmd bufnewfile *.py call HeaderPython()
-autocmd bufnewfile *.c call HeaderC()
-autocmd bufnewfile *.cpp call HeaderC()
+autocmd bufnewfile *.{c,cpp} call HeaderC()
+autocmd bufnewfile *.{tex,latex} call HeaderTeX()
+" =========================================================
+
 " remove trailing space for python
 autocmd BufWritePre *.py %s/\s\+$//e
 
