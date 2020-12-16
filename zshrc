@@ -24,7 +24,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
 #export EMACS="*term*"
 
 export MODULE_HOME="$HOME/software/devtools/modules-4.5.3"
-export SD="$HOME/Documents/SelfDevelopment/"
 export PATH="$MODULE_HOME/bin:$PATH"
 source $MODULE_HOME/init/zsh
 module use $HOME/.modulefiles/projects
