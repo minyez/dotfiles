@@ -934,6 +934,27 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                ("report"
+                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
+\\documentclass[11pt]{report}
+[DEFAULT-PACKAGES]
+\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
+\\definecolor{bg}{rgb}{0.95,0.95,0.95}
+% alias color in header
+% compact itemize by paralist packages
+\\usepackage{paralist}
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
+[EXTRA]
+[PACKAGES]"
+                 ("\\chapter{%s}" . "\\chaper*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                 ("ctexbook"
                  "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
 \\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
