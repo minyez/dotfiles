@@ -211,6 +211,12 @@
   ;(fset 'agenda-buffer
   ; (kmacro-lambda-form [?  ?< ?a ?g ?e ?n ?d ?a return] 0 "%d"))
   ; active and inactive timestamp
+  (setq org-table-formula-constants
+        '(
+          ("pi" . "3.14159265358")
+          ("ry" . "13.60569301")
+          ("bohr" . "0.5291772")
+          ))
   (fset 'now-act
    (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
   (fset 'now-inact
