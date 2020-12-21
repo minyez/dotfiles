@@ -457,7 +457,7 @@ autocmd bufnewfile *.{tex,latex} call HeaderTeX()
 " =========================================================
 
 " remove trailing space for python
-autocmd BufWritePre *.py %s/\s\+$//e
+autocmd BufWritePre *.{f90,py,c,cpp,tex} %s/\s\+$//e
 
 " per-project vimrc
 " from https://blog.binaryminer.com/2018/03/29/Per-project-configuration-in-Vim/
