@@ -22,7 +22,7 @@ SRC_DEST_PAIR = {
         "gnuplotrc"     : "~/.gnuplot",
         "mushroomrc.py"     : "~/.mushroomrc",
         "nutshare_rules": "~/.nutstore/db/customExtRules.conf",
-        "../latex/latex-cls-and-sty/": "/Library/TeX/Local/tex/latex",
+        "../latex/latex-cls-and-sty/": "/Library/TeX/Local/tex/latex/local",
         }
 
 def symlink_dotfile(src, dest, debug=False):
