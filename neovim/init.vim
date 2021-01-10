@@ -321,7 +321,8 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "set shell=/bin/bash
 "set foldmethod=syntax
 "Select colorscheme
-colorscheme wombat256mod
+"colorscheme wombat256mod "a darkmode
+colorscheme github
 "colorscheme molokai
 
 " Restore cursor position
