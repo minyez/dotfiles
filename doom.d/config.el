@@ -723,7 +723,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 
 ; visualize roam graph. commented for low usage and performance
 (use-package org-roam-server
-  :ensure t
+;  :ensure t
   :config
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 8080
@@ -1169,10 +1169,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
   (setq orb-preformat-keywords
-    '(("citekey" . "=key=")  "title" "author-or-editor" "date" "doi" "file" ("journal" . "journaltitle")  "volume" "pages")
-      orb-note-actions-frontend 'ivy
-        orb-templates
-        '(("d" "default" plain (function org-roam-capture--get-point) ""
+    ;'(("citekey" . "=key=")  "title" "author-or-editor" "date" "doi" "file" ("journal" . "journaltitle")  "volume" "pages"))
+    '("citekey"  "title" "author-or-editor" "date" "doi" "file" "journaltitle" "volume" "pages"))
+;      ;orb-note-actions-frontend 'ivy
+  (setq orb-note-actions-interface 'ivy)
+  (setq  orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point) ""
            :file-name "${citekey}"
            :head 
            "# -*- truncate-lines: t -*-
@@ -1184,7 +1186,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :PROPERTIES:
 :TITLE: ${title}
 :AUTHOR: ${author-or-editor}
-:JOURNAL: ${journal}
+:JOURNAL: ${journaltitle}
 :DATE: ${date}
 :VOLUME: ${volume}
 :PAGES: ${pages}
@@ -1201,13 +1203,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
 :END:"
 )))
-  (setq bibtex-completion-display-formats
-   '((article       . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${journaltitle:20} | ${keywords:*}")
-     (inbook        . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| Chapter ${chapter:12} | ${keywords:*}")
-     (book          . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${publisher:20} | ${keywords:*}")
-     (t             . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${keywords:*}"))
-        bibtex-completion-additional-search-fields '(keywords journaltitle publisher)
-  )
   (advice-add 'bibtex-completion-candidates :filter-return 'reverse)
   ; anystyle-related
   (setq orb-autokey-format "%A*[1]%y*"
@@ -1216,17 +1211,24 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; add executable for running anystyle
 ;;(add-to-list 'exec-path (concat (getenv "HOME") "/.rvm/rubies/ruby-2.6.5/bin"))
 
+;(after! org-ref
 (use-package helm-bibtex
   :config
-  (when (featurep! :completion ivy)
-    (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
+  ;(when (featurep! :completion ivy)
+  ;  (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
   (setq
    bibtex-completion-notes-path (format "%s" org_notes)
    bibtex-completion-bibliography (list bibfile)
    ;bibtex-completion-bibliography bibfile
    bibtex-completion-pdf-field "file"
-   ;bibtex-completion-additional-search-fields '(keywords, journaltitle)
+   bibtex-completion-additional-search-fields '(keywords, journaltitle, publisher)
    bibtex-completion-pdf-open-function 'org-open-file
+  )
+  (setq bibtex-completion-display-formats
+   '((article       . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${journaltitle:20} | ${keywords:*}")
+     (inbook        . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| Chapter ${chapter:12} | ${keywords:*}")
+     (book          . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${publisher:20} | ${keywords:*}")
+     (t             . "${=key=:16} | ${author:24} | ${title:40} |${year:4}| ${keywords:*}"))
   )
   :bind
   ("C-c n b" . helm-bibtex)
@@ -1234,6 +1236,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 )
 
 (use-package org-ref
+    ;:after org-roam-bibtex
     :config
     (setq
      org-ref-completion-library 'org-ref-ivy-cite
@@ -1241,7 +1244,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
      org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
      ;; location to file bibliography
      org-ref-default-bibliography (list bibfile)
-     ;org-ref-default-bibliography bibfile
      org-ref-notes-directory (format "%s" org_notes)
      org-ref-notes-function 'orb-edit-notes
     )
