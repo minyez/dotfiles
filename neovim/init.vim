@@ -151,7 +151,7 @@ let g:neomake_list_height = 6
 let g:neomake_python_enabled_makers = ['pylint']
 let g:neomake_latex_enabled_makers = ['']
 let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,R0902,W0612,W0212,E1101',
+    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
     \            '-r', 'n'],
     \}
 let g:neomake_c_enabled_makers = ['gcc']
@@ -443,7 +443,7 @@ endf
 function! HeaderTeX()
     call setline(1, "% !TeX root = ")
     call append(1, "\\documentclass{article}")
-    call append(2, "\\usepackge{mwe}")
+    call append(2, "\\usepackage{mwe}")
     call append(3, "\\begin{document}")
     call append(4, "\\author{Min-Ye Zhang}")
     call append(5, "")
