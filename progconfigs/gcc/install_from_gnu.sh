@@ -3,9 +3,9 @@
 #   Copy this shell script to the path you want to install. 
 #   For example /gpfs/share/software/compilers/gcc/6.4.0
 #
-# Script from PKU HPC
+# This script is brought down from PKU HPC
 
-# adapt gnusrc to use a fast mirror
+# adapt gnusrc to use a fast mirror for one's own case
 #gnusrc="http://mirrors-usa.go-parts.com/releases"
 gnusrc="https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc"
 
