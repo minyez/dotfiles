@@ -6,12 +6,13 @@
 log_level = "debug"
 stream_level = "info"
 
-# custom color map for grace
+# custom color map
 color_map = (
     (140, 0, 0, "pkured"),
     (0, 63, 126, "ghblue"),
     (204, 12, 32, "Red"),
-    (30, 30, 101, "Blue"),
+    #(30, 30, 101, "Blue"), # the old Blue was too dark
+    (46, 97, 207, "Blue"),
     (18, 147, 210, "ProcessBlue"),
     (66, 176, 193, "SkyBlue"),
     (18, 139, 57, "Green"), # same to green4

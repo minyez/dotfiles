@@ -126,8 +126,8 @@ let g:tagbar_type_markdown = {
 
 " ===== UltiSnips =====
 " If custom directory is used, you need to add it to rtp
-set runtimepath+=~/code/snippets
-let g:UltiSnipsSnippetsDir = '~/code/snippets/UltiSnips'
+"set runtimepath+=~/code/snippets
+"let g:UltiSnipsSnippetsDir = '~/code/snippets/UltiSnips'
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsUsePythonVersion = 3
 " better key bindings for UltiSnipsExpandTrigger
@@ -410,7 +410,10 @@ augroup END
 " remember folding state
 augroup remember_folds
   autocmd!
-  autocmd BufWinLeave * mkview
+  "autocmd BufWinLeave * mkview
+  " exclude quickfix to avoid error:
+  " Error detected while processing BufWinLeave Autocommands for "*"
+  autocmd BufWinLeave * if &filetype !=# 'qf' | mkview | endif
   autocmd BufWinEnter * silent! loadview
 augroup END
 
@@ -451,14 +454,18 @@ function! HeaderTeX()
     normal G
     normal o
 endf
-autocmd bufnewfile *.sh call HeaderBash()
-autocmd bufnewfile *.py call HeaderPython()
-autocmd bufnewfile *.{c,cpp} call HeaderC()
-autocmd bufnewfile *.{tex,latex} call HeaderTeX()
-" =========================================================
 
-" remove trailing space for python
-autocmd BufWritePre *.{f90,py,c,cpp,tex} %s/\s\+$//e
+augroup my_fileheaders
+  autocmd!
+  autocmd bufnewfile *.sh call HeaderBash()
+  autocmd bufnewfile *.py call HeaderPython()
+  autocmd bufnewfile *.{c,cpp} call HeaderC()
+  autocmd bufnewfile *.{tex,latex} call HeaderTeX()
+augroup END
+
+" =========================================================
+" remove trailing space
+autocmd BufWritePre *.{f90,py,c,cpp,tex,md,rst} %s/\s\+$//e
 
 " per-project vimrc
 " from https://blog.binaryminer.com/2018/03/29/Per-project-configuration-in-Vim/
