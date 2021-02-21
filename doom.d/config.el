@@ -1325,6 +1325,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 
 (use-package org-superstar
   :after org
+  :hook
+  (org-mode . org-superstar-mode)
   :config
   (setq org-superstar-headline-bullets-list '("⋆" "◉" "○" "†" "‡" "∵")) ;✸ ✿ ✭ ❡
 )
