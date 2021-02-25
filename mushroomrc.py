@@ -21,7 +21,7 @@ color_map = (
     (209, 149, 26, "Goldenrod"),
     (204, 204, 216, "PalePurple"),
     )
-prefer_gracecolors = ["Red", "blue", "orange", "SkyBlue", "Goldenrod", "Green"]
+prefer_gracecolors = ["Red", "Blue", "orange", "SkyBlue", "Goldenrod", "Green"]
 
 # numeric precision
 symprec = 1.0e-5
