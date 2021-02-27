@@ -55,7 +55,7 @@
 ;; run every hour
 ;(run-with-timer 0 3600 'synchronize-theme)
 
-(setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
+;(setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
 ;; Global variables
 (setq
