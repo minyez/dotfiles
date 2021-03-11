@@ -158,6 +158,9 @@ let g:neomake_c_enabled_makers = ['gcc']
 let g:neomake_cpp_enabled_makers = ['g++']
 let g:neomake_sh_enabled_makers = ['shellcheck']
 let g:neomake_fortran_enabled_makers = ['gfortran']
+let g:neomake_fortran_gfortran_maker = {
+            \'args': ['-fsyntax-only', '-Wall', '-Wextra', '-cpp']
+            \}
 " Custom warning sign
 let g:neomake_warning_sign = {
     \   'text': '!',
