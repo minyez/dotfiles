@@ -114,3 +114,5 @@ if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.bash.inc' ]; then . 
 # pandoc completion
 eval "$(pandoc --bash-completion)"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
