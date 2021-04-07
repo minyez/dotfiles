@@ -468,7 +468,9 @@ augroup END
 
 " =========================================================
 " remove trailing space
-autocmd BufWritePre *.{f90,py,c,cpp,tex,md,rst} %s/\s\+$//e
+"autocmd BufWritePre *.{f90,py,c,cpp,tex,md,rst} %s/\s\+$//e
+" do not apply to Fortran/C/CPP source code since it will make git dirty
+autocmd BufWritePre *.{py,tex,md,rst} %s/\s\+$//e
 
 " per-project vimrc
 " from https://blog.binaryminer.com/2018/03/29/Per-project-configuration-in-Vim/
