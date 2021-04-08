@@ -9,3 +9,6 @@ tex.cache
 auto-commit.sh
 git.log
 *.info
+
+repos
+pkgs
