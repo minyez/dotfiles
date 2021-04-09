@@ -20,7 +20,7 @@ function help() {
   echo ""
   echo "TODOs:"
   echo "  1. obtain newest workable hosts and setup for Google and GitHub, etc"
-  echo "  2. more repos: VMD, jabref"
+  echo "  2. more repos: VMD, jabref, v_sim"
   echo "  3. more pkgs: pyscf, conda, QE, ATAT, deepmd, lammps"
   echo "  4. installing these repos and packages"
   echo ""
