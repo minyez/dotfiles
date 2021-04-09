@@ -1,56 +1,20 @@
 #!/usr/bin/env bash
-# TODO
-# - [ ] vscode
 
-if [[ ! -f /etc/os-release ]]; then
-  echo "Error! Not a Fedora release"
-  exit 1
-fi
+source _common.sh
+source extern_repos.sh
 
-FEDORA_VERSION=$(awk -F = '/VERSION_ID/' /etc/os-release)
-
-function get_gh_latest_release() {
-  curl -sL "https://api.github.com/repos/$1/releases/latest" | grep '"tag_name":' | cut -d'"' -f4
-}
-
-function wget_link_source() {
-  # $1: name of source
-  # $2: URL link
-  # $3: (optional) output file name of the downloaded source
-  # returncode 0 if success, otherwise 1
-  case $# in
-    0|1 ) echo "Error! specify name and url"; exit 1;;
-    2 ) name="$1"; url="$2"; output="";;
-    * ) name="$1"; url="$2"; output="$3";;
-  esac
-  if [[ -n "$output" ]]; then
-    wget_cmd="wget $url -O $output"
-  else
-    wget_cmd="wget $url"
-  fi
-  logname=tmcstd_pcws_wget.log
-  echo "==wget==: try downloading $name with"
-  echo "  $wget_cmd"
-  if [[ -f "$output" ]]; then
-    echo -e "Warning: $output found, overwrite? [y/N] "
-    read -r ans
-    if [[ "$ans" != "y" ]]; then
-      echo "Skip download $name, post-processing ..."
-      return 0
-    fi
-  fi
-  if ($wget_cmd >> "$logname" 2>&1); then
-    if [[ -n "$output" ]]; then
-      echo "Success: $name downloaded as $3"
-    else
-      echo "Success: $name downloaded"
-    fi
-    echo "post-processing $name ..."
-    return 0
-  else
-    echo "Error: $name not downloaded. See $logname for wget log."
-    return 1
-  fi
+function help() {
+  echo "Download repositories from external online sources by using wget"
+  echo ""
+  echo "To add a new target, you only have to add the following to arrays in extern_repos.sh"
+  echo ""
+  echo "  1. repo name as an identifier to \`repos_names\`"
+  echo "  2. repo URL to \`repos_urls\`"
+  echo "  3. (optional) output path to \`repos_outputs\`"
+  echo ""
+  echo "Check existing examples before you want to write one."
+  echo ""
+  echo "Note that GitHub extracting may fail due to network problem"
 }
 
 function _zotero() {
@@ -86,7 +50,7 @@ function _vesta() {
   if (wget_link_source "VESTA" \
       "https://jp-minerals.org/vesta/archives/3.5.7/VESTA-gtk3.tar.bz2" \
       "VESTA-gtk3.tar.bz2"); then
-    sudo dnf install -y gtk3 gtk3-devel
+    sudo dnf -y install gtk3 gtk3-devel
     bunzip2 VESTA-gtk3.tar.bz2
     tar -xf VESTA-gtk3.tar
   fi
@@ -94,15 +58,16 @@ function _vesta() {
 
 function _xcrysden() {
   # Xcrysden
-  if (wget_link_source "XcrysDen" \
+  if (wget_link_source "XCrySDen" \
       "http://www.xcrysden.org/download/xcrysden-1.6.2-linux_x86_64-shared.tar.gz" \
       "xcrysden-1.6.2-linux_x86_64-shared.tar.gz"); then
     # install xcrysden requirements
-    sudo dnf install -y tk tk-devel tcl tcl-devel tcl-togl tcl-togl-devel openbabel openbabel-devel \
+    sudo dnf -y install tk tk-devel tcl tcl-devel tcl-togl tcl-togl-devel openbabel openbabel-devel \
       fftw-libs libXmu libXmu-devel libX11-devel mesa-libGLU mesa-libGLU-devel ImageMagick
     tar -zxf xcrysden-1.6.2-linux_x86_64-shared.tar.gz
     mv xcrysden-1.6.2-bin-shared xcrysden-1.6.2
     # one needs to download 64-bit Togl 2.0 to make it work on Fedora > 30
+    FEDORA_VERSION=$(get_fedora_ver)
     if (( FEDORA_VERSION >= 30 )); then
       if (wget_link_source "libTogl2" \
           "https://sourceforge.net/projects/togl/files/Togl/2.0/Togl2.0-8.4-Linux64.tar.gz" \
@@ -114,17 +79,27 @@ function _xcrysden() {
   fi
 }
 
-function download_external_repos() {
-  REPOS_DIR="repos"
-  mkdir -p "$REPOS_DIR"
-  cd "$REPOS_DIR" || exit 0
-  ## TODO: check repos availabliblity
-  _zotero
-  _vesta
-  _xcrysden
-  cd ..
+function download_extern_repos() {
+  for name in "${repos_names[@]}"; do
+    unset url
+    unset output
+    url="${repos_urls[$name]}"
+    output="${repos_outputs[$name]}"
+    if [[ -z "$url" ]]; then
+      echo "Warning: URL on external repo $name not set, skip"
+      continue
+    fi
+    wget_repo "$REPOS_DIR" "$name" "$url" "$output"
+  done
+  #_zotero
+  #_vesta
+  #_xcrysden
 }
 
-sudo dnf update
-download_external_repos "$@"
+if (( $# == 0 )); then
+  help
+  exit 0
+fi
+
+download_extern_repos "$@"
 

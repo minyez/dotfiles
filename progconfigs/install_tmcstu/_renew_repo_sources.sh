@@ -10,8 +10,8 @@ function backup_fedora_repo() {
   fi
 }
 
-function replace_repo_sources() {
-  # add repository sources to make full use of network
+function replace_fedora_mirror() {
+  # Replaces the Fedora source by mainland mirror to make full use of network
   # see https://mirrors.ustc.edu.cn
   #     https://mirrors.tuna.tsinghua.edu.cn
   #     https://mirrors.pku.edu.cn
@@ -65,8 +65,8 @@ metadata_expire=6h
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-\$releasever-\$basearch
 skip_if_unavailable=False
 EOF
-  elif [[ "$REPO_SOURCES" == "USTC" ]]; then
-    echo "Replacing with USTC mirror (not implemented)"
+#  elif [[ "$REPO_SOURCES" == "USTC" ]]; then
+#    echo "Replacing with USTC mirror (not implemented)"
   elif [[ -z "$REPO_SOURCES" ]]; then
     echo "Empty repo source, skip."
     return
@@ -75,9 +75,28 @@ EOF
     echo "Warning!! Unknown repo source, skip."
     return
   fi
-
-  dnf makecache
 }
 
-replace_repo_sources "$@"
+function add_extra_repos() {
+  # adds some source repos to download packages beyond the official source
+  # MS VS code
+  rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  backup_fedora_repo vscode
+  cat > $yumrepos/vscode.repo << EOF
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc"
+EOF
+  # Docker engine
+  dnf -y install dnf-plugins-core
+  dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+}
+
+replace_fedora_mirror "$@"
+add_extra_repos
+dnf check-update
+dnf makecache
 
