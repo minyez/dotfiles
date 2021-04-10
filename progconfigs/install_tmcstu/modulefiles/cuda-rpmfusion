@@ -1,0 +1,17 @@
+#%Module1.0#####################################################################
+##
+
+set  docstr "CUDA installed from RPM fusion by using dnf, 64-bit arch"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr "$docstr"
+}
+
+module-whatis       $docstr
+
+set                 topdir                 "/usr/local/cuda"
+
+prepend-path        PATH                   "$topdir/bin"
+prepend-path        LD_LIBRARY_PATH        "$topdir/lib64"
+

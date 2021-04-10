@@ -5,7 +5,7 @@ function get_fedora_ver() {
     echo "Error! Not a Fedora release"
     exit 1
   fi
-  awk -F = '/VERSION_ID/' /etc/os-release
+  awk -F = '/VERSION_ID/ {print $2}' /etc/os-release
 }
 
 function ssh_connection_check() {
@@ -28,18 +28,18 @@ function wget_link_source() {
     * ) name="$1"; url="$2"; output="$3";;
   esac
   if [[ -n "$output" ]]; then
-    wget_cmd="wget $url -O $output"
+    wget_cmd="wget -nv --report-speed=bits $url -O $output"
   else
-    wget_cmd="wget $url"
+    wget_cmd="wget -nv --report-speed=bits $url"
   fi
-  logname=tmcstd_pcws_wget.log
+  logname=tmcstu_pcws_wget.log
   echo "==wget==: try downloading $name with"
   echo "  $wget_cmd"
   if [[ -f "$output" ]]; then
     echo "Warning: $output found, will skip."
     return 0
   fi
-  if ($wget_cmd >> "$logname" 2>&1); then
+  if ($wget_cmd 2>&1 | tee "$logname"); then
     if [[ -n "$output" ]]; then
       echo "Success: $name downloaded as $3"
     else

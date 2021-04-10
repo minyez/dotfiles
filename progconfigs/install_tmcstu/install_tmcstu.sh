@@ -5,14 +5,14 @@ source custom.sh
 function help() {
   echo "$1: A script to install a new TMC student PC workstation for daily use"
   echo ""
-  echo "Commands:"
-  echo "  [ init   ] : minimal install from Fedora repository"
-  echo "  [ full   ] : full install pakages and repos"
-  echo "               missing ones will be downloaded or retrived from TMCWS"
+  echo "Subcommands:"
   echo "  [ help   ] : this help info"
+  echo "  [ init   ] : minimal install from Fedora repository"
+  echo "  [ cuda   ] : install necessary components to enable CUDA programming"
+  echo "  [ vc     ] : verify cuda installation"
+  echo "  [ pkg    ] : retrieve packages on TMCWS"
+  echo "  [ repo   ] : download external repositories"
   echo "  [ docker ] : install Docker engine"
-  #echo "  [ -r ] : retrieve packages on TMCWS"
-  #echo "  [ -e ] : download external repositories"
   echo ""
   echo "Notes: "
   echo "  1. it may require sudo when replacing repo source or installing by dnf"
@@ -20,11 +20,11 @@ function help() {
   echo ""
   echo "TODOs:"
   echo "  1. obtain newest workable hosts and setup for Google and GitHub, etc"
-  echo "  2. more repos: VMD, jabref, v_sim"
-  echo "  3. more pkgs: pyscf, conda, QE, ATAT, deepmd, lammps"
-  echo "  4. installing these repos and packages"
+  echo "  2. more tools: conda, pyenv, hdf5, netcdf"
+  echo "  3. more science code: pyscf, Wannier90, QE, abinit, deepmd, lammps"
+  echo "  4. config scripts and patches to makefile etc"
   echo ""
-  echo "Update: 2021-04-09"
+  echo "Update: 2021-04-12"
   echo ""
   echo "Contributors: MY Zhang"
 }
@@ -99,7 +99,8 @@ function install_config_tools() {
                 environment-modules \
                 vim-enhanced neovim \
                 jq \
-                ripgrep fd-find
+                ripgrep fd-find \
+                lshw
 }
 
 function install_network_tools() {
@@ -161,10 +162,66 @@ function init_fedora() {
   install_network_tools
   install_config_tools
   install_sci_tools
+
+  mkdir -p ~/local/programs
+  if [[ ! -d ~/local/modulefiles ]]; then
+    cp -r modulefiles ~/local/
+  fi
   
-  [[ -n "$EMACS_VERSION" ]] && install_emacs "$EMACS_VERSION"
-  [[ -n "$GIT_VERSION" ]] && install_git "$GIT_VERSION"
-  [[ "$INSTALL_DOOM" == "YES" ]] && install_doom
+#  [[ -n "$EMACS_VERSION" ]] && install_emacs "$EMACS_VERSION"
+#  [[ -n "$GIT_VERSION" ]] && install_git "$GIT_VERSION"
+#  [[ "$INSTALL_DOOM" == "YES" ]] && install_doom
+}
+
+function install_cuda() {
+  ## Download and install necessary components to enable CUDA programming
+
+  # install kernel headers
+  sudo dnf install "kernel-devel-$(uname -r)" "kernel-headers-$(uname -r)"
+  ## Installation method 1: from NVIDIA official site, using nvidia-driver
+  ## https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#fedora-installation
+  ## However, this method may lead to conflicts with xorg11, and not recommended by RPM fusion
+  ##2. download and install CUDA toolkit
+  #sudo dnf config-manager --add-repo \
+  #  "https://developer.download.nvidia.com/compute/cuda/repos/fedora$FEDORA_VERSION/x86_64/cuda-fedora$FEDORA_VERSION.repo"
+  #sudo dnf clean expire-cache
+  #sudo dnf -y module install nvidia-driver:latest-dkms
+  #sudo dnf -y install cuda
+
+  ## Installation method 2: from RPM fusion
+  # disable the nvidia-driver if existing
+  # https://ask.fedoraproject.org/t/dnf-update-nvidia-error/8864/5
+  # https://rpmfusion.org/Howto/CUDA#Which_driver_Package
+  # this step conflicts with 
+  sudo dnf clean expire-cache
+  sudo dnf -y module disable nvidia-driver
+  sudo dnf -y install cuda
+  # post-installation
+  # install samples-dependent libraries
+  sudo dnf -y install freeglut-devel libX11-devel libXi-devel libXmu-devel \
+    make mesa-libGLU-devel
+}
+
+function verify_cuda() {
+  # verify the dnf CUDA
+  CUDA_PREFIX="/usr/local/cuda"
+  CUDA_VERSION="$(awk '/Release Notes/ {print $3}' "$CUDA_PREFIX"/CUDA_Toolkit_Release_Notes.txt | tail -1)"
+  # verify installation
+  PATH="$CUDA_PREFIX"/bin${PATH:+:${PATH}}
+  LD_LIBRARY_PATH="$CUDA_PREFIX"/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+  if [[ ! -d NVIDIA_CUDA-"$CUDA_VERSION"_Samples ]]; then
+    cuda-install-samples-"$CUDA_VERSION".sh .
+  fi
+  cwd="$(pwd)"
+  cd NVIDIA_CUDA-"$CUDA_VERSION"_Samples || exit 0
+  make
+  cd bin/x86_64/linux/release || exit 0
+  ./deviceQuery
+  # this binary detects workable CUDA-GPU
+  # If failed, the CUDA-GPU is not properly set up
+  # see the following link and TMCSTU note for configuration.
+  # https://forums.developer.nvidia.com/t/solved-run-cuda-on-dedicated-nvidia-gpu-while-connecting-monitors-to-intel-hd-graphics-is-this-possible/47690
+  cd "$cwd" || exit 0
 }
 
 function main() {
@@ -174,12 +231,12 @@ function main() {
   else
     case ${opts[0]} in
       "help" | "h" | "-h" | "--help" ) help "$0" ;;
-      "init" ) init_fedora ;;
-      "full" ) echo "Not implemented :("; exit 2 ;;
+      "init"   ) init_fedora ;;
+      "cuda"   ) install_cuda;;
+      "vc"     ) verify_cuda;;
+      "repo"   ) bash _download_extern_repos.sh 1 ;;
+      "pkg"    ) bash _retrieve_tmcws_pkgs.sh 1 ;;
       "docker" ) install_docker ;;
-      # for test use
-      "-e" ) bash _download_extern_repos.sh 1 ;;
-      "-r" ) bash _retrieve_tmcws_pkgs.sh 1 ;;
 #      "-p" ) install_pyenv ;;
       * ) echo "Error: unknown command/option " "${opts[0]}"; \
         help "$0"; exit 1 ;;
