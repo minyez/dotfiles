@@ -33,7 +33,7 @@ function retrieve_tmcws_pkgs() {
         "$name" "$url" "$output"
     done
   else
-    echo "Warning!! Fail to connect to TMCWS under ${TMCWS_CONNECTION}. Check IP and SSH setup."
+    echo "Error: fail to connect to TMCWS under ${TMCWS_CONNECTION}. Please check IP and SSH setup."
   fi
 }
 

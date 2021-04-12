@@ -5,7 +5,7 @@
 # TMCWS ssh connection, for retriving packages from TMC workstation
 TMCWS_CONNECTION="zhangmy@222.29.156.110"
 # you can add port like this
-#TMCWS_CONNECTION="-p 2022 zhangmy@222.29.156.110"
+#TMCWS_CONNECTION="-p 2022 stevezhang@222.29.156.87"
 
 # options for rsync command
 # note:
@@ -24,7 +24,7 @@ pkgs_names=(
   "wien2k-v19.2"
   #"wien2k-v16.1"
   # Intel
-  "intel_xe_2019_update3"
+  #"intel_xe_2019_update3"
   "intel_xe_2020_update4"
   # Intel licenses (registered under MY Zhang, you may need to refresh with your own one)
   "intel_licenses"
