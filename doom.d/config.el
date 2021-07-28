@@ -485,8 +485,7 @@ parent."
   )
 ;; source: https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el
   :config
-  (org-roam-setup)
-  ;(org-roam-mode +1) ; set to major mode
+  ;(org-roam-mode +1) ; set to major mode, dropped in V2
   (defun org-roam-search-dup-ids ()
     (let ((org-id-files (org-roam--list-files org-roam-directory))
       org-agenda-files)
@@ -677,7 +676,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :DATE: ${date}
 :VOLUME: ${volume}
 :PAGES: ${pages}
-:DOI: [[${doi}]]
+:DOI: [[%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
 :END:
 
 - tags ::
@@ -738,6 +737,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;    ))
 )
 ;
+
 
 ;(add-hook 'after-init-hook 'org-roam-mode)
 ;(add-hook 'org-mode-hook 'org-roam-mode) ;; V1
@@ -1196,7 +1196,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; for more
 (use-package org-roam-bibtex ;; shortened as ORB
   :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode)
+;  (org-roam-bibtex-mode)
+;  :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
   (require 'org-ref)
   (setq orb-preformat-keywords
@@ -1204,41 +1205,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
     '("citekey"  "title" "author-or-editor" "date" "doi" "file" "journaltitle" "volume" "pages"))
 ;      ;orb-note-actions-frontend 'ivy
   (setq orb-note-actions-interface 'ivy)
-;  (setq  orb-templates
-;        '(("r" "ref" plain (function org-roam-capture--get-point) ""
-;           :file-name "${citekey}"
-;           :head 
-;           "# -*- truncate-lines: t -*-
-;#+TITLE: ${citekey}
-;#+ROAM_KEY: ${ref}
-;#+ROAM_TAGS: Reference
-;#+STARTUP: content
-;#+CREATED: %U
-;:PROPERTIES:
-;:TITLE: ${title}
-;:AUTHOR: ${author-or-editor}
-;:JOURNAL: ${journaltitle}
-;:DATE: ${date}
-;:VOLUME: ${volume}
-;:PAGES: ${pages}
-;:DOI: [[${doi}]]
-;:END:
-;
-;- tags ::
-;- keywords ::
-;
-;* Summary
-;
-;* Notes :noter:
-;:PROPERTIES:
-;:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
-;:END:"
-;)))
   (advice-add 'bibtex-completion-candidates :filter-return 'reverse)
   ; anystyle-related
   (setq orb-autokey-format "%A*[1]%y*"
         orb-pdf-scrapper-export-fields '("author" "journal" "date" "volume" "pages" "title"))
 )
+
+(after! org-roam (org-roam-bibtex-mode))
+
 ;; add executable for running anystyle
 ;;(add-to-list 'exec-path (concat (getenv "HOME") "/.rvm/rubies/ruby-2.6.5/bin"))
 
@@ -1794,3 +1768,4 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; native-comp
 ;(setq comp-speed 1)
 
+(org-roam-setup)
