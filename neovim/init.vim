@@ -55,6 +55,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'sbdchd/neoformat'
     "Always load the vim-devicons as the very last one.
     Plug 'ryanoasis/vim-devicons'
+    "orgmode emulator
+    "Plug 'jceb/vim-orgmode'
+    Plug 'axvr/org.vim'
 call plug#end()
 
 let mapleader=","
@@ -436,6 +439,11 @@ function! HeaderBash()
     normal G
     normal o
 endf
+function! HeaderTCSH()
+    call setline(1, "#!/usr/bin/env tcsh")
+    normal G
+    normal o
+endf
 function! HeaderC()
     call setline(1, "/*")
     call append(1,  ' * Date  : '.strftime('%Y-%m-%d %H:%M:%S'))
@@ -461,6 +469,7 @@ endf
 augroup my_fileheaders
   autocmd!
   autocmd bufnewfile *.sh call HeaderBash()
+  autocmd bufnewfile *.{tsh,tcsh,csh} call HeaderTCSH()
   autocmd bufnewfile *.py call HeaderPython()
   autocmd bufnewfile *.{c,cpp} call HeaderC()
   autocmd bufnewfile *.{tex,latex} call HeaderTeX()

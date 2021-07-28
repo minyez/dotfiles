@@ -20,6 +20,7 @@ color_map = (
     (254, 208, 10, "Gold"),
     (209, 149, 26, "Goldenrod"),
     (204, 204, 216, "PalePurple"),
+    (128, 72, 133, "Purple")
     )
 prefer_gracecolors = ["Red", "Blue", "orange", "SkyBlue", "Goldenrod", "Green"]
 
