@@ -57,7 +57,7 @@
 
 ;(setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
 
-;; Global variables
+; Global variables
 (setq
  org_notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
  ;org_notes (concat (getenv "HOME") "/tmp/org-demo") ; for demonstration
@@ -175,7 +175,7 @@
 ;; Start move-text
 (move-text-default-bindings) ; default bindings
 ;; End move-text
-
+;
 ; org-mode configuration
 (use-package org
   :hook
@@ -194,6 +194,12 @@
   (map! :map org-mode-map
         :nv "SPC a a" #'org-agenda-file-to-front
         :nv "SPC a t" #'org-agenda-todo
+        :nv "DEL"     #'org-mark-ring-goto
+        :nv "M-j"     #'org-metadown
+        :nv "M-k"     #'org-metaup
+        :nv "SPC d"   #'+org/remove-link
+        :nv "M-n"     #'org-next-link
+        :nv "M-p"     #'org-previous-link
         )
   (setq org-archive-location (concat org_notes "/archive.org::* From %s"))
   ; short title for Beamer export
@@ -429,24 +435,6 @@ parent."
   (add-hook 'org-export-filter-parse-tree-functions 'org-export-ignore-headlines)
 )
 
-(after! org
-  ;(jieba-ensure)
-  :config
-  (map! :map org-mode-map
-        :nv "M-j" #'org-metadown
-        :nv "M-k" #'org-metaup
-        :nv "SPC d" #'+org/remove-link
-        :nv "M-n" #'org-next-link
-        :nv "M-p" #'org-previous-link
-        :nv "DEL" #'org-mark-ring-goto
-        )
-  (map! :map org-roam-mode-map
-        :nv "SPC r n"  #'orb-note-actions
-        :nv "SPC r b"  #'helm-bibtex
-        :nv "SPC r m"  #'helm-bibtex-with-notes
-  )
-)
-
 (use-package! reftex
   :config
   (setq reftex-cite-format 'biblatex)
@@ -454,7 +442,6 @@ parent."
 
 
 (use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam)
   :init
   (setq org-roam-directory (format "%s" org_notes))
   ;(setq org-roam-completion-system 'helm)
@@ -466,16 +453,22 @@ parent."
         )
   (map! :leader
         :prefix "r"
-        :desc "Org-Roam-Insert"         "i" #'org-roam-insert
-        :desc "Org-Roam-Find"           "." #'org-roam-find-file
+        ;;:desc "Org-Roam-Buffer"       "r" #'org-roam
+        ;;:desc "Org-Roam-Insert"       "i" #'org-roam-insert
+        ;;:desc "Org-Roam-Find"         "." #'org-roam-find-file ;; removed in V2
+        :desc "Org-Roam-Buffer"         "r" #'org-roam-buffer-toggle
+        :desc "Org-Roam-Insert"         "i" #'org-roam-node-insert
+        :desc "Org-Roam-Find"           "." #'org-roam-node-find   ;; used in V2
         :desc "Org-Roam-Store"          "l" #'org-roam-store-link
         :desc "Org-Roam-Unlinked-Refs"  "u" #'org-roam-unlinked-references
         :desc "Orb-Note-Actions"        "n" #'orb-note-actions
-        :desc "Org-Roam-Buffer"         "r" #'org-roam)
+        )
   :bind
   (:map org-roam-mode-map
-        (("C-c r R" . org-roam)
-         ("C-c r f" . org-roam-find-file)
+        (;;("C-c r R" . org-roam)
+         ;;("C-c r f" . org-roam-find-file)
+         ("C-c r R" . org-roam-buffer-toggle)
+         ("C-c r f" . org-roam-node-find)
          ("C-c r L" . org-roam-store-link)
          ("C-c r u" . org-roam-unlinked-references)
          ("C-c r r" . org-roam-find-ref)
@@ -485,10 +478,14 @@ parent."
          ("C-c r n" . orb-note-actions)
          ("C-c r g" . org-roam-graph))
    :map org-mode-map
-        (("C-c r i" . org-roam-insert))
+        (
+         ;;("C-c r i" . org-roam-insert)
+         ("C-c r i" . org-roam-node-insert)
+         )
   )
-; source: https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el
+;; source: https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el
   :config
+  (org-roam-setup)
   ;(org-roam-mode +1) ; set to major mode
   (defun org-roam-search-dup-ids ()
     (let ((org-id-files (org-roam--list-files org-roam-directory))
@@ -497,7 +494,7 @@ parent."
   )
   (setq org-roam-rename-file-on-title-change nil)
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry (function org-roam-capture--get-point) "%?"
+        '(("d" "default" entry "%?"
            :file-name "daily/%<%Y-%m-%d>"
            :head "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
 #+ROAM_TAGS: Daily
@@ -506,27 +503,31 @@ parent."
   )
   (setq org-roam-capture-templates
         '(
-          ("d" "default" plain (function org-roam-capture--get-point) "%?"
-           :file-name "%<%Y%m%d%H%M%S>-${slug}"
-           :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n"
+          ("d" "default" plain "%?"
+           :if-new (file+head
+           "%<%Y%m%d%H%M%S>-${slug}"
+           "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
            :unnarrowed t)
-          ("l" "lecture" plain (function org-roam-capture--get-point) "%?"
-           :file-name "%<%Y%m%d%H%M%S>-lecture-${slug}"
+          ("l" "lecture" plain "%?"
+           :if-new (file+head
+           "%<%Y%m%d%H%M%S>-lecture-${slug}"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: overview\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
 #+LATEX_CLASS: article\n#+LATEX_COMPILER: xelatex
-#+LECTURER:\n#+PLACE:\n"
+#+LECTURER:\n#+PLACE:\n")
            :unnarrowed t)
-          ("i" "index page" plain (function org-roam-capture--get-point) "%?"
-           :file-name "index-${slug}"
-           :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n"
+          ("i" "index page" plain "%?"
+           :if-new (file+head
+           "index-${slug}"
+           "# -*- truncate-lines: t -*-
+#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
            :unnarrowed t)
           ("c" "coding related")
-          ("ce" "error info" plain (function org-roam-capture--get-point) "%?"
-           :file-name "error-${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("ce" "error info" plain "%?"
+           :if-new (file+head
+           "error-${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+CREATED: %U
 #+ROAM_TAGS: Unresolved\n
 * 问题描述 Question
@@ -535,29 +536,31 @@ parent."
 
 * 案例 Case
 
-* 参考资料 References"
+* 参考资料 References")
            :unnarrowed t)
           ("a" "aps manuscript")
-          ("ab" "prb" plain (function org-roam-capture--get-point) "%?"
-           :file-name "paper/${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("ab" "prb" plain "%?"
+           :if-new (file+head
+           "paper/${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U#+ROAM_TAGS: Manuscript
 #+LATEX_CLASS: prb
 #+LATEX_COMPILER: pdflatex
-"
+")
            :unnarrowed t)
-          ("b" "non-STEM book note" plain (function org-roam-capture--get-point) "%?"
-           :file-name "${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("b" "non-STEM book note" plain "%?"
+           :if-new (file+head
+           "${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: 《${title}》笔记\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
 #+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
-* Appendix\n#+LATEX: \\appendix\n** Notes\n"
+* Appendix\n#+LATEX: \\appendix\n** Notes\n")
            :unnarrowed t)
-          ("s" "Beamer seminar slides" plain (function org-roam-capture--get-point) "%?"
-           :file-name "slides/${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("s" "Beamer seminar slides" plain "%?"
+           :if-new (file+head "slides/${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+STARTUP: overivew beamer
 #+ROAM_TAGS: Slides
@@ -606,11 +609,11 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :END:
 #+BEAMER: \\begin{frame}[allowframebreaks]{References}
 #+LaTeX: \\printbibliography[heading=none]
-#+BEAMER: \\end{frame}"
+#+BEAMER: \\end{frame}")
            :unnarrowed t)
-          ("p" "research project" plain (function org-roam-capture--get-point) "%?"
-           :file-name "${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("p" "research project" plain "%?"
+           :if-new (file+head "${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n
 #+AUTHOR: Min-Ye Zhang
 #+EMAIL: stevezhang@pku.edu.cn
@@ -635,17 +638,19 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :PROPERTIES:
 :UNNUMBERED: t
 :END:
-- %(format-time-string \"[%Y-%m-%d %a %H:%M]\") : initial file"
+- %(format-time-string \"[%Y-%m-%d %a %H:%M]\") : initial file")
            :unnarrowed t)
-          ("t" "language thesaurus" plain (function org-roam-capture--get-point) "%?"
-           :file-name "${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("t" "language thesaurus" plain "%?"
+           :if-new (file+head 
+           "${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: vs. \n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
-* Definition\n* Examples\n* Sources"
+* Definition\n* Examples\n* Sources")
            :unnarrowed t)
-          ("m" "math phys book" plain (function org-roam-capture--get-point) "%?"
-           :file-name "${slug}"
-           :head "# -*- truncate-lines: t -*-
+          ("m" "math phys book" plain "%?"
+           :if-new (file+head
+           "${slug}"
+           "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+ROAM_KEY:
 #+STARTUP: overview\n#+ROAM_TAGS: Book\n#+CREATED: %U
@@ -655,17 +660,38 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 * MISCs :noexport:
 ** Related books
 ** Roadmap
-** Changelog"
+** Changelog")
            :unnarrowed t)
-    	 )
-        org-roam-capture-ref-templates
-        '(("r" "ref" plain
-           (function org-roam-capture--get-point)
-           ""
-           :file-name "{slug}"
-           :head "# -*- truncate-lines: t -*-\n#+TITLE: ${title}\n#+ROAM_TAGS: Reference\n#+STARTUP: content\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n\n* Notes\n\n"
-           :unnarrowed t))
-    )
+          ("r" "reference" plain "%?"
+           :if-new (file+head
+           "${citekey}"
+           "# -*- truncate-lines: t -*-
+#+TITLE: ${citekey}
+#+filetags: :Reference:
+#+STARTUP: content
+#+CREATED: %U
+:PROPERTIES:
+:TITLE: ${title}
+:AUTHOR: ${author-or-editor}
+:JOURNAL: ${journaltitle}
+:DATE: ${date}
+:VOLUME: ${volume}
+:PAGES: ${pages}
+:DOI: [[${doi}]]
+:END:
+
+- tags ::
+- keywords ::
+
+* Summary
+
+* Notes :noter:
+:PROPERTIES:
+:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
+:END:"
+           )
+           :unnarrowed t)
+    ))
   (setq org-roam-graph-exclude-matcher '("journal"
                                          "slides"
                                          "daily"
@@ -686,59 +712,63 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (advice-add 'org-roam-protocol-open-file :around
 ;            #'my-org-protocol-focus-advice)
   ; use for gnuplot
-  (defun org-init-table-gnuplot()
-    "Create a 2-column table and gnuplot source block for exporting data plot to images directory, used for quick check only"
-    (interactive)
-    (let* 
-      (
-       (title (format "%s" (read-string "Enter data title: ")))
-      )
-         (insert (format "#+NAME: tab-%s\n" title))
-         (insert (format "#+CAPTION: %s\n" title))
-	 (insert "#+ATTR_LATEX: :booktabs t\n")
-	 (insert "| | |\n")
-         (insert (format "#+NAME: gnuplot-%s\n" title))
-	 (insert (format "#+HEADER: :var data=tab-%s\n" title ))
-	 (insert (format "#+HEADER: :exports results :file images/%s.png\n" title))
-	 (insert "#+BEGIN_SRC gnuplot\n")
-	 (insert (format "set title \"%s\"\n" title))
-	 (insert "plot data u 1:2 w lp")
-	 (insert "#+END_SRC\n")
-         (insert (format "#+NAME: fig-%s\n" title))
-         (insert (format "#+CAPTION: %s\n" title))
-	 (insert "#+ATTR_ORG: :width 400\n")
-	 (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
-	 (insert (format "#+RESULTS: gnuplot-%s\n" title))
-    ))
+;  (defun org-init-table-gnuplot()
+;    "Create a 2-column table and gnuplot source block for exporting data plot to images directory, used for quick check only"
+;    (interactive)
+;    (let* 
+;      (
+;       (title (format "%s" (read-string "Enter data title: ")))
+;      )
+;         (insert (format "#+NAME: tab-%s\n" title))
+;         (insert (format "#+CAPTION: %s\n" title))
+;	 (insert "#+ATTR_LATEX: :booktabs t\n")
+;	 (insert "| | |\n")
+;         (insert (format "#+NAME: gnuplot-%s\n" title))
+;	 (insert (format "#+HEADER: :var data=tab-%s\n" title ))
+;	 (insert (format "#+HEADER: :exports results :file images/%s.png\n" title))
+;	 (insert "#+BEGIN_SRC gnuplot\n")
+;	 (insert (format "set title \"%s\"\n" title))
+;	 (insert "plot data u 1:2 w lp")
+;	 (insert "#+END_SRC\n")
+;         (insert (format "#+NAME: fig-%s\n" title))
+;         (insert (format "#+CAPTION: %s\n" title))
+;	 (insert "#+ATTR_ORG: :width 400\n")
+;	 (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
+;	 (insert (format "#+RESULTS: gnuplot-%s\n" title))
+;    ))
 )
 ;
 
 ;(add-hook 'after-init-hook 'org-roam-mode)
-(add-hook 'org-mode-hook 'org-roam-mode)
+;(add-hook 'org-mode-hook 'org-roam-mode) ;; V1
+;; no more org-roam-mode in org-roam V2
+(setq org-roam-v2-ack t) ;; remove V2 warnings after clean upgrade from V1
+;; instead run org-mode-setup before the first build of database
+
 ;(add-hook 'after-init-hook 'blink-cursor-mode)
 (add-hook 'org-mode-hook 'org-cdlatex-mode)
 (add-hook 'org-mode-hook 'reftex-mode)
 ;; render latex block, commented due to performance issue
 ;(add-hook 'org-mode-hook 'org-fragtog-mode)
 
-; visualize roam graph. commented for low usage and performance
-(use-package org-roam-server
-;  :ensure t
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 8080
-        org-roam-server-export-inline-images t
-        org-roam-server-authenticate nil
-	      org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 24)
-)
-;(org-roam-server-mode)
-
+;; visualize roam graph. commented for low usage and performance
+;(use-package org-roam-server
+;;  :ensure t
+;  :config
+;  (setq org-roam-server-host "127.0.0.1"
+;        org-roam-server-port 8080
+;        org-roam-server-export-inline-images t
+;        org-roam-server-authenticate nil
+;	      org-roam-server-serve-files nil
+;        org-roam-server-served-file-extensions '("pdf" "mp4")
+;        org-roam-server-network-poll t
+;        org-roam-server-network-arrows nil
+;        org-roam-server-network-label-truncate t
+;        org-roam-server-network-label-truncate-length 60
+;        org-roam-server-network-label-wrap-length 24)
+;)
+;;(org-roam-server-mode)
+;
 ; Chinese input setting
 (use-package! pangu-spacing
   :config
@@ -1168,41 +1198,42 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
+  (require 'org-ref)
   (setq orb-preformat-keywords
     ;'(("citekey" . "=key=")  "title" "author-or-editor" "date" "doi" "file" ("journal" . "journaltitle")  "volume" "pages"))
     '("citekey"  "title" "author-or-editor" "date" "doi" "file" "journaltitle" "volume" "pages"))
 ;      ;orb-note-actions-frontend 'ivy
   (setq orb-note-actions-interface 'ivy)
-  (setq  orb-templates
-        '(("r" "ref" plain (function org-roam-capture--get-point) ""
-           :file-name "${citekey}"
-           :head 
-           "# -*- truncate-lines: t -*-
-#+TITLE: ${citekey}
-#+ROAM_KEY: ${ref}
-#+ROAM_TAGS: Reference
-#+STARTUP: content
-#+CREATED: %U
-:PROPERTIES:
-:TITLE: ${title}
-:AUTHOR: ${author-or-editor}
-:JOURNAL: ${journaltitle}
-:DATE: ${date}
-:VOLUME: ${volume}
-:PAGES: ${pages}
-:DOI: [[${doi}]]
-:END:
-
-- tags ::
-- keywords ::
-
-* Summary
-
-* Notes :noter:
-:PROPERTIES:
-:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
-:END:"
-)))
+;  (setq  orb-templates
+;        '(("r" "ref" plain (function org-roam-capture--get-point) ""
+;           :file-name "${citekey}"
+;           :head 
+;           "# -*- truncate-lines: t -*-
+;#+TITLE: ${citekey}
+;#+ROAM_KEY: ${ref}
+;#+ROAM_TAGS: Reference
+;#+STARTUP: content
+;#+CREATED: %U
+;:PROPERTIES:
+;:TITLE: ${title}
+;:AUTHOR: ${author-or-editor}
+;:JOURNAL: ${journaltitle}
+;:DATE: ${date}
+;:VOLUME: ${volume}
+;:PAGES: ${pages}
+;:DOI: [[${doi}]]
+;:END:
+;
+;- tags ::
+;- keywords ::
+;
+;* Summary
+;
+;* Notes :noter:
+;:PROPERTIES:
+;:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
+;:END:"
+;)))
   (advice-add 'bibtex-completion-candidates :filter-return 'reverse)
   ; anystyle-related
   (setq orb-autokey-format "%A*[1]%y*"
@@ -1236,7 +1267,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 )
 
 (use-package org-ref
-    ;:after org-roam-bibtex
     :config
     (setq
      org-ref-completion-library 'org-ref-ivy-cite
@@ -1255,11 +1285,11 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;                  )))
  ;   )
 )
-
-;(use-package org-zotxt
-;  :hook
-;  (org-mode . org-zotxt-mode))
-
+;
+;;(use-package org-zotxt
+;;  :hook
+;;  (org-mode . org-zotxt-mode))
+;
 (use-package! deft
   :after org
   :commands deft
@@ -1539,7 +1569,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
    ("C-c n N" . org-noter)
    ("C-c n s" . my-org-noter-extract-annotation)
 )
-;
+
 ;http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html
 ;(defun s-trim-newline (string)
 ;  "Remove newlines at the end of s."
@@ -1581,24 +1611,24 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
    ("C-c a l" . avy-goto-end-of-line)
 )
 
-;; comment it for performance and low usage
-;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
-;(use-package! org-super-agenda
-;  :after org-agenda
-;  :init
-;  (setq org-super-agenda-groups '((:name "Today"
-;                                         :time-grid t
-;                                         :scheduled today)
-;                                  (:name "Due today"
-;                                         :deadline today)
-;                                  (:name "Overdue"
-;                                         :deadline past)
-;                                  (:name "Due soon"
-;                                         :deadline future)
-;                                ))
-;  :config
-;  (org-super-agenda-mode)
-;)
+;;; comment it for performance and low usage
+;;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
+;;(use-package! org-super-agenda
+;;  :after org-agenda
+;;  :init
+;;  (setq org-super-agenda-groups '((:name "Today"
+;;                                         :time-grid t
+;;                                         :scheduled today)
+;;                                  (:name "Due today"
+;;                                         :deadline today)
+;;                                  (:name "Overdue"
+;;                                         :deadline past)
+;;                                  (:name "Due soon"
+;;                                         :deadline future)
+;;                                ))
+;;  :config
+;;  (org-super-agenda-mode)
+;;)
 
 ; rg - ripgrep interface
 ; https://rgel.readthedocs.io/en/latest/
@@ -1611,68 +1641,68 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   )
 )
 
-;; agenda 里面时间块彩色显示
-;; From: https://emacs-china.org/t/org-agenda/8679/3
-;(defun my/org-agenda-time-grid-spacing ()
-;  "Set different line spacing w.r.t. time duration."
-;  (save-excursion
-;    (let* ((background (alist-get 'background-mode (frame-parameters)))
-;           (background-dark-p (string= background "dark"))
-;           (colors (list "#ff9933"  "#9f7efe" "#0098dd" "#8c1400" "#50a14f"))
-;           pos
-;           duration)
-;      (nconc colors colors)
-;      (goto-char (point-min))
-;      (while (setq pos (next-single-property-change (point) 'duration))
-;        (goto-char pos)
-;        (when (and (not (equal pos (point-at-eol)))
-;                   (setq duration (org-get-at-bol 'duration)))
-;          (let ((line-height (if (< duration 30) 1.0 (+ 0.5 (/ duration 60))))
-;                (ov (make-overlay (point-at-bol) (1+ (point-at-eol)))))
-;            (overlay-put ov 'face `(:background ,(car colors)
-;                                                :foreground
-;                                                ,(if background-dark-p "white" "black")))
-;            (setq colors (cdr colors))
-;            (overlay-put ov 'line-height line-height)
-;            (overlay-put ov 'line-spacing (1- line-height))))))))
+;;; agenda 里面时间块彩色显示
+;;; From: https://emacs-china.org/t/org-agenda/8679/3
+;;(defun my/org-agenda-time-grid-spacing ()
+;;  "Set different line spacing w.r.t. time duration."
+;;  (save-excursion
+;;    (let* ((background (alist-get 'background-mode (frame-parameters)))
+;;           (background-dark-p (string= background "dark"))
+;;           (colors (list "#ff9933"  "#9f7efe" "#0098dd" "#8c1400" "#50a14f"))
+;;           pos
+;;           duration)
+;;      (nconc colors colors)
+;;      (goto-char (point-min))
+;;      (while (setq pos (next-single-property-change (point) 'duration))
+;;        (goto-char pos)
+;;        (when (and (not (equal pos (point-at-eol)))
+;;                   (setq duration (org-get-at-bol 'duration)))
+;;          (let ((line-height (if (< duration 30) 1.0 (+ 0.5 (/ duration 60))))
+;;                (ov (make-overlay (point-at-bol) (1+ (point-at-eol)))))
+;;            (overlay-put ov 'face `(:background ,(car colors)
+;;                                                :foreground
+;;                                                ,(if background-dark-p "white" "black")))
+;;            (setq colors (cdr colors))
+;;            (overlay-put ov 'line-height line-height)
+;;            (overlay-put ov 'line-spacing (1- line-height))))))))
+;;
+;;(add-hook 'org-agenda-finalize-hook #'my/org-agenda-time-grid-spacing)
 ;
-;(add-hook 'org-agenda-finalize-hook #'my/org-agenda-time-grid-spacing)
-
-;(use-package org-download
-  ;:hook
-  ;(org-mode . org-download-enable)
-  ;(dired-mode . org-download-enable)
-  ;:config
-  ;(setq-default org-download-image-dir (format "%s/images" org_notes))
-  ;(setq org-download-timestamp ""
-        ;org-download-heading-lvl nil
-        ;org-download-display-inline-images nil
-        ;org-download-screenshot-method "xclip"
-        ;)
-;)
-
-;(use-package! writegood-mode
-;  :after org
-;  :hook
-;  (org-mode . writegood-mode)
-;)
-
-;(use-package jieba
-;  :load-path "~/.doom.d/jieba"
-;  :commands (jieba-mode jieba-ensure jieba-mode-map)
-;  :hook 
-;  (
-;   (after-init . jieba-mode)
-;  )
-;  :init
-;  (map! :map jieba-mode-map
-;        :nv "M-w" #'jieba-forward-word
-;  ;      :nv "b" #'jieba-backward-word
-;        )
-;  :config
-;  (add-hook 'org-mode-hook 'jieba-ensure)
-;)
-
+;;(use-package org-download
+;  ;:hook
+;  ;(org-mode . org-download-enable)
+;  ;(dired-mode . org-download-enable)
+;  ;:config
+;  ;(setq-default org-download-image-dir (format "%s/images" org_notes))
+;  ;(setq org-download-timestamp ""
+;        ;org-download-heading-lvl nil
+;        ;org-download-display-inline-images nil
+;        ;org-download-screenshot-method "xclip"
+;        ;)
+;;)
+;
+;;(use-package! writegood-mode
+;;  :after org
+;;  :hook
+;;  (org-mode . writegood-mode)
+;;)
+;
+;;(use-package jieba
+;;  :load-path "~/.doom.d/jieba"
+;;  :commands (jieba-mode jieba-ensure jieba-mode-map)
+;;  :hook 
+;;  (
+;;   (after-init . jieba-mode)
+;;  )
+;;  :init
+;;  (map! :map jieba-mode-map
+;;        :nv "M-w" #'jieba-forward-word
+;;  ;      :nv "b" #'jieba-backward-word
+;;        )
+;;  :config
+;;  (add-hook 'org-mode-hook 'jieba-ensure)
+;;)
+;
 (use-package asymbol
   :after cdlatex
   :init
@@ -1720,6 +1750,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
       ("k" . #'previous-line)
       )
 )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -1752,3 +1783,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; truncate it by myself
 ;;(setq-default global-visual-line-mode t)
 ;(setq-default truncate-lines t)
+
+;; fix the path to zstd, according to advice by Hlissner
+(add-to-list 'jka-compr-compression-info-list
+             ["\\.zst\\'"
+              "zstd compressing"   "/usr/local/bin/zstd" ("-c" "-q")
+              "zstd uncompressing" "/usr/local/bin/zstd" ("-c" "-q" "-d")
+              t t "\050\265\057\375"])
+
+;; native-comp
+;(setq comp-speed 1)
+

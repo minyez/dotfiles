@@ -15,59 +15,40 @@
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
 
+(package! rg)
+(package! yasnippet-snippets)
+(package! jsonrpc) ; to use jieba
+(package! move-text)
+;(package! writegood-mode)
+;(package! zenburn-theme)
 
-;(package! org-roam)
-;(package! org-roam :pin "89e9121"
-;  :recipe (:host github :repo "org-roam/org-roam"))
+;; org-related
+;(package! org-journal)
+(package! org-ref
+  :recipe (:host github :repo "jkitchin/org-ref"))
+(package! org-super-agenda)
+(package! org-superstar)
+(package! org-fancy-priorities)
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"))
 (unpin! org-roam)
+;(package! org-roam)
+;(package! org-roam :pin "89e9121"
+;  :recipe (:host github :repo "org-roam/org-roam"))
 (package! org-roam-server
   :recipe (:host github :repo "org-roam/org-roam-server"))
-(package! rg)
 (package! org-roam-dashboard
   :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
 ;(package! org-download)
 (package! org-fragtog)
-;(package! writegood-mode)
-;(package! zenburn-theme)
-(package! yasnippet-snippets)
-(package! jsonrpc) ; to use jieba
-(package! org-ref
-  :recipe (:host github :repo "jkitchin/org-ref"))
 (package! company-org-roam)
-(package! org-journal)
-(package! move-text)
-(package! org-super-agenda)
-(package! org-superstar)
-(package! org-fancy-priorities)
-(package! asymbol
-  :recipe (:host github :repo "dwuggh/asymbol"))
-(package! company-jedi)
-
 (package! lister
   :recipe (:host github :repo "publicimageltd/lister" :branch "main"))
 (package! delve
   :recipe (:host github :repo "publicimageltd/delve" :branch "main"))
-
-;(package! company-jedi
-;  :recipe (:host github :repo " emacsorphanage/company-jedi"))
-;(package! zotxt)
-;; equation OCR using Mathpix API
-;(package! mathpix
-;  :recipe (:host github :repo "jethrokuan/mathpix.el"))
-;; Bibliography
+; Bibliography
 (package! org-roam-bibtex)
 (unpin! bibtex-completion helm-bibtex ivy-bibtex)
-;;; When using org-roam via the `+roam` flag
-;;(unpin! org-roam company-org-roam)
-;(package! markdown-mode
-;	:recipe (:host github :repo "jrblevin/markdown-mode"))
-;(package! impatient-mode)
-;(package! simple-httpd)
-(package! magic-latex-buffer)
-(package! yasnippet
-  :recipe (:host github :repo "joaotavora/yasnippet"))
 ;; PDF-related tools
 (package! pdf-tools)
 ;(package! org-pdftools)
@@ -77,6 +58,33 @@
 ;  :recipe (:host github :repo "roman/golden-ratio.el"))
 (package! org-noter)
 ;(package! org-noter-pdftools)
+;; When using org-roam via the `+roam` flag
+;(unpin! org-roam company-org-roam)
+
+(package! asymbol
+  :recipe (:host github :repo "dwuggh/asymbol"))
+(package! company-jedi)
+
+(package! dtrt-indent 
+  :recipe (:host github :repo "jscheid/dtrt-indent"))
+
+;; code-related
+;(package! pyenv
+;  :recipe (:host github :repo " aiguofer/pyenv.el" :branch "master"))
+
+;(package! company-jedi
+;  :recipe (:host github :repo " emacsorphanage/company-jedi"))
+;(package! zotxt)
+;; equation OCR using Mathpix API
+;(package! mathpix
+;  :recipe (:host github :repo "jethrokuan/mathpix.el"))
+;(package! markdown-mode
+;	:recipe (:host github :repo "jrblevin/markdown-mode"))
+;(package! impatient-mode)
+;(package! simple-httpd)
+(package! magic-latex-buffer)
+(package! yasnippet
+  :recipe (:host github :repo "joaotavora/yasnippet"))
 (package! cdlatex)
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
