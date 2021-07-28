@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# key: <blh
+# name: basic latex header
+# uuid: blh
+# group: latex
+# 
+# --
+#+latex_compiler: ${1:xelatex}
+#+latex_class: ${2:article}
+#+latex_header: \\usepackage\{${3:physics}\}
+$0

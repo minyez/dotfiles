@@ -250,11 +250,11 @@
         org-agenda-use-tag-inheritance '(search timeline agenda)
         org-agenda-window-setup 'reorganize-frame
   )
-  (setq org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w!)" "NEEDREVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAITING(w!)" "NEEDREVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
         org-todo-keyword-faces
           '(("TODO" :foreground "#ffffff" :background "#ff9933" :weight bold)
             ("WAITING" :foreground "#ffffff" :background "#9f7efe")
-            ("INPROGRESS" :foreground "#ffffff" :background"#0098dd" :weight bold)
+            ("WIP" :foreground "#ffffff" :background"#0098dd" :weight bold)
             ("NEEDREVIEW" :foreground "#ffffff" :background "#8c1400" :weight bold)
             ("DONE" :foreground "#ffffff" :background "#50a14f")
             ("CANCELLED" :foreground "#ff6480" :strike-through t)
@@ -265,7 +265,7 @@
      (kmacro-lambda-form [?  ?m ?t ?w] 0 "%d"))
   (fset 'todo     ; TO-DO
      (kmacro-lambda-form [?  ?m ?t ?t] 0 "%d"))
-  (fset 'inp      ; INPROGRESS
+  (fset 'inp      ; WIP 
      (kmacro-lambda-form [?  ?m ?t ?i] 0 "%d"))
   ;(setq org-support-shift-select t)
 
@@ -485,6 +485,7 @@ parent."
   )
 ;; source: https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el
   :config
+  (org-roam-setup)
   ;(org-roam-mode +1) ; set to major mode, dropped in V2
   (defun org-roam-search-dup-ids ()
     (let ((org-id-files (org-roam--list-files org-roam-directory))
@@ -494,23 +495,25 @@ parent."
   (setq org-roam-rename-file-on-title-change nil)
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "%?"
-           :file-name "daily/%<%Y-%m-%d>"
-           :head "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
-#+ROAM_TAGS: Daily
+           :if-new (file+head
+           "daily/%<%Y-%m-%d>.org"
+           "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
+#+filetags: :Daily:
 #+LATEX_CLASS: mwe\n#+LATEX_COMPILER: pdflatex"
+           )
            :unnarrowed t))
   )
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain "%?"
            :if-new (file+head
-           "%<%Y%m%d%H%M%S>-${slug}"
+           "%<%Y%m%d%H%M%S>-${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
            :unnarrowed t)
           ("l" "lecture" plain "%?"
            :if-new (file+head
-           "%<%Y%m%d%H%M%S>-lecture-${slug}"
+           "%<%Y%m%d%H%M%S>-lecture-${slug}.org"
            :head "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: overview\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
 #+LATEX_CLASS: article\n#+LATEX_COMPILER: xelatex
@@ -518,14 +521,14 @@ parent."
            :unnarrowed t)
           ("i" "index page" plain "%?"
            :if-new (file+head
-           "index-${slug}"
+           "index-${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
            :unnarrowed t)
           ("c" "coding related")
           ("ce" "error info" plain "%?"
            :if-new (file+head
-           "error-${slug}"
+           "error-${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+CREATED: %U
 #+ROAM_TAGS: Unresolved\n
@@ -540,7 +543,7 @@ parent."
           ("a" "aps manuscript")
           ("ab" "prb" plain "%?"
            :if-new (file+head
-           "paper/${slug}"
+           "paper/${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U#+ROAM_TAGS: Manuscript
 #+LATEX_CLASS: prb
@@ -549,7 +552,7 @@ parent."
            :unnarrowed t)
           ("b" "non-STEM book note" plain "%?"
            :if-new (file+head
-           "${slug}"
+           "${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: 《${title}》笔记\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
@@ -558,7 +561,7 @@ parent."
 * Appendix\n#+LATEX: \\appendix\n** Notes\n")
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain "%?"
-           :if-new (file+head "slides/${slug}"
+           :if-new (file+head "slides/${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
 #+STARTUP: overivew beamer
@@ -611,7 +614,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 #+BEAMER: \\end{frame}")
            :unnarrowed t)
           ("p" "research project" plain "%?"
-           :if-new (file+head "${slug}"
+           :if-new (file+head "${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${title}\n
 #+AUTHOR: Min-Ye Zhang
@@ -641,7 +644,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :unnarrowed t)
           ("t" "language thesaurus" plain "%?"
            :if-new (file+head 
-           "${slug}"
+           "${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: vs. \n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
 * Definition\n* Examples\n* Sources")
@@ -663,7 +666,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :unnarrowed t)
           ("r" "reference" plain "%?"
            :if-new (file+head
-           "${citekey}"
+           "${citekey}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${citekey}
 #+filetags: :Reference:
@@ -808,7 +811,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            ;      ; colorize to-do items
            ;      ; comment whole cond to avoid showing to-do markers
            ;      ((string= todo "TODO")(and todo (format "{\\color{Red}\\bfseries\\sffamily %s} " todo)))
-           ;      ((string= todo "INPROGRESS")(and todo (format "{\\color{ProcessBlue}\\bfseries\\sffamily %s} " todo)))
+           ;      ((string= todo "WIP")(and todo (format "{\\color{ProcessBlue}\\bfseries\\sffamily %s} " todo)))
            ;      ((string= todo "WAITING")(and todo (format "{\\color{Magenta}\\bfseries\\sffamily %s} " todo)))
            ;      ((string= todo "CANCELLED")(and todo (format "{\\color{Orange}\\bfseries\\sffamily %s} " todo)))
            ;      ((string= todo "DONE")(and todo (format "{\\color{Green}\\bfseries\\sffamily %s} " todo)))
@@ -1194,10 +1197,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; see
 ;; https://github.com/org-roam/org-roam-bibtex#org-roam-bibtex---bibtex-aware-capture-template-expansion
 ;; for more
-(use-package org-roam-bibtex ;; shortened as ORB
+(use-package! org-roam-bibtex ;; shortened as ORB
   :after org-roam
-;  (org-roam-bibtex-mode)
-;  :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
   (require 'org-ref)
   (setq orb-preformat-keywords
@@ -1768,4 +1769,3 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;; native-comp
 ;(setq comp-speed 1)
 
-(org-roam-setup)

@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# key: aue
+# name: aligned unnumbered equations
+# uuid: aue
+# group: latex
+# 
+# --
+\\begin{equation*}
+\\begin{aligned}
+$0
+\\end{aligned}
+\\end{equation*}
