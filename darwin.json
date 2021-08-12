@@ -1,0 +1,10 @@
+{
+  "clash-darwin/" : "~/.config/clash",
+  "../latex/latex-cls-and-sty/" : "/Library/TeX/Local/tex/latex/local",
+  "zshrc-darwin" : "~/.zshrc",
+  "bashrc-darwin" : "~/.bashrc",
+  "alacritty.yml" : "~/.alacritty.yml",
+  "vimrc-darwin" : "~/.vimrc",
+  "neovim-darwin/" : "~/.config/nvim",
+  "doom.d-darwin/" : "~/.doom.d"
+}

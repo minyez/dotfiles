@@ -9,13 +9,13 @@ Files included:
 - [x] Doom Emacs
 - [x] Bash Shell
 - [x] Z shell
+- [x] git excludes and ignore
 - [x] ~~SSH config~~
 - [x] gnuplot
-- [x] NutShare excluding rules
-- [x] Custom $\rm\LaTeX$ commands and themes (`sudo texhash` to activate)
-- [ ] `configure` file for compiling scientific packages
+- [x] ~~NutShare excluding rules~~ (not working any more)
 
-TODO
+More functionalities
 
-- [ ] JSON metadata
-- [ ] Platform-specific linking
+- [x] JSON metadata for source-target pair
+- [ ] Platform-specific linking (WIP)
+

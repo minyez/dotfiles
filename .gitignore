@@ -12,3 +12,6 @@ git.log
 
 repos
 pkgs
+progconfigs
+
+clash*

@@ -58,6 +58,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     "orgmode emulator
     "Plug 'jceb/vim-orgmode'
     Plug 'axvr/org.vim'
+    Plug 'cespare/vim-toml'
 call plug#end()
 
 let mapleader=","
@@ -404,12 +405,14 @@ augroup auto_language_selection
     autocmd Filetype fortran    setlocal ts=2 sw=2 expandtab
     autocmd Filetype javascript setlocal ts=4 sw=4 expandtab
     autocmd FileType json       setlocal ts=2 sw=2 expandtab
+    autocmd FileType go         setlocal ts=2 sw=2 expandtab
     autocmd Filetype scss       setlocal ts=2 sw=2 expandtab
     autocmd Filetype css        setlocal ts=2 sw=2 expandtab
     autocmd Filetype php        setlocal ts=4 sw=4 expandtab
     autocmd Filetype sql        setlocal ts=4 sw=4 expandtab
     autocmd Filetype java       setlocal ts=4 sw=4 expandtab
     autocmd Filetype lisp       setlocal ts=2 sw=2 expandtab
+    autocmd Filetype {yaml,toml} setlocal ts=2 sw=2 expandtab
     autocmd Filetype java       colorcolumn=121
 augroup END
 

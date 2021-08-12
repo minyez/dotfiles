@@ -217,11 +217,22 @@
   ;(fset 'agenda-buffer
   ; (kmacro-lambda-form [?  ?< ?a ?g ?e ?n ?d ?a return] 0 "%d"))
   ; active and inactive timestamp
-  (setq org-table-formula-constants
+  (setq org-table-formula-constants ; physical constants in SI units
         '(
           ("pi" . "3.14159265358")
-          ("ry" . "13.60569301")
-          ("bohr" . "0.5291772")
+          ("RY" . "13.60569301")
+          ("HBAR" . "1.0545718e-34") 
+          ("EPS0" . "8.8541878128e−12")
+          ("FSCA" . "0.0072973525664")
+          ("KB" . "1.38064852e-23")
+          ("CLIGHT" . "2.99792458e8")
+          ("CE" . "1.6021766208e-19") ; electron charge
+;; conversion
+          ("BOHR2ANG" . "0.5291772")
+          ("ANG2M" . "1e-10")
+          ("EV2J" . "1.6021766208e-19")
+          ("HA2EV" . "27.21138602")
+          ("THZ2HA" . "1.519829846e-4") ; 10^12 h in Ha unit
           ))
   (fset 'now-act
    (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
@@ -496,7 +507,7 @@ parent."
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "%?"
            :if-new (file+head
-           "daily/%<%Y-%m-%d>.org"
+           "%<%Y-%m-%d>.org"
            "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
 #+filetags: :Daily:
 #+LATEX_CLASS: mwe\n#+LATEX_COMPILER: pdflatex"
@@ -663,35 +674,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ** Related books
 ** Roadmap
 ** Changelog")
-           :unnarrowed t)
-          ("r" "reference" plain "%?"
-           :if-new (file+head
-           "${citekey}.org"
-           "# -*- truncate-lines: t -*-
-#+TITLE: ${citekey}
-#+filetags: :Reference:
-#+STARTUP: content
-#+CREATED: %U
-:PROPERTIES:
-:TITLE: ${title}
-:AUTHOR: ${author-or-editor}
-:JOURNAL: ${journaltitle}
-:DATE: ${date}
-:VOLUME: ${volume}
-:PAGES: ${pages}
-:DOI: [[%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
-:END:
-
-- tags ::
-- keywords ::
-
-* Summary
-
-* Notes :noter:
-:PROPERTIES:
-:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
-:END:"
-           )
            :unnarrowed t)
     ))
   (setq org-roam-graph-exclude-matcher '("journal"
@@ -1210,6 +1192,36 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ; anystyle-related
   (setq orb-autokey-format "%A*[1]%y*"
         orb-pdf-scrapper-export-fields '("author" "journal" "date" "volume" "pages" "title"))
+  (add-to-list 'org-roam-capture-templates
+          '("r" "reference" plain "%?"
+           :if-new (file+head
+           "${citekey}.org"
+           "# -*- truncate-lines: t -*-
+#+TITLE: ${citekey}
+#+filetags: :Reference:
+#+STARTUP: content
+#+CREATED: %U
+:PROPERTIES:
+:TITLE: ${title}
+:AUTHOR: ${author-or-editor}
+:JOURNAL: ${journaltitle}
+:DATE: ${date}
+:VOLUME: ${volume}
+:PAGES: ${pages}
+:DOI: [[%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
+:END:
+
+- tags ::
+- keywords ::
+
+* Summary
+
+* Notes :noter:
+:PROPERTIES:
+:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
+:END:"
+           )
+           :unnarrowed t))
 )
 
 (after! org-roam (org-roam-bibtex-mode))

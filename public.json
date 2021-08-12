@@ -1,0 +1,10 @@
+{
+  "lyx/" : "~/.lyx",
+  "mushroomrc.py" : "~/.mushroomrc",
+  "vim-dir/" : "~/.vim",
+  "gnuplotrc" : "~/.gnuplot",
+  "excludes.git" : "~/.gitexcludes",
+  "ignore_global.git" : "~/.gitignore_global",
+  "matplotlibrc/" : "~/.matplotlib",
+  "oh-my-zsh/" : "~/.oh-my-zsh"
+}
