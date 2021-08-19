@@ -15,18 +15,10 @@ The JSON has entries with one of the following structure:
 """
 import os
 import json
-import subprocess as sp
+#import subprocess as sp
+from pwd import getpwuid
+from socket import gethostname
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
-
-## a more advanced platform naming, but not necessary for now
-## maybe also need a dict with name:identifier
-#from pwd import getpwuid
-#from socket import gethostname
-#
-#_user = getpwuid(os.geteuid()).pw_name
-#_host = gethostname()
-#user_at_host = "{}-{}".format(_user, _host)
-#del _user, _host, getpwuid, gethostname
 
 def decode_src(src):
     """decode the path of dotfile source"""
@@ -86,10 +78,10 @@ def symlink_dotfile(src, target, debug=False):
         except PermissionError:
             print("Permission denied in symlinking %s to %s (skip)" % (src, target))
 
-def load_setup_json():
+def load_setup_json(*jsonfns):
     """load the link setup from json files"""
     d = {}
-    jsonfns = ("public", os.uname().sysname.lower())
+    jsonfns = ("public", *jsonfns)
     for jfn in jsonfns:
         try:
             with open(jfn+".json", 'r') as h:
@@ -105,9 +97,30 @@ def main():
     parser.add_argument("-D", dest="debug", action="store_true", help="debug mode")
     parser.add_argument("-r", dest="remove", action="store_true",
                         help="remove the symlinks")
+    parser.add_argument("--showname", action="store_true",
+                        help="show the OS name and files to link, then exit")
     args = parser.parse_args()
 
-    src_target_pair = load_setup_json()
+    # identifier from name and host
+    _user = getpwuid(os.geteuid()).pw_name
+    _host = gethostname()
+    iden = "{}-{}".format(_user, _host)
+    iden_jsonfn = {
+        "stevezhang-stevezhangMacBook-Pro.local": "darwin"
+    }
+
+    try:
+        jfn = iden_jsonfn[iden]
+        src_target_pair = load_setup_json(jfn)
+        print("Set JSON '{}' for identifier: {}".format(jfn, iden))
+    except KeyError:
+        print("No JSON set for identifier: {}".format(iden))
+        print("Public only")
+
+    if args.showname:
+        for s, t in src_target_pair.items():
+            print(" ", s, "->", t)
+        return
 
     for k, v in src_target_pair.items():
         if not os.path.exists(k):
