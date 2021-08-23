@@ -93,17 +93,18 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "set laststatus=2
 
 
-" ==== neomake =====
-let g:neomake_open_list = 0
-let g:neomake_serialize = 1
-let g:neomake_list_height = 6
-let g:neomake_serialize_abort_on_error = 1
-"disabled open error list in a window. used to be 2 to show error in location window
-let g:neomake_python_enabled_makers = ['pylint']
-let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n' ],
-    \}
-let g:neomake_sh_enabled_makers = ['shellcheck']
+"" ==== neomake =====
+"let g:neomake_open_list = 0
+"let g:neomake_serialize = 1
+"let g:neomake_list_height = 6
+"let g:neomake_serialize_abort_on_error = 1
+""disabled open error list in a window. used to be 2 to show error in location window
+"let g:neomake_python_enabled_makers = ['pylint']
+"let g:neomake_python_pylint_maker = {
+"    \ 'args' : [ '-d', 'R0913, C1801, C0103, W1401, C0303, C0305, R0902, W0612, W0212, E1101', '-r', 'n' ],
+"    \}
+"let g:neomake_sh_enabled_makers = ['shellcheck']
+
 function! MyOnBattery()
     if has("unix")
         let s:uname = system("uname")
@@ -118,9 +119,9 @@ function! MyOnBattery()
         endif
     endif
 endfunction
-if MyOnBattery()
-  call neomake#configure#automake('rnw', 1000)
-endif
+"if MyOnBattery()
+"  call neomake#configure#automake('rnw', 1000)
+"endif
 
 " ==== YCM ====
 "let g:ycm_server_python_interpreter = '/usr/local/Cellar/python@2/2.7.14_3/bin/python2'

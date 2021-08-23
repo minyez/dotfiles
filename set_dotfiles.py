@@ -106,7 +106,8 @@ def main():
     _host = gethostname()
     iden = "{}-{}".format(_user, _host)
     iden_jsonfn = {
-        "stevezhang-stevezhangMacBook-Pro.local": "darwin"
+        "stevezhang-stevezhangMacBook-Pro.local": "darwin",
+        "minyez-myz-amd-fedora": "amdfed"
     }
 
     try:
@@ -115,6 +116,7 @@ def main():
         print("Set JSON '{}' for identifier: {}".format(jfn, iden))
     except KeyError:
         print("No JSON set for identifier: {}".format(iden))
+        src_target_pair = load_setup_json()
         print("Public only")
 
     if args.showname:

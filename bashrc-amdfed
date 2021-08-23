@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2046,2076,2086
+
+[ -f /etc/bashrc ] && . /etc/bashrc
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# load the modulespath and frequently used modules
+if [[ -f $HOME/.module ]]; then
+  source $HOME/.module
+  module reload
+fi
+
+# dump core. Not necessary if GDB is not available
+# ulimit -c unlimited
+
+# set the color of terminal
+export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
+export CLICOLOR='Yes' #是否输出颜色
+
+eval $(thefuck --alias)
+
+# pyenv initialization
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  #if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+  #  eval "$(pyenv virtualenv-init -)"
+  #fi
+fi
+# rbenv initialization
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+# Turn on fish when loading bash.
+# Fish can share the environment variables in bash in this way,
+# while turning on profile command in iTerm2 cannot make it.
+# Remember to update .public_source.
+# Howver, this might be problematic in remote connection by ssh. Let's see :)
+# 在Git文件夹里，Mac上的fish有些太卡了...感觉是因为环境变量太长了
+# 在非Git文件夹里没有任何问题
+# 下面这个命令可以用来检查fish_prompt的耗时，第一列数字是单个操作消耗时间，第二个应该是累计时间
+# fish --profile prompt.prof -ic 'fish_prompt; exit'; sort -nk 2 prompt.prof
+
+#exec /usr/local/bin/fish
+
+# pandoc completion
+if command -v pandoc 1>/dev/null 2>&1; then
+  eval "$(pandoc --bash-completion)"
+fi
+#
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# === Zotero added by install_tmcstu ===
+export PATH="/home/minyez/local/programs/Zotero_linux-x86_64:$PATH"
+# === end Zotero ===
+
