@@ -5,6 +5,7 @@
   "gnuplotrc" : "~/.gnuplot",
   "excludes.git" : "~/.gitexcludes",
   "ignore_global.git" : "~/.gitignore_global",
+  "gitconfig" : "~/.gitconfig",
   "matplotlibrc/" : "~/.matplotlib",
   "oh-my-zsh/" : "~/.oh-my-zsh"
 }

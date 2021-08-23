@@ -26,10 +26,11 @@ eval $(thefuck --alias)
 
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
-  #if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
-  #  eval "$(pyenv virtualenv-init -)"
-  #fi
+  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
 fi
 # rbenv initialization
 if command -v rbenv 1>/dev/null 2>&1; then
@@ -54,8 +55,4 @@ if command -v pandoc 1>/dev/null 2>&1; then
 fi
 #
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# === Zotero added by install_tmcstu ===
-export PATH="/home/minyez/local/programs/Zotero_linux-x86_64:$PATH"
-# === end Zotero ===
 

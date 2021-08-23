@@ -19,3 +19,6 @@ clash*
 # for neovim
 .ropeproject
 .ycm_extra_conf.py
+
+# credential
+gitconfig
