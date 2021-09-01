@@ -1,70 +1,26 @@
-case "$0" in
-          -sh|sh|*/sh)	modules_shell=sh ;;
-       -ksh|ksh|*/ksh)	modules_shell=ksh ;;
-       -zsh|zsh|*/zsh)	modules_shell=zsh ;;
-    -bash|bash|*/bash)	modules_shell=bash ;;
-esac
-# module-4.0.0
-#module() { eval `/usr/local/opt/tcl-tk/bin/tclsh /Users/stevezhang/software/devtools/modules-4.0.0/libexec/modulecmd.tcl $modules_shell $*`; }
-# module-4.2.1
-#module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
-# module-4.5.3
-module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.5.3/libexec/modulecmd.tcl $modules_shell $*`; }
+[ -f /etc/zshrc ] && . /etc/zshrc
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
-# 重设库路径
-#unset DYLD_LIBRARY_PATH
-unset MANPATH
-export MANPATH
+if [[ -f $HOME/.module ]]; then
+  source $HOME/.module
+  module reload
+fi
 
-# set the color of terminal
-export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
-export LC_ALL="en_US.UTF-8"
-export CLICOLOR='Yes' #是否输出颜色
-export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
-#export EMACS="*term*"
+ulimit -s unlimited
 
-export MODULE_HOME="$HOME/software/devtools/modules-4.5.3"
-export PATH="$MODULE_HOME/bin:$PATH"
-source $MODULE_HOME/init/zsh
-module use $HOME/.modulefiles/projects
-module use $HOME/.modulefiles/sci
-module use $HOME/.modulefiles/mathlib
-module use $HOME/.modulefiles/compiler
-module use $HOME/.modulefiles/devtools
-module use $HOME/.modulefiles/visual
-module use $HOME/.modulefiles/alias
-# general library
-module load general-lib
-# aliases
-module load general-alias
-module load ssh-alias
-module load git-alias
-#module load qt-5.15.0 
-# Tcl/Tk 8.7
-#module load tcltk-8.7
-# osxfuse
-#module load osxfuse-3.8.2
-#module load e2fsprogs-1.45.6
-## JAVA
-export JAVA_HOME="$(/usr/libexec/java_home)"
-# VASP POTCARs
-module load vasp/vasppot-5.4
-module load vasp/utils
-
-# 自定义项目，为保证放在顶端而置于底层
-module load custom-libbin
-# F2PY GNU test
-##export DYLD_LIBRARY_PATH="/usr/lib:$DYLD_LIBRARY_PATH"
-# 自定义环境变量名
-eval $(thefuck --alias)
-
-# 加载开发个人python项目所需模块
-#module load py-readmana
-#module load py-mykit
-module load py-mushroom
+# thefuck for correcting commands
+if command -v thefuck 1>/dev/null 2>&1; then
+  eval $(thefuck --alias)
+fi
 
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
   if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
     eval "$(pyenv virtualenv-init -)"
@@ -75,34 +31,19 @@ if command -v rbenv 1>/dev/null 2>&1; then
   eval "$(rbenv init -)"
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'; fi
-
-# If you come from bash you might have to change your $PATH.
-#     export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Ruby Version Management
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
-
-
 # ===== ZSH setup =====
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/stevezhang/.oh-my-zsh"
+export ZSH="/home/minyez/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="avit"
-#ZSH_THEME="xxf"
-ZSH_THEME="agnoster-my"
-#ZSH_THEME="agnoster"
-#ZSH_THEME="candy"
+# the following are themes with dirpath and cmd on two lines
+ZSH_THEME="amuse"
+ZSH_THEME="pmcgee"
+ZSH_THEME="bureau"
+# frontcube hide username and have -> as prompt, suit me best
 ZSH_THEME="frontcube"
 
 # Set list of themes to pick from when loading at random
@@ -159,19 +100,19 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  jsontools
+  ripgrep
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -z $SSH_CONNECTION ]]; then
    export EDITOR='nvim'
 else
    export EDITOR='/usr/bin/vim'
@@ -191,8 +132,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# reload module to load aliases
-#module reload
 
 # only username appear for local machine for agnoster theme
 prompt_context() {
@@ -201,13 +140,25 @@ prompt_context() {
   fi
 }
 
-#compaudit | xargs chmod g-w
-fpath=(/usr/local/share/zsh-completions $fpath)
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/stevezhang/.zshrc'
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' '' '+'
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename '/home/minyez/.zshrc'
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=100000
+bindkey -v
+# End of lines configured by zsh-newuser-install
  
 zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
   [[ "$PREFIX" == ./* ]] && {
@@ -230,31 +181,19 @@ zstyle ':completion:*:*:(python|python2|python3|cp|mv):*' file-patterns \
 zstyle ':completion:*' menu yes select
 
 # lunchy completion
-LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
-if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
-  . $LUNCHY_DIR/lunchy-completion.zsh
+if gem which lunchy > /dev/null 2>&1; then
+  LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
+  if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
+    . $LUNCHY_DIR/lunchy-completion.zsh
+  fi
 fi
 # pandoc completion
-eval "$(pandoc --bash-completion)"
+if command -v pandoc 1>/dev/null 2>&1; then
+  eval "$(pandoc --bash-completion)"
+fi
+
 # suppress error when no regex match is found
 unsetopt nomatch
 
 cd ~
 
-## >>> conda initialize >>>
-## !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh" ]; then
-#        . "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-## <<< conda initialize <<<
-
-
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh

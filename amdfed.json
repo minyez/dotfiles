@@ -2,5 +2,7 @@
   "vimrc-amdfed" : "~/.vimrc",
   "neovim-amdfed" : "~/.config/nvim",
   "doom.d-amdfed" : "~/.doom.d",
-  "bashrc-amdfed" : "~/.bashrc"
+  "bashrc-amdfed" : "~/.bashrc",
+  "rime" : "~/.config/ibus/rime",
+  "zshrc-amdfed" : "~/.zshrc"
 }

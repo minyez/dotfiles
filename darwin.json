@@ -6,5 +6,6 @@
   "alacritty.yml" : "~/.alacritty.yml",
   "vimrc-darwin" : "~/.vimrc",
   "neovim-darwin/" : "~/.config/nvim",
+  "oh-my-zsh/" : "~/.oh-my-zsh",
   "doom.d-darwin/" : "~/.doom.d"
 }

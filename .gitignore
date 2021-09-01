@@ -22,3 +22,7 @@ clash*
 
 # credential
 gitconfig
+
+rime/build
+rime/sync
+rime/*.userdb

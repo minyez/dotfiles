@@ -55,14 +55,12 @@
 ;; run every hour
 ;(run-with-timer 0 3600 'synchronize-theme)
 
-;(setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
+;(setq projectile-project-search-path '(concat (getenv "HOME") "/Documents/SelfDevelopment/Codes"))
 
 ; Global variables
 (setq
  org_notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
- ;org_notes (concat (getenv "HOME") "/tmp/org-demo") ; for demonstration
- bibfile (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam/bibliography.bib")
- ;bibfile (concat (getenv "HOME") "/Documents/SelfDevelopment/Database/test.bib")
+ bibfile (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam/bibliography_linux.bib")
 )
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!

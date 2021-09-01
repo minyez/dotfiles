@@ -18,11 +18,16 @@ fi
 # dump core. Not necessary if GDB is not available
 # ulimit -c unlimited
 
+# unlimited stack size, required by FHI-aims and large calculations in VASP
+ulimit -s unlimited
+
 # set the color of terminal
 export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
 export CLICOLOR='Yes' #是否输出颜色
 
-eval $(thefuck --alias)
+if command -v thefuck 1>/dev/null 2>&1; then
+  eval $(thefuck --alias)
+fi
 
 # pyenv initialization
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -55,4 +60,9 @@ if command -v pandoc 1>/dev/null 2>&1; then
 fi
 #
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+## use zsh if not SSH connection
+## extra exit to avoid manual exit from bash
+## TODO need extra confirmation when closing a tab in terminal
+#[ -z $SSH_CONNECTION ] && { zsh; exit; }
 
