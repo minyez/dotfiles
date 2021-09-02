@@ -175,19 +175,23 @@
 ;; End move-text
 ;
 ; org-mode configuration
-(use-package org
+(use-package! org
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode)
    ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
   )
+  :config
+  (fset 'make-bold
+   (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
   :bind
   (:map org-mode-map
         ("C-c l" . org-insert-link)
         ("C-c i" . org-insert-image)
         ("C-c C-i" . org-time-stamp-inactive)
       )
+  ("s-b" . make-bold)
   :config
   (map! :map org-mode-map
         :nv "SPC a a" #'org-agenda-file-to-front
@@ -411,6 +415,53 @@ it can be passed in POS."
           (zp/org-set-created-property)
         )
       )
+     )
+  )
+  ; change default to dvisvgm,
+  ; according to https://emacs-china.org/t/org-latex-fragments-preview/16400/5
+  ; imagemagick/dvipng create a fullwidth picture for both inline and display math
+  ; however, this was not the case on macos.
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (add-to-list 'org-link-abbrev-alist
+               '("arxiv" . "https://arxiv.org/abs/%s"))
+  (setq org-latex-default-packages-alist
+    '(
+      ("" "amsmath" t) ; to avoid iint and iiint error
+      ("" "amssymb" t)
+      ("" "wasysym" t) ; last to avoid iint and iint error
+      ("AUTO" "inputenc"  t ("pdflatex"))
+      ("T1"   "fontenc"   t ("pdflatex"))
+      (""     "CJKutf8"   t ("pdflatex"))
+      (""     "xeCJK"     nil ("xelatex", "xetex"))
+      (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
+      (""     "graphicx"  t)
+      (""     "xcolor"  t)
+      ;("nottoc,numbib"     "tocbibind" nil)
+      ; corresponding to "setq org-latex-listings t"
+      ;(""           "listings"   nil)
+	    ; but minted is better to use
+      ("newfloat,cache=true"   "minted"   nil)
+      (""     "grffile"   t)
+      (""     "longtable" nil)
+      (""     "mdframed" nil)   ; for creating blockquote
+      (""     "float" nil)
+      (""     "wrapfig"   nil)
+      (""     "subfig"    nil)
+      (""     "rotating"  nil)
+      ("normalem" "ulem"  t)    ; strikeout
+      (""     "textcomp"  t)
+      (""     "capt-of"   nil)
+      ("font={small,it},skip=1pt"     "caption"   nil)
+      (""     "parskip"   nil)  ; better paragraph spacing
+      (""     "booktabs"   nil) ; better table
+	 )
+  )
+  ; packages to load at last
+  (setq org-latex-packages-alist
+    '(
+      ; hyperref and cleverf should be the last packages to load
+      (""     "hyperref"  nil)
+      (""     "cleveref"   nil)
      )
   )
   ; ignore headlines with "ignore" when export
@@ -1123,57 +1174,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   )
 )
 ;
-(use-package! org
-  :config
-  ; packages to load at fisrt i.e. before EXTRA and PACKAGES
-  (add-to-list 'org-link-abbrev-alist
-               '("arxiv" . "https://arxiv.org/abs/%s"))
-  (setq org-preview-latex-default-process 'imagemagick)
-  (setq org-latex-default-packages-alist
-    '(
-      ("" "amsmath" t) ; to avoid iint and iiint error
-      ("" "amssymb" t)
-      ("" "wasysym" t) ; last to avoid iint and iint error
-      ("AUTO" "inputenc"  t ("pdflatex"))
-      ("T1"   "fontenc"   t ("pdflatex"))
-      (""     "CJKutf8"   t ("pdflatex"))
-      (""     "xeCJK"     nil ("xelatex", "xetex"))
-      (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
-      (""     "graphicx"  t)
-      (""     "xcolor"  t)
-      ;("nottoc,numbib"     "tocbibind" nil)
-      ; corresponding to "setq org-latex-listings t"
-      ;(""           "listings"   nil)
-	    ; but minted is better to use
-      ("newfloat,cache=true"   "minted"   nil)
-      (""     "grffile"   t)
-      (""     "longtable" nil)
-      (""     "mdframed" nil)   ; for creating blockquote
-      (""     "float" nil)
-      (""     "wrapfig"   nil)
-      (""     "subfig"    nil)
-      (""     "rotating"  nil)
-      ("normalem" "ulem"  t)    ; strikeout
-      (""     "textcomp"  t)
-      (""     "capt-of"   nil)
-      ("font={small,it},skip=1pt"     "caption"   nil)
-      (""     "parskip"   nil)  ; better paragraph spacing
-      (""     "booktabs"   nil) ; better table
-	 )
-  )
-  ; packages to load at last
-  (setq org-latex-packages-alist
-    '(
-      ; hyperref and cleverf should be the last packages to load
-      (""     "hyperref"  nil)
-      (""     "cleveref"   nil)
-     )
-  )
-  (fset 'make-bold
-   (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
-  :bind
-  ("s-b" . make-bold)
-)
 ;; see
 ;; https://github.com/org-roam/org-roam-bibtex#org-roam-bibtex---bibtex-aware-capture-template-expansion
 ;; for more
