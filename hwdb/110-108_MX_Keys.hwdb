@@ -1,0 +1,5 @@
+#I: Bus=0005 Vendor=046d Product=b35b Version=0011
+#N: Name="MX Keys Keyboard"
+#H: Handlers=sysrq kbd leds event17
+evdev:input:b0005v046DpB35B*
+ KEYBOARD_KEY_70039 = leftctrl
