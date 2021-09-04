@@ -30,30 +30,30 @@
 ;; `load-theme' function. This is the default:
 ;; light themes
 ;(setq doom-theme 'doom-one-light)
-(setq doom-theme 'doom-nord-light)
+;(setq doom-theme 'doom-nord-light)
 ;; dark themse
 ;(setq doom-theme 'doom-dark+)
 ;(setq doom-theme 'doom-spacegrey)
 ;(setq doom-theme 'doom-peacock)
 ;(setq doom-theme 'doom-monokai-pro)
 ;(setq doom-theme 'doom-dracula)
-;; make theme adapt to time. Modified from
-;; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
-;(defun synchronize-theme ()
-;    (setq hour
-;        (string-to-number
-;        ; get current time by current-times-string
-;	; hour value occupies 3 characters (11-13)
-;            (substring (current-time-string) 11 13)))
-;    (if (member hour (number-sequence 6 19))
-;        (setq now 'doom-nord-light)
-;        (setq now 'doom-dracula))
-;    (if (equal now doom-theme)
-;        nil
-;        (setq doom-theme now)
-;        (doom/reload-theme) ) ) ;; end of (defun ...
-;; run every hour
-;(run-with-timer 0 3600 'synchronize-theme)
+; make theme adapt to time. Modified from
+; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
+(defun synchronize-theme ()
+    (setq hour
+        (string-to-number
+        ; get current time by current-times-string
+	; hour value occupies 3 characters (11-13)
+            (substring (current-time-string) 11 13)))
+    (if (member hour (number-sequence 6 19))
+        (setq now 'doom-nord-light)
+        (setq now 'doom-dracula))
+    (if (equal now doom-theme)
+        nil
+        (setq doom-theme now)
+        (doom/reload-theme) ) ) ;; end of (defun ...
+; run every hour
+(run-with-timer 0 3600 'synchronize-theme)
 
 ;(setq projectile-project-search-path '(concat (getenv "HOME") "/Documents/SelfDevelopment/Codes"))
 
@@ -108,7 +108,7 @@
   :config
   (setq vterm-shell "zsh"))
 
-(use-package evil
+(use-package! evil
   :bind
   (:map evil-insert-state-map
         ("s-i" . evil-escape))
@@ -782,6 +782,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;(add-hook 'after-init-hook 'blink-cursor-mode)
 (add-hook 'org-mode-hook 'org-cdlatex-mode)
 (add-hook 'org-mode-hook 'reftex-mode)
+;; switch off evil mode in pdf viewer
+;; not work :(
+;(add-hook 'org-mode-hook (unless (eq major-mode 'pdf-view-mode) (evil-mode)))
+
 ;; render latex block, commented due to performance issue
 ;(add-hook 'org-mode-hook 'org-fragtog-mode)
 
@@ -809,7 +813,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (setq pangu-spacing-include-regexp "\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?1:\\cC\\|\\cH\\|\\cK\\)\\)\\(?2:[\(=0-9A-Za-z\\$\\]\\)\\|\\(?1:[=0-9A-Za-z\\$\)]\\)\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?2:\\cC\\|\\cH\\|\\cK\\)\\)")
 )
 
-(use-package ox-beamer
+(use-package! ox-beamer
   :config
   ; default 3rd level heading as frame.
   ; 1st and 2nd are sec and subsec
@@ -817,7 +821,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 )
 ; https://superuser.com/questions/896741/how-do-i-configure-org-latex-classes-in-emacs
 ; https://stackoverflow.com/questions/36197545/org-mode-latex-export-making-todos-red
-(use-package ox-latex
+(use-package! ox-latex
   :bind
   ("C-c e o" . my-org-latex-export-latex)
   ;("C-c e o" . org-latex-export-latex)
@@ -1228,7 +1232,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;;(add-to-list 'exec-path (concat (getenv "HOME") "/.rvm/rubies/ruby-2.6.5/bin"))
 
 ;(after! org-ref
-(use-package helm-bibtex
+(use-package! helm-bibtex
   :config
   ;(when (featurep! :completion ivy)
   ;  (add-to-list 'ivy-re-builders-alist '(ivy-bibtex . ivy--regex-plus)))
@@ -1251,7 +1255,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ("C-c n n" . helm-bibtex-with-notes)
 )
 
-(use-package org-ref
+(use-package! org-ref
     :config
     (setq
      org-ref-completion-library 'org-ref-ivy-cite
@@ -1338,7 +1342,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (org-roam-mode . centaur-tabs-mode)
 ;)
 
-(use-package org-superstar
+(use-package! org-superstar
   :after org
   :hook
   (org-mode . org-superstar-mode)
@@ -1367,7 +1371,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (org-icalendar-after-save . org-icalendar-open-ics-file)
 ;)
 
-(use-package org-journal
+(use-package! org-journal
   :after org
   :ensure t
   :defer t
@@ -1413,7 +1417,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
 )
 
-(use-package org-pdftools
+(use-package! org-pdftools
   :hook (org-load . org-pdftools-setup-link))
 
 ;(use-package org-noter-pdftools
@@ -1617,7 +1621,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 
 ; rg - ripgrep interface
 ; https://rgel.readthedocs.io/en/latest/
-(use-package rg
+(use-package! rg
   :config
   (global-set-key (kbd "C-c s") #'rg-menu)
   (with-eval-after-load 'rg
@@ -1688,7 +1692,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;;  (add-hook 'org-mode-hook 'jieba-ensure)
 ;;)
 ;
-(use-package asymbol
+(use-package! asymbol
   :after cdlatex
   :init
   (setq asymbol-help-symbol-linewidth 110
@@ -1710,20 +1714,20 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 
-(use-package org-archive
+(use-package! org-archive
   :after org
   :config
   (setq org-archive-mark-done t) ; change subtree state to DONE when archived
 )
 
-(use-package lister)
-(use-package delve
+(use-package! lister)
+(use-package! delve
   :config
   ;(map! :map delve-mode-map
   ;      :nv "SPC a a" #'org-agenda-file-to-front
   ;      :nv "SPC a t" #'org-agenda-todo
   ;      )
-  (use-package delve-minor-mode
+  (use-package! delve-minor-mode
     :config
     (add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
   )
@@ -1744,14 +1748,13 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  '(column-number-mode t)
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
- '(menu-bar-mode nil)
+ ;'(menu-bar-mode nil)
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages '(org-roam-server org-journal org-fancy-priorities))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil)
- '(menu-bar-mode nil)
 )
  ;'(truncate-lines t))
 (custom-set-faces
@@ -1765,6 +1768,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;'(org-quote ((t (:slant normal :family "STKaiti"))))
 )
 
+;; auto-save by lazycat
+(use-package! auto-save
+  :load-path "auto-save"
+  :config
+  (auto-save-enable)
+  (setq auto-save-silent t)
+)
+
 ;;; make side by side buffers function the same as the main window
 ;(setq truncate-partial-width-windows nil)
 ;; do not wrap lines for long sentence
@@ -1772,16 +1783,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;;(setq-default global-visual-line-mode t)
 ;(setq-default truncate-lines t)
 
-;;; fix the path to zstd, according to advice by Hlissner
-;(add-to-list 'jka-compr-compression-info-list
-;             ["\\.zst\\'"
-;              "zstd compressing"   "/usr/local/bin/zstd" ("-c" "-q")
-;              "zstd uncompressing" "/usr/local/bin/zstd" ("-c" "-q" "-d")
-;              t t "\050\265\057\375"])
-;
-;;; native-comp
-;;(setq comp-speed 1)
-
+; native-comp
+(setq comp-speed 1)
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
   (progn
