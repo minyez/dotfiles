@@ -65,8 +65,35 @@
   :recipe (:host github :repo "dwuggh/asymbol"))
 (package! company-jedi)
 
+;; window-numbering
+;; https://github.com/nschum/window-numbering.el
+;; suggested by
+;; https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org#%E6%8C%81%E7%BB%AD%E6%94%B9%E8%BF%9B
+(package! window-numbering
+  :recipe (:host github :repo "nschum/window-numbering.el"
+           :files ("window-numbering.el")))
+
 (package! dtrt-indent 
   :recipe (:host github :repo "jscheid/dtrt-indent"))
+
+;; pyim+liberime for Chinese input
+(package! pyim-basedict
+  :recipe (:host github :repo "tumashu/pyim-basedict"
+           :files ("pyim-basedict.el" "pyim-basedict.pyim")))
+(package! liberime
+  :recipe (:host github :repo "merrickluo/liberime"
+           :files ("Makefile" "src" "liberime.el")))
+
+;; keyfreq
+(package! keyfreq
+  :recipe (:host github :repo "dacap/keyfreq"))
+
+;; evil-leader to emulate leader in vim
+(package! evil-leader
+  :recipe (:host github :repo "cofi/evil-leader"))
+
+;; xclip for accessing X11 clipboard
+(package! xclip)
 
 ;; code-related
 ;(package! pyenv
@@ -74,6 +101,7 @@
 
 ;(package! company-jedi
 ;  :recipe (:host github :repo " emacsorphanage/company-jedi"))
+
 ;(package! zotxt)
 ;; equation OCR using Mathpix API
 ;(package! mathpix
@@ -82,10 +110,13 @@
 ;	:recipe (:host github :repo "jrblevin/markdown-mode"))
 ;(package! impatient-mode)
 ;(package! simple-httpd)
+
 (package! magic-latex-buffer)
 (package! yasnippet
   :recipe (:host github :repo "joaotavora/yasnippet"))
+
 (package! cdlatex)
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
