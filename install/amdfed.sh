@@ -30,9 +30,9 @@ cecho() {
 }
 
 help_info() {
-  cecho i "=================================="
-  cecho i "Install script of Fedora (AMD CPU)"
-  cecho i "=================================="
+  cecho i "========================================="
+  cecho i "Install script of minyez Fedora (AMD CPU)"
+  cecho i "========================================="
   echo "  Your OS: $(uname -snr)"
   (( IS_LINUX )) && \
   echo "      CPU: $(lscpu | awk '/Model name/ {sep = ""; for (i = 3; i <= NF; i++) {printf("%s%s", sep, $i); sep=OFS}; printf("\n")}')"
@@ -131,24 +131,26 @@ install_language_tools() {
 
 install_wine() {
   # add winehq repo and install stable branch
+  cecho i "Installing Wine: winehq, winetricks and dependencies..."
+  (( _DRY_RUN )) && return
   sudo dnf -y install dnf-plugins-core
   sudo dnf config-manager --add-repo "https://dl.winehq.org/wine-builds/fedora/${FEDORA_VERSION}/winehq.repo"
-  sudo dnf install winehq-stable
+  sudo dnf -y install winehq-stable
   # download the latest winetricks
   sudo wget $wgetopts https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/local/bin/winetricks \
     && sudo chmod +x /usr/local/bin/winetricks || exit 1
   # install prerequisites, including fonts
-  sudo dnf install wine-mono cabextract p7zip-plugins wqy-zenhei-fonts
+  sudo dnf -y install wine-mono cabextract p7zip-plugins wqy-zenhei-fonts
   cecho s "You are now prepared to run winecfg!"
 }
 
 help_info
 check_prereq
 
-#update_dnf
-#install_config_tools
-#install_compiler
-#install_network_tools
-#install_texlive_full
-#install_language_tools
+update_dnf
+install_config_tools
+install_compiler
+install_network_tools
+install_texlive_full
+install_language_tools
 install_wine
