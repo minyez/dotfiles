@@ -108,7 +108,7 @@ install_basic_python_tools() {
   cecho s "Installed rst2html"
 }
 
-# No more sougou
+## No more sougou
 #install_sogou() {
 #  cecho i "Installing Sogou Pingyin..."
 #  sudo dnf -y install fcitx fcitx-{qt{4,5},table,configtool,table-{extra,other,chinese}}
@@ -122,10 +122,12 @@ install_language_tools() {
   cecho s "Rime installed, but you need to run ibus-setup to add Rime to input method"
   sudo dnf -y install sdcv
   cecho s "sdcv installed"
-  cecho i "Start dowloading zh_CN dictionary: "
+
+  preferdict="stardict-oxford-gb-formated-2.4.2"
+  cecho i "Start dowloading the prefered zh_CN dictionary: $preferdict"
   sudo mkdir -p /usr/share/stardict/dic
-  wget $wgetopts http://download.huzheng.org/zh_CN/stardict-oxford-gb-2.4.2.tar.bz2
-  sudo tar -xjf stardict-oxford-gb-2.4.2.tar.bz2 -C /usr/share/stardict/dic
+  wget $wgetopts http://download.huzheng.org/zh_CN/$preferdict.tar.bz2
+  sudo tar -xjf $preferdict.tar.bz2 -C /usr/share/stardict/dic
   cecho s "sdcv dictionary installed"
 }
 
@@ -154,3 +156,4 @@ install_network_tools
 install_texlive_full
 install_language_tools
 install_wine
+
