@@ -26,3 +26,6 @@ gitconfig
 rime/build
 rime/sync
 rime/*.userdb
+wine/*.reg
+wine/*.exe
+wine/*.msi

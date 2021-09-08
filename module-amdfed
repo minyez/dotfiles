@@ -1,0 +1,17 @@
+# module setup common to different shells
+module unuse /usr/share/Modules/modulefiles
+module use ~/.modulefiles/alias
+module use ~/.modulefiles/tool
+module use ~/.modulefiles/compiler
+module use ~/.modulefiles/science
+module use ~/.modulefiles/project
+
+module load general-alias
+module load git-alias
+module load ssh-alias
+module load sdcv-alias
+module load vasp-alias
+module load pyenv
+module load py-mushroom
+
+

@@ -55,12 +55,15 @@
 ; run every hour
 (run-with-timer 0 3600 'synchronize-theme)
 
-;(setq projectile-project-search-path '(concat (getenv "HOME") "/Documents/SelfDevelopment/Codes"))
-
 ; Global variables
+;   org_notes : all my org(-roam) notes
+;   bibfile : bibliography, now a symlink to my exported zotero biblatex library
+;   mz/evil-leader : leader key to unify evil-leader and other keys that I want to emulate as evil-leader
+;                    the later usage is mainly when I only want to bind key to particular mode
 (setq
  org_notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
- bibfile (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam/bibliography_linux.bib")
+ bibfile (concat org_notes "/bibliography_linux.bib")
+ mz/evil-leader ","
 )
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -108,13 +111,14 @@
   :config
   (setq vterm-shell "zsh"))
 
+
 (use-package! evil-leader
   :config
   ;; turn on the leader mode
   (global-evil-leader-mode +1)
   ;; note , as leader conflicts with evil-snipe evil-snipe-repeat-reverse
   ;; bind it to alt+; in the evil-snipe session
-  (evil-leader/set-leader ",")
+  (evil-leader/set-leader mz/evil-leader)
 )
 
 (use-package! evil
@@ -189,7 +193,13 @@
 ;; Start move-text
 (move-text-default-bindings) ; default bindings
 ;; End move-text
-;
+
+;; projects management by projectile
+(use-package! projectile
+  :config
+  (setq projectile-project-search-path '("/home/minyez/Documents/SelfDevelopment/codes"))
+)
+
 ; org-mode configuration
 (use-package! org
   :hook
@@ -218,6 +228,9 @@
         :nv "SPC d"   #'+org/remove-link
         :nv "M-n"     #'org-next-link
         :nv "M-p"     #'org-previous-link
+      ;; emulate evil-leader key, but only in the org-mode
+        :nv (concat mz/evil-leader " ]")     #'org-forward-heading-same-level
+        :nv (concat mz/evil-leader " [")     #'org-backward-heading-same-level
         )
   (setq org-archive-location (concat org_notes "/archive.org::* From %s"))
   ; short title for Beamer export
@@ -1639,7 +1652,9 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ; https://rgel.readthedocs.io/en/latest/
 (use-package! rg
   :config
-  (global-set-key (kbd "C-c s") #'rg-menu)
+  (global-set-key (kbd "C-c g m") #'rg-menu)
+  (global-set-key (kbd "C-c g d") #'rg-diwm)
+  (global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
   (with-eval-after-load 'rg
      ;; Your settings goes here.
     (setq rg-ignore-case 'smart)
@@ -1888,10 +1903,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ;; redefine workspaces shortcuts to resolve the conflict with +doom/workspaces
 )
 
+(evil-leader/set-key
 ; use doom tabs function and evil-leader to switch (centaur) tabs
 ; learn lambda function to create closure for key binding
 ; https://stackoverflow.com/a/1030409
-(evil-leader/set-key
   "t1" (lambda () (interactive) (+tabs:next-or-goto 1))
   "t2" (lambda () (interactive) (+tabs:next-or-goto 2))
   "t3" (lambda () (interactive) (+tabs:next-or-goto 3))
@@ -1901,4 +1916,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   "t7" (lambda () (interactive) (+tabs:next-or-goto 7))
   "t8" (lambda () (interactive) (+tabs:next-or-goto 8))
   "t9" (lambda () (interactive) (+tabs:next-or-goto 9))
+  "u"  'outline-up-heading
 )
+

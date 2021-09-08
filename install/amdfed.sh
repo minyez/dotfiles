@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2086
 
 IS_LINUX=0
 [ "$(uname)" == "Linux" ] && IS_LINUX=1
@@ -128,13 +129,26 @@ install_language_tools() {
   cecho s "sdcv dictionary installed"
 }
 
+install_wine() {
+  # add winehq repo and install stable branch
+  sudo dnf -y install dnf-plugins-core
+  sudo dnf config-manager --add-repo "https://dl.winehq.org/wine-builds/fedora/${FEDORA_VERSION}/winehq.repo"
+  sudo dnf install winehq-stable
+  # download the latest winetricks
+  sudo wget $wgetopts https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/local/bin/winetricks \
+    && sudo chmod +x /usr/local/bin/winetricks || exit 1
+  # install prerequisites, including fonts
+  sudo dnf install wine-mono cabextract p7zip-plugins wqy-zenhei-fonts
+  cecho s "You are now prepared to run winecfg!"
+}
+
 help_info
 check_prereq
 
-update_dnf
-install_config_tools
-install_compiler
-install_network_tools
-install_texlive_full
-install_language_tools
-
+#update_dnf
+#install_config_tools
+#install_compiler
+#install_network_tools
+#install_texlive_full
+#install_language_tools
+install_wine

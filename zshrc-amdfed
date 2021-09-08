@@ -11,7 +11,8 @@ if [[ -f $HOME/.module ]]; then
   module reload
 fi
 
-ulimit -s unlimited
+## comment out for permission error of wine
+#ulimit -s unlimited
 
 # thefuck for correcting commands
 if command -v thefuck 1>/dev/null 2>&1; then
@@ -100,6 +101,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  autojump
   jsontools
   ripgrep
 )
