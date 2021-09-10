@@ -534,9 +534,9 @@ parent."
   :init
   (setq org-roam-directory (format "%s" org_notes))
   ;(setq org-roam-completion-system 'helm)
-  (setq org-roam-graph-executable "/usr/local/bin/dot")
+  (setq org-roam-graph-executable "/usr/bin/dot")
   ;(setq org-roam-graph-executable "/usr/local/bin/neato")
-  (setq org-roam-graph-viewer "/usr/bin/open"
+  (setq org-roam-graph-viewer "/usr/bin/xdg-open"
         org-roam-index-file "index.org"
         org-roam-graph-extra-config '(("overlap" . "false")) ; man dot for attributes setup
         )
@@ -587,8 +587,7 @@ parent."
            :if-new (file+head
            "%<%Y-%m-%d>.org"
            "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
-#+filetags: :Daily:
-#+LATEX_CLASS: mwe\n#+LATEX_COMPILER: pdflatex"
+#+filetags: :Daily:"
            )
            :unnarrowed t))
   )
@@ -1805,10 +1804,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   :config
   (auto-save-enable)
   (setq auto-save-silent t)
-)
-
-;; window-numbering
-(use-package! window-numbering
 )
 
 ;; pyim with librime

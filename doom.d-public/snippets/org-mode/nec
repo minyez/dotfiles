@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# key: <nec
+# name: code block that will never be evaled
+# uuid: nec
+# group: code
+# 
+# --
+#+begin_src ${1:f90} :eval never
+$0
+#+end_src
