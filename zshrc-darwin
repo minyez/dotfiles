@@ -91,7 +91,7 @@ if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ]; then . '
 
 # ===== ZSH setup =====
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/stevezhang/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -204,7 +204,7 @@ prompt_context() {
 #compaudit | xargs chmod g-w
 fpath=(/usr/local/share/zsh-completions $fpath)
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/stevezhang/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall

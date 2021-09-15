@@ -32,6 +32,11 @@ if command -v rbenv 1>/dev/null 2>&1; then
   eval "$(rbenv init -)"
 fi
 
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 # ===== ZSH setup =====
 # Path to your oh-my-zsh installation.
 export ZSH="/home/minyez/.oh-my-zsh"
@@ -104,6 +109,7 @@ plugins=(
   autojump
   jsontools
   ripgrep
+  zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -144,10 +150,10 @@ prompt_context() {
 
 # The following lines were added by compinstall
 
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+##zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' '' '+'
+##zstyle ':completion:*' matcher-list '' '' '+'
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/minyez/.zshrc'

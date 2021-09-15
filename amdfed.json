@@ -5,5 +5,6 @@
   "bashrc-amdfed" : "~/.bashrc",
   "module-amdfed": "~/.module",
   "rime" : "~/.config/ibus/rime",
+  "tmux-amdfed.conf" : "~/.tmux.conf",
   "zshrc-amdfed" : "~/.zshrc"
 }

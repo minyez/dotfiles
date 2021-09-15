@@ -1,4 +1,11 @@
-.DS_Store
 *.swp
 *.pyc
+*.mod
 *.o
+git.log
+*.a
+*.la
+*.so
+.DS_Store
+
+flycheck_*
