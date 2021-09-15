@@ -154,9 +154,11 @@ let g:neomake_open_list = 0
 let g:neomake_list_height = 6
 let g:neomake_python_enabled_makers = ['pylint']
 let g:neomake_latex_enabled_makers = ['']
+" init-hook added to remove false unimport error
+" https://github.com/dense-analysis/ale/issues/208#issuecomment-274142439
 let g:neomake_python_pylint_maker = {
     \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
-    \            '-r', 'n'],
+    \            '-r', 'n', "--init-hook", 'import sys; sys.path.append(".")'],
     \}
 let g:neomake_c_enabled_makers = ['gcc']
 let g:neomake_cpp_enabled_makers = ['g++']
@@ -347,10 +349,11 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 " 寄存器复制粘贴
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
+" " 是 x 寄存器, * 是鼠标寄存器
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+noremap <Leader>Y "*y
+noremap <Leader>P "*p
 " 普通模式下，方向键改为切换窗口
 noremap <Up>    <C-w>k
 noremap <Down>  <C-w>j
