@@ -121,6 +121,10 @@
   :recipe (:host github :repo "bbatsov/projectile"))
 (unpin! projectile)
 
+
+(package! direnv
+  :recipe (:host github :repo "wbolster/emacs-direnv"))
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':

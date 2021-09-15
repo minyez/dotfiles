@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# key: <spy
+# name: python code block
+# uuid: spy
+# group: code
+# 
+# --
+#+begin_src python :results output
+$0
+#+end_src
