@@ -296,7 +296,10 @@
         org-agenda-use-tag-inheritance '(search timeline agenda)
         org-agenda-window-setup 'reorganize-frame
   )
-  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAITING(w!)" "NEEDREVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
+  ; each state with ! is recorded as state change
+  ; for org-habit, it seems that DONE logging is enabled automatically
+  ; add ! after d will make org-habit log twice
+  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAITING(w)" "NEEDREVIEW(r!)" "|" "DONE(d)" "CANCELLED(c!@)"))
         org-todo-keyword-faces
           '(("TODO" :foreground "#ffffff" :background "#ff9933" :weight bold)
             ("WAITING" :foreground "#ffffff" :background "#9f7efe")
@@ -347,8 +350,9 @@ Note that =pngpaste= should be installed outside Emacs"
     ) ;; (org-display-inline-images) ;; inline显示图片
 	)
   ;; for recent activity search
+  ;; state commented out for org-habit
   ;; https://yqrashawn.com/2018/09/17/record-org-mode-recent-activity/
-  (setf (elt org-log-note-headings 1) '(      state . "RESTATE: from %S on %t")
+  (setf ;(elt org-log-note-headings 1) '(      state . "RESTATE: from %S on %t")
         (elt org-log-note-headings 3) '( reschedule . "RESCHEDULE: from %S on %t")
         (elt org-log-note-headings 4) '(delschedule . "UNSCHEDULE: was %S on %t")
         (elt org-log-note-headings 5) '( redeadline . "REDEADLINE: from %S on %t")
@@ -457,6 +461,8 @@ it can be passed in POS."
   (setq org-preview-latex-default-process 'dvisvgm)
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("w2kmail" . "http://www.mail-archive.com/wien\%40zeus.theochem.tuwien.ac.at/msg%s.html"))
   (setq org-latex-default-packages-alist
     '(
       ("" "amsmath" t) ; to avoid iint and iiint error
@@ -586,15 +592,15 @@ parent."
     (org-id-update-id-locations))
   )
   (setq org-roam-rename-file-on-title-change nil)
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry "%?"
-           :if-new (file+head
-           "%<%Y-%m-%d>.org"
-           "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
-#+filetags: :Daily:"
-           )
-           :unnarrowed t))
-  )
+  ;;; turn off daily template. Use org-journal
+  ;(setq org-roam-dailies-capture-templates
+  ;      '(("d" "default" entry "%?"
+  ;         :if-new (file+head
+  ;         "%<%Y-%m-%d>.org"
+  ;         "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil\n#+filetags: :Daily:"
+  ;         )
+  ;         :unnarrowed t))
+  ;)
   (setq org-roam-capture-templates
         '(
           ("d" "default" plain "%?"
@@ -758,14 +764,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :unnarrowed t)
     ))
   (setq org-roam-graph-exclude-matcher '("journal"
-                                         "slides"
                                          "daily"
+                                         "slides"
                                          "org-agenda.org"
                                          "archive.org"
                                          "read.org"
                                          "work.org"
-                                         "exercise.org"
-                                         "zatsuyou.org"
                                         ))
   (require 'org-roam-protocol) ; use org-protocol
 ;  (defun my-org-protocol-focus-advice (orig &rest args)
@@ -1229,7 +1233,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'org-roam-capture-templates
           '("r" "reference" plain "%?"
            :if-new (file+head
-           "${citekey}.org"
+           "ref/${citekey}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${citekey}
 #+filetags: :Reference:
@@ -1419,20 +1423,22 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
         org-journal-date-prefix "* "
         org-journal-created-property-timestamp-format "%Y%m%d"
         org-journal-enable-encryption nil
-        org-journal-file-type 'weekly
+        org-journal-file-type 'monthly
         org-journal-dir (concat org_notes "/journal")
-        org-journal-file-format "%Y-%m-%d.org"
+        ;org-journal-file-format "%Y-%m-%d.org" ; daily
+        org-journal-file-format "%Y-%b.org"
     )
   (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
   (concat
     (pcase org-journal-file-type
       (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything\n")
-      (`weekly (concat "#+TITLE: Weekly Journal " (format-time-string "%G W%V") "\n#+STARTUP: content nologdone\n#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n"))
-      (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded\n#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n")
+      (`weekly (concat "#+TITLE: Weekly Journal - " (format-time-string "%G W%V") "\n#+STARTUP: content nologdone\n"))
+      (`monthly (concat "#+TITLE: Monthly Journal - " (format-time-string "%G %B") "\n#+STARTUP: folded nologdone\n"))
       (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded\n"))
     "#+TAGS: WORK(w) BOOK(b) SPORTS(s) CONTACTS(c)\n"
     "#+TAGS: FAMILY(f) MUSIC(m)\n"
+    "#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n"
     ))
   (setq org-journal-file-header 'org-journal-file-header-func)
   ; https://github.com/bastibe/org-journal#kill-journal-buffer-after-saving-buffer-by-dhruvparamhans
@@ -1855,6 +1861,9 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
               '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation))
 
 )
+
+(use-package! org-habit)
+
 (use-package! pyim-liberime
   :after pyim
 )
@@ -1920,6 +1929,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   "u"  'outline-up-heading
 )
 
+(map!
+  :nv (concat mz/evil-leader " w |") #'split-window-below
+  :nv (concat mz/evil-leader " w -") #'split-window-right
+)
 
 ;;; for use of direnv
 ; envrc from Doom :tool direnv by purcell
@@ -2050,6 +2063,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 (after! eglot
   :config
   (set-eglot-client! 'python-mode '("pylsp"))
+  (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
   ;;; modified from https://github.com/joaotavora/eglot/issues/590#issuecomment-758233948
   ;;; when using setq, eglot-workspace-configuration is still nil in test project files, opened by projectile
   ;;; use setq-default instead works for me (not enough time to think about why)

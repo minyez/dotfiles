@@ -1216,7 +1216,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'org-roam-capture-templates
           '("r" "reference" plain "%?"
            :if-new (file+head
-           "${citekey}.org"
+           "ref/${citekey}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: ${citekey}
 #+filetags: :Reference:

@@ -26,21 +26,9 @@ fi
 export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
 export CLICOLOR='Yes' #是否输出颜色
 
-if command -v thefuck 1>/dev/null 2>&1; then
-  eval $(thefuck --alias)
-fi
-
-# pyenv initialization
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
-    eval "$(pyenv virtualenv-init -)"
-  fi
-fi
-# rbenv initialization
-if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
 fi
 
 # Turn on fish when loading bash.
@@ -55,10 +43,6 @@ fi
 
 #exec /usr/local/bin/fish
 
-# pandoc completion
-if command -v pandoc 1>/dev/null 2>&1; then
-  eval "$(pandoc --bash-completion)"
-fi
 #
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

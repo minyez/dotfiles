@@ -15,4 +15,33 @@ module load vasp-alias
 module load pyenv
 module load py-mushroom
 
+# thefuck CLT help
+if command -v thefuck 1>/dev/null 2>&1; then
+  eval $(thefuck --alias)
+fi
+
+# pyenv initialization
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
+fi
+
+# rbenv initialization
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+# load nvm
+if [ -d ~/.nvm ]; then
+  \. ~/.nvm/nvm.sh  # This loads nvm
+  \. ~/.nvm/bash_completion  # This loads nvm bash_completion
+fi
+
+# pandoc completion
+if command -v pandoc 1>/dev/null 2>&1; then
+  eval "$(pandoc --bash-completion)"
+fi
 

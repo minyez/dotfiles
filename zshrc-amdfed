@@ -14,24 +14,6 @@ fi
 ## comment out for permission error of wine
 #ulimit -s unlimited
 
-# thefuck for correcting commands
-if command -v thefuck 1>/dev/null 2>&1; then
-  eval $(thefuck --alias)
-fi
-
-# pyenv initialization
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
-    eval "$(pyenv virtualenv-init -)"
-  fi
-fi
-# rbenv initialization
-if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
 # direnv completion
 if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
@@ -195,10 +177,6 @@ if gem which lunchy > /dev/null 2>&1; then
   if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
     . $LUNCHY_DIR/lunchy-completion.zsh
   fi
-fi
-# pandoc completion
-if command -v pandoc 1>/dev/null 2>&1; then
-  eval "$(pandoc --bash-completion)"
 fi
 
 # suppress error when no regex match is found

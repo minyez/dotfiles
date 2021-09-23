@@ -69,14 +69,16 @@ update_dnf() {
 install_compiler() {
   cecho i "Installing compilers..."
   (( _DRY_RUN )) && return
-  sudo dnf --disablerepo="*" --enablerepo=fedora -y install gcc gfortran gcc-c++
+  sudo dnf --disablerepo="*" --enablerepo=fedora -y install \
+    gcc gfortran gcc-c++ \
+    llvm clang clang-tools-extra
 }
 
 install_config_tools() {
   cecho i "Installing config tools..."
   (( _DRY_RUN )) && return
   sudo dnf -y install \
-    make cmake autoconf automake git binutils binutils-devel tcsh \
+    make cmake ninja-build autoconf automake git binutils binutils-devel tcsh \
     bzip2 gzip p7zip \
     environment-modules \
     vim-enhanced neovim \
@@ -98,8 +100,10 @@ install_texlive_full() {
 }
 
 install_basic_python_tools() {
-  cecho i "Installing basic python tools with system pip..."
+  cecho i "Installing system python and basic python tools with the system pip..."
   (( _DRY_RUN )) && return
+  sudo dnf -y install python \
+    mkdocs
   if [[ $(which pip) != "/usr/bin/pip" ]]; then
     cecho e "Error: not system pip, current pip = $(which pip)"
     exit 2
@@ -144,6 +148,13 @@ install_wine() {
   # install prerequisites, including fonts
   sudo dnf -y install wine-mono cabextract p7zip-plugins wqy-zenhei-fonts
   cecho s "You are now prepared to run winecfg!"
+}
+
+install_sci_tools() {
+  cecho i "Installing scientific tools:"
+  cecho i "  - Qalculate! a multi-purpose desktop calculator"
+  (( _DRY_RUN )) && return
+  sudo dnf -y install qalculate-gtk
 }
 
 help_info
