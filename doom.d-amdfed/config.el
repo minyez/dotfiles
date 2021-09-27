@@ -142,6 +142,11 @@
         ("s-;" . evil-snipe-repeat-reverse))
 )
 
+(use-package! ws-butler
+  :config
+  (setq ws-butler-keep-whitespace-before-point t)
+)
+
 (use-package! company
   :config
   (setq 
@@ -199,6 +204,8 @@
   :config
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
                                          "~/Projects"
+                                         "~/Documents/SelfDevelopment/Academia"
+                                         "~/Documents/SelfDevelopment/Projects/CuMO2/manuscript"
                                          ))
 )
 
@@ -1463,6 +1470,15 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  :config
 ;  (with-eval-after-load 'pdf-annot
 ;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
+
+(use-package! pdf-view
+  :config
+  (map! :map pdf-view-mode-map
+        :nv "z g" #'pdf-view-goto-page
+        :nv "z r" #'image-rotate       ;; rotate the page (defined in image.el)
+        )
+)
 
 (use-package! org-noter
   :after (:any org pdf-view)

@@ -55,7 +55,15 @@
 ;; run every hour
 ;(run-with-timer 0 3600 'synchronize-theme)
 
-;(setq projectile-project-search-path '("/Users/stevezhang/Documents/SelfDevelopment/Codes"))
+(use-package! projectile
+  :config
+  (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
+                                         ;"~/Projects"
+                                         "~/Documents/SelfDevelopment/Academia"
+                                         "~/Documents/SelfDevelopment/Projects/CuMO2/manuscript"
+                                         ))
+)
+
 
 ; Global variables
 ;   org_notes : all my org(-roam) notes
@@ -143,6 +151,11 @@
   :bind
   (:map evil-snipe-parent-transient-map
         ("s-;" . evil-snipe-repeat-reverse))
+)
+
+(use-package! ws-butler
+  :config
+  (setq ws-butler-keep-whitespace-before-point t)
 )
 
 (use-package! company
@@ -1445,6 +1458,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (with-eval-after-load 'pdf-annot
 ;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
+(use-package! pdf-view
+  :config
+  (map! :map pdf-view-mode-map
+        :nv "z g" #'pdf-view-goto-page
+        :nv "z r" #'image-rotate       ;; rotate the page (defined in image.el)
+        )
+)
+
 (use-package! org-noter
   :after (:any org pdf-view)
   :config
@@ -1783,7 +1804,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;'(org-document-title ((t (:box 3 :weight bold :height 1.4))))
  '(org-document-title ((t (:weight bold :height 1.0))))
  '(org-meta-line ((t (:slant italic))))
- '(org-quote ((t (:slant normal :family "STKaiti")))))
+ ;'(org-quote ((t (:slant normal :family "STKaiti"))))
+)
 
 ;;; make side by side buffers function the same as the main window
 ;(setq truncate-partial-width-windows nil)
@@ -1799,6 +1821,15 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
               "zstd uncompressing" "/usr/local/bin/zstd" ("-c" "-q" "-d")
               t t "\050\265\057\375"])
 
+;; auto-save by lazycat
+(use-package! auto-save
+  :load-path "auto-save"
+  :config
+  (auto-save-enable)
+  (setq auto-save-silent t)
+)
+
+(use-package! org-habit)
 ;; native-comp
 ;(setq comp-speed 1)
 
@@ -1824,3 +1855,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   "u"  'outline-up-heading
 )
 
+(map!
+  :nv (concat mz/evil-leader " w |") #'split-window-below
+  :nv (concat mz/evil-leader " w -") #'split-window-right
+)
+
+;;; for use of direnv
+; envrc from Doom :tool direnv by purcell
+(use-package! envrc
+ :config
+ (envrc-global-mode)
+)
