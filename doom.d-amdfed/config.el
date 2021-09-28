@@ -1875,7 +1875,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ;; 半角标点。主要情形是在行首使用 yasnippet 时有用
   (setq-default pyim-punctuation-half-width-functions
               '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation))
-
 )
 
 (use-package! org-habit)

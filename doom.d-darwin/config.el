@@ -10,6 +10,14 @@
       )
 (setq delete-by-moving-to-trash nil)
 
+(use-package! exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
+)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -30,35 +38,35 @@
 ;; `load-theme' function. This is the default:
 ;; light themes
 ;(setq doom-theme 'doom-one-light)
-(setq doom-theme 'doom-nord-light)
+;(setq doom-theme 'doom-nord-light)
 ;; dark themse
 ;(setq doom-theme 'doom-dark+)
 ;(setq doom-theme 'doom-spacegrey)
 ;(setq doom-theme 'doom-peacock)
 ;(setq doom-theme 'doom-monokai-pro)
 ;(setq doom-theme 'doom-dracula)
-;; make theme adapt to time. Modified from
-;; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
-;(defun synchronize-theme ()
-;    (setq hour
-;        (string-to-number
-;        ; get current time by current-times-string
-;	; hour value occupies 3 characters (11-13)
-;            (substring (current-time-string) 11 13)))
-;    (if (member hour (number-sequence 6 19))
-;        (setq now 'doom-nord-light)
-;        (setq now 'doom-dracula))
-;    (if (equal now doom-theme)
-;        nil
-;        (setq doom-theme now)
-;        (doom/reload-theme) ) ) ;; end of (defun ...
-;; run every hour
-;(run-with-timer 0 3600 'synchronize-theme)
+; make theme adapt to time. Modified from
+; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
+(defun synchronize-theme ()
+    (setq hour
+        (string-to-number
+        ; get current time by current-times-string
+	; hour value occupies 3 characters (11-13)
+            (substring (current-time-string) 11 13)))
+    (if (member hour (number-sequence 6 19))
+        (setq now 'doom-nord-light)
+        (setq now 'doom-dracula))
+    (if (equal now doom-theme)
+        nil
+        (setq doom-theme now)
+        (doom/reload-theme) ) ) ;; end of (defun ...
+; run every 2 hour
+(run-with-timer 0 7200 'synchronize-theme)
 
 (use-package! projectile
   :config
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
-                                         ;"~/Projects"
+                                         "~/Projects"
                                          "~/Documents/SelfDevelopment/Academia"
                                          "~/Documents/SelfDevelopment/Projects/CuMO2/manuscript"
                                          ))
@@ -1403,9 +1411,9 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (org-icalendar-after-save . org-icalendar-open-ics-file)
 ;)
 
-(use-package org-journal
+(use-package! org-journal
   :after org
-  :ensure t
+  ;:ensure t
   :defer t
   :bind
   ("C-c j n" . org-journal-new-entry)
@@ -1821,17 +1829,80 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
               "zstd uncompressing" "/usr/local/bin/zstd" ("-c" "-q" "-d")
               t t "\050\265\057\375"])
 
-;; auto-save by lazycat
-(use-package! auto-save
-  :load-path "auto-save"
-  :config
-  (auto-save-enable)
-  (setq auto-save-silent t)
-)
+;;; auto-save by lazycat
+;(use-package! auto-save
+;  :load-path "auto-save"
+;  :config
+;  (auto-save-enable)
+;  (setq auto-save-silent t)
+;)
 
 (use-package! org-habit)
 ;; native-comp
 ;(setq comp-speed 1)
+
+(use-package! liberime
+  :config
+  ;; use rime user data of ibus-rime on my Linux
+  ;(setq liberime-user-data-dir "~/.config/ibus/rime")
+  ;(liberime-start "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
+  ;                (file-truename "~/.emacs.d/.local/straight/local/build-28.0.50/pyim/rime"))
+  ;(liberime-start "~/Library/Rime"
+  ;                "~/Library/Rime")
+  (setq liberime-user-data-dir "~/Library/Rime")
+  (liberime-select-schema "luna_pinyin_simp")
+)
+
+(use-package! pyim
+  :config
+  (global-set-key (kbd "M-\\") 'pyim-convert-string-at-point)
+  (setq pyim-dcache-auto-update nil)
+  (setq default-input-method "pyim")
+  (setq pyim-page-tooltip 'posframe)
+  (setq pyim-page-length 9)
+  (setq pyim-default-scheme 'rime-quanpin)
+  ;; 中文使用全角标点，英文使用半角标点。
+  (setq pyim-punctuation-translate-p '(auto yes no))
+  ;; 设置选词框的绘制方式
+  (if (posframe-workable-p)
+    (setq pyim-page-tooltip 'posframe)
+  (setq pyim-page-tooltip 'popup))
+  ;; 探针设置
+  ;; 自定义探针, 进入 org-mode source block 之后自动切换到英文输入
+  (defun mz/pyim-probe-org-src-block ()
+    "自定义探针, 进入 org-mode source block 之后自动切换到英文输入"
+    (when (eq major-mode 'org-mode)
+      (not (eq (org-in-src-block-p) nil)))
+    )
+  ;; auto-english 会根据之前的字符来判断是否切换到英文输入, 输入空格时自动切换到英文
+  ;; 具体可用 describe-function 查看 docstring 来了解
+  ;; 在 latex 块和源码块中全部为英文输入
+  (setq-default pyim-english-input-switch-functions
+              '(pyim-probe-auto-english
+                pyim-probe-org-latex-mode
+                mz/pyim-probe-org-src-block
+                ;pyim-probe-org-structure-template
+                pyim-probe-program-mode))
+  ;; 半角标点。主要情形是在行首使用 yasnippet 时有用
+  (setq-default pyim-punctuation-half-width-functions
+              '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation))
+)
+
+(use-package! pyim-liberime
+  :after pyim
+)
+
+(use-package! pyim-basedict
+  :after pyim
+  :config
+  (pyim-basedict-enable)
+)
+
+(use-package! keyfreq
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+)
 
 (use-package! window-numbering
   :config
@@ -1865,4 +1936,40 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 (use-package! envrc
  :config
  (envrc-global-mode)
+)
+
+(use-package! flycheck
+  :config
+  ; only use pylint, disable others
+  ; setq-default acts as a global operation
+  (setq-default flycheck-disabled-checkers '(
+                python-flake8 python-pycompile python-pyright python-mypy
+                )
+  )
+)
+
+
+(use-package! eglot
+  :config
+  (add-hook 'f90-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure)
+)
+
+(after! eglot
+  :config
+  (set-eglot-client! 'python-mode '("pylsp"))
+  (set-eglot-client! 'cc-mode '("/usr/local/opt/llvm/bin/clangd" "-j=2" "--clang-tidy"))
+  ;;; modified from https://github.com/joaotavora/eglot/issues/590#issuecomment-758233948
+  ;;; when using setq, eglot-workspace-configuration is still nil in test project files, opened by projectile
+  ;;; use setq-default instead works for me (not enough time to think about why)
+  (setq-default eglot-workspace-configuration
+        '((pylsp
+            (plugins
+             (pycodestyle
+              (enabled . nil))
+             (pyflakes
+              (enabled . nil))
+             ))
+         )
+  )
 )
