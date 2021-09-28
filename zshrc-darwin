@@ -1,5 +1,4 @@
-[ -f /etc/zshrc ] && source /etc/zshrc
-# 重设库路径
+[ -f /etc/zshrc ] && . /etc/zshrc
 
 # set the color of terminal
 export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
@@ -22,17 +21,15 @@ source /usr/local/opt/modules/init/zsh
 # The next line enables shell command completion for gcloud.
 [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ] && . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'
 
-# If you come from bash you might have to change your $PATH.
-#     export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # put here to avoid complete error in eval. not know why
-source ~/.module
+if [ -f ~/.module ]; then
+  . ~/.module
+fi
  
-## Ruby Version Management
-## Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-##export PATH="$PATH:$HOME/.rvm/bin"
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
-
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
 
 # ===== ZSH setup =====
 # Path to your oh-my-zsh installation.
@@ -185,21 +182,6 @@ fi
 unsetopt nomatch
 
 cd ~
-
-## >>> conda initialize >>>
-## !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh" ]; then
-#        . "/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-## <<< conda initialize <<<
 
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 

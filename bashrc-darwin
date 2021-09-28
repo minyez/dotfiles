@@ -1,4 +1,4 @@
-#[ -f /etc/bashrc ] && source /etc/bashrc
+[ -f /etc/bashrc ] && . /etc/bashrc
 # load alias
 #source ~/.bashrc_alias
 # load source public to all shells
@@ -13,7 +13,14 @@ export CLICOLOR='Yes' #是否输出颜色
 export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
 
 source /usr/local/opt/modules/init/bash
-source .module
+if [ -f ~/.module ]; then
+  . ~/.module
+fi
+
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
+fi
 
 ## JAVA
 #export JAVA_HOME="$(/usr/libexec/java_home)"
