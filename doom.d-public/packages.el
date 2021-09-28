@@ -76,6 +76,10 @@
 (package! dtrt-indent 
   :recipe (:host github :repo "jscheid/dtrt-indent"))
 
+;; https://github.com/purcell/exec-path-from-shell
+;; to handle exec-path in OS X
+(package! exec-path-from-shell)
+
 ;; pyim+liberime for Chinese input
 (package! pyim-basedict
   :recipe (:host github :repo "tumashu/pyim-basedict"
