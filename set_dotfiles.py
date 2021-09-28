@@ -112,8 +112,8 @@ def main():
 
     try:
         jfn = iden_jsonfn[iden]
-        src_target_pair = load_setup_json(jfn)
         print("Set JSON '{}' for identifier: {}".format(jfn, iden))
+        src_target_pair = load_setup_json(jfn)
     except KeyError:
         print("No JSON set for identifier: {}".format(iden))
         src_target_pair = load_setup_json()

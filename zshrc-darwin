@@ -1,20 +1,5 @@
-case "$0" in
-          -sh|sh|*/sh)	modules_shell=sh ;;
-       -ksh|ksh|*/ksh)	modules_shell=ksh ;;
-       -zsh|zsh|*/zsh)	modules_shell=zsh ;;
-    -bash|bash|*/bash)	modules_shell=bash ;;
-esac
-# module-4.0.0
-#module() { eval `/usr/local/opt/tcl-tk/bin/tclsh /Users/stevezhang/software/devtools/modules-4.0.0/libexec/modulecmd.tcl $modules_shell $*`; }
-# module-4.2.1
-#module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.2.1/libexec/modulecmd.tcl $modules_shell $*`; }
-# module-4.5.3
-module() { eval `/usr/local/Cellar/tcl-tk/8.7a1/bin/tclsh /Users/stevezhang/software/devtools/modules-4.5.3/libexec/modulecmd.tcl $modules_shell $*`; }
-
+[ -f /etc/zshrc ] && source /etc/zshrc
 # 重设库路径
-#unset DYLD_LIBRARY_PATH
-unset MANPATH
-export MANPATH
 
 # set the color of terminal
 export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
@@ -23,70 +8,30 @@ export CLICOLOR='Yes' #是否输出颜色
 export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
 #export EMACS="*term*"
 
-export MODULE_HOME="$HOME/software/devtools/modules-4.5.3"
-export PATH="$MODULE_HOME/bin:$PATH"
-source $MODULE_HOME/init/zsh
-module use $HOME/.modulefiles/projects
-module use $HOME/.modulefiles/sci
-module use $HOME/.modulefiles/mathlib
-module use $HOME/.modulefiles/compiler
-module use $HOME/.modulefiles/devtools
-module use $HOME/.modulefiles/visual
-module use $HOME/.modulefiles/alias
-# general library
-module load general-lib
-# aliases
-module load general-alias
-module load ssh-alias
-module load git-alias
-#module load qt-5.15.0 
-# Tcl/Tk 8.7
-#module load tcltk-8.7
-# osxfuse
-#module load osxfuse-3.8.2
-#module load e2fsprogs-1.45.6
-## JAVA
-export JAVA_HOME="$(/usr/libexec/java_home)"
-# VASP POTCARs
-module load vasp/vasppot-5.4
-module load vasp/utils
+source /usr/local/opt/modules/init/zsh
 
-# 自定义项目，为保证放在顶端而置于底层
-module load custom-libbin
-# F2PY GNU test
-##export DYLD_LIBRARY_PATH="/usr/lib:$DYLD_LIBRARY_PATH"
-# 自定义环境变量名
-eval $(thefuck --alias)
+## JAVA
+#export JAVA_HOME="$(/usr/libexec/java_home)"
 
 # 加载开发个人python项目所需模块
 #module load py-readmana
 #module load py-mykit
-module load py-mushroom
-
-# pyenv initialization
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  if command - v pyenv-virtualenv-init > /dev/null 2>&1; then
-    eval "$(pyenv virtualenv-init -)"
-  fi
-fi
-# rbenv initialization
-if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc'; fi
+[ -f '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc' ] && . '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc'
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'; fi
+[ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ] && . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'
 
 # If you come from bash you might have to change your $PATH.
 #     export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Ruby Version Management
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+# put here to avoid complete error in eval. not know why
+source ~/.module
+ 
+## Ruby Version Management
+## Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+##export PATH="$PATH:$HOME/.rvm/bin"
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 
 
 # ===== ZSH setup =====
@@ -100,7 +45,7 @@ export ZSH="$HOME/.oh-my-zsh"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="avit"
 #ZSH_THEME="xxf"
-ZSH_THEME="agnoster-my"
+#ZSH_THEME="agnoster-my"
 #ZSH_THEME="agnoster"
 #ZSH_THEME="candy"
 ZSH_THEME="frontcube"
@@ -203,12 +148,13 @@ prompt_context() {
 
 #compaudit | xargs chmod g-w
 fpath=(/usr/local/share/zsh-completions $fpath)
+
 # The following lines were added by compinstall
 zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
- 
+
 zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
   [[ "$PREFIX" == ./* ]] && {
     local -a tmp; set -A tmp ./*(/)
@@ -234,8 +180,7 @@ LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
 if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
   . $LUNCHY_DIR/lunchy-completion.zsh
 fi
-# pandoc completion
-eval "$(pandoc --bash-completion)"
+
 # suppress error when no regex match is found
 unsetopt nomatch
 
@@ -256,5 +201,5 @@ cd ~
 #unset __conda_setup
 ## <<< conda initialize <<<
 
-
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+

@@ -5,6 +5,7 @@
   "bashrc-darwin" : "~/.bashrc",
   "alacritty.yml" : "~/.alacritty.yml",
   "vimrc-darwin" : "~/.vimrc",
+  "module-darwin" : "~/.module",
   "neovim-darwin/" : "~/.config/nvim",
   "doom.d-darwin/" : "~/.doom.d"
 }
