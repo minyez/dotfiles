@@ -32,11 +32,11 @@
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"))
 (unpin! org-roam)
-;(package! org-roam)
-;(package! org-roam :pin "89e9121"
-;  :recipe (:host github :repo "org-roam/org-roam"))
-(package! org-roam-server
-  :recipe (:host github :repo "org-roam/org-roam-server"))
+(package! websocket)
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+;(package! org-roam-server
+;  :recipe (:host github :repo "org-roam/org-roam-server"))
+
 (package! org-roam-dashboard
   :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
 ;(package! org-download)

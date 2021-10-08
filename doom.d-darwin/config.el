@@ -140,7 +140,7 @@
   (evil-leader/set-leader mz/evil-leader)
 )
 
-(use-package evil
+(use-package! evil
   :bind
   (:map evil-insert-state-map
         ("s-i" . evil-escape))
@@ -154,8 +154,16 @@
   )
 )
 
+;(use-package! evil-collection
+;  :after evil
+;  :ensure t
+;  :config
+;  (evil-collection-init)
+;)
+
 (use-package! evil-snipe
   ;; see L612 of evil-snipe
+  :after evil
   :bind
   (:map evil-snipe-parent-transient-map
         ("s-;" . evil-snipe-repeat-reverse))
@@ -171,6 +179,7 @@
   (setq 
         company-global-modes
         '(not markdown-mode org-mode erc-mode message-mode help-mode gud-mode)
+        ;'(not markdown-mode erc-mode message-mode help-mode gud-mode)
         ; 在这些包中停止使用company
         ; company自动补全中文会导致卡顿
   )
@@ -355,7 +364,7 @@ Note that =pngpaste= should be installed outside Emacs"
 	)
   ;; for recent activity search
   ;; https://yqrashawn.com/2018/09/17/record-org-mode-recent-activity/
-  (setf (elt org-log-note-headings 1) '(      state . "RESTATE: from %S on %t")
+  (setf ;(elt org-log-note-headings 1) '(      state . "RESTATE: from %S on %t")
         (elt org-log-note-headings 3) '( reschedule . "RESCHEDULE: from %S on %t")
         (elt org-log-note-headings 4) '(delschedule . "UNSCHEDULE: was %S on %t")
         (elt org-log-note-headings 5) '( redeadline . "REDEADLINE: from %S on %t")
@@ -779,6 +788,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;(add-hook 'org-mode-hook 'org-fragtog-mode)
 
 ;; visualize roam graph. commented for low usage and performance
+;; replaced by org-roam-ui
 ;(use-package org-roam-server
 ;;  :ensure t
 ;  :config
@@ -795,7 +805,23 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;        org-roam-server-network-label-wrap-length 24)
 ;)
 ;;(org-roam-server-mode)
-;
+
+;;; org-roam-ui
+(use-package! websocket
+    :after org-roam)
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+
 ; Chinese input setting
 (use-package! pangu-spacing
   :config
@@ -1972,4 +1998,11 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
              ))
          )
   )
+)
+
+; activate
+(use-package! pdf-tools
+  :config
+  ;; activate when opening pdf, otherwise the evil keybindings will not work
+  (pdf-loader-install)
 )
