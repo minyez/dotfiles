@@ -1984,6 +1984,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 (after! eglot
   :config
   (set-eglot-client! 'python-mode '("pylsp"))
+  (set-eglot-client! 'f90-mode '("/Users/stevezhang/.pyenv/versions/miniconda3-4.7.12/envs/py371/bin/fortls"))
   (set-eglot-client! 'cc-mode '("/usr/local/opt/llvm/bin/clangd" "-j=2" "--clang-tidy"))
   ;;; modified from https://github.com/joaotavora/eglot/issues/590#issuecomment-758233948
   ;;; when using setq, eglot-workspace-configuration is still nil in test project files, opened by projectile
