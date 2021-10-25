@@ -24,8 +24,9 @@
 
 ;; org-related
 ;(package! org-journal)
+;; pin org-ref version to V2
 (package! org-ref
-  :recipe (:host github :repo "jkitchin/org-ref"))
+  :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2"))
 (package! org-super-agenda)
 (package! org-superstar)
 (package! org-fancy-priorities)
