@@ -657,7 +657,7 @@ parent."
            :unnarrowed t)
           ("b" "non-STEM book note" plain "%?"
            :if-new (file+head
-           "${slug}.org"
+           "bookrev/${slug}.org"
            "# -*- truncate-lines: t -*-
 #+TITLE: 《${title}》笔记\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
 #+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
@@ -1264,6 +1264,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 * Notes :noter:
 :PROPERTIES:
 :NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
+:NOTER_PAGE: 1
 :END:"
            )
            :unnarrowed t))
@@ -1471,12 +1472,21 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;  (with-eval-after-load 'pdf-annot
 ;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
+(use-package! pdf-tools
+  :config
+  ;; activate when opening pdf, otherwise the evil keybindings will not work
+  (pdf-loader-install)
+)
 
 (use-package! pdf-view
   :config
   (map! :map pdf-view-mode-map
         :nv "z g" #'pdf-view-goto-page
         :nv "z r" #'image-rotate       ;; rotate the page (defined in image.el)
+  ;; evil leader helper key for annotation
+        :nv (concat mz/evil-leader " a l")     #'pdf-annot-list-annotations
+        :nv (concat mz/evil-leader " a h")     #'pdf-annot-add-highlight-markup-annotation
+        :nv (concat mz/evil-leader " a u")     #'pdf-annot-add-underline-markup-annotation
         )
 )
 
