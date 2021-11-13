@@ -55,11 +55,11 @@
             (substring (current-time-string) 11 13)))
     (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
-        (setq now 'doom-dracula))
+        (setq now 'doom-one-light))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
-        (doom/reload-theme) ) ) ;; end of (defun ...
+        (load-theme now t) ) ) ;; end of (defun ...
 ; run every 2 hour
 (run-with-timer 0 7200 'synchronize-theme)
 
@@ -1515,6 +1515,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
    ;; Everything is relative to the main notes file
    org-noter-notes-search-path (list org_notes)
    ;org-noter-set-notes-window-behavior 'scroll
+   ;; split fraction. default (0.5 . 0.5). slightly larger on vertical
+   org-noter-doc-split-fraction '(0.56 . 0.5)
   )
  (defun my-org-noter-extract-annotation ()
    "Create notes skeleton with the PDF annotations.
@@ -1796,24 +1798,34 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (setq org-archive-mark-done t) ; change subtree state to DONE when archived
 )
 
-(use-package lister)
-(use-package delve
-  :config
-  ;(map! :map delve-mode-map
-  ;      :nv "SPC a a" #'org-agenda-file-to-front
-  ;      :nv "SPC a t" #'org-agenda-todo
-  ;      )
-  (use-package delve-minor-mode
-    :config
-    (add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
-  )
+;(use-package delve
+;  :config
+;  ;(map! :map delve-mode-map
+;  ;      :nv "SPC a a" #'org-agenda-file-to-front
+;  ;      :nv "SPC a t" #'org-agenda-todo
+;  ;      )
+;  (use-package delve-minor-mode
+;    :config
+;    (add-hook 'org-mode-hook #'delve-minor-mode-maybe-activate)
+;  )
+;  :bind
+;  (("<f12>" . delve-open-or-select))
+;  (:map delve-mode-map
+;      ("=" . #'delve-add-tag)
+;      ("j" . #'next-line)
+;      ("k" . #'previous-line)
+;      )
+;)
+(use-package! delve
   :bind
-  (("<f12>" . delve-open-or-select))
-  (:map delve-mode-map
-      ("=" . #'delve-add-tag)
-      ("j" . #'next-line)
-      ("k" . #'previous-line)
-      )
+  ;; the main entry point, offering a list of all stored collections
+  ;; and of all open Delve buffers:
+  (("<f12>" . delve))
+  :config
+  ;; set meaningful tag names for the dashboard query
+  ;(setq delve-dashboard-tags '("Tag1" "Tag2"))
+  ;; turn on delve-minor-mode when org roam file is opened:
+  (delve-global-minor-mode)
 )
 
 (custom-set-variables

@@ -24,9 +24,12 @@
 
 ;; org-related
 ;(package! org-journal)
-;; pin org-ref version to V2
+;; pin org-ref version to a V2
+;; when having void-variable doi-link-follow error with new Doom
+;; try https://github.com/jkitchin/org-ref/issues/906 and related PR
 (package! org-ref
-  :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2"))
+  :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2")
+  :pin "37b64e6cc1")
 (package! org-super-agenda)
 (package! org-superstar)
 (package! org-fancy-priorities)
@@ -43,8 +46,6 @@
 ;(package! org-download)
 (package! org-fragtog)
 (package! company-org-roam)
-(package! lister
-  :recipe (:host github :repo "publicimageltd/lister" :branch "main"))
 (package! delve
   :recipe (:host github :repo "publicimageltd/delve" :branch "main"))
 ; Bibliography
