@@ -1453,20 +1453,22 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
         org-journal-date-prefix "* "
         org-journal-created-property-timestamp-format "%Y%m%d"
         org-journal-enable-encryption nil
-        org-journal-file-type 'weekly
+        ;org-journal-file-type 'weekly
+        org-journal-file-type 'monthly
         org-journal-dir (concat org_notes "/journal")
-        org-journal-file-format "%Y-%m-%d.org"
+        ;org-journal-file-format "%Y-%m-%d.org" ; daily/weekly
+        org-journal-file-format "%Y-%b.org"
     )
   (defun org-journal-file-header-func (time)
   "Custom function to create journal header."
   (concat
     (pcase org-journal-file-type
       (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything\n")
-      (`weekly (concat "#+TITLE: Weekly Journal " (format-time-string "%G W%V") "\n#+STARTUP: content nologdone\n#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n"))
-      (`monthly "#+TITLE: Monthly Journal\n#+STARTUP: folded\n#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n")
+      (`weekly (concat "#+TITLE: Weekly Journal - " (format-time-string "%G W%V") "\n#+STARTUP: content nologdone\n"))
+      (`monthly (concat "#+TITLE: Monthly Journal - " (format-time-string "%G %B") "\n#+STARTUP: folded nologdone\n"))
       (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded\n"))
     "#+TAGS: WORK(w) BOOK(b) SPORTS(s) CONTACTS(c)\n"
-    "#+TAGS: FAMILY(f) MUSIC(m)\n"
+    "#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n"
     ))
   (setq org-journal-file-header 'org-journal-file-header-func)
   ; https://github.com/bastibe/org-journal#kill-journal-buffer-after-saving-buffer-by-dhruvparamhans
@@ -1828,7 +1830,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  '(package-selected-packages '(org-roam-server org-journal org-fancy-priorities))
  '(show-paren-mode t)
  '(size-indication-mode t)
- '(tool-bar-mode nil))
+ )
  ;'(truncate-lines t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -1885,7 +1887,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (setq pyim-dcache-auto-update nil)
   (setq default-input-method "pyim")
   (setq pyim-page-tooltip 'posframe)
-  (setq pyim-page-length 9)
+  (setq pyim-page-length 6)
   (setq pyim-default-scheme 'rime-quanpin)
   ;; 中文使用全角标点，英文使用半角标点。
   (setq pyim-punctuation-translate-p '(auto yes no))
@@ -2007,3 +2009,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ;; activate when opening pdf, otherwise the evil keybindings will not work
   (pdf-loader-install)
 )
+
+;(setq ns-auto-hide-menu-bar t)
+(setq frame-resize-pixelwise t)
