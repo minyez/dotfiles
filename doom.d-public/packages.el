@@ -82,13 +82,22 @@
 ;; to handle exec-path in OS X
 (package! exec-path-from-shell)
 
+(package! pangu-spacing)
 ;; pyim+liberime for Chinese input
-(package! pyim-basedict
-  :recipe (:host github :repo "tumashu/pyim-basedict"
-           :files ("pyim-basedict.el" "pyim-basedict.pyim")))
+(package! pyim
+  :recipe (:host github :repo "tumashu/pyim"))
+(unpin! pyim)
 (package! liberime
   :recipe (:host github :repo "merrickluo/liberime"
            :files ("Makefile" "src" "liberime.el")))
+;; dict
+(package! pyim-basedict
+  :recipe (:host github :repo "tumashu/pyim-basedict"
+           :files ("pyim-basedict.el" "pyim-basedict.pyim")))
+(package! pyim-tsinghua-dict
+  :recipe (:host github :repo "redguardtoo/pyim-tsinghua-dict"
+           :files ("*.el" "*.pyim")))
+
 
 ;; keyfreq
 (package! keyfreq

@@ -33,6 +33,10 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+;; map C-u to s-backspace, as C-u is bind to evil-scroll-up in Doom
+;; see https://emacs-china.org/t/doom-emacs-c-u/9942/2
+(global-set-key (kbd "s-<backspace>") #'universal-argument)
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -55,7 +59,7 @@
             (substring (current-time-string) 11 13)))
     (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
-        (setq now 'doom-one-light))
+        (setq now 'doom-one))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
@@ -68,7 +72,7 @@
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
                                          "~/Projects"
                                          "~/Documents/SelfDevelopment/Academia"
-                                         "~/Documents/SelfDevelopment/Projects/CuMO2/manuscript"
+                                         "~/Documents/SelfDevelopment/Projects"
                                          ))
 )
 
@@ -253,6 +257,11 @@
         :nv "M-p"     #'org-previous-link
         )
   (setq org-archive-location (concat org_notes "/archive.org::* From %s"))
+  ; for org-capture purpose
+  (setq org-default-notes-file (concat org_notes "/todos.org::* Inbox"))
+  ; defvar by doom
+  (setq +org-capture-todo-file "todos.org")
+  (setq +org-capture-notes-file "todos.org")
   ; short title for Beamer export
   ;  (add-to-list 'org-export-options-alist
   ;               '(:short_title "SHORT_TITLE" nil nil parse))
@@ -351,11 +360,11 @@ Note that =pngpaste= should be installed outside Emacs"
 	    (if (file-exists-p image-file)
 		(message (format "Warning: found image %s.png in %s" fn path))
                 (shell-command (format "pngpaste %s" image-file)))
-         (insert (format "#+NAME: fig:%s\n" fn))
-         (insert "#+CAPTION:\n")
+         (insert (format "#+name: fig:%s\n" fn))
+         (insert "#+caption:\n")
          (insert ":IMAGE:\n")
-         (insert "#+ATTR_ORG: :width 300\n")
-         (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
+         (insert "#+attr_org: :width 300\n")
+         (insert "#+attr_latex: :width 0.6\\linewidth\n")
 	 (org-insert-link nil (concat "file:./images/" fn ".png") "")
          ;(insert "\n:PROPERTIES:\n:CREATED: " (format-time-string "[%Y-%m-%d %a %H:%M]") "\n:END:\n")
          (insert "\n:END:")
@@ -559,9 +568,9 @@ parent."
         '(("d" "default" entry "%?"
            :if-new (file+head
            "%<%Y-%m-%d>.org"
-           "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: title:nil toc:nil
+           "#+title: %<%Y-%m-%d>\n#+options: title:nil toc:nil
 #+filetags: :Daily:
-#+LATEX_CLASS: mwe\n#+LATEX_COMPILER: pdflatex"
+#+latex_class: mwe\n#+latex_compiler: pdflatex"
            )
            :unnarrowed t))
   )
@@ -571,29 +580,29 @@ parent."
            :if-new (file+head
            "%<%Y%m%d%H%M%S>-${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
+#+title: ${title}\n#+startup: content\n#+created: %U\n")
            :unnarrowed t)
           ("l" "lecture" plain "%?"
            :if-new (file+head
            "%<%Y%m%d%H%M%S>-lecture-${slug}.org"
            :head "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+OPTIONS: toc:nil\n#+ROAM_TAGS: Lecture\n#+CREATED: %U
-#+LATEX_CLASS: article\n#+LATEX_COMPILER: xelatex
-#+LECTURER:\n#+PLACE:\n")
+#+title: ${title}\n#+startup: overview\n#+options: toc:nil\n#+filetags: Lecture\n#+created: %U
+#+latex_class: article\n#+latex_compiler: xelatex
+#+lecturer:\n#+place:\n")
            :unnarrowed t)
           ("i" "index page" plain "%?"
            :if-new (file+head
            "index-${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: content\n#+CREATED: %U\n")
+#+title: ${title}\n#+startup: content\n#+created: %U\n")
            :unnarrowed t)
           ("c" "coding related")
           ("ce" "error info" plain "%?"
            :if-new (file+head
            "error-${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+CREATED: %U
-#+ROAM_TAGS: Unresolved\n
+#+title: ${title}\n#+created: %U
+#+filetags: :Error:Unresolved:\n
 * 问题描述 Question
 
 * 错误归因 Attribution
@@ -607,50 +616,50 @@ parent."
            :if-new (file+head
            "paper/${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+STARTUP: overview\n#+CREATED: %U#+ROAM_TAGS: Manuscript
-#+LATEX_CLASS: prb
-#+LATEX_COMPILER: pdflatex
+#+title: ${title}\n#+startup: overview\n#+created: %U#+filetags: Manuscript
+#+latex_class: prb
+#+latex_compiler: pdflatex
 ")
            :unnarrowed t)
           ("b" "non-STEM book note" plain "%?"
            :if-new (file+head
            "${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: 《${title}》笔记\n#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+ROAM_KEY: ${slug}
-#+CREATED: %U\n#+OPTIONS: toc:nil email:t f:t
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n\n#+LATEX: \\tableofcontents\n#+LATEX: \\clearpage\n
+#+title: 《${title}》笔记\n#+startup: overview\n#+filetags: Book
+#+created: %U\n#+options: toc:nil email:t f:t
+#+latex_compiler: xelatex\n#+latex_class: article\n\n#+latex: \\tableofcontents\n#+latex: \\clearpage\n
 * Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
-* Appendix\n#+LATEX: \\appendix\n** Notes\n")
+* Appendix\n#+latex: \\appendix\n** Notes\n")
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain "%?"
            :if-new (file+head "slides/${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+SHORT_TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
-#+STARTUP: overivew beamer
-#+ROAM_TAGS: Slides
-#+LATEX_CLASS: beamer
-#+EXPORT_FILE_NAME: ${slug}_slides
-# #+LATEX_CLASS: beamerarticle
-# #+EXPORT_FILE_NAME: ${slug}_handout
+#+title: ${title}\n#+short_title: ${title}\n#+author: Min-Ye Zhang\n#+email: stevezhang@pku.edu.cn
+#+startup: overivew beamer
+#+filetags: Slides
+#+latex_class: beamer
+#+export_file_name: ${slug}_slides
+# #+latex_class: beamerarticle
+# #+export_file_name: ${slug}_handout
 # ==============================
-#+OPTIONS: H:3
-#+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
-#+LATEX_HEADER: \\addbibresource{../bibliography.bib}
-#+BEAMER_THEME: CambridgeUSzmy
-#+BEAMER_HEADER: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
-#+BEAMER_HEADER: \\date[\\today]{@Founder 312, \\today}
-#+BEAMER_HEADER: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
-#+LATEX_COMPILER: xelatex
-#+CREATED: %U
+#+options: H:3
+#+latex_header: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+#+latex_header: \\addbibresource{../bibliography.bib}
+#+beamer_theme: CambridgeUSzmy
+#+beamer_header: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
+#+beamer_header: \\date[\\today]{@Founder 312, \\today}
+#+beamer_header: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
+#+latex_compiler: xelatex
+#+created: %U
 
 * Acknowledgement
 :PROPERTIES:
 :BEAMER_ENV: appendix
 :UNNUMBERED: t
 :END:
-#+BEAMER: \\begin{frame}{Acknowledgement}{}
-#+BEAMER: \\LARGE Thank you for listening!
-#+BEAMER: \\end{frame}
+#+beamer: \\begin{frame}{Acknowledgement}{}
+#+beamer: \\LARGE Thank you for listening!
+#+beamer: \\end{frame}
 ** LaTex acknowledgement                                               :ignore:
 :PROPERTIES:
 :BEAMER_ENV: ignoreheading
@@ -662,33 +671,33 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 # :BEAMER_ENV: appendix
 # :UNNUMBERED: t
 # :END:
-# #+BEAMER: \\begin{frame}[allowframebreaks]{Resources}
+# #+beamer: \\begin{frame}[allowframebreaks]{Resources}
 # - content here as items
-# #+BEAMER: \\end{frame}
+# #+beamer: \\end{frame}
 
 * References
 :PROPERTIES:
 :BEAMER_ENV: appendix
 :UNNUMBERED: t
 :END:
-#+BEAMER: \\begin{frame}[allowframebreaks]{References}
-#+LaTeX: \\printbibliography[heading=none]
-#+BEAMER: \\end{frame}")
+#+beamer: \\begin{frame}[allowframebreaks]{References}
+#+latex: \\printbibliography[heading=none]
+#+beamer: \\end{frame}")
            :unnarrowed t)
           ("p" "research project" plain "%?"
            :if-new (file+head "${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n
-#+AUTHOR: Min-Ye Zhang
-#+EMAIL: stevezhang@pku.edu.cn
-#+CREATED: %U
-#+STARTUP: overview
-#+ROAM_TAGS: Research
-#+LATEX_HEADER: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
-#+LATEX_HEADER: \\addbibresource{./bibliography.bib}
-#+OPTIONS: email:t
-#+LATEX_COMPILER: xelatex\n#+LATEX_CLASS: article\n
-#+LATEX: \\clearpage\n
+#+title: ${title}\n
+#+author: Min-Ye Zhang
+#+email: stevezhang@pku.edu.cn
+#+created: %U
+#+startup: overview
+#+roam_tags: Research
+#+latex_header: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+#+latex_header: \\addbibresource{./bibliography.bib}
+#+options: email:t
+#+latex_compiler: xelatex\n#+latex_class: article\n
+#+latex: \\clearpage\n
 * Aims
 * Literature Review
 * Proposal
@@ -697,7 +706,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :PROPERTIES:
 :UNNUMBERED: t
 :END:
-#+LATEX: \\printbibliography[heading=none]
+#+latex: \\printbibliography[heading=none]
 * Changelog
 :PROPERTIES:
 :UNNUMBERED: t
@@ -708,17 +717,16 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :if-new (file+head 
            "${slug}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: vs. \n#+STARTUP: overview\n#+ROAM_TAGS: Therausus\n#+CREATED: %U\n
+#+title: vs. \n#+startup: overview\n#+filetags: Therausus\n#+created: %U\n
 * Definition\n* Examples\n* Sources")
            :unnarrowed t)
           ("m" "math phys book" plain "%?"
            :if-new (file+head
            "${slug}"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${title}\n#+AUTHOR: Min-Ye Zhang\n#+EMAIL: stevezhang@pku.edu.cn
-#+ROAM_KEY:
-#+STARTUP: overview\n#+ROAM_TAGS: Book\n#+CREATED: %U
-#+LATEX_CLASS: book\n#+LATEX_COMPILER: xelatex\n
+#+title: ${title}\n#+author: Min-Ye Zhang\n#+email: stevezhang@pku.edu.cn
+#+startup: overview\n#+filetags: Book\n#+created: %U
+#+latex_class: book\n#+latex_compiler: xelatex\n
 * Notes of Ch01
 
 * MISCs :noexport:
@@ -754,22 +762,22 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;      (
 ;       (title (format "%s" (read-string "Enter data title: ")))
 ;      )
-;         (insert (format "#+NAME: tab-%s\n" title))
-;         (insert (format "#+CAPTION: %s\n" title))
-;	 (insert "#+ATTR_LATEX: :booktabs t\n")
+;         (insert (format "#+name: tab-%s\n" title))
+;         (insert (format "#+caption: %s\n" title))
+;	 (insert "#+attr_latex: :booktabs t\n")
 ;	 (insert "| | |\n")
-;         (insert (format "#+NAME: gnuplot-%s\n" title))
-;	 (insert (format "#+HEADER: :var data=tab-%s\n" title ))
-;	 (insert (format "#+HEADER: :exports results :file images/%s.png\n" title))
-;	 (insert "#+BEGIN_SRC gnuplot\n")
+;         (insert (format "#+name: gnuplot-%s\n" title))
+;	 (insert (format "#+header: :var data=tab-%s\n" title ))
+;	 (insert (format "#+header: :exports results :file images/%s.png\n" title))
+;	 (insert "#+begin_src gnuplot\n")
 ;	 (insert (format "set title \"%s\"\n" title))
 ;	 (insert "plot data u 1:2 w lp")
-;	 (insert "#+END_SRC\n")
-;         (insert (format "#+NAME: fig-%s\n" title))
-;         (insert (format "#+CAPTION: %s\n" title))
-;	 (insert "#+ATTR_ORG: :width 400\n")
-;	 (insert "#+ATTR_LATEX: :width 0.6\\linewidth\n")
-;	 (insert (format "#+RESULTS: gnuplot-%s\n" title))
+;	 (insert "#+end_src\n")
+;         (insert (format "#+name: fig-%s\n" title))
+;         (insert (format "#+caption: %s\n" title))
+;	 (insert "#+attr_org: :width 400\n")
+;	 (insert "#+attr_latex: :width 0.6\\linewidth\n")
+;	 (insert (format "#+results: gnuplot-%s\n" title))
 ;    ))
 )
 ;
@@ -822,9 +830,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           org-roam-ui-open-on-start t))
 
 
-; Chinese input setting
+; Chinese input setting, partly copied from Doom
 (use-package! pangu-spacing
+  :hook (text-mode . pangu-spacing-mode)
   :config
+  (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t)
+  (setq-hook! 'markdown-mode-hook pangu-spacing-real-insert-separtor t)
   (setq pangu-spacing-include-regexp "\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?1:\\cC\\|\\cH\\|\\cK\\)\\)\\(?2:[\(=0-9A-Za-z\\$\\]\\)\\|\\(?1:[=0-9A-Za-z\\$\)]\\)\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?2:\\cC\\|\\cH\\|\\cK\\)\\)")
 )
 
@@ -1265,10 +1276,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            :if-new (file+head
            "ref/${citekey}.org"
            "# -*- truncate-lines: t -*-
-#+TITLE: ${citekey}
+#+title: ${citekey}
 #+filetags: :Reference:
-#+STARTUP: content
-#+CREATED: %U
+#+startup: content
+#+created: %U
 :PROPERTIES:
 :TITLE: ${title}
 :AUTHOR: ${author-or-editor}
@@ -1463,12 +1474,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   "Custom function to create journal header."
   (concat
     (pcase org-journal-file-type
-      (`daily "#+TITLE: Daily Journal\n#+STARTUP: showeverything\n")
-      (`weekly (concat "#+TITLE: Weekly Journal - " (format-time-string "%G W%V") "\n#+STARTUP: content nologdone\n"))
-      (`monthly (concat "#+TITLE: Monthly Journal - " (format-time-string "%G %B") "\n#+STARTUP: folded nologdone\n"))
-      (`yearly "#+TITLE: Yearly Journal\n#+STARTUP: folded\n"))
-    "#+TAGS: WORK(w) BOOK(b) SPORTS(s) CONTACTS(c)\n"
-    "#+OPTIONS: toc:nil\n#+LATEX_CLASS: journal\n#+LATEX_COMPILER: xelatex\n"
+      (`daily "#+title: Daily Journal\n#+startup: showeverything\n")
+      (`weekly (concat "#+title: Weekly Journal - " (format-time-string "%G W%V") "\n#+startup: content nologdone\n"))
+      (`monthly (concat "#+title: Monthly Journal - " (format-time-string "%G %B") "\n#+startup: folded nologdone\n"))
+      (`yearly "#+title: Yearly Journal\n#+startup: folded\n"))
+    "#+tags: WORK(w) BOOK(b) SPORTS(s) CONTACTS(c)\n"
+    "#+options: toc:nil\n#+latex_class: journal\n#+latex_compiler: xelatex\n"
     ))
   (setq org-journal-file-header 'org-journal-file-header-func)
   ; https://github.com/bastibe/org-journal#kill-journal-buffer-after-saving-buffer-by-dhruvparamhans
@@ -1834,6 +1845,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ ;; make org-latex-and-related-regexp and org-highlight-latex-and-related safe
+ ;; when non-nil, the two variables can make scroll large org file slow
+ ;; including tables
+ ;; see https://stackoverflow.com/questions/59990932/slow-cursor-movement-in-large-org-mode-file-and-the-org-do-latex-and-related-f
+ '(safe-local-variable-values
+   '((org-latex-and-related-regexp)
+     (org-highlight-latex-and-related)
+     (org-default-notes-file . "task.org::* Tasks")))
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(menu-bar-mode nil)
@@ -1842,6 +1861,9 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  '(package-selected-packages '(org-roam-server org-journal org-fancy-priorities))
  '(show-paren-mode t)
  '(size-indication-mode t)
+ ; suppress the annoying warning when using pyim in org:
+ ;   Warning (emacs): org-element--cache: Unregistered buffer modifications detected. Resetting.
+ '(warning-suppress-types '((emacs) (:warning)))
  )
  ;'(truncate-lines t))
 (custom-set-faces
@@ -1898,12 +1920,11 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (global-set-key (kbd "M-\\") 'pyim-convert-string-at-point)
   (setq pyim-dcache-auto-update nil)
   (setq default-input-method "pyim")
-  (setq pyim-page-tooltip 'posframe)
-  (setq pyim-page-length 6)
+  (setq pyim-page-length 9)
   (setq pyim-default-scheme 'rime-quanpin)
   ;; 中文使用全角标点，英文使用半角标点。
   (setq pyim-punctuation-translate-p '(auto yes no))
-  ;; 设置选词框的绘制方式
+  ;; 设置选词框的绘制方式, prefer posframe
   (if (posframe-workable-p)
     (setq pyim-page-tooltip 'posframe)
   (setq pyim-page-tooltip 'popup))
@@ -1932,12 +1953,17 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   :after pyim
 )
 
-(use-package! pyim-basedict
+;(use-package! pyim-basedict
+;  :after pyim
+;  :config
+;  (pyim-basedict-enable)
+;)
+
+(use-package! pyim-tsinghua-dict
   :after pyim
   :config
-  (pyim-basedict-enable)
+  (pyim-tsinghua-dict-enable)
 )
-
 (use-package! keyfreq
   :config
   (keyfreq-mode 1)
@@ -2024,3 +2050,25 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 
 ;(setq ns-auto-hide-menu-bar t)
 (setq frame-resize-pixelwise t)
+
+
+;; QE emacs mode
+(use-package! qe-modes
+  :load-path "qe-modes"
+  ;;  automatically open the the pw.*.in, scf.*.in, nscf.*.in, relax.*.in,
+  ;;  vc-relax.*.in, md.*.in, vc-md.*.in files by pw.x mode
+  :config
+  (add-to-list 'auto-mode-alist
+               '("/\\(pw\\|n?scf\\|\\(?:vc-\\)?\\(?:md\\|relax\\)\\)\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . pw-mode))
+  ;; automatically open the neb.*.in and smd.*.in files with neb.x mode
+  (add-to-list 'auto-mode-alist '("/\\(neb\\|smd\\)\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . neb-mode))
+  ;; automatically open the cp.*.in files with cp.x mode
+  (add-to-list 'auto-mode-alist '("/cp\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . cp-mode))
+  ;; automatically open the ph.*.in files with ph.x mode
+  (add-to-list 'auto-mode-alist '("/ph\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . ph-mode))
+  ;; automatically open the ld1.*.in files with ld1 mode
+  (add-to-list 'auto-mode-alist '("/ld1\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . ld1-mode))
+  ;; automatically open the pp.*.in files with pp.x mode
+  (add-to-list 'auto-mode-alist '("/pp\\(\\.\\(?:.*\\)?\\)?\\.in\\'" . pp-mode))
+)
+
