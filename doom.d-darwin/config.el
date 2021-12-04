@@ -1209,6 +1209,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   ; packages to load at fisrt i.e. before EXTRA and PACKAGES
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  ;; exclude the org-noter tag from inheriting to notes within
+  (add-to-list 'org-tags-exclude-from-inheritance "noter")
+  (add-to-list 'org-tags-exclude-from-inheritance "Reference")
+  (add-to-list 'org-tags-exclude-from-inheritance "Book")
   (setq org-preview-latex-default-process 'imagemagick)
   (setq org-latex-default-packages-alist
     '(

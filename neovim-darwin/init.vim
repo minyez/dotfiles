@@ -447,6 +447,13 @@ function! HeaderTCSH()
     normal G
     normal o
 endf
+function! HeaderORG()
+    call setline(1, "#+title: ".expand('%:r:t'))
+    call setline(2, "#+created: [".strftime('%Y-%m-%d %a %H:%M')."]")
+    call setline(3, "#+author: Min-Ye Zhang")
+    normal G
+    normal o
+endf
 function! HeaderC()
     call setline(1, "/*")
     call append(1,  ' * Date  : '.strftime('%Y-%m-%d %H:%M:%S'))
@@ -476,6 +483,7 @@ augroup my_fileheaders
   autocmd bufnewfile *.py call HeaderPython()
   autocmd bufnewfile *.{c,cpp} call HeaderC()
   autocmd bufnewfile *.{tex,latex} call HeaderTeX()
+  autocmd bufnewfile *.org call HeaderORG()
 augroup END
 
 " =========================================================
