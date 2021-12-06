@@ -1,10 +1,10 @@
 {
-  "lyx/" : "~/.lyx",
-  "mushroomrc.py" : "~/.mushroomrc",
-  "vim-dir/" : "~/.vim",
-  "gnuplotrc" : "~/.gnuplot",
-  "excludes.git" : "~/.gitexcludes",
-  "ignore_global.git" : "~/.gitignore_global",
-  "gitconfig" : "~/.gitconfig",
-  "matplotlibrc/" : "~/.matplotlib"
+  "public/lyx/" : "~/.lyx",
+  "public/mushroomrc.py" : "~/.mushroomrc",
+  "public/vim-dir/" : "~/.vim",
+  "public/gnuplotrc" : "~/.gnuplot",
+  "public/excludes.git" : "~/.gitexcludes",
+  "public/ignore_global.git" : "~/.gitignore_global",
+  "public/gitconfig" : "~/.gitconfig",
+  "public/matplotlibrc/" : "~/.matplotlib"
 }

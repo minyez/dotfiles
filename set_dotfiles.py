@@ -107,7 +107,9 @@ def main():
     iden = "{}-{}".format(_user, _host)
     iden_jsonfn = {
         "stevezhang-stevezhangMacBook-Pro.local": "darwin",
-        "minyez-myz-amd-fedora": "amdfed"
+        "stevezhang-localhost": "darwin",
+        "minyez-myz-amd-fedora": "amdfed",
+        "minyez-iopcas-fedora": "iopcas"
     }
 
     try:

@@ -1,8 +1,8 @@
 *.pyc
 .DS_Store
 
-vim-dir/bundle
-vim-dir/view
+public/vim-dir/bundle
+public/vim-dir/view
 tex.cache
 .netrwhist
 
@@ -12,9 +12,9 @@ git.log
 
 repos
 pkgs
-progconfigs
+utils/progconfigs
 
-clash*
+*/clash
 
 # for neovim
 .ropeproject
@@ -23,9 +23,10 @@ clash*
 # credential
 gitconfig
 
-rime/build
-rime/sync
-rime/*.userdb
-wine/*.reg
-wine/*.exe
-wine/*.msi
+public/rime/build
+public/rime/sync
+public/rime/*.userdb
+utils/wine/*.reg
+utils/wine/*.exe
+utils/wine/*.msi
+

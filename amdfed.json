@@ -1,10 +1,10 @@
 {
-  "vimrc-amdfed" : "~/.vimrc",
-  "neovim-amdfed" : "~/.config/nvim",
-  "doom.d-amdfed" : "~/.doom.d",
-  "bashrc-amdfed" : "~/.bashrc",
-  "module-amdfed": "~/.module",
-  "rime" : "~/.config/ibus/rime",
-  "tmux-amdfed.conf" : "~/.tmux.conf",
-  "zshrc-amdfed" : "~/.zshrc"
+  "amdfed/vimrc" : "~/.vimrc",
+  "amdfed/neovim" : "~/.config/nvim",
+  "amdfed/doom.d" : "~/.doom.d",
+  "amdfed/bashrc" : "~/.bashrc",
+  "amdfed/module": "~/.module",
+  "public/rime" : "~/.config/ibus/rime",
+  "amdfed/tmux.conf" : "~/.tmux.conf",
+  "amdfed/zshrc" : "~/.zshrc"
 }

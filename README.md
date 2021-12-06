@@ -27,3 +27,9 @@ Current machines:
 
 - `darwin`: MBP 15 (2016), Intel i7-6820HQ, AMD Radeon Pro 455, 16G + 512G, macOS Catalina 10.15.7
 - `amdfed`: DIY PC, AMD R5 5600X, AMD Radeon RX 6700XT, 32G + (500G + 2T), Fedora 34 (dual boot Windows 10)
+- `iopcas`: Dell workstation, i9-11900, Radeon RX 640, 32G + (500G + 2T), Fedora 34
+
+Some directories:
+- `public`: rc files that is not quite machine-specific and directly loaded by the script
+- `common`: common ingredients that may be linked into machine-specific directories, hence only indirectly loaded.
+

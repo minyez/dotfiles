@@ -1,11 +1,11 @@
 {
-  "clash-darwin/" : "~/.config/clash",
+  "darwin/clash/" : "~/.config/clash",
   "../latex/latex-cls-and-sty/" : "/Library/TeX/Local/tex/latex/local",
-  "zshrc-darwin" : "~/.zshrc",
-  "bashrc-darwin" : "~/.bashrc",
-  "alacritty.yml" : "~/.alacritty.yml",
-  "vimrc-darwin" : "~/.vimrc",
-  "module-darwin" : "~/.module",
-  "neovim-darwin/" : "~/.config/nvim",
-  "doom.d-darwin/" : "~/.doom.d"
+  "darwin/zshrc" : "~/.zshrc",
+  "darwin/bashrc" : "~/.bashrc",
+  "darwin/alacritty.yml" : "~/.alacritty.yml",
+  "darwin/vimrc" : "~/.vimrc",
+  "darwin/module" : "~/.module",
+  "darwin/neovim/" : "~/.config/nvim",
+  "darwin/doom.d/" : "~/.doom.d"
 }

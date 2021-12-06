@@ -1,3 +1,3 @@
-[submodule "doom.d-public/auto-save"]
-	path = doom.d-public/auto-save
+[submodule "common/doom.d/auto-save"]
+	path = common/doom.d/auto-save
 	url = https://github.com/manateelazycat/auto-save
