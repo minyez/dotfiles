@@ -1,6 +1,6 @@
-####%Module1.0#####################################################################
+#%Module1.0#####################################################################
 
-set docstr  "FHI-aims 210716 compiled by Intel 2020 update 4, Intel MPI and MKL"
+set docstr  "FHI-aims periodicGW branch, compiled by Intel 2020 update 4, Intel MPI and MKL"
 
 proc ModulesHelp { } {
     global dotversion
@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 
 module-whatis      $docstr
 
-set AIMS_HOME       "[getenv HOME]/local/programs/FHIaims-210716"
+set AIMS_HOME       "[getenv HOME]/local/programs/FHIaims-periodicGW"
 setenv AIMS_HOME    $AIMS_HOME
 setenv AIMS_SPECIES "$AIMS_HOME/species_defaults"
 prepend-path PATH   "$AIMS_HOME/bin"

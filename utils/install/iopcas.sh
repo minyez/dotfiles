@@ -62,7 +62,13 @@ install_xxenv() {
     readline-devel sqlite sqlite-devel tk-devel libffi-devel openssl-devel
   curl https://pyenv.run | bash
   curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+  # modify pager to avoid hanging at git branch in nvm install
+  # see comments in https://stackoverflow.com/a/48370253
+  export LESS="--no-init --quit-if-one-screen -R"
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+  # loads nvm and install the latest long-term-support version
+  \. ~/.nvm/nvm.sh
+  nvm install --lts
 }
 
 # various tools

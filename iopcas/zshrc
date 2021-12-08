@@ -8,7 +8,8 @@ export PATH
 
 autoload -Uz compinit
 compinit
-# for pandoc bash-completion
+# load bashcompinit for pandoc bash-completion
+# see https://github.com/dsanson/pandoc-completion#installation
 autoload bashcompinit
 bashcompinit
 
