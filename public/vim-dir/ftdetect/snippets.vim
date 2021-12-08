@@ -1,1 +1,1 @@
-/home/stevezhang/.vim/bundle/ultisnips/ftdetect/snippets.vim
+../bundle/ultisnips/ftdetect/snippets.vim
