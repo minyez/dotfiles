@@ -1,43 +1,13 @@
 #%Module1.0
 module-whatis "alias related to SSH"
 
-## TMC group
-#set tmcpc "stevezhang@222.29.156.87"
-#setenv tmcpc "$tmcpc"
-#set-alias sshtmcpc "ssh -X $tmcpc"
-
-# TMC group
-set tmcws "stevezhang@222.29.156.110"
-setenv tmcws "$tmcws"
-set-alias sshtmcws "ssh -X $tmcws"
-
-# PKUHPC systems
-set phwmip "162.105.133.134"
-set phwm "1501210186@$phwmip"
-setenv phwmip "$phwmip"
-setenv phwm "$phwm"
-set phbdip "115.27.161.31"
-set phbd "1501210186@$phbdip"
-setenv phbdip "$phbdip"
-setenv phbd "$phbd"
-set phskip "162.105.133.164"
-set phsk "1501210186@$phskip"
-setenv phskip "$phskip"
-setenv phsk "$phsk"
-
-#set phedu "1501210186@162.105.133.209"
-#setenv phedu "$phedu"
-set-alias pkuhpc "ssh -X $phwm"
-set-alias pkuhpcsk "ssh -X $phsk"
-set-alias pkuhpcbd "ssh -X $phbd"
-
 set rsync_exclude "--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod"
 # rsync
 # for old version rsync, replace --info=progress2 with --progress
 set-alias scsyc    "rsync $rsync_exclude -vazru --info=progress2 "
 set-alias scsycfoc "rsync $rsync_exclude -vazr  --info=progress2 "
 set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru --info=progress2 "
-# rsync pwd between PKUHPC platforms
-set-alias sync2sk { ssh $phsk mkdir -p $(pwd); rsync -vazru --progress $(pwd) $phsk:$(dirname $(pwd)) }
-set-alias sync2wm { ssh $phwm mkdir -p $(pwd); rsync -vazru --progress $(pwd) $phwm:$(dirname $(pwd)) }
+
+# sync directory to IOP-HR server
+set-alias sync2hr { relap="$(realpath . --relative-base=/home/minyez/)" && ssh iophr mkdir -p "/home/zhangmy/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
 

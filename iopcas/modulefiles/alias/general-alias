@@ -58,6 +58,14 @@ set-alias tarbz  { tar -jcf }
 # a simple open as alias to xdg-open
 set-alias open { xdg-open }
 
+# data related, isoformat
+# today
+set-alias td { date +"%Y-%m-%d"}
+# datetime
+set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
+# org mode datetime
+set-alias odt { date +"%Y-%m-%d %a %H:%M"}
+
 # ip
 #set-alias myip { curl ipinfo.io/ip }
 

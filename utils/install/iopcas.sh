@@ -41,7 +41,7 @@ install_net_tools() {
 
 # python
 install_python() {
-  sudo $DNF_CMD -y install python mkdocs
+  sudo $DNF_CMD -y install python mkdocs*
   if [[ $(which pip) != "/usr/bin/pip" ]]; then
     cecho e "Error: not system pip, current pip = $(which pip)"
     exit 2

@@ -20,8 +20,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Sarasa Term SC" :size 20)
-      doom-big-font (font-spec :family "Sarasa Term SC" :size 20))
+(setq doom-font (font-spec :family "Sarasa Term SC" :size 16)
+      doom-big-font (font-spec :family "Sarasa Term SC" :size 16))
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
@@ -65,7 +65,6 @@
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
                                          "~/Documents/SelfDevelopment/Academia"
                                          "~/Documents/SelfDevelopment/Projects"
-                                         "~/projects"
                                          ))
 )
 
@@ -76,7 +75,8 @@
 ;                    the later usage is mainly when I only want to bind key to a particular mode
 (setq
  org_notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
- bibfile (concat org_notes "/bibliography_linux.bib")
+ ;bibfile (concat org_notes "/bibliography_linux.bib")
+ bibfile (concat org_notes "/bibliography_macos.bib")
  mz/evil-leader ","
 )
 ;; If you use `org' and don't want your org files in the default location below,
@@ -855,7 +855,10 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;
 ; Chinese input setting
 (use-package! pangu-spacing
+  :hook (text-mode . pangu-spacing-mode)
   :config
+  (setq-hook! 'org-mode-hook pangu-spacing-real-insert-separtor t)
+  (setq-hook! 'markdown-mode-hook pangu-spacing-real-insert-separtor t)
   (setq pangu-spacing-include-regexp "\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?1:\\cC\\|\\cH\\|\\cK\\)\\)\\(?2:[\(=0-9A-Za-z\\$\\]\\)\\|\\(?1:[=0-9A-Za-z\\$\)]\\)\\(?:\\(?3:[、。「」！（），：；？]\\)\\|\\(?2:\\cC\\|\\cH\\|\\cK\\)\\)")
 )
 
@@ -1861,13 +1864,13 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
  ;'(org-quote ((t (:slant normal :family "STKaiti"))))
 )
 
-;; auto-save by lazycat
-(use-package! auto-save
-  :load-path "auto-save"
-  :config
-  (auto-save-enable)
-  (setq auto-save-silent t)
-)
+;;; auto-save by lazycat
+;(use-package! auto-save
+;  :load-path "auto-save"
+;  :config
+;  (auto-save-enable)
+;  (setq auto-save-silent t)
+;)
 
 ;; pyim with librime
 ;; https://gist.github.com/merrickluo/553f39c131d0eb717cd59f72c9d4b60d
