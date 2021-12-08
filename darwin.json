@@ -1,5 +1,4 @@
 {
-  "darwin/clash/" : "~/.config/clash",
   "../latex/latex-cls-and-sty/" : "/Library/TeX/Local/tex/latex/local",
   "darwin/zshrc" : "~/.zshrc",
   "darwin/bashrc" : "~/.bashrc",
