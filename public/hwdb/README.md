@@ -85,3 +85,11 @@ Keyboards
 
 - `110-108_MX_Keys.hwdb`: Key remap of Logitech MX Keys
 
+## Some trouble shooting
+
+Having space around "=" may lead to errors like (note the space inside single quotes)
+```plain
+... Failed to parse scan code from 'KEYBOARD_KEY ' ...
+... Failed to parse key code from ' leftctrl' ...
+```
+In this case just remove the spaces.
