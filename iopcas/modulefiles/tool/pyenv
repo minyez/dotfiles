@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+
+set docstr "Simple Python Version Management: pyenv"
+
+proc ModulesHelp { } {
+  global dotversion
+  puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set PYENV_ROOT "[getenv HOME]/.pyenv"
+setenv PYENV_ROOT $PYENV_ROOT
+prepend-path PATH "$PYENV_ROOT/bin"
+
+# lsp environment for language server provider
+# - pylsp
+# - fortls
+# prepend-path PATH "$PYENV_ROOT/versions/miniconda3-4.7.12/envs/lsp/bin/"
