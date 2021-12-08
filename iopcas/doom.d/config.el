@@ -63,9 +63,9 @@
 (use-package! projectile
   :config
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
-                                         "~/Projects"
                                          "~/Documents/SelfDevelopment/Academia"
                                          "~/Documents/SelfDevelopment/Projects"
+                                         "~/projects"
                                          ))
 )
 

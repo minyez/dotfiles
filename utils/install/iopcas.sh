@@ -26,7 +26,9 @@ install_compiler_config() {
   sudo $DNF_CMD -y install \
   	gcc gfortran gcc-c++ clang llvm clang-tools-extra
   # auto config
-  sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel tcsh ShellCheck
+  sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel
+  # shells, ruby
+  sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-devel
 }
 
 # network
@@ -78,7 +80,7 @@ sudo $DNF_CMD -y install units okular \
     gzip p7zip zstd \
     environment-modules direnv \
     vim-enhanced neovim \
-    jq \
+    jq thefuck fzf \
     ripgrep fd-find \
     lshw htop \
     qalculate-gtk flameshot
@@ -113,8 +115,8 @@ install_language_tools() {
 }
 
 # oh-my-zsh and related plugins
-install_zsh_omz() {
-  sudo $DNF_CMD -y install zsh autojump-zsh
+install_omz() {
+  sudo $DNF_CMD -y install autojump-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
