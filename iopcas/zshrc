@@ -6,6 +6,12 @@ then
 fi
 export PATH
 
+autoload -Uz compinit
+compinit
+# for pandoc bash-completion
+autoload bashcompinit
+bashcompinit
+
 if [[ -f $HOME/.module ]]; then
   source $HOME/.module
   module reload
@@ -140,8 +146,6 @@ zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle :compinstall filename '/home/minyez/.zshrc'
 
-autoload -Uz compinit
-compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
