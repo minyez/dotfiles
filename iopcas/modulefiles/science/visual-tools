@@ -1,0 +1,24 @@
+#%Module1.0
+#
+# VESTA version 3 for atomic visualization
+#
+set docstring "Visualization tools for personal scientific research
+Currently including:
+  VESTA
+  XCrySDen (modification made to Tcl/Viewer.tcl)
+"
+module-whatis "$docstring"
+
+set VESTA_HOME "[getenv HOME]/local/programs/VESTA-gtk3"
+setenv VESTA_HOME "$VESTA_HOME"
+prepend-path PATH "$VESTA_HOME"
+set-function vesta {
+  VESTA $@ > /dev/null 2>&1
+}
+
+# for modification, see http://www.democritos.it/pipermail/xcrysden/2016-October/001852.html
+# lib under xcrysden_home is actually libTogl2.0
+set XCRYSDEN_HOME "[getenv HOME]/local/programs/xcrysden-1.6.2"
+setenv XCRYSDEN_HOME "$XCRYSDEN_HOME"
+prepend-path PATH "$XCRYSDEN_HOME"
+prepend-path LD_LIBRARY_PATH "$XCRYSDEN_HOME/lib"

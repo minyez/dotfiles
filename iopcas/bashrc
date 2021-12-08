@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2046,2076,2086
+
+[ -f /etc/bashrc ] && . /etc/bashrc
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# load the modulespath and frequently used modules
+if [[ -f $HOME/.module ]]; then
+  source $HOME/.module
+  module reload
+fi
+
+# dump core. Not necessary if GDB is not available
+# ulimit -c unlimited
+
+## unlimited stack size, required by FHI-aims and large calculations in VASP
+## comment out for permission error of wine
+#ulimit -s unlimited
+
+# set the color of terminal
+export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
+export CLICOLOR='Yes' #是否输出颜色
+
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
+fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+

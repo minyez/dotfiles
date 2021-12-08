@@ -1,0 +1,78 @@
+#%Module1.0
+#
+# alias for general Linux command
+#
+
+module-whatis "alias for general Linux command"
+
+# directory
+set PATH_PRACTICE "~/Documents/SelfDevelopment/Codes/code-practice"
+setenv PATH_PRACTICE "$PATH_PRACTICE"
+set-function practice {
+pdir="$PATH_PRACTICE/$1"
+if [ -d "$pdir" ];then
+  cd "$pdir" || return 1
+else
+  echo "\"$1\" not found under $PATH_PRACTICE"
+  return 1
+fi
+}
+
+# ls
+set-alias ll "ls -l"
+set-alias la "ls -a"
+
+# vim and nvim
+# use system vim for vi
+set-alias vi "/usr/bin/vim "
+# use homebrew neovim
+set-alias vim "nvim "
+set-function _vi4 {
+    #1 vim executable
+	#2,3,4,5 4 files to edit
+	$1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3"
+}
+set-function vi4 {
+	_vi4 /usr/bin/vim $1 $2 $3 $4
+}
+set-function vim4 {
+	_vi4 nvim $1 $2 $3 $4
+}
+# which
+set-alias whchi "which"
+set-alias wchih "which"
+set-alias whihc "which"
+
+# false/true 
+set-alias false "/usr/bin/false"
+set-alias true "/usr/bin/true"
+
+# tar
+setenv COPYFILE_DISABLE 1 
+#set-alias tar { bsdtar }
+set-alias untargz  { tar -zxf }
+set-alias untarbz  { tar -jxf }
+set-alias targz  { tar -zcf }
+set-alias tarbz  { tar -jcf }
+
+# a simple open as alias to xdg-open
+set-alias open { xdg-open }
+
+# ip
+#set-alias myip { curl ipinfo.io/ip }
+
+# personal directory
+set    SD "~/Documents/SelfDevelopment/"
+setenv SD "$SD"
+set-function cdsd { cd $SD }
+set-function cdsdrm { cd $SD/org-roam }
+
+# proxies setup
+set http_proxy  http://127.0.0.1:9891
+set https_proxy http://127.0.0.1:9891
+set all_proxy   socks5://127.0.0.1:9892
+setenv http_proxy $http_proxy
+setenv https_proxy $https_proxy
+setenv all_proxy $all_proxy
+set-alias set_proxy { http_proxy=$https_proxy https_proxy=$https_proxy all_proxy=$all_proxy }
+

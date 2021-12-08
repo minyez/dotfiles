@@ -1,0 +1,83 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) Compiler 2020 update 4"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must change PREFIX before using this modulefile
+set PREFIX            "/opt/intel/2020.4/"
+
+set INTEL_HOME        "${PREFIX}"
+set INTEL_LINUX_HOME  "${PREFIX}/compilers_and_libraries_2020.4.304/linux"
+
+# In daal
+setenv          DAALROOT        ${INTEL_LINUX_HOME}/daal
+prepend-path    CPATH           ${INTEL_LINUX_HOME}/daal/include
+prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/daal/lib/intel64_lin
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/daal/lib/intel64_lin
+prepend-path    CLASSPATH       ${INTEL_LINUX_HOME}/daal/lib/daal.jar
+
+# In debugger
+setenv          INTEL_PYTHONHOME ${INTEL_HOME}/debugger_2020/python/intel64/
+#prepend-path    NLSPATH          ${INTEL_HOME}/debugger_2020/gdb/intel64/share/locale/%l_%t/%N
+prepend-path    INFOPATH         ${INTEL_HOME}/documentation_2020/en/debugger/gdb-ia/info/
+prepend-path    MANPATH          ${INTEL_HOME}/documentation_2020/en/debugger/gdb-ia/man/
+prepend-path    PATH             ${INTEL_HOME}/debugger_2020/gdb/intel64/bin
+prepend-path    LD_LIBRARY_PATH  ${INTEL_HOME}/debugger_2020/libipt/intel64/lib
+
+# In tbb:
+setenv          TBBROOT         ${INTEL_LINUX_HOME}/tbb
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/tbb/lib/intel64/gcc4.8
+prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/tbb/lib/intel64/gcc4.8
+prepend-path    CPATH           ${INTEL_LINUX_HOME}/tbb/include
+
+# In pstl:
+setenv          PSTLROOT ${INTEL_LINUX_HOME}/pstl
+prepend-path    CPATH    ${INTEL_LINUX_HOME}/pstl/include
+
+# In mklvars:
+setenv          MKLROOT         ${INTEL_LINUX_HOME}/mkl
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/compiler/lib/intel64_lin
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/mkl/lib/intel64_lin
+prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/compiler/lib/intel64_lin
+prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/mkl/lib/intel64_lin
+prepend-path    NLSPATH         ${INTEL_LINUX_HOME}/mkl/lib/intel64_lin/locale/%l_%t/%N
+prepend-path    CPATH           ${INTEL_LINUX_HOME}/mkl/include
+prepend-path    PKG_CONFIG_PATH ${INTEL_LINUX_HOME}/mkl/bin/pkgconfig
+
+# In ipp:
+setenv          IPPROOT         ${INTEL_LINUX_HOME}/ipp
+prepend-path    CPATH           ${INTEL_LINUX_HOME}/ipp/include
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/ipp/lib/intel64
+prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/ipp/lib/intel64
+
+# In mpi:
+set             I_MPI_ROOT       ${INTEL_LINUX_HOME}/mpi
+setenv          I_MPI_ROOT       ${I_MPI_ROOT}
+prepend-path    PATH             ${I_MPI_ROOT}/intel64/bin
+prepend-path    CLASSPATH        ${I_MPI_ROOT}/intel64/lib/mpi.jar
+prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/lib/release
+prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/lib/
+prepend-path    MANPATH          ${I_MPI_ROOT}/man/
+prepend-path    PATH             ${I_MPI_ROOT}/intel64/libfabric/bin/
+prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/libfabric/lib/
+prepend-path    LIBRARY_PATH     ${I_MPI_ROOT}/intel64/libfabric/lib/
+prepend-path    FI_PROVIDER_PATH ${I_MPI_ROOT}/intel64/libfabric/lib/prov
+
+# In pkg_bin:
+prepend-path    PATH            ${INTEL_LINUX_HOME}/bin/intel64
+prepend-path    LD_LIBRARY_PATH ${INTEL_LINUX_HOME}/compiler/lib/intel64_lin
+prepend-path    NLSPATH         ${INTEL_LINUX_HOME}/compiler/lib/intel64_lin/locale/%l_%t/%N
+prepend-path    INTEL_LICENSE_FILE /opt/intel/licenses
+prepend-path    INTEL_LICENSE_FILE ~/intel/licenses
+prepend-path    INTEL_LICENSE_FILE ${INTEL_LINUX_HOME}/licenses
+prepend-path    MANPATH         ${INTEL_HOME}/man/common
+

@@ -1,0 +1,63 @@
+#%Module1.0#####################################################################
+
+
+set docstr "WIEN2k 19.2 compiled by Intel 2020 update 4, with FFTW using Intel libfftw3xf"
+
+proc ModulesHelp { } {
+    global dotversion
+    puts stderr $docstr
+}
+
+module-whatis $docstr
+
+# load prerequisites
+#module load intel/2019.3
+
+set          WR                  "[getenv HOME]/local/programs/wien2k-v19.2"
+setenv       WIENROOT            "$WR"
+setenv       PDFREADER           "okular"
+setenv       SCRATCH             "./"
+setenv       EDITOR              "vim"
+setenv       OMP_NUM_THREADS     1
+#setenv       W2WEB_CASE_BASEDIR  "\$HOME/wien2k"
+setenv       STRUCTEDIT_PATH     "$WR/SRC_structeditor/bin"
+
+prepend-path PATH                "$WR/SRC_IRelast/script-elastic"
+prepend-path PATH                "$WR/SRC_structeditor/bin"
+prepend-path PATH                "$WR"
+setenv       OCTAVE_PATH         "$WR/SRC_structeditor/bin"
+setenv       BERRYPI_PATH        "$WR/SRC_BerryPI/BerryPI"
+#setenv       BERRYPI_PYTHON      "/usr/bin/python2.7"
+setenv       BERRYPI_PYTHON      "python2"
+
+# alias
+set-alias    lsi      { ls -aslp *.in* }
+set-alias    lso      { ls -aslp *.output* }
+set-alias    lsd      { ls -aslp *.def }
+set-alias    lsc      { ls -aslp *.clm* }
+set-alias    lss      { ls -aslp *.scf* */*.scf }
+set-alias    lse      { ls -aslp *.error }
+set-alias    LS       { ls -aslp | grep / }
+set-alias    pslapw   { ps -ef |grep lapw }
+set-alias    cdw      { cd \$WIENROOT }
+set-alias    octave   { octave -p $OCTAVE_PATH }
+set-alias    berrypi  { \$BERRYPI_PYTHON \$BERRYPI_PATH/berrypi }
+
+## added by WIEN2k: BEGIN
+## --------------------------------------------------------
+##export LD_LIBRARY_PATH=.....
+#export EDITOR="vim"
+#export SCRATCH=./
+#export WIENROOT=/opt/software/wien2k/16.1
+#export W2WEB_CASE_BASEDIR=/root/WIEN2k
+#export STRUCTEDIT_PATH=$WIENROOT/SRC_structeditor/bin
+#export PDFREADER=okular
+#export PATH=$WIENROOT:$STRUCTEDIT_PATH:$WIENROOT/SRC_IRelast/script-elastic:$PATH:.
+#export OCTAVE_EXEC_PATH=${PATH}::
+#export OCTAVE_PATH=${STRUCTEDIT_PATH}::
+#
+#export PATH=$PATH:$WIENROOT:.
+#ulimit -s unlimited
+#alias octave="octave -p $OCTAVE_PATH"
+## --------------------------------------------------------
+## added by WIEN2k: END 

@@ -1,0 +1,39 @@
+#%Module1.0
+
+module-whatis "alias for stardict (sdcv) on Linux"
+
+# dicts 210905, downloaded from http://download.huzheng.org/
+# 朗道英汉字典5.0    435468
+# Moby Thesaurus II    30259
+# 広辞苑　第六版    232795
+# 朗道汉英字典5.0    405719
+# 牛津英汉双解美化版    39429    Very good
+# English Thesaurus    20003
+# The Idiom Connection (En-En)    11395
+# Concise Oxford Thesaurus 2nd Ed. (Eng-Eng)    17188
+# Longman Dictionary of Contemporary English    43052
+# Merriam-Webster's Collegiate 11th Ed. (En-En)    119786    Very good
+# Macmillan English Dictionary (En-En)    63456  Good
+#
+# some previous tried dicts
+# 牛津现代英汉双解词典    39429  ## remove, use the formatted version
+# Collins Cobuild 5    34159    ## removed, html tags remains
+
+set sdcv "/usr/bin/sdcv"
+
+# alias sdcv to generally used most common and non-thesaurus dicts 
+set-alias sdcv  "$sdcv -c -u '牛津英汉双解美化版' -u \"Merriam-Webster's Collegiate 11th Ed. (En-En)\""
+# search English word
+set-alias sdcve "${sdcv} -c -u '朗道英汉字典5.0' -u '牛津英汉双解美化版' -u 'Longman Dictionary of Contemporary English' -u \"Merriam-Webster's Collegiate 11th Ed. (En-En)\" -u 'Macmillan English Dictionary (En-En)'"
+# search for Chinese
+set-alias sdcvc "${sdcv} -c -u '朗道汉英字典5.0'"
+# search longdao
+set-alias sdcvld "${sdcv} -c -u '朗道汉英字典5.0' -u '朗道英汉字典5.0'"
+# search for Japanese
+set-alias sdcvj "${sdcv} -c -u '広辞苑　第六版'"
+# search the most helpful thesaurus, currently consise oxford
+set-alias sdcvt "${sdcv} -c -u 'Concise Oxford Thesaurus 2nd Ed. (Eng-Eng)'"
+# search all thesaurus available
+set-alias sdcvta "${sdcv} -c -u 'Moby Thesaurus II' -u 'English Thesaurus' -u 'Concise Oxford Thesaurus 2nd Ed. (Eng-Eng)'"
+# search idioms
+set-alias sdcvi "${sdcv} -c -u 'The Idiom Connection (En-En)' "

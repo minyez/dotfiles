@@ -1,9 +1,11 @@
 {
   "iopcas/vimrc" : "~/.vimrc",
   "iopcas/neovim" : "~/.config/nvim",
+  "iopcas/flameshot" : "~/.config/flameshot",
   "iopcas/doom.d" : "~/.doom.d",
   "iopcas/bashrc" : "~/.bashrc",
   "iopcas/module": "~/.module",
+  "iopcas/modulefiles": "~/.modulefiles",
   "public/rime" : "~/.config/ibus/rime",
   "iopcas/tmux.conf" : "~/.tmux.conf",
   "iopcas/zshrc" : "~/.zshrc"
