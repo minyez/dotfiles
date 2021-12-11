@@ -51,7 +51,7 @@
             (substring (current-time-string) 11 13)))
     (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
-        (setq now 'doom-dracula))
+        (setq now 'doom-one))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
@@ -65,6 +65,7 @@
   (setq projectile-project-search-path '("~/Documents/SelfDevelopment/codes"
                                          "~/Documents/SelfDevelopment/Academia"
                                          "~/Documents/SelfDevelopment/Projects"
+                                         "~/projects"
                                          ))
 )
 
@@ -465,6 +466,10 @@ it can be passed in POS."
       )
      )
   )
+  ;; exclude the org-noter tag from inheriting to notes within
+  (add-to-list 'org-tags-exclude-from-inheritance "noter")
+  (add-to-list 'org-tags-exclude-from-inheritance "Reference")
+  (add-to-list 'org-tags-exclude-from-inheritance "Book")
   ; change default to dvisvgm,
   ; according to https://emacs-china.org/t/org-latex-fragments-preview/16400/5
   ; imagemagick/dvipng create a fullwidth picture for both inline and display math
@@ -1247,8 +1252,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           '("r" "reference" plain "%?"
            :if-new (file+head
            "ref/${citekey}.org"
-           "# -*- truncate-lines: t -*-
-#+title: ${citekey}
+           "#+title: ${citekey}
 #+filetags: :Reference:
 #+startup: content
 #+created: %U
@@ -1259,18 +1263,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :DATE: ${date}
 :VOLUME: ${volume}
 :PAGES: ${pages}
-:DOI: [[%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
+:DOI: [[doi:%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
 :END:
-
-- tags ::
-- keywords ::
-
-* Summary
 
 * Notes :noter:
 :PROPERTIES:
-:NOTER_DOCUMENT: %(orb-process-file-field \"${citekey}\")
-:NOTER_PAGE: 1
+:NOTER_DOCUMENT: ${file}
 :END:"
            )
            :unnarrowed t))
@@ -1509,6 +1507,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
    ;; Everything is relative to the main notes file
    org-noter-notes-search-path (list org_notes)
    ;org-noter-set-notes-window-behavior 'scroll
+   ;; split fraction. default (0.5 . 0.5). slightly larger on vertical
+   org-noter-doc-split-fraction '(0.58 . 0.5)
   )
  (defun my-org-noter-extract-annotation ()
    "Create notes skeleton with the PDF annotations.

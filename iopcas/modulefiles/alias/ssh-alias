@@ -9,5 +9,8 @@ set-alias scsycfoc "rsync $rsync_exclude -vazr  --info=progress2 "
 set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru --info=progress2 "
 
 # sync directory to IOP-HR server
-set-alias sync2hr { relap="$(realpath . --relative-base=/home/minyez/)" && ssh iophr mkdir -p "/home/zhangmy/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
+set-alias sync2hr { relap="$(realpath . --relative-to=/home/minyez/)" && ssh iophr mkdir -p "/home/zhangmy/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
+set-alias syncfhr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync -vazru --info=progress2 iophr:"/home/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2bd { relap="$(realpath . --relative-to=/home/minyez/)" && ssh phbd mkdir -p "/gpfs/share/home/1501210186/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" phbd:"/gpfs/share/home/1501210186/$(dirname $relap)" }
+set-alias syncfbd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync -vazru --info=progress2 phbd:"/gpfs/share/home/1501210186/$relap" "/home/minyez/$(dirname $relap)" }
 

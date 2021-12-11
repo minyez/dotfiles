@@ -1279,8 +1279,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           '("r" "reference" plain "%?"
            :if-new (file+head
            "ref/${citekey}.org"
-           "# -*- truncate-lines: t -*-
-#+title: ${citekey}
+           "#+title: ${citekey}
 #+filetags: :Reference:
 #+startup: content
 #+created: %U

@@ -1,0 +1,24 @@
+#%Module1.0#####################################################################
+
+set docstr  "FHI-aims 210716 compiled by Intel 2020 update 4, Intel MPI and MKL"
+
+proc ModulesHelp { } {
+    global dotversion
+    puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set AIMS_HOME       "[getenv HOME]/local/programs/FHIaims-210716_2"
+setenv AIMS_HOME    $AIMS_HOME
+setenv AIMS_SPECIES "$AIMS_HOME/species_defaults"
+prepend-path PATH   "$AIMS_HOME/bin"
+prepend-path PATH   "$AIMS_HOME/utilities"
+
+setenv OMP_NUM_THREADS 1
+
+# remind the user to relax stack size limit when using aims
+if { [ module-info command load ] } {
+  puts stderr "Note: please check stack size by `ulimit -s`. You may need to run `ulimit -s unlimited`."
+}
+
