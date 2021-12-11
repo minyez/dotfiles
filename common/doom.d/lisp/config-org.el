@@ -457,5 +457,37 @@ parent."
 ;;  (org-mode . writegood-mode)
 ;;)
 
+;;; comment it for performance and low usage
+;;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
+;;(use-package! org-super-agenda
+;;  :after org-agenda
+;;  :init
+;;  (setq org-super-agenda-groups '((:name "Today"
+;;                                         :time-grid t
+;;                                         :scheduled today)
+;;                                  (:name "Due today"
+;;                                         :deadline today)
+;;                                  (:name "Overdue"
+;;                                         :deadline past)
+;;                                  (:name "Due soon"
+;;                                         :deadline future)
+;;                                ))
+;;  :config
+;;  (org-super-agenda-mode)
+;;)
+
+;(use-package org-fancy-priorities
+;  :after org
+;  :ensure t
+;  :hook
+;  (org-mode . org-fancy-priorities-mode)
+;  :config
+;  (setq org-fancy-priorities-list '((?A . "HIGH")
+;                                    (?B . "MID")
+;                                    (?C . "LOW")
+;                                    (?D . "TRIV")
+;                                    (?1 . "⚡")))
+;)
+
 (provide 'config-org)
 ;;; config-org.el ends here
