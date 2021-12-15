@@ -71,5 +71,13 @@
  ;   )
 )
 
+(use-package! xenops
+  :hook
+  (
+   (latex-mode . xenops-mode)
+   (LaTeX-mode . xenops-mode)
+  )
+)
+
 (provide 'config-latex)
 ;;; config-latex.el ends here

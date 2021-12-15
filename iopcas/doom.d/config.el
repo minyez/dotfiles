@@ -51,7 +51,9 @@
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
-        (load-theme now t) ) ) ;; end of (defun ...
+        (load-theme now t)
+        (doom/reload-theme) ;; this is to sync posframe color to the theme
+        ) ) ;; end of (defun ...
 ; run every hour
 (run-with-timer 0 3600 'synchronize-theme)
 

@@ -98,6 +98,10 @@
   :recipe (:host github :repo "redguardtoo/pyim-tsinghua-dict"
            :files ("*.el" "*.pyim")))
 
+;; xenops for latex live view of equations, tikz, tables and figures
+(package! xenops)
+;  :recipe (:host github :repo "dandavison/xenops"))
+
 
 ;; keyfreq
 (package! keyfreq

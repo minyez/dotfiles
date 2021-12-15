@@ -21,6 +21,7 @@
   :config
   (progn
   (evil-set-initial-state 'delve-mode 'emacs)
+  (evil-set-initial-state 'dired-mode 'motion)
   )
 )
 

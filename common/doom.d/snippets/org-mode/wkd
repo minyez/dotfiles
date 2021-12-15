@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: wkd
+# name: work day
+# uuid: wkd
+# group: datetime
+# 
+# --
+`(format-time-string "%Y-%m-%d %a")`$0

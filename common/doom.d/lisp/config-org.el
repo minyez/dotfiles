@@ -10,7 +10,7 @@
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode)
-   (org-mode . org-cdlatex-mode)
+   ;(org-mode . org-cdlatex-mode) ;; hooked with :lang (latex +cdlatex) in init.el
    ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
   )
