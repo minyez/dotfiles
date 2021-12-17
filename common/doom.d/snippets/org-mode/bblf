@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# key: bblf
+# name: biblatex footer for org latex export
+# uuid: bblf
+# group: latex
+# 
+# --
+* References
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+#+latex: \\printbibliography[heading=none]$0

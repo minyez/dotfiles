@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: ang
+# name: left right angle
+# uuid: ang
+# group: paren
+# 
+# --
+\\left\\langle $1 \\right\\rangle$0

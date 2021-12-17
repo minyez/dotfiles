@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: mel
+# name: physics mel (expectation value)
+# uuid: mel
+# group: latex
+# 
+# --
+\\mel\{${1:A}\}\{${2:\\hat\{O\}}\}\{${3:B}\}$0

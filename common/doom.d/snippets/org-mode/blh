@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# key: <blh
+# key: blh
 # name: basic latex header
 # uuid: blh
 # group: latex
@@ -8,7 +8,8 @@
 #+latex_compiler: ${1:xelatex}
 #+latex_class: ${2:article}
 #+latex_header: \\usepackage\{${3:physics}\}
-#+latex_header: \\newcommand\{\\bvec\}[1]{\\mathbf\{#1\}\}
+#+latex_header: \\newcommand\{\\bvec\}[1]\{\\mathbf\{#1\}\}
+#+latex_header: \\newcommand\{\\ii\}\{\\mathrm\{i\}\}
+#+latex_header: \\newcommand\{\\ee\}\{\\mathrm\{e\}\}
 #+latex_header: \\newcommand\{\\br\}{\\bvec\{r\}\}
-#+latex_header: \\newcommand\{\\half\}{\\frac\{1\}\{2\}\}
-$0
+#+latex_header: \\newcommand\{\\half\}\{\\frac\{1\}\{2\}\}$0

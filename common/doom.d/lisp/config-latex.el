@@ -77,6 +77,9 @@
    (latex-mode . xenops-mode)
    (LaTeX-mode . xenops-mode)
   )
+  :config
+  (setq xenops-reveal-on-entry t)
+  (setq xenops-math-image-scale-factor 1.3)
 )
 
 (provide 'config-latex)

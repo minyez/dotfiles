@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: brc
+# name: left right round brace
+# uuid: brc
+# group: paren
+# 
+# --
+\\left\\lbrace $1 \\right\\rbrace$0
