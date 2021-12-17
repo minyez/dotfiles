@@ -7,6 +7,23 @@ DNF_CMD="dnf --disablerepo=* --enablerepo=fedora"
 # or disable the updates repo in /etc/yum.repos.d/ and set
 #DNF_CMD="dnf"
 
+# WARNING!!! DO NOT use simply "dnf" with updates switched on,
+# since for now this will update the kernel and cause blackscreen
+
+IS_LINUX=0
+[ "$(uname)" == "Linux" ] && IS_LINUX=1
+USE_DNF=0
+IS_FEDORA=0
+FEDORA_VERSION_MIN=30
+FEDORA_VERSION_MAX=34
+if (( IS_LINUX )); then
+  which dnf 1>/dev/null 2>&1 && USE_DNF=1
+  [[ $(awk -F = '/^NAME/ {print $2}' /etc/os-release) == "Fedora" ]] && IS_FEDORA=1
+  FEDORA_VERSION=$(awk -F = '/VERSION_ID/ {print $2}' /etc/os-release)
+fi
+YES_NO_P=("No" "Yes")
+_DRY_RUN=${dry:=1}
+
 cecho() {
   # colorize echo
   case $1 in
@@ -20,7 +37,32 @@ cecho() {
   echo -e "$color$*\e[0m"
 }
 
-install_compiler_config() {
+help_info() {
+  cecho i "========================================="
+  cecho i "Install script of minyez Fedora (IOP CAS)"
+  cecho i "========================================="
+  echo "  Your OS: $(uname -snr)"
+  (( IS_LINUX )) && \
+  echo "      CPU: $(lscpu | awk '/Model name/ {sep = ""; for (i = 3; i <= NF; i++) {printf("%s%s", sep, $i); sep=OFS}; printf("\n")}')"
+}
+
+check_prereq() {
+  echo "Is Fedora: ${YES_NO_P[$IS_FEDORA]}"
+  echo "  Use DNF: ${YES_NO_P[$USE_DNF]}"
+  if (( IS_FEDORA == 0 )) || (( USE_DNF == 0 )); then
+    cecho e "Error: This script require Fedora Linux and DNF for package manager. Exit"
+    exit 1
+  fi
+  (( FEDORA_VERSION < FEDORA_VERSION_MIN )) && \
+    cecho e "Error: Fedora version $FEDORA_VERSION < minimal version $FEDORA_VERSION_MIN. Exit" && exit 1
+  (( FEDORA_VERSION > FEDORA_VERSION_MAX )) && \
+    cecho e "Error: Fedora version $FEDORA_VERSION > maximal version $FEDORA_VERSION_MAX. Exit" && exit 1
+  echo "  Version: ${FEDORA_VERSION}"
+}
+
+_install_compiler_config() {
+  echo i "Installing compilers and tools for config ..."
+  (_DRY_RUN) && return
   # compiler. conservative install
   #sudo $DNF_CMD --disablerepo="*" --enablerepo=fedora -y install \
   sudo $DNF_CMD -y install \
@@ -29,18 +71,26 @@ install_compiler_config() {
   sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel
   # shells, ruby
   sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-devel
+  # vi
+  sudo $DNF_CMD -y install vim-enhanced neovim
 }
 
 # network
-install_net_tools() {
-  sudo $DNF_CMD -y install openssl-devel curl libcurl-devel wget
+_install_net_tools() {
+  echo i "Installing net tools, e.g. SSL, curl, wget ..."
+  (_DRY_RUN) || sudo $DNF_CMD -y install openssl-devel curl libcurl-devel wget
   # use the latest clash
+  echo i "Downloading clash ..."
+  (_DRY_RUN) && return
   wget https://github.com/Dreamacro/clash/releases/download/v1.8.0/clash-linux-amd64-v1.8.0.gz
   gunzip clash-linux-amd64-v1.8.0.gz && mv clash-linux-amd64-v1.8.0 clash && chmod +x clash && sudo mv clash /usr/local/bin/
+  echo s "Net tools installed"
 }
 
 # python
-install_python() {
+_install_python() {
+  echo i "Installing system python and packages ..."
+  (_DRY_RUN) && return
   sudo $DNF_CMD -y install python mkdocs*
   if [[ $(which pip) != "/usr/bin/pip" ]]; then
     cecho e "Error: not system pip, current pip = $(which pip)"
@@ -49,17 +99,23 @@ install_python() {
   sudo pip install rst2html
 }
 
-install_latex() {
-sudo $DNF_CMD -y install texstudio texlive texlive-scheme-medium texlive-{texlive-en-doc,texlive-zh-cn-doc} \
-	texlive-{vancouver,revtex,revtex-doc,revtex4,revtex4-doc,achemso,tocbibind}
+_install_latex() {
+  echo i "Installing LaTeX of TeXLive with medium scheme..."
+  (_DRY_RUN) && return
+  sudo $DNF_CMD -y install texstudio texlive texlive-scheme-medium texlive-{texlive-en-doc,texlive-zh-cn-doc} \
+  	texlive-{vancouver,revtex,revtex-doc,revtex4,revtex4-doc,achemso,tocbibind}
 }
 
-install_latex_full() {
+_install_latex_full() {
+  echo i "Installing LaTeX of TeXLive with full scheme..."
+  (_DRY_RUN) && return
   sudo $DNF_CMD -y install texlive-scheme-full
 }
 
 # pyenv, rbenv and nvm
-install_xxenv() {
+_install_xxenv() {
+  cecho i "Installing environment managements, e.g. pyenv, rbenv and nvm..."
+  (_DRY_RUN) && return
   sudo $DNF_CMD -y install xz xz-devel make zlib-devel bzip2 bzip2-devel \
     readline-devel sqlite sqlite-devel tk-devel libffi-devel openssl-devel
   curl https://pyenv.run | bash
@@ -74,35 +130,40 @@ install_xxenv() {
 }
 
 # various tools
-install_misc() {
-sudo $DNF_CMD -y install units okular \
-  grace gnuplot ImageMagick ghostscript povray \
-    gzip p7zip zstd \
-    environment-modules direnv \
-    vim-enhanced neovim \
-    jq thefuck fzf \
-    ripgrep fd-find \
-    lshw htop \
-    qalculate-gtk flameshot
-sudo $DNF_CMD -y install pandoc*
+_install_misc() {
+  cecho i "Installing misc tools for PDF reading, plotting..."
+  (_DRY_RUN) && return
+  sudo $DNF_CMD -y install units okular \
+    grace gnuplot ImageMagick ghostscript povray \
+      gzip p7zip zstd \
+      environment-modules direnv \
+      jq thefuck fzf \
+      ripgrep fd-find \
+      lshw htop \
+      qalculate-gtk flameshot
+  sudo $DNF_CMD -y install pandoc*
 }
 
-install_snap() {
+_install_snap() {
+  cecho i "Installing snap ..."
+  (_DRY_RUN) && return
   # may have "snap is unusable due to missing files" error
   # use a lower squashfs version
   # see https://stackoverflow.com/questions/68580043/snap-is-unusable-due-to-missing-files
   #sudo $DNF_CMD -y install snapd squashfs-tools-4.4-5.git1.fc34
   sudo $DNF_CMD -y install snapd
   sudo ln -s /var/lib/snapd/snap /snap
+  cecho s "snap installed and linked"
 }
 
-install_language_tools() {
-  cecho i "Installing languages tools: Rime, sdcv..."
+_install_language_tools() {
+  cecho i "Installing languages tools: Rime, Kana Kanji, sdcv ..."
+  (_DRY_RUN) && return
   #(( _DRY_RUN )) && return
-  sudo $DNF_CMD -y install ibus-rime librime librime-devel
+  sudo $DNF_CMD -y install ibus-rime librime librime-devel ibus-kkj
   ibus-daemon -drx
-  cecho s "Rime installed"
-  cecho i "  you need to run ibus-setup to add Rime to input method"
+  cecho s "Rime and Kana Kanji installed"
+  cecho i "  you need to run ibus-setup to add them to input method"
   sudo $DNF_CMD -y install sdcv
   cecho s "sdcv installed"
   cecho i "  consider download dicts from http://download.huzheng.org to /usr/share/stardict/dic"
@@ -115,14 +176,18 @@ install_language_tools() {
 }
 
 # oh-my-zsh and related plugins
-install_omz() {
+_install_omz() {
+  cecho i "Installing oh-my-zsh ..."
+  (_DRY_RUN) && return
   sudo $DNF_CMD -y install autojump-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
-install_emacs() {
+_install_emacs() {
   # install emacs-native-comp
+  cecho i "Installing Emacs of native-comp branch ..."
+  (_DRY_RUN) && return
   sudo dnf -y copr enable deathwish/emacs-pgtk-nativecomp
   sudo dnf -y install emacs emacs-devel
   cecho s "emacs-native-comp installed"
@@ -130,8 +195,9 @@ install_emacs() {
   cecho s "Doom emacs cloned"
 }
 
-install_doom() {
-  cecho i "Running ~/.emacs.d/bin/doom install (may break due to network problem)"
+_install_doom() {
+  cecho i "Install Doom. Running ~/.emacs.d/bin/doom install (may break due to network problem) ..."
+  (_DRY_RUN) && return
   ~/.emacs.d/bin/doom -y install
   ~/.emacs.d/bin/doom sync
   builddir=$(ls -d ~/.emacs.d/.local/straight/build-*[0-9] 2>/dev/null)
@@ -144,5 +210,84 @@ install_doom() {
 # on graphics issue, when installing with basic graphics mode
 # https://www.reddit.com/r/Fedora/comments/o9onf7/help_fedora_34_is_not_using_my_amd_gpui_think/h3cwkk6/
 
+_install_virtualbox() {
+  cecho i "Installing Virtual Box from virtualbox.org ..."
+  (_DRY_RUN) && return
+  sudo dnf -y install @development-tools
+  sudo dnf -y install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
+  wget -q https://download.virtualbox.org/virtualbox/rpm/fedora/33/x86_64/VirtualBox-6.1-6.1.30_148432_fedora33-1.x86_64.rpm -O VirtualBox-6.1.rpm
+  sudo rpm -i VirtualBox-6.1.rpm
+  sudo dnf -y install virtualbox-guest-additions fence-agents-vbox
+  cecho s "Virtual Box v6.1, guest additions and fence agents installed"
+  cecho i "To install Win10, you need image from https://www.microsoft.com/en-gb/software-download/windows10ISO"
+  cecho w "Note: to enable shared clipboard and directories, you also have to install guest additions inside the Guest machine (say Win10)"
+}
 
+_install_manually() {
+  # some thing to install but not implemented in script
+  ceho i "You have to install the following by yourself:"
+}
 
+i_basic() {
+  # basics
+  cecho i "Updating the system ..."
+  (_DRY_RUN) || sudo $DNF_CMD -y update
+  _install_compiler_config
+  _install_net_tools
+  _install_language_tools
+  _install_omz
+  _install_python
+  _install_xxenv
+}
+
+i_emacs() {
+  # emacs
+  _install_emacs
+  _install_doom
+}
+
+i_latex() {
+  # latex
+  [ $1 == "f" ] && _install_latex_full && return
+  _install_latex
+}
+
+usage() {
+  echo "Usage: $0 <arg>"
+  echo "Args:"
+  echo "  c : check prerequisite and exit"
+  echo "  h : print this message and exit"
+  echo "  b : install basic tools, e.g. compilers, intepreters"
+  echo "  l : install full latex"
+  echo "  s : install snap"
+  echo "  e : install Doom emacs of native comp branch"
+  echo "  m : install misc tools"
+  echo "  v : install virtual box"
+  echo ""  
+  echo "  a : automatic install, i.e. all except Virtual Box"
+}
+
+help_info
+case "$1" in
+  -h | --help | help | h ) usage; exit ;;
+  -c | c ) check_prereq; exit ;;
+  * ) check_prereq ;;
+esac
+
+(( _DRY_RUN )) && cecho w "Dry mode is switched on. Change _DRY_RUN to 0 to actually install"
+
+case "$1" in
+  -b | b ) i_basic;;
+  -e | e ) i_emacs ;;
+  -l | l ) i_latex f ;;
+  -s | s ) _install_snap ;;
+  -m | m ) _install_misc ;;
+  -v | v ) _install_virtualbox ;;
+  -a | a ) i_basic;
+    i_emacs; i_latex;
+    # snap and other tools
+    _install_snap;
+    _install_misc;
+    # remind of manual installs
+    _install_manually;
+esac
