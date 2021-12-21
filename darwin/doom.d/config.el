@@ -63,7 +63,7 @@
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
-        (load-theme now t) ) ) ;; end of (defun ...
+        (load-theme now t) (doom/reload-theme) ) ) ;; end of (defun ...
 ; run every 2 hour
 (run-with-timer 0 7200 'synchronize-theme)
 
@@ -379,6 +379,35 @@
   (if (posframe-workable-p)
     (setq pyim-page-tooltip 'posframe)
   (setq pyim-page-tooltip 'popup))
+  ;; 同时使用 evil 和 pyim 的情况下, 在中文输入法下输入 jk escape 到 normal mode
+  ;; adapted from https://github.com/tumashu/pyim/issues/260#issuecomment-570921604
+  (defun my-pyim-self-insert-command (orig-func)
+    (interactive "*")
+    (if (and (local-variable-p 'last-event-time)
+          (floatp last-event-time)
+          (< (- (float-time) last-event-time) 0.2))
+        (set (make-local-variable 'temp-evil-escape-mode) t)
+        (set (make-local-variable 'temp-evil-escape-mode) nil)
+      )
+    (if (and temp-evil-escape-mode
+          (equal (pyim-entered-get) "j")
+          (equal last-command-event ?k))
+        (progn
+          (push last-command-event unread-command-events)
+          ;(pyim-outcome-handle 'pyim-entered)
+          ;(pyim-terminate-translation)
+          (pyim-process-outcome-handle 'pyim-entered)
+          (pyim-process-terminate)
+          )
+        (progn
+        (call-interactively orig-func)
+        (set (make-local-variable 'last-event-time) (float-time)))
+      )
+    )
+  ;; the functionp 'evil-escape-p if condition seems not work
+  ;; use with-eval-after-load instead
+  (with-eval-after-load 'evil-escape
+    (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command))
   ;; 探针设置
   ;; 自定义探针, 进入 org-mode source block 之后自动切换到英文输入
   (defun mz/pyim-probe-org-src-block ()

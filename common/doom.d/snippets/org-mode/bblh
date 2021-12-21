@@ -5,5 +5,5 @@
 # group: latex
 # 
 # --
-#+latex_header: \\usepackage[maxnames=3,style=nature,date=year,url=false]\{biblatex\}
+#+latex_header: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false]\{biblatex\}
 #+latex_header: \\addbibresource\{${1:refs.bib}\}$0

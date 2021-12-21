@@ -68,7 +68,7 @@
 (setq
   mz/org-notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
   ;bibfile (concat mz/org-notes "/bibliography_linux.bib")
-  mz/bibfile (concat mz/org-notes "/bibliography_macos.bib")
+  mz/bibfile (concat mz/org-notes "/bibliography.bib")
   mz/org-roam-graph-executable "/usr/bin/dot"
   mz/org-roam-graph-viewer "/usr/bin/xdg-open"
   mz/evil-leader ","
@@ -140,7 +140,7 @@
  '(tool-bar-mode nil)
  ; suppress the annoying warning when using pyim in org:
  ;   Warning (emacs): org-element--cache: Unregistered buffer modifications detected. Resetting.
- '(warning-suppress-types '((emacs) (:warning)))
+ '(warning-suppress-types '((org-encrypt-entries) (org-element-cache) (emacs) (:warning)))
 )
  ;'(truncate-lines t))
 (custom-set-faces

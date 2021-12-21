@@ -10,3 +10,4 @@ git.log
 .DS_Store
 
 flycheck_*
+.auctex-auto

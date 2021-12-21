@@ -360,7 +360,7 @@ noremap <Right> <C-w>l
 noremap <tab> gt
 noremap <s-tab> gT
 " 映射ESC
-imap fj <esc>
+imap jk <esc>
 vmap mm <esc>
 " 命令模式启动
 nnoremap : ;
