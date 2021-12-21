@@ -1,0 +1,142 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) Compiler oneAPI 2022.1.1, including base (2022.1.1.119) and hpc (2022.1.1.97) toolkit"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt PREFIX before using this modulefile
+set PREFIX      "/opt/intel/oneapi-2022.1.1"
+
+## since 4.6, environment module support source shell script, for example
+#if {[info commands source-sh] eq {source-sh}} {
+#  source-sh [module-info shell] ${PREFIX}/setvars.sh
+#}
+## but sourced environment variables are messed up with internal functions
+## which personally I do not like.
+## so I extract the following config by module show with source-sh.
+## this may not be true for every architecture, but is good for my own use.
+
+prepend-path    CMAKE_PREFIX_PATH ${PREFIX}/tbb/2021.5.0
+prepend-path    CMAKE_PREFIX_PATH ${PREFIX}/compiler/2022.0.1/linux/IntelDPCPP
+
+prepend-path    CPATH ${PREFIX}/tbb/2021.5.0/include
+prepend-path    CPATH ${PREFIX}/mpi/2021.5.0/include
+prepend-path    CPATH ${PREFIX}/mkl/2022.0.1/include
+prepend-path    CPATH ${PREFIX}/ippcp/2021.5.0/include
+prepend-path    CPATH ${PREFIX}/dpl/2021.6.0/linux/include
+prepend-path    CPATH ${PREFIX}/dpcpp-ct/2022.0.0/include
+prepend-path    CPATH ${PREFIX}/dev-utilities/2021.5.1/include
+prepend-path    CPATH ${PREFIX}/ccl/2021.5.0/include/cpu_gpu_dpcpp
+
+prepend-path    FI_PROVIDER_PATH ${PREFIX}/mpi/2021.5.0/libfabric/lib/prov
+prepend-path    FI_PROVIDER_PATH /usr/lib64/libfabric
+
+prepend-path    INTEL_LICENSE_FILE /opt/intel/licenses
+prepend-path    INTEL_LICENSE_FILE [getenv HOME]/intel/licenses
+prepend-path    INTEL_LICENSE_FILE ${PREFIX}/clck/2021.5.0/licensing
+prepend-path    INTEL_LICENSE_FILE {/Users/Shared/Library/Application Support/Intel/Licenses}
+
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/tbb/2021.5.0/lib/intel64/gcc4.8
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/mpi/2021.5.0/libfabric/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/mpi/2021.5.0/lib/release
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/mpi/2021.5.0/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/mkl/2022.0.1/lib/intel64
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/itac/2021.5.0/slib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/ippcp/2021.5.0/lib/intel64
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/debugger/2021.5.0/gdb/intel64/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/debugger/2021.5.0/libipt/intel64/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/debugger/2021.5.0/dep/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/lib/x64
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/lib/oclfpga/host/linux64/lib
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/compiler/lib/intel64_lin
+prepend-path    LD_LIBRARY_PATH ${PREFIX}/ccl/2021.5.0/lib/cpu_gpu_dpcpp
+
+prepend-path    LIBRARY_PATH ${PREFIX}/tbb/2021.5.0/lib/intel64/gcc4.8
+prepend-path    LIBRARY_PATH ${PREFIX}/mpi/2021.5.0/libfabric/lib
+prepend-path    LIBRARY_PATH ${PREFIX}/mpi/2021.5.0/lib/release
+prepend-path    LIBRARY_PATH ${PREFIX}/mpi/2021.5.0//lib
+prepend-path    LIBRARY_PATH ${PREFIX}/mkl/2022.0.1/lib/intel64
+prepend-path    LIBRARY_PATH ${PREFIX}/ippcp/2021.5.0/lib/intel64
+prepend-path    LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/compiler/lib/intel64_lin
+prepend-path    LIBRARY_PATH ${PREFIX}/compiler/2022.0.1/linux/lib
+prepend-path    LIBRARY_PATH ${PREFIX}/clck/2021.5.0/lib/intel64
+prepend-path    LIBRARY_PATH ${PREFIX}/ccl/2021.5.0/lib/cpu_gpu_dpcpp
+
+prepend-path    MANPATH ${PREFIX}/mpi/2021.5.0/man
+prepend-path    MANPATH ${PREFIX}/itac/2021.5.0/man
+prepend-path    MANPATH ${PREFIX}/debugger/2021.5.0/documentation/man
+prepend-path    MANPATH ${PREFIX}/compiler/2022.0.1/documentation/en/man/common
+prepend-path    MANPATH ${PREFIX}/clck/2021.5.0/man
+
+prepend-path    NLSPATH ${PREFIX}/mkl/2022.0.1/lib/intel64/locale/%l_%t/%N
+prepend-path    NLSPATH ${PREFIX}/compiler/2022.0.1/linux/compiler/lib/intel64_lin/locale/%l_%t/%N
+
+prepend-path    OCL_ICD_FILENAMES libintelocl_emu.so
+prepend-path    OCL_ICD_FILENAMES libalteracl.so
+prepend-path    OCL_ICD_FILENAMES ${PREFIX}/compiler/2022.0.1/linux/lib/x64/libintelocl.so
+
+prepend-path    PATH ${PREFIX}/vtune/2022.0.0/bin64
+prepend-path    PATH ${PREFIX}/mpi/2021.5.0//libfabric/bin
+prepend-path    PATH ${PREFIX}/mpi/2021.5.0//bin
+prepend-path    PATH ${PREFIX}/mkl/2022.0.1/bin/intel64
+prepend-path    PATH ${PREFIX}/itac/2021.5.0/bin
+prepend-path    PATH ${PREFIX}/inspector/2022.0.0/bin64
+prepend-path    PATH ${PREFIX}/dpcpp-ct/2022.0.0/bin
+prepend-path    PATH ${PREFIX}/dev-utilities/2021.5.1/bin
+prepend-path    PATH ${PREFIX}/debugger/2021.5.0/gdb/intel64/bin
+prepend-path    PATH ${PREFIX}/compiler/2022.0.1/linux/lib/oclfpga/bin
+prepend-path    PATH ${PREFIX}/compiler/2022.0.1/linux/bin/intel64
+prepend-path    PATH ${PREFIX}/compiler/2022.0.1/linux/bin
+prepend-path    PATH ${PREFIX}/clck/2021.5.0/bin/intel64
+prepend-path    PATH ${PREFIX}/advisor/2022.0.0/bin64
+
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/vtune/2022.0.0/include/pkgconfig/lib64
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/tbb/2021.5.0/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/mpi/2021.5.0/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/mkl/2022.0.1/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/ippcp/2021.5.0/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/inspector/2022.0.0/include/pkgconfig/lib64
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/dpl/2021.6.0/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/compiler/2022.0.1/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/ccl/2021.5.0/lib/pkgconfig
+prepend-path    PKG_CONFIG_PATH ${PREFIX}/advisor/2022.0.0/include/pkgconfig/lib64
+
+setenv    ADVISOR_2022_DIR        ${PREFIX}/advisor/2022.0.0
+setenv    APM                     ${PREFIX}/advisor/2022.0.0/perfmodels
+setenv    CCL_CONFIGURATION       cpu_gpu_dpcpp
+setenv    CCL_ROOT                ${PREFIX}/ccl/2021.5.0
+setenv    CLASSPATH               ${PREFIX}/mpi/2021.5.0//lib/mpi.jar
+setenv    CLCK_ROOT               ${PREFIX}/clck/2021.5.0
+setenv    CMPLR_ROOT              ${PREFIX}/compiler/2022.0.1
+setenv    CPLUS_INCLUDE_PATH      ${PREFIX}/clck/2021.5.0/include
+setenv    DPCT_BUNDLE_ROOT        ${PREFIX}/dpcpp-ct/2022.0.0
+setenv    DPL_ROOT                ${PREFIX}/dpl/2021.6.0
+setenv    FPGA_VARS_ARGS          {}
+setenv    FPGA_VARS_DIR           ${PREFIX}/compiler/2022.0.1/linux/lib/oclfpga
+setenv    GDB_INFO                ${PREFIX}/debugger/2021.5.0/documentation/info/
+setenv    I_MPI_ROOT              ${PREFIX}/mpi/2021.5.0
+setenv    INFOPATH                ${PREFIX}/debugger/2021.5.0/gdb/intel64/lib
+setenv    INSPECTOR_2022_DIR      ${PREFIX}/inspector/2022.0.0
+setenv    INTEL_PYTHONHOME        ${PREFIX}/debugger/2021.5.0/dep
+setenv    INTELFPGAOCLSDKROOT     ${PREFIX}/compiler/2022.0.1/linux/lib/oclfpga
+setenv    IPPCP_TARGET_ARCH       intel64
+setenv    IPPCRYPTOROOT           ${PREFIX}/ippcp/2021.5.0
+setenv    MKLROOT                 ${PREFIX}/mkl/2022.0.1
+setenv    ONEAPI_ROOT             ${PREFIX}
+setenv    PYTHONPATH              ${PREFIX}/advisor/2022.0.0/pythonapi
+setenv    TBBROOT                 ${PREFIX}/tbb/2021.5.0
+setenv    VT_ADD_LIBS             { -ldwarf -lelf -lvtunwind -lm -lpthread }
+setenv    VT_LIB_DIR              ${PREFIX}/itac/2021.5.0/lib
+setenv    VT_MPI                  impi4
+setenv    VT_ROOT                 ${PREFIX}/itac/2021.5.0
+setenv    VT_SLIB_DIR             ${PREFIX}/itac/2021.5.0/slib
+setenv    VTUNE_PROFILER_2022_DIR ${PREFIX}/vtune/2022.0.0

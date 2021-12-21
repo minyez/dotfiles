@@ -13,7 +13,7 @@ proc ModulesHelp { } {
 module-whatis       $docstr
 
 # You must change PREFIX before using this modulefile
-set PREFIX            "/opt/intel/2020.4/"
+set PREFIX            "/opt/intel/2020.4"
 
 set INTEL_HOME        "${PREFIX}"
 set INTEL_LINUX_HOME  "${PREFIX}/compilers_and_libraries_2020.4.304/linux"
@@ -71,6 +71,11 @@ prepend-path    PATH             ${I_MPI_ROOT}/intel64/libfabric/bin/
 prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/libfabric/lib/
 prepend-path    LIBRARY_PATH     ${I_MPI_ROOT}/intel64/libfabric/lib/
 prepend-path    FI_PROVIDER_PATH ${I_MPI_ROOT}/intel64/libfabric/lib/prov
+
+# In vtune_profiler
+prepend-path    PATH             ${INTEL_HOME}/vtune_profiler/bin64
+prepend-path    PKG_CONFIG_PATH  ${INTEL_HOME}/vtune_profiler/include/pkgconfig/lib64
+setenv          VTUNE_PROFILER_2020_DIR ${INTEL_HOME}/vtune_profiler
 
 # In pkg_bin:
 prepend-path    PATH            ${INTEL_LINUX_HOME}/bin/intel64
