@@ -6,5 +6,6 @@
   "public/excludes.git" : "~/.gitexcludes",
   "public/ignore_global.git" : "~/.gitignore_global",
   "public/gitconfig" : "~/.gitconfig",
+  "public/ssh.config" : "~/.ssh/config",
   "public/matplotlibrc/" : "~/.matplotlib"
 }

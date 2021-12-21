@@ -10,7 +10,7 @@ Files included:
 - [x] Bash Shell
 - [x] Z shell
 - [x] git excludes and ignore
-- [x] ~~SSH config~~
+- [x] SSH config (as a symlink to the real private config)
 - [x] gnuplot
 - [x] ~~NutShare excluding rules~~ (not working any more)
 - [x] wine registery files
