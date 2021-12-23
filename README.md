@@ -6,6 +6,10 @@ Files included:
 
 - [x] Vim
 - [x] NeoVim
+- [ ] [helix](https://github.com/helix-editor/helix) (WIP)
+    Okay with 0.5 release.
+    Not able to install the latest commit, possibly due to incomplete submodule clone.
+    Also check issue 773 therein
 - [x] Doom Emacs
 - [x] Bash Shell
 - [x] Z shell

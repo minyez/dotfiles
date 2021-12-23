@@ -80,6 +80,25 @@ _install_compiler_config() {
   sudo $DNF_CMD -y install vim-enhanced neovim || exit 2
 }
 
+_install_rust() {
+  # install rust by rustup
+  # the rust in Fedora repo is somewhat out-of-date
+  cecho i "Installing Rust and cargo by rustup ..."
+  ((_DRY_RUN)) && return
+  curl https://sh.rustup.rs -sSf | bash -s -- -q -y --no-modify-path || exit 2
+  cecho s "Rust installed"
+}
+
+_install_helix() {
+  cecho e "Not implements"
+  return
+  sudo $DNF_CMD group install "C Development Tools and Libraries"
+  git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
+  cd helix
+  cargo install --path helix-term
+  cecho i "If you meet error, try git submodule update --init --recursive --recommend-shallow"
+}
+
 # network
 _install_net_tools() {
   cecho i "Installing net tools, e.g. SSL, curl, wget ..."
@@ -146,7 +165,7 @@ _install_misc() {
       environment-modules direnv \
       jq thefuck fzf \
       ripgrep fd-find \
-      lshw htop \
+      lshw htop ytop \
       qalculate-gtk flameshot || exit 2
   sudo $DNF_CMD -y install pandoc* || exit 2
 }

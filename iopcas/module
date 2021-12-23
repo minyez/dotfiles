@@ -41,6 +41,9 @@ if [ -d ~/.nvm ]; then
   \. ~/.nvm/bash_completion  # This loads nvm bash_completion
 fi
 
+# rust
+[ -f  "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
 # pandoc completion
 if command -v pandoc 1>/dev/null 2>&1; then
   eval "$(pandoc --bash-completion)"

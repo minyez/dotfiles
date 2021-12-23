@@ -30,3 +30,6 @@ utils/wine/*.reg
 utils/wine/*.exe
 utils/wine/*.msi
 
+# helix git clone
+public/helix/helix
+public/helix/runtime

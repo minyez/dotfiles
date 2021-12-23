@@ -1,0 +1,11 @@
+theme = "onedark"
+
+[keys.normal]
+## below require release > 0.5
+## see https://github.com/helix-editor/helix/issues/1289
+#semicolon = ":"
+#C-s = ":w"
+#"ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
+
+[keys.insert]
+j = { k = "normal_mode" }
