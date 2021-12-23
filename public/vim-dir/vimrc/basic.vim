@@ -15,7 +15,7 @@ set so=3
 syntax on
 
 " TAB键长度在indent文件夹中，以适用不同类型文件
-set tabstop=8
+set tabstop=4
 set smarttab
 
 " 自动缩进
@@ -23,6 +23,13 @@ set ai
 " 智慧缩进
 set si
 set wrap
+
+" search case
+set smartcase
+set ignorecase
+
+" Disable insert paste mode
+set nopaste
 
 " 显示光标所在行列
 " set cursorline
