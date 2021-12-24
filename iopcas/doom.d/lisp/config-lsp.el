@@ -116,6 +116,7 @@
 (after! eglot
   :config
   (set-eglot-client! 'python-mode '("pylsp"))
+  (set-eglot-client! 'f90-mode '("fortls"))
   (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
   ;;; modified from https://github.com/joaotavora/eglot/issues/590#issuecomment-758233948
   ;;; when using setq, eglot-workspace-configuration is still nil in test project files, opened by projectile

@@ -14,16 +14,28 @@
    ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
   )
-  :config
-  (fset 'make-bold
-   (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
+  ;:config
+  ;(fset 'make-bold
+  ; (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
   :bind
   (:map org-mode-map
         ("C-c l" . org-insert-link)
         ("C-c i" . org-insert-image)
         ("C-c C-i" . org-time-stamp-inactive)
+        ("C-c e v" . (lambda () "make verbatim"
+                       (interactive) (org-emphasize 61))) ; =
+        ("C-c e b" . (lambda () "make bold"
+                       (interactive) (org-emphasize 42))) ; *
+        ("C-c e s" . (lambda () "make strike-through"
+                       (interactive) (org-emphasize 43))) ; +
+        ("C-c e i" . (lambda () "make italic"
+                       (interactive) (org-emphasize 47))) ; /
+        ("C-c e u" . (lambda () "make underline"
+                       (interactive) (org-emphasize 95))) ; _
+        ("C-c e c" . (lambda () "make code"
+                       (interactive) (org-emphasize 126))) ; ~
       )
-  ("s-b" . make-bold)
+  ;("s-b" . make-bold)
   :config
   (map! :map org-mode-map
         :nv "SPC a a" #'org-agenda-file-to-front

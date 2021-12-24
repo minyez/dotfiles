@@ -4,6 +4,8 @@
 
 ;;; beamer export
 (use-package! ox-beamer
+  :bind
+  ("C-c x b" . org-beamer-export-to-latex)
   :config
   ; default 3rd level heading as frame.
   ; 1st and 2nd are sec and subsec
@@ -15,19 +17,12 @@
 ; https://stackoverflow.com/questions/36197545/org-mode-latex-export-making-todos-red
 (use-package! ox-latex
   :bind
-  ("C-c e o" . my-org-latex-export-latex)
-  ;("C-c e o" . org-latex-export-latex)
-  ("C-c e b" . my-org-beamer-export-latex)
-  ;("C-c e b" . org-beamer-export-latex)
+  ("C-c x l" . org-latex-export-to-latex)
   :config
   ;(fset 'my-org-latex-export-open-pdf
   ; (kmacro-lambda-form [?\C-c ?\C-e ?l ?o] 0 "%d"))
   ;(fset 'my-org-beamer-export-open-pdf
   ; (kmacro-lambda-form [?\C-c ?\C-e ?l ?O] 0 "%d"))
-  (fset 'my-org-latex-export-latex
-   (kmacro-lambda-form [?\C-c ?\C-e ?l ?l] 0 "%d"))
-  (fset 'my-org-beamer-export-latex
-   (kmacro-lambda-form [?\C-c ?\C-e ?l ?b] 0 "%d"))
   (setq org-latex-pdf-process '("latexmk -latexoption=\"-interaction=nonstopmode -shell-escape\" -pdf -pdflatex=%latex -bibtex -f %f"))
   ;; prefer custom label
   (setq org-latex-prefer-user-labels t)

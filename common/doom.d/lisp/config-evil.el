@@ -43,6 +43,8 @@
 ; use doom tabs function and evil-leader to switch (centaur) tabs
 ; learn lambda function to create closure for key binding
 ; https://stackoverflow.com/a/1030409
+  "tb" (lambda () (interactive) (+tabs:previous-or-goto))
+  "tt" (lambda () (interactive) (+tabs:next-or-goto))
   "t1" (lambda () (interactive) (+tabs:next-or-goto 1))
   "t2" (lambda () (interactive) (+tabs:next-or-goto 2))
   "t3" (lambda () (interactive) (+tabs:next-or-goto 3))

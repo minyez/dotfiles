@@ -1,4 +1,4 @@
-theme = "onedark"
+theme = "ingrid"
 
 [keys.normal]
 ## below require release > 0.5

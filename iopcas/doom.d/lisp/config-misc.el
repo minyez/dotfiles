@@ -105,13 +105,12 @@
 ; https://rgel.readthedocs.io/en/latest/
 (use-package! rg
   :config
-  (global-set-key (kbd "C-c g m") #'rg-menu)
-  (global-set-key (kbd "C-c g d") #'rg-diwm)
-  (global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
-  (with-eval-after-load 'rg
-     ;; Your settings goes here.
-    (setq rg-ignore-case 'smart)
-  )
+  (setq rg-keymap-prefix "\C-cg")
+  (rg-enable-default-bindings)
+  ;(global-set-key (kbd "C-c g m") #'rg-menu)
+  ;(global-set-key (kbd "C-c g d") #'rg-diwm)
+  ;(global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
+  (setq rg-ignore-case 'smart)
 )
 
 (use-package! window-numbering
