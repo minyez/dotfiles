@@ -334,6 +334,11 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "colorscheme github
 colorscheme molokai
 
+" following terminal transparency
+set t_Co=256
+set termguicolors
+highlight Normal ctermbg=none guibg=none
+
 " Restore cursor position
 au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" |
