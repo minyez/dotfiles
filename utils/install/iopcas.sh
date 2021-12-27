@@ -180,6 +180,9 @@ _install_snap() {
   sudo $DNF_CMD -y install snapd || exit 2
   sudo ln -s /var/lib/snapd/snap /snap || exit 2
   cecho s "snap installed and linked"
+  cecho i "Useful snaps:"
+  echo    " draw.io: snap install drawio"
+  echo    "  Typora: snap install typora"
 }
 
 _install_language_tools() {

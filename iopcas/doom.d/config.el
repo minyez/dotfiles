@@ -166,7 +166,11 @@
           "~/Documents/SelfDevelopment/Academia"
           "~/Documents/SelfDevelopment/Projects"
           "~/projects"
-          ))
+          )
+        )
+  ; for org export
+  (add-to-list 'projectile-other-file-alist
+               '("org" . ("pdf" "tex" "md")))
 )
 
 (require 'config-evil)

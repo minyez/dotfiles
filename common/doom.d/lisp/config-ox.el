@@ -6,6 +6,7 @@
 (use-package! ox-beamer
   :bind
   ("C-c x b" . org-beamer-export-to-latex)
+  ("C-c x O" . org-beamer-export-to-pdf)
   :config
   ; default 3rd level heading as frame.
   ; 1st and 2nd are sec and subsec
@@ -18,6 +19,7 @@
 (use-package! ox-latex
   :bind
   ("C-c x l" . org-latex-export-to-latex)
+  ("C-c x o" . org-latex-export-to-pdf)
   :config
   ;(fset 'my-org-latex-export-open-pdf
   ; (kmacro-lambda-form [?\C-c ?\C-e ?l ?o] 0 "%d"))
