@@ -64,6 +64,9 @@ endif
 if $COLORTERM == 'truecolor'
     set t_Co=256
 endif
+" following terminal transparency
+highlight Normal ctermbg=NONE guibg=NONE
+
 " always show the status line
 set laststatus=2
 

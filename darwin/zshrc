@@ -181,7 +181,5 @@ fi
 # suppress error when no regex match is found
 unsetopt nomatch
 
-cd ~
-
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 

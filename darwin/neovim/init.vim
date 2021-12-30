@@ -330,7 +330,8 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "Select colorscheme
 "colorscheme wombat256mod "a darkmode
 "colorscheme github
-colorscheme molokai
+"colorscheme molokai
+colorscheme woju
 
 " Restore cursor position
 au BufReadPost *

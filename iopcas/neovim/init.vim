@@ -332,11 +332,12 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "Select colorscheme
 "colorscheme wombat256mod "a darkmode
 "colorscheme github
-colorscheme molokai
+"colorscheme molokai
+colorscheme woju
 
 " following terminal transparency
 set t_Co=256
-set termguicolors
+"set termguicolors
 highlight Normal ctermbg=none guibg=none
 
 " Restore cursor position
