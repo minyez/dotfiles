@@ -2,15 +2,20 @@
 module-whatis "alias related to SSH"
 
 set rsync_exclude "--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod"
+# for old rsync version, replace --info=progress2 with --progress
+set info_opt      "--info=progress2"
 # rsync
-# for old version rsync, replace --info=progress2 with --progress
-set-alias scsyc    "rsync $rsync_exclude -vazru --info=progress2 "
-set-alias scsycfoc "rsync $rsync_exclude -vazr  --info=progress2 "
-set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru --info=progress2 "
+set-alias scsyc    "rsync $rsync_exclude -vazru $info_opt "
+set-alias scsycfoc "rsync $rsync_exclude -vazr  $info_opt "
+set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru $info_opt "
 
 # sync directory to IOP-HR server
-set-alias sync2hr { relap="$(realpath . --relative-to=/home/minyez/)" && ssh iophr mkdir -p "/home/zhangmy/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
-set-alias syncfhr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync -vazru --info=progress2 iophr:"/home/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
-set-alias sync2bd { relap="$(realpath . --relative-to=/home/minyez/)" && ssh phbd mkdir -p "/gpfs/share/home/1501210186/$relap" && rsync -vazru --info=progress2 "/home/minyez/$relap" phbd:"/gpfs/share/home/1501210186/$(dirname $relap)" }
-set-alias syncfbd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync -vazru --info=progress2 phbd:"/gpfs/share/home/1501210186/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2hr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
+set-alias syncfhr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 iophr:"/home/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2bd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" phbd:"/gpfs/share/home/1501210186/$(dirname $relap)" }
+set-alias syncfbd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 phbd:"/gpfs/share/home/1501210186/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2xd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" xdb:"/public/home/zhangmy_xdb/$(dirname $relap)" }
+set-alias syncfxd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 xdb:"/public/home/zhangmy_xdb/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2y  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" yuan:"/home/users/zhangmy/$(dirname $relap)" }
+set-alias syncfy  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 yuan:"/home/users/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
 
