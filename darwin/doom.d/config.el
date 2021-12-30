@@ -79,6 +79,8 @@
 ;;; private configs for individual modules and packages
 (add-to-list 'load-path (concat doom-private-dir "lisp"))
 
+(require 'init-utils)
+
 ; Global variables
 ;   mz/org-notes : all my org(-roam) notes
 ;   mz/bibfile : bibliography, now a symlink to my exported zotero biblatex library

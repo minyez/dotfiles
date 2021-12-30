@@ -279,11 +279,13 @@ it can be passed in POS."
   (add-to-list 'org-tags-exclude-from-inheritance "noter")
   (add-to-list 'org-tags-exclude-from-inheritance "Reference")
   (add-to-list 'org-tags-exclude-from-inheritance "Book")
-  ; change default to dvisvgm,
+  ; change default to dvisvgm on linux,
   ; according to https://emacs-china.org/t/org-latex-fragments-preview/16400/5
   ; imagemagick/dvipng create a fullwidth picture for both inline and display math
   ; however, this was not the case on macos.
-  (setq org-preview-latex-default-process 'dvisvgm)
+  (with-linux
+    (setq org-preview-latex-default-process 'dvisvgm)
+  )
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
   (add-to-list 'org-link-abbrev-alist
