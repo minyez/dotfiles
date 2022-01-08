@@ -54,6 +54,8 @@
         )
   (setq org-archive-location (concat mz/org-notes "/archive.org::* From %s"))
   (setq org-default-notes-file (concat mz/org-notes "/todos.org::* Inbox"))
+  ; match target and named construct
+  (setq org-link-search-must-match-exact-headline nil)
   ; for org-capture purpose
   ; defvar by doom
   (setq +org-capture-todo-file "todos.org")
@@ -142,15 +144,19 @@
   ;; for paste picture from clipboard to org-mode
   ;; adapted from https://emacs-china.org/t/topic/6601/4
   (defun org-insert-image ()
-    "Insert PNG image from the clipboard to the buffer by using =pngpaste=
+    "Insert PNG image from the clipboard to the buffer by using =pngpaste= (macos) or =xclip= (linux)
 
 The image will be created under 'images' directory in =org-directory=
 with the name from user input. If image with the same name exists, the paste
-will be stopped and you need to try again with another name.
-Note that =pngpaste= should be installed outside Emacs"
+will be stopped, but the link will still be created.
+Note that =pngpaste=/=xclip= should be installed outside Emacs"
     (interactive)
     (let* 
       (
+       (cpcmd (pcase system-type
+          ('darwin "pngpaste %s")
+          ('gnu/linux "xclip -selection clipboard -t image/png -o > %s")
+          ))
        (path (concat mz/org-notes "/images/"))
        (fn (format "%s" (read-string "Enter image name (w/o png):")))
 		   (image-file (concat path fn ".png"))
@@ -158,7 +164,9 @@ Note that =pngpaste= should be installed outside Emacs"
 	    (if (not (file-exists-p path)) (mkdir path))
 	    (if (file-exists-p image-file)
 		(message (format "Warning: found image %s.png in %s" fn path))
-                (shell-command (format "pngpaste %s" image-file)))
+                (if cpcmd (shell-command (format cpcmd image-file))
+		              (message "Warning: clipboard -> file not suppored on this OS")
+                  ))
          (insert (format "#+name: fig:%s\n" fn))
          (insert "#+caption:\n")
          (insert ":IMAGE:\n")
@@ -283,7 +291,7 @@ it can be passed in POS."
   ; according to https://emacs-china.org/t/org-latex-fragments-preview/16400/5
   ; imagemagick/dvipng create a fullwidth picture for both inline and display math
   ; however, this was not the case on macos.
-  (with-linux
+  (with-system 'gnu/linux
     (setq org-preview-latex-default-process 'dvisvgm)
   )
   (add-to-list 'org-link-abbrev-alist
@@ -502,6 +510,18 @@ parent."
 ;                                    (?D . "TRIV")
 ;                                    (?1 . "⚡")))
 ;)
+
+; spaced repitition for memorizing things
+(use-package! org-drill
+  :config
+  ;(setq org-drill-scope
+  ;    '("index-english_slang_phrases.org"
+  ;      "index-english_vocabulary.org"))
+  (setq org-drill-scope 'directory)
+  (setq org-drill-spaced-repetition-algorithm 'simple8)
+  (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
+  (setq org-drill-add-random-noise-to-intervals-p t)
+)
 
 (provide 'config-org)
 ;;; config-org.el ends here

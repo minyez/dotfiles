@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # key: blh
-# name: basic latex header
+# name: basic latex header including author and email
 # uuid: blh
 # group: latex
 # 
 # --
+#+author: `(eval user-full-name)`
+#+email: `(eval user-mail-address)`
 #+latex_compiler: ${1:xelatex}
 #+latex_class: ${2:article}
 #+latex_header: \\usepackage\{${3:physics}\}
@@ -13,3 +15,4 @@
 #+latex_header: \\newcommand\{\\ee\}\{\\mathrm\{e\}\}
 #+latex_header: \\newcommand\{\\br\}{\\bvec\{r\}\}
 #+latex_header: \\newcommand\{\\half\}\{\\frac\{1\}\{2\}\}$0
+#+options: toc:nil tags:nil title:t email:t

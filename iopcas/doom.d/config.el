@@ -142,7 +142,8 @@
  '(tool-bar-mode nil)
  ; suppress the annoying warning when using pyim in org:
  ;   Warning (emacs): org-element--cache: Unregistered buffer modifications detected. Resetting.
- '(warning-suppress-types '((org-encrypt-entries) (org-element-cache) (emacs) (:warning)))
+ ;'(warning-suppress-types '((org-encrypt-entries) (org-element-cache) (emacs) (:warning)))
+ '(warning-suppress-types '((org-element-cache) (emacs) (:warning)))
 )
  ;'(truncate-lines t))
 (custom-set-faces

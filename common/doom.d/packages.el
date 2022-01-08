@@ -46,6 +46,10 @@
 ;(package! org-download)
 (package! org-fragtog)
 (package! company-org-roam)
+
+(package! org-drill
+  :recipe (:host gitlab :repo "phillord/org-drill"))
+
 (package! delve
   :recipe (:host github :repo "publicimageltd/delve" :branch "main"))
 ; Bibliography
