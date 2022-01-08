@@ -61,10 +61,10 @@ filetype plugin on
 
 " ===== vim-colorschemes =====
 "colorscheme molokai
-colorscheme woju
+colorscheme jellybeans
 " alternatively, use the color of terminal GUI
 " require ViM 8.0
-"set termguicolors
+set termguicolors
 
 " ===== deoplete =====
 "let g:deoplete#enable_at_startup = 1

@@ -330,14 +330,15 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "set shell=/bin/bash
 "set foldmethod=syntax
 "Select colorscheme
-"colorscheme wombat256mod "a darkmode
+colorscheme wombat256mod "a darkmode
 "colorscheme github
 "colorscheme molokai
-colorscheme woju
+"colorscheme jellybeans
+colorscheme gruvbox
 
 " following terminal transparency
 set t_Co=256
-"set termguicolors
+set termguicolors
 highlight Normal ctermbg=none guibg=none
 
 " Restore cursor position
