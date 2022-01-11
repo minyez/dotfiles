@@ -325,7 +325,7 @@ it can be passed in POS."
       ("normalem" "ulem"  t)    ; strikeout
       (""     "textcomp"  t)
       (""     "capt-of"   nil)
-      ("font={small,it},skip=1pt"     "caption"   nil)
+      ("font={small},skip=1pt"     "caption"   nil)
       (""     "parskip"   nil)  ; better paragraph spacing
       (""     "booktabs"   nil) ; better table
 	 )
