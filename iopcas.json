@@ -8,5 +8,6 @@
   "iopcas/modulefiles": "~/.modulefiles",
   "public/rime" : "~/.config/ibus/rime",
   "iopcas/tmux.conf" : "~/.tmux.conf",
-  "iopcas/zshrc" : "~/.zshrc"
+  "iopcas/zshrc" : "~/.zshrc",
+  "iopcas/p10k.zsh" : "~/.p10k.zsh"
 }

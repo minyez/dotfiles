@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 [ -f /etc/zshrc ] && . /etc/zshrc
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
@@ -40,6 +47,8 @@ ZSH_THEME="pmcgee"
 ZSH_THEME="bureau"
 # frontcube hide username and have -> as prompt, suit me best
 ZSH_THEME="frontcube"
+# powerlevel10k https://github.com/romkatv/powerlevel10k
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -93,13 +102,16 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
 plugins=(
   git
   autojump
   jsontools
   ripgrep
   zsh-completions
+  zsh-autosuggestions
 )
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#777777"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -189,3 +201,5 @@ unsetopt nomatch
 
 #cd ~
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
