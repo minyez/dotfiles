@@ -1,6 +1,7 @@
 {
   "../latex/latex-cls-and-sty/" : "/Library/TeX/Local/tex/latex/local",
   "darwin/zshrc" : "~/.zshrc",
+  "darwin/p10k.zsh" : "~/.p10k.zsh",
   "darwin/bashrc" : "~/.bashrc",
   "darwin/alacritty.yml" : "~/.alacritty.yml",
   "darwin/vimrc" : "~/.vimrc",
