@@ -59,6 +59,13 @@ call vundle#end()
 filetype plugin indent on
 filetype plugin on
 
+" ===== vim-colorschemes =====
+"colorscheme molokai
+colorscheme jellybeans
+" alternatively, use the color of terminal GUI
+" require ViM 8.0
+set termguicolors
+
 "" ===== deoplete =====
 "let g:deoplete#enable_at_startup = 1
 "" Pass a dictionary to set multiple options

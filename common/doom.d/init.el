@@ -96,6 +96,9 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        (lsp +eglot)
+       ;;; NOTE: with emacs-pgtk-gcc 29, one has to comment out magit to doom sync,
+       ;;;       then
+       ;;; See https://github.com/hlissner/doom-emacs/issues/5918#issuecomment-1000320778
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds

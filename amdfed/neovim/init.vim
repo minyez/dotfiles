@@ -332,7 +332,14 @@ set wildignore=*.o,*~,*.pyc,*.mod
 "Select colorscheme
 "colorscheme wombat256mod "a darkmode
 "colorscheme github
-colorscheme molokai
+"colorscheme molokai
+"colorscheme jellybeans
+colorscheme gruvbox
+
+" following terminal transparency
+set t_Co=256
+set termguicolors
+highlight Normal ctermbg=none guibg=none
 
 " Restore cursor position
 au BufReadPost *
@@ -349,11 +356,11 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 " 寄存器复制粘贴
-" " 是 x 寄存器, * 是鼠标寄存器
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-noremap <Leader>Y "*y
-noremap <Leader>P "*p
+" + 是 x 寄存器, * 是鼠标寄存器
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 " 普通模式下，方向键改为切换窗口
 noremap <Up>    <C-w>k
 noremap <Down>  <C-w>j
@@ -363,7 +370,7 @@ noremap <Right> <C-w>l
 noremap <tab> gt
 noremap <s-tab> gT
 " 映射ESC
-imap fj <esc>
+imap jk <esc>
 vmap mm <esc>
 " 命令模式启动
 nnoremap : ;
@@ -471,6 +478,13 @@ function! HeaderTeX()
     normal G
     normal o
 endf
+function! HeaderORG()
+    call setline(1, "#+title: ".expand('%:r:t'))
+    call setline(2, "#+created: [".strftime('%Y-%m-%d %a %H:%M')."]")
+    call setline(3, "#+author: Min-Ye Zhang")
+    normal G
+    normal o
+endf
 
 augroup my_fileheaders
   autocmd!
@@ -479,6 +493,7 @@ augroup my_fileheaders
   autocmd bufnewfile *.py call HeaderPython()
   autocmd bufnewfile *.{c,cpp} call HeaderC()
   autocmd bufnewfile *.{tex,latex} call HeaderTeX()
+  autocmd bufnewfile *.org call HeaderORG()
 augroup END
 
 " =========================================================
