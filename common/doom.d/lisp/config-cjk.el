@@ -1,7 +1,6 @@
 ;;; configurations for modules related to input CJK characters, including
 ;;;   - liberime
 ;;;   - pyim
-;;;   - pyim-liberime
 ;;;   - +pyim-base-dict+
 ;;;   - pyim-tsinghua-dict
 ;;;   - pangu-spacing
@@ -12,7 +11,9 @@
 (use-package! liberime
   :config
   ; use rime user data of ibus-rime on my Linux
-  (setq liberime-user-data-dir "~/.config/ibus/rime")
+  (with-system 'gnu/linux
+    (setq liberime-user-data-dir "~/.config/ibus/rime")
+  )
   (liberime-select-schema "luna_pinyin_simp")
 )
 
@@ -78,10 +79,6 @@
               '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation))
 )
 
-(use-package! pyim-liberime
-  :after pyim
-)
-
 ;(use-package! pyim-basedict
 ;  :after pyim
 ;  :config
@@ -94,6 +91,7 @@
   (pyim-tsinghua-dict-enable)
 )
 
+; Chinese input setting, partly copied from Doom
 (use-package! pangu-spacing
   :hook (text-mode . pangu-spacing-mode)
   :config

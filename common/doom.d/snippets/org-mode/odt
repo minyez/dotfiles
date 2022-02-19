@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+# key: odt
+# name: org-drill template
+# uuid: odt
+# group: drill
+# 
+# --
+* ${1:word}
+[${2:meaning}]
+
+** Examples
+#+begin_quote
+$0
+#+end_quote

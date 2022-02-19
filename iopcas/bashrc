@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2046,2076,2086
+# shellcheck disable=SC1090,2046,2076,2086
 
 [ -f /etc/bashrc ] && . /etc/bashrc
 # User specific environment
