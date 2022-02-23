@@ -10,6 +10,10 @@
   :hook
   ((org-mode . org-indent-mode)
    (org-mode . visual-line-mode)
+   ;;; for automatic new line when typing beyond buffer width
+   ;;; 70 is appropriate for a two-column view on 15' desktop
+   (org-mode . auto-fill-mode)
+   (org-mode . (lambda () (setq fill-column 70)))
    ;(org-mode . org-cdlatex-mode) ;; hooked with :lang (latex +cdlatex) in init.el
    ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
