@@ -39,17 +39,21 @@ call plug#begin('~/.local/share/nvim/plugged')
 "   Comment YCM due to slow startup ~430ms
 "    Plug 'valloric/youcompleteme'
     Plug 'editorconfig/editorconfig-vim'
-"   Use deoplete instead
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-    Plug 'zchee/deoplete-jedi',
-    Plug 'davidhalter/jedi-vim'
+""   Use deoplete instead
+"    if has('nvim')
+"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+"    else
+"        Plug 'Shougo/deoplete.nvim'
+"        Plug 'roxma/nvim-yarp'
+"        Plug 'roxma/vim-hug-neovim-rpc'
+"    endif
+"    Plug 'zchee/deoplete-jedi',
+"   Another async compelete plugin to accompany vim-lsp
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+"    Plug 'davidhalter/jedi-vim'
     Plug 'machakann/vim-highlightedyank'
     Plug 'tmhedberg/SimpylFold'
     Plug 'sbdchd/neoformat'
@@ -59,6 +63,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jceb/vim-orgmode'
     Plug 'axvr/org.vim'
     Plug 'cespare/vim-toml'
+    "Plug 'neovim/nvim-lspconfig' " need init.lua, may be next time
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 let mapleader=","
@@ -89,15 +96,75 @@ let g:numbers_exclude = ['qf', 'nerdtree', 'unite', 'startify', 'gundo', 'vimshe
 " ===== pymode =====
 "let g:pymode_python = 'python3'
 
+" ===== colorschemes =====
+" as well as some color setup
+colorscheme wombat256mod "a darkmode
+"colorscheme github
+"colorscheme molokai
+"colorscheme jellybeans
+colorscheme gruvbox
+" following terminal transparency
+set t_Co=256
+set termguicolors
+highlight Normal ctermbg=none guibg=none
 
-" ===== deoplete =====
-let g:deoplete#enable_at_startup = 1
-" Pass a dictionary to set multiple options
-call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#option({
-\ 'smart_case' : v:true,
-\ })
-let g:deoplete#auto_complete=1
+" ===== lsp client: vim-lsp =====
+" https://github.com/prabirshrestha/vim-lsp#registering-servers
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+" supress inline diagnostics, i.e. virtual text
+let g:lsp_diagnostics_virtual_text_enabled = 0
+" instead use a float window
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_float_delay = 100
+" suppress A> code action marker, which does not quite make sense for me
+let g:lsp_document_code_action_signs_enabled = 0
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+" register ultisnip auto completion
+if has('python3')
+    "let g:UltiSnipsExpandTrigger="<c-e>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'allowlist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
+
+"" ===== deoplete =====
+"let g:deoplete#enable_at_startup = 1
+"" Pass a dictionary to set multiple options
+"call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
+"call deoplete#custom#option({
+"\ 'smart_case' : v:true,
+"\ })
+"let g:deoplete#auto_complete=1
+
 " ===== jedi =====
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
@@ -329,17 +396,6 @@ set nopaste
 set wildignore=*.o,*~,*.pyc,*.mod
 "set shell=/bin/bash
 "set foldmethod=syntax
-"Select colorscheme
-colorscheme wombat256mod "a darkmode
-"colorscheme github
-"colorscheme molokai
-"colorscheme jellybeans
-colorscheme gruvbox
-
-" following terminal transparency
-set t_Co=256
-set termguicolors
-highlight Normal ctermbg=none guibg=none
 
 " Restore cursor position
 au BufReadPost *
