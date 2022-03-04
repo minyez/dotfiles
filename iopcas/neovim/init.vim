@@ -108,7 +108,7 @@ set t_Co=256
 set termguicolors
 highlight Normal ctermbg=none guibg=none
 
-" ===== lsp client: vim-lsp =====
+" ===== lsp client: vim-lsp and related =====
 " https://github.com/prabirshrestha/vim-lsp#registering-servers
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -124,12 +124,10 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
-
-    let g:lsp_format_sync_timeout = 1000
+    "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+    let g:lsp_format_sync_timeout = 200
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
     " refer to doc to add more commands
 endfunction
 
@@ -146,6 +144,7 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+" async completion, including lsp and ultisnips
 " register ultisnip auto completion
 if has('python3')
     "let g:UltiSnipsExpandTrigger="<c-e>"
@@ -155,6 +154,7 @@ if has('python3')
         \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
         \ }))
 endif
+" ===== end vim-lsp related =====
 
 "" ===== deoplete =====
 "let g:deoplete#enable_at_startup = 1
