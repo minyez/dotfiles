@@ -98,6 +98,10 @@ call deoplete#custom#option({
 \ 'smart_case' : v:true,
 \ })
 let g:deoplete#auto_complete=1
+
+" ===== org.vim =====
+let g:org_state_keywords = ['TODO', 'WIP', 'DONE', 'CANCELED']
+
 " ===== jedi =====
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
@@ -306,6 +310,7 @@ vmap <Leader>a\, :Tabularize /,<CR>
 let g:indentLine_char = "┆"
 let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
+let g:indentLine_concealcursor = ""
 
 " =========================================================
 " General
