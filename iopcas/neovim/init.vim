@@ -14,7 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'itchyny/lightline.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
-    Plug 'neomake/neomake'
+"    Plug 'neomake/neomake'
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-commentary'
@@ -201,7 +201,7 @@ let g:tagbar_type_markdown = {
 " ===== UltiSnips =====
 " If custom directory is used, you need to add it to rtp
 "set runtimepath+=~/code/snippets
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = '~/.vim/UltiSnips'
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsUsePythonVersion = 3
 " better key bindings for UltiSnipsExpandTrigger
@@ -214,58 +214,58 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" ===== neomake =====
-" For default maker, check neomake wiki
-" https://github.com/neomake/neomake/wiki/Makers
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
-"disabled open error list in a window. used to be 2 to show error in location window
-let g:neomake_open_list = 0
-let g:neomake_list_height = 6
-let g:neomake_python_enabled_makers = ['pylint']
-let g:neomake_latex_enabled_makers = ['']
-" init-hook added to remove false unimport error
-" https://github.com/dense-analysis/ale/issues/208#issuecomment-274142439
-let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
-    \            '-r', 'n', "--init-hook", 'import sys; sys.path.append(".")'],
-    \}
-let g:neomake_c_enabled_makers = ['gcc']
-let g:neomake_cpp_enabled_makers = ['g++']
-let g:neomake_sh_enabled_makers = ['shellcheck']
-let g:neomake_fortran_enabled_makers = ['gfortran']
-let g:neomake_fortran_gfortran_maker = {
-            \'args': ['-fsyntax-only', '-Wall', '-Wextra', '-cpp']
-            \}
-" Custom warning sign
-let g:neomake_warning_sign = {
-    \   'text': '!',
-    \   'texthl': 'NeomakeWarningSign',
-    \ }
-let g:neomake_error_sign = {
-    \ 'text': 'X',
-    \ 'texthl': 'NeomakeErrorSign',
-    \ }
-" Automatically trigger neomake only when the laptop is charging 
-function! MyOnBattery()
-    if has("unix")
-        let s:uname = system("uname")
-        if s:uname == "Darwin\n"
-            return system("pmset -g batt | awk '/charg/ {print $4}'") != "discharging;\n"
-        elseif s:uname == "Linux\n"
-            if filereadable('/sys/class/power_supply/AC/online')
-                return readfile('/sys/class/power_supply/AC/online') == ['0']
-            else
-                return 1
-            endif
-        endif
-    endif
-endfunction
-if MyOnBattery()
-  call neomake#configure#automake('rnw', 100)
-endif
-" also use key mapping in normal mode
-noremap <Leader>nm :Neomake<CR>
+"" ===== neomake =====
+"" For default maker, check neomake wiki
+"" https://github.com/neomake/neomake/wiki/Makers
+"let g:neomake_serialize = 1
+"let g:neomake_serialize_abort_on_error = 1
+""disabled open error list in a window. used to be 2 to show error in location window
+"let g:neomake_open_list = 0
+"let g:neomake_list_height = 6
+"let g:neomake_python_enabled_makers = ['pylint']
+"let g:neomake_latex_enabled_makers = ['']
+"" init-hook added to remove false unimport error
+"" https://github.com/dense-analysis/ale/issues/208#issuecomment-274142439
+"let g:neomake_python_pylint_maker = {
+"    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
+"    \            '-r', 'n', "--init-hook", 'import sys; sys.path.append(".")'],
+"    \}
+"let g:neomake_c_enabled_makers = ['gcc']
+"let g:neomake_cpp_enabled_makers = ['g++']
+"let g:neomake_sh_enabled_makers = ['shellcheck']
+"let g:neomake_fortran_enabled_makers = ['gfortran']
+"let g:neomake_fortran_gfortran_maker = {
+"            \'args': ['-fsyntax-only', '-Wall', '-Wextra', '-cpp']
+"            \}
+"" Custom warning sign
+"let g:neomake_warning_sign = {
+"    \   'text': '!',
+"    \   'texthl': 'NeomakeWarningSign',
+"    \ }
+"let g:neomake_error_sign = {
+"    \ 'text': 'X',
+"    \ 'texthl': 'NeomakeErrorSign',
+"    \ }
+"" Automatically trigger neomake only when the laptop is charging 
+"function! MyOnBattery()
+"    if has("unix")
+"        let s:uname = system("uname")
+"        if s:uname == "Darwin\n"
+"            return system("pmset -g batt | awk '/charg/ {print $4}'") != "discharging;\n"
+"        elseif s:uname == "Linux\n"
+"            if filereadable('/sys/class/power_supply/AC/online')
+"                return readfile('/sys/class/power_supply/AC/online') == ['0']
+"            else
+"                return 1
+"            endif
+"        endif
+"    endif
+"endfunction
+"if MyOnBattery()
+"  call neomake#configure#automake('rnw', 100)
+"endif
+"" also use key mapping in normal mode
+"noremap <Leader>nm :Neomake<CR>
 
 " ===== lightline =====
 set noshowmode
@@ -288,20 +288,20 @@ let g:lightline = {
         \     'gitbranch': 'fugitive#head',
         \ },
         \ }
-" add neomake support
-function! LightlineLinterWarnings() abort
-    let l:counts = neomake#statusline#LoclistCounts()
-    let l:warnings = get(l:counts, 'W', 0)
-    return l:warnings == 0 ? '' : printf('%d ◆', l:warnings)
-endfunction
-
-function! LightlineLinterErrors() abort
-    let l:counts = neomake#statusline#LoclistCounts()
-    let l:errors = get(l:counts, 'E', 0)
-    return l:errors == 0 ? '' : printf('%d ✗', l:errors)
-endfunction
-" Ensure lightline update after neomake is done
-autocmd! User NeomakeFinished call lightline#update()
+"" add neomake support
+"function! LightlineLinterWarnings() abort
+"    let l:counts = neomake#statusline#LoclistCounts()
+"    let l:warnings = get(l:counts, 'W', 0)
+"    return l:warnings == 0 ? '' : printf('%d ◆', l:warnings)
+"endfunction
+"
+"function! LightlineLinterErrors() abort
+"    let l:counts = neomake#statusline#LoclistCounts()
+"    let l:errors = get(l:counts, 'E', 0)
+"    return l:errors == 0 ? '' : printf('%d ✗', l:errors)
+"endfunction
+"" Ensure lightline update after neomake is done
+"autocmd! User NeomakeFinished call lightline#update()
 
 " ===== Surrounding =====
 "nnoremap <Leader>q yss
@@ -525,6 +525,19 @@ function! HeaderC()
     call append(3,  " * Usage : ")
     call append(4,  " * TODO  : ")
     call append(5,  " */")
+    call append(6,  "#include<stdlib.h>")
+    call append(7,  "#include<stdio.h>")
+    normal G
+    normal o
+endf
+function! HeaderCPP()
+    call setline(1, "/*")
+    call append(1,  ' * Date  : '.strftime('%Y-%m-%d %H:%M:%S'))
+    call append(2,  " * Author: Min-Ye Zhang")
+    call append(3,  " * Usage : ")
+    call append(4,  " * TODO  : ")
+    call append(5,  " */")
+    call append(6,  "#include<iostream>")
     normal G
     normal o
 endf
@@ -552,7 +565,8 @@ augroup my_fileheaders
   autocmd bufnewfile *.sh call HeaderBash()
   autocmd bufnewfile *.{tsh,tcsh,csh} call HeaderTCSH()
   autocmd bufnewfile *.py call HeaderPython()
-  autocmd bufnewfile *.{c,cpp} call HeaderC()
+  autocmd bufnewfile *.c call HeaderC()
+  autocmd bufnewfile *.cpp call HeaderCPP()
   autocmd bufnewfile *.{tex,latex} call HeaderTeX()
   autocmd bufnewfile *.org call HeaderORG()
 augroup END

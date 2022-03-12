@@ -66,6 +66,7 @@
         (load-theme now t) (doom/reload-theme) ) ) ;; end of (defun ...
 ; run every 2 hour
 (run-with-timer 0 7200 'synchronize-theme)
+(synchronize-theme)
 
 (use-package! projectile
   :config

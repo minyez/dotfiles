@@ -56,6 +56,8 @@
         :nv (concat mz/evil-leader " n")     #'org-narrow-to-subtree
         :nv (concat mz/evil-leader " N")     #'widen
         )
+  ; show the whole markup
+  (setq org-link-descriptive nil)
   (setq org-archive-location (concat mz/org-notes "/archive.org::* From %s"))
   (setq org-default-notes-file (concat mz/org-notes "/todos.org::* Inbox"))
   ; match target and named construct
