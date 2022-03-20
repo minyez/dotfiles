@@ -43,6 +43,7 @@
   :config
   (map! :map org-mode-map
         :nv "SPC a a" #'org-agenda-file-to-front
+        :nv "SPC f A" #'org-save-all-org-buffers
         :nv "SPC a t" #'org-agenda-todo
         :nv "DEL"     #'org-mark-ring-goto
         :nv "M-j"     #'org-metadown
@@ -312,6 +313,7 @@ it can be passed in POS."
       ("AUTO" "inputenc"  t ("pdflatex"))
       ("T1"   "fontenc"   t ("pdflatex"))
       (""     "CJKutf8"   t ("pdflatex"))
+      (""     "ctex"      nil ("xelatex", "xetex"))
       (""     "xeCJK"     nil ("xelatex", "xetex"))
       (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
       (""     "graphicx"  t)
@@ -340,8 +342,8 @@ it can be passed in POS."
   (setq org-latex-packages-alist
     '(
       ; hyperref and cleverf should be the last packages to load
-      (""     "hyperref"  nil)
-      (""     "cleveref"   nil)
+      ("linktoc=all" "hyperref"  nil)
+      (""            "cleveref"  nil)
      )
   )
   ; ignore headlines with "ignore" when export

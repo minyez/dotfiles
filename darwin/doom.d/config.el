@@ -169,26 +169,7 @@
 
 (require 'config-ox)
 (require 'config-latex)
-
-(use-package! deft
-  :after org
-  :commands deft
-  :init
-  (setq ;; disable auto-save
-        deft-auto-save-interval -1.0
-        deft-file-naming-rules
-        '((noslash . "-")
-          (nospace . "-")
-          (case-fn . downcase)))
-  :config
-  (add-to-list 'deft-extensions "tex")
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory mz/org-notes))
+(require 'config-ui)
 
 ;(golden-ratio-mode 1)
 ;
@@ -248,37 +229,11 @@
   (replace-regexp-in-string "[\n\r]" " " string)
 )
 
-(use-package! avy
-   :bind
-   ("C-c a k" . avy-copy-line)
-   ("C-c a m" . avy-move-line)
-   ("C-c a K" . avy-copy-region)
-   ("C-c a M" . avy-move-region)
-   ("C-c a l" . avy-goto-end-of-line)
-)
-
-; rg - ripgrep interface
-; https://rgel.readthedocs.io/en/latest/
-(use-package rg
-  :config
-  (global-set-key (kbd "C-c s") #'rg-menu)
-  (with-eval-after-load 'rg
-     ;; Your settings goes here.
-    (setq rg-ignore-case 'smart)
-  )
-)
-
 ; company-jedi
 ;     https://github.com/emacsorphanage/company-jedi
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
-
-(use-package! window-numbering
-  :config
-  (window-numbering-mode)
-  ;; redefine workspaces shortcuts to resolve the conflict with +doom/workspaces
-)
 
 ;;; for use of direnv
 ; envrc from Doom :tool direnv by purcell
