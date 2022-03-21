@@ -39,26 +39,6 @@
   :config
   (setq vterm-shell "zsh"))
 
-(use-package! deft
-;  :after org
-  :commands deft
-  :init
-  (setq ;; disable auto-save
-        deft-auto-save-interval -1.0
-        deft-file-naming-rules
-        '((noslash . "-")
-          (nospace . "-")
-          (case-fn . downcase)))
-  :config
-  (add-to-list 'deft-extensions "tex")
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory mz/org-notes))
-
 ;http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html
 ;(defun s-trim-newline (string)
 ;  "Remove newlines at the end of s."
@@ -89,34 +69,6 @@
 )
 (defun remove-line-breaks (string)
   (replace-regexp-in-string "[\n\r]" " " string)
-)
-
-(use-package! avy
-   :bind
-   ("C-c a k" . avy-copy-line)
-   ("C-c a m" . avy-move-line)
-   ("C-c a K" . avy-copy-region)
-   ("C-c a M" . avy-move-region)
-   ("C-c a l" . avy-goto-end-of-line)
-)
-
-;
-; rg - ripgrep interface
-; https://rgel.readthedocs.io/en/latest/
-(use-package! rg
-  :config
-  (setq rg-keymap-prefix "\C-cg")
-  (rg-enable-default-bindings)
-  ;(global-set-key (kbd "C-c g m") #'rg-menu)
-  ;(global-set-key (kbd "C-c g d") #'rg-diwm)
-  ;(global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
-  (setq rg-ignore-case 'smart)
-)
-
-(use-package! window-numbering
-  :config
-  (window-numbering-mode)
-  ;; redefine workspaces shortcuts to resolve the conflict with +doom/workspaces
 )
 
 ;;; for use of direnv

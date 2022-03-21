@@ -45,11 +45,13 @@
 ; https://rgel.readthedocs.io/en/latest/
 (use-package rg
   :config
-  (global-set-key (kbd "C-c s") #'rg-menu)
-  (with-eval-after-load 'rg
-     ;; Your settings goes here.
-    (setq rg-ignore-case 'smart)
-  )
+  ; (global-set-key (kbd "C-c s") #'rg-menu)
+  (setq rg-keymap-prefix "\C-cg")
+  (rg-enable-default-bindings)
+  (setq rg-ignore-case 'smart)
+  ;(global-set-key (kbd "C-c g m") #'rg-menu)
+  ;(global-set-key (kbd "C-c g d") #'rg-diwm)
+  ;(global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
 )
 
 (use-package! window-numbering

@@ -181,6 +181,7 @@
 (require 'config-org-roam)
 (require 'config-ox)
 (require 'config-latex)
+(require 'config-ui)
 ;; render latex block, commented due to performance issue
 ;(add-hook 'org-mode-hook 'org-fragtog-mode)
 (require 'config-pdf)
