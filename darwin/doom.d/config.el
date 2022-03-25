@@ -59,7 +59,7 @@
             (substring (current-time-string) 11 13)))
     (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
-        (setq now 'doom-one))
+        (setq now 'doom-badger))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
@@ -272,7 +272,7 @@
  '(size-indication-mode t)
  ; suppress the annoying warning when using pyim in org:
  ;   Warning (emacs): org-element--cache: Unregistered buffer modifications detected. Resetting.
- '(warning-suppress-types '((emacs) (:warning)))
+ '(warning-suppress-types '((org-element-cache) (emacs) (:warning)))
  )
  ;'(truncate-lines t))
 (custom-set-faces
@@ -310,7 +310,7 @@
   ;;; 自定义词库
   ;;; TODO 如何构造 list 使得能根据系统自动调整家目录
   (setq pyim-dicts
-      '((:name "搜狗导出 (2022-02-19)",
+      '((:name "搜狗导出 (2022-02-19)"
          :file "/Users/stevezhang/.doom.d/dict/sougou_out_2022_02_19.pyim"))
   )
 )
@@ -319,4 +319,14 @@
 
 ;(setq ns-auto-hide-menu-bar t)
 (setq frame-resize-pixelwise t)
+
+; native-comp
+(setq comp-speed 1)
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (progn
+    (setq native-comp-async-report-warnings-errors nil)
+    (setq comp-deferred-compilation t)
+    (setq package-native-compile t)
+    ))
 
