@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: btoc
+# name: blue table of contents
+# uuid: btoc
+# group: latex
+# 
+# --
+#+latex: {\hypersetup{linkcolor=Blue}\tableofcontents}$0

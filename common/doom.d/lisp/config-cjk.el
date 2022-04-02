@@ -20,7 +20,7 @@
 (use-package! pyim
   :config
   (global-set-key (kbd "M-\\") 'pyim-convert-string-at-point)
-  (setq pyim-dcache-auto-update nil)
+  (setq pyim-dcache-auto-update t)
   (setq default-input-method "pyim")
   (setq pyim-page-length 9)
   (setq pyim-default-scheme 'rime-quanpin)

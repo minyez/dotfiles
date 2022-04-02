@@ -20,6 +20,7 @@ Files included:
 - [x] wine registery files
 - [x] ~~Clash config directory~~ (ignored for private usage)
 - [ ] rime (WIP)
+- [x] pyim cache to track word habits, linked as `public/pyim-dcache`
 
 More functionalities
 

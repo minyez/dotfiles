@@ -309,9 +309,9 @@
   :config
   ;;; 自定义词库
   ;;; TODO 如何构造 list 使得能根据系统自动调整家目录
-  (setq pyim-dicts
-      '((:name "搜狗导出 (2022-02-19)"
-         :file "/Users/stevezhang/.doom.d/dict/sougou_out_2022_02_19.pyim"))
+  (add-to-list 'pyim-dicts
+      '(:name "搜狗导出 (2022-02-19)"
+         :file "/Users/stevezhang/.doom.d/dict/sougou_out_2022_02_19.pyim")
   )
 )
 
