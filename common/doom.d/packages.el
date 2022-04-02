@@ -105,7 +105,9 @@
 ;; xenops for latex live view of equations, tikz, tables and figures
 (package! xenops)
 ;  :recipe (:host github :repo "dandavison/xenops"))
-
+;; org-latex-impatient for live preview of latex snippet in org-mode
+(package! org-latex-impatient
+  :recipe (:host github :repo "yangsheng6810/org-latex-impatient"))
 
 ;; keyfreq
 (package! keyfreq

@@ -20,25 +20,25 @@
         :desc "Org-Roam-Insert"         "i" #'org-roam-node-insert
         :desc "Org-Roam-Find"           "." #'org-roam-node-find
         :desc "Org-Roam-Store"          "l" #'org-roam-store-link
+        :desc "Org-Roam-Alias-Add"      "a" #'org-roam-alias-add
         :desc "Org-Roam-Unlinked-Refs"  "u" #'org-roam-unlinked-references
         :desc "Orb-Note-Actions"        "n" #'orb-note-actions
         )
   :bind
-  (:map org-roam-mode-map
-        (;;("C-c r R" . org-roam)
-         ;;("C-c r f" . org-roam-find-file)
+  (:map org-mode-map
+        (;("C-c r R" . org-roam)
+         ;("C-c r f" . org-roam-find-file)
          ("C-c r R" . org-roam-buffer-toggle)
          ("C-c r f" . org-roam-node-find)
          ("C-c r L" . org-roam-store-link)
+         ("C-c r a" . org-roam-alias-add)
          ("C-c r u" . org-roam-unlinked-references)
          ("C-c r r" . org-roam-find-ref)
          ("C-c r d" . org-roam-find-directory)
          ("C-c r j" . org-roam-jump-to-index)
          ("C-c r b" . org-roam-switch-to-buffer)
          ("C-c r n" . orb-note-actions)
-         ("C-c r g" . org-roam-graph))
-   :map org-mode-map
-        (
+         ("C-c r g" . org-roam-graph)
          ;;("C-c r i" . org-roam-insert)
          ("C-c r i" . org-roam-node-insert)
          )
@@ -346,8 +346,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
           '("r" "reference" plain "%?"
            :if-new (file+head
            "ref/${citekey}.org"
-           "#+title: ${citekey}
-#+filetags: :Reference:
+           "#+title: ${citekey}: ${title}
 #+startup: content
 #+created: %U
 :PROPERTIES:

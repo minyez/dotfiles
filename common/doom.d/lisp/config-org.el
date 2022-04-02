@@ -441,83 +441,29 @@ parent."
   (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
 )
 
-;;; agenda 里面时间块彩色显示
-;;; From: https://emacs-china.org/t/org-agenda/8679/3
-;;(defun my/org-agenda-time-grid-spacing ()
-;;  "Set different line spacing w.r.t. time duration."
-;;  (save-excursion
-;;    (let* ((background (alist-get 'background-mode (frame-parameters)))
-;;           (background-dark-p (string= background "dark"))
-;;           (colors (list "#ff9933"  "#9f7efe" "#0098dd" "#8c1400" "#50a14f"))
-;;           pos
-;;           duration)
-;;      (nconc colors colors)
-;;      (goto-char (point-min))
-;;      (while (setq pos (next-single-property-change (point) 'duration))
-;;        (goto-char pos)
-;;        (when (and (not (equal pos (point-at-eol)))
-;;                   (setq duration (org-get-at-bol 'duration)))
-;;          (let ((line-height (if (< duration 30) 1.0 (+ 0.5 (/ duration 60))))
-;;                (ov (make-overlay (point-at-bol) (1+ (point-at-eol)))))
-;;            (overlay-put ov 'face `(:background ,(car colors)
-;;                                                :foreground
-;;                                                ,(if background-dark-p "white" "black")))
-;;            (setq colors (cdr colors))
-;;            (overlay-put ov 'line-height line-height)
-;;            (overlay-put ov 'line-spacing (1- line-height))))))))
-;;
-;;(add-hook 'org-agenda-finalize-hook #'my/org-agenda-time-grid-spacing)
-;
-;;(use-package org-download
-;  ;:hook
-;  ;(org-mode . org-download-enable)
-;  ;(dired-mode . org-download-enable)
-;  ;:config
-;  ;(setq-default org-download-image-dir (format "%s/images" mz/org-notes))
-;  ;(setq org-download-timestamp ""
-;        ;org-download-heading-lvl nil
-;        ;org-download-display-inline-images nil
-;        ;org-download-screenshot-method "xclip"
-;        ;)
-;;)
-;
-;;(use-package! writegood-mode
-;;  :after org
-;;  :hook
-;;  (org-mode . writegood-mode)
-;;)
-
-;;; comment it for performance and low usage
-;;; https://github.com/alphapapa/org-super-agenda/blob/master/examples.org
-;;(use-package! org-super-agenda
-;;  :after org-agenda
-;;  :init
-;;  (setq org-super-agenda-groups '((:name "Today"
-;;                                         :time-grid t
-;;                                         :scheduled today)
-;;                                  (:name "Due today"
-;;                                         :deadline today)
-;;                                  (:name "Overdue"
-;;                                         :deadline past)
-;;                                  (:name "Due soon"
-;;                                         :deadline future)
-;;                                ))
-;;  :config
-;;  (org-super-agenda-mode)
-;;)
-
-;(use-package org-fancy-priorities
-;  :after org
-;  :ensure t
-;  :hook
-;  (org-mode . org-fancy-priorities-mode)
-;  :config
-;  (setq org-fancy-priorities-list '((?A . "HIGH")
-;                                    (?B . "MID")
-;                                    (?C . "LOW")
-;                                    (?D . "TRIV")
-;                                    (?1 . "⚡")))
-;)
+;;; live preview of latex snippet 
+(use-package! org-latex-impatient
+  :defer t
+  :hook (org-mode . org-latex-impatient-mode)
+  :init
+  (setq org-latex-impatient-tex2svg-bin
+        ; "/usr/local/lib/node_modules/mathjax-node-cli/bin/tex2svg")
+        "tex2svg")
+  :config
+  ; (setq org-latex-impatient-user-latex-definitions
+  ;       '("\\usepackage{physics}"
+  ;         "\\newcommand{\\ensuremath}[1]{#1}"
+  ;         "\\renewcommand{\\usepackage}[2][]{}"
+  ;         "\\renewcommand{\\providecommand}[2][]{}"
+  ;         "\\renewcommand{\\input}[1]{}"
+  ;        )
+  ; )
+  ;;; emulating some of physics pacakge
+  (add-to-list 'org-latex-impatient-user-latex-definitions
+               "\\newcommand{\\abs}[1]{\\left|#1\\right|}")
+  ; (add-to-list 'org-latex-impatient-user-latex-definitions
+  ;              "\\usepackage{upgreek}")
+)
 
 ; spaced repitition for memorizing things
 (use-package! org-drill
