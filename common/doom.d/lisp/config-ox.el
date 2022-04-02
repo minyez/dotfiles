@@ -13,6 +13,31 @@
   (setq org-beamer-frame-level 3)
 )
 
+(setq mz/org-latex-classes-common-header-passoptions
+      "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}\n\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Rhodamine,pdfborder={0 0 0},breaklinks=true}{hyperref}"
+      mz/org-latex-classes-common-header-after-default-pkgs
+      "% blockquote from eisvogel.
+\\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\\definecolor{bq-border}{RGB}{0, 63, 126}
+\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
+          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
+\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
+\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
+\\let\\Oldtextbullet\\textbullet
+\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
+% alias color in header
+\\colorlet{RED}{Red}
+\\colorlet{GREEN}{Green}
+\\colorlet{PROCESSBLUE}{ProcessBlue}
+\\colorlet{MAGENTA}{Magenta}
+\\colorlet{ORANGE}{Orange}
+% compact itemize by paralist packages
+\\usepackage{paralist}
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum"
+      )
+
 ;;; latex export
 ; https://superuser.com/questions/896741/how-do-i-configure-org-latex-classes-in-emacs
 ; https://stackoverflow.com/questions/36197545/org-mode-latex-export-making-todos-red
@@ -53,31 +78,14 @@
   ; customized classes for latex export
   ; general Chinese note
   (setq org-latex-classes
-               '(
+               `(
   ; general English note
                 ("article"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper]{article}
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-[DEFAULT-PACKAGES]
-% blockquote from eisvogel. 
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-\\definecolor{bq-border}{RGB}{0, 63, 126}
-\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
-          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
-\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
-\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
-\\let\\Oldtextbullet\\textbullet
-\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper]{article}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -85,15 +93,12 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 ; minimal working example
                 ("mwe"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper]{article}
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-\\usepackage{mwe}
-\\usepackage{amsmath,amssymb}
-[NO-DEFAULT-PACKAGES]
-[EXTRA]
-[NO-PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper]{article}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "\\usepackage{mwe}\n\\usepackage{amsmath,amssymb}\n"
+                           "[NO-DEFAULT-PACKAGES]\n[EXTRA]\n[NO-PACKAGES]"
+                           )
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -101,33 +106,11 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
   ;; General Chinese note
                 ("ctexart"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper,scheme=plain]{ctexart}
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-[DEFAULT-PACKAGES]
-% blockquote from eisvogel. 
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-\\definecolor{bq-border}{RGB}{0, 63, 126}
-\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
-          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
-\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
-\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
-\\let\\Oldtextbullet\\textbullet
-\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper,scheme=plain]{ctexart}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -135,33 +118,11 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
   ;; For org-journal. section for day, subsec for time
                 ("journal"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper,scheme=plain]{ctexart}
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-[DEFAULT-PACKAGES]
-% blockquote from eisvogel. 
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-\\definecolor{bq-border}{RGB}{0, 63, 126}
-\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
-          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
-\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
-\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
-\\let\\Oldtextbullet\\textbullet
-\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper,scheme=plain]{ctexart}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -170,27 +131,12 @@
 				 )
   ; Note for math. phys. books
                 ("book"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[a4paper,11pt,titlepage]{book}
-[DEFAULT-PACKAGES]
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-\\usepackage{physics}
-\\usepackage{cases}
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper,titlepage]{book}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n\\usepackage{physics}\n\\usepackage{cases}\n"
+                           mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\chapter{%s}" . "\\chaper*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -198,20 +144,11 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                 ("report"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt]{report}
-[DEFAULT-PACKAGES]
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-% alias color in header
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt]{report}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\chapter{%s}" . "\\chaper*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -219,26 +156,12 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                 ("ctexbook"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[a4paper,11pt,titlepage]{ctexbook}
-[DEFAULT-PACKAGES]
-\\usepackage{physics}
-\\usepackage{cases}
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper,titlepage]{ctexbook}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n\\usepackage{physics}\n\\usepackage{cases}\n"
+                           mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\chapter{%s}" . "\\chaper*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -247,30 +170,15 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 ; General Engilish scientific writing
                 ("sci"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[a4paper,11pt]{article}
-\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}
-[DEFAULT-PACKAGES]
-\\usepackage{threeparttable}
-\\usepackage{physics}
-\\usepackage{multirow}
-\\usepackage{siunitx}  % align by decimal
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% compact itemize by paralist packages
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
-[EXTRA]
-[PACKAGES]
-"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[a4paper,11pt]{article}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "[DEFAULT-PACKAGES]\n"
+                           "\\usepackage{threeparttable}\n"
+                           "\\usepackage{physics}\n\\usepackage{multirow}\n"
+                           "\\usepackage{siunitx}  % align by decimal\n"
+                           mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -303,51 +211,25 @@
 ; Beamer for dual export
 ; https://orgmode.org/worg/exporters/beamer/beamer-dual-format.html
                 ("beamer"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=True,linkcolor=,filecolor=,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0}}{hyperref}
-\\documentclass[ignorenonframetext,presentation]{beamer}
-[DEFAULT-PACKAGES]
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-% space between caption and table
-\\captionsetup[table]{belowskip=-6pt}
-[EXTRA]
-[PACKAGES]
-"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[ignorenonframetext,presentation]{beamer}\n"
+                           "[DEFAULT-PACKAGES]\n"
+                           "% space between caption and table" "\n"
+                           "\\captionsetup[table]{belowskip=-6pt}" "\n"
+                           mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  )
                 ("beamerarticle"
-                 "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
-\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Blue,pdfborder={0 0 0},breaklinks=true}{hyperref}
-\\documentclass[11pt,a4paper]{article} % add twoside for booklet printing
-\\usepackage{beamerarticle}
-\\usepackage[margin=0.8in,bmargin=1.0in,tmargin=1.0in]{geometry}
-[DEFAULT-PACKAGES]
-\\usepackage{physics}
-% blockquote from eisvogel. 
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-\\definecolor{bq-border}{RGB}{0, 63, 126}
-\\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,backgroundcolor=bg,
-          linecolor=bq-border,skipabove=\\parskip]{customblockquote}
-\\renewenvironment{quote}{\\begin{customblockquote}\\itshape\\list{}{\\rightmargin=6pt\\leftmargin=6pt}%
-\\item\\relax\\ignorespaces}{\\unskip\\unskip\\endlist\\end{customblockquote}}
-\\let\\Oldtextbullet\\textbullet
-\\renewcommand{\\textbullet}{\\textcolor{bq-border}{\\Oldtextbullet}}
-% alias color in header
-\\colorlet{RED}{Red}
-\\colorlet{GREEN}{Green}
-\\colorlet{PROCESSBLUE}{ProcessBlue}
-\\colorlet{MAGENTA}{Magenta}
-\\colorlet{ORANGE}{Orange}
-[EXTRA]
-[PACKAGES]
-"
+                  ,(concat mz/org-latex-classes-common-header-passoptions "\n"
+                           "\\documentclass[11pt,a4paper]{article}\n"
+                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
+                           "\\usepackage{beamerarticle}" "\n"
+                           "[DEFAULT-PACKAGES]\n"
+                           "\\usepackage{physics}" "\n"
+                           mz/org-latex-classes-common-header-after-default-pkgs "\n"
+                           "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
