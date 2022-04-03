@@ -444,7 +444,7 @@ parent."
 ;;; live preview of latex snippet 
 (use-package! org-latex-impatient
   :defer t
-  :hook (org-mode . org-latex-impatient-mode)
+  ; :hook (org-mode . org-latex-impatient-mode)
   :init
   (setq org-latex-impatient-tex2svg-bin
         ; "/usr/local/lib/node_modules/mathjax-node-cli/bin/tex2svg")
@@ -459,10 +459,11 @@ parent."
   ;        )
   ; )
   ;;; emulating some of physics pacakge
-  (add-to-list 'org-latex-impatient-user-latex-definitions
-               "\\newcommand{\\abs}[1]{\\left|#1\\right|}")
-  ; (add-to-list 'org-latex-impatient-user-latex-definitions
-  ;              "\\usepackage{upgreek}")
+  (setq 'org-latex-impatient-user-latex-definitions
+        `(,@org-latex-impatient-user-latex-definitions
+           "\\newcommand{\\abs}[1]{\\left|#1\\right|}"
+           "\\newcommand{\\dd}[1]{\mathrm{d}#1\,}"
+           ))
 )
 
 ; spaced repitition for memorizing things
