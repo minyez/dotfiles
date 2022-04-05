@@ -61,6 +61,9 @@
 (map!
   :nv (concat mz/evil-leader " w |") #'split-window-below
   :nv (concat mz/evil-leader " w -") #'split-window-right
+  ;;; my custom functions
+  :nv (concat mz/evil-leader " f f") #'mz/find-other-file
+  :nv (concat mz/evil-leader " f p") #'mz/find-pdf
 )
 
 (provide 'config-evil)
