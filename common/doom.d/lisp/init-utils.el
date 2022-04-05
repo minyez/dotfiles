@@ -9,5 +9,38 @@
   `(when (eq system-type ,type)
      ,@body))
 
+;;; =====================
+;;; general helper function
+(defun mz/find-other-file (EXT &optional IN-NEWWIN REPLACE-OTHER)
+  "open the file of same name but with a different extension.
+
+EXT is the extension name, case-sensitive.
+
+If IN-NEWWIN is nil, the file will be opened in the same window.
+If IN-NEWWIN is non-nil, open the file in a new window if REPLACE-OTHER is nil.
+The new window is arranged by `split-window-sensibly'.
+Otherwise, if the current buffer of next window has the same extension,
+the file will be opened in the next window."
+  (interactive (list (read-string "Extension name: ") t t))
+  (let ((otherfile (file-name-with-extension (buffer-name) EXT))
+        (ext-nw (file-name-extension (save-selected-window
+                                       (other-window 1)
+                                       (buffer-name)))))
+    (if (equal otherfile (buffer-name))
+      (progn
+        (message "already at %s" otherfile)
+        nil)
+      (if (file-exists-p otherfile)
+        (if IN-NEWWIN
+          (progn
+            (if (or (not (equal EXT ext-nw)) (not REPLACE-OTHER))
+              (if (not (split-window-sensibly))
+                (split-window-below)))
+            (find-file-other-window otherfile))
+          (find-file otherfile))
+        (progn
+          (message "%s does not exist" otherfile)
+          nil)))))
+
 (provide 'init-utils)
 ;;; init-utils.el ends here
