@@ -63,6 +63,7 @@ prepend-path    LIBRARY_PATH    ${INTEL_LINUX_HOME}/ipp/lib/intel64
 set             I_MPI_ROOT       ${INTEL_LINUX_HOME}/mpi
 setenv          I_MPI_ROOT       ${I_MPI_ROOT}
 prepend-path    PATH             ${I_MPI_ROOT}/intel64/bin
+prepend-path    CPATH            ${I_MPI_ROOT}/intel64/include
 prepend-path    CLASSPATH        ${I_MPI_ROOT}/intel64/lib/mpi.jar
 prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/lib/release
 prepend-path    LD_LIBRARY_PATH  ${I_MPI_ROOT}/intel64/lib/

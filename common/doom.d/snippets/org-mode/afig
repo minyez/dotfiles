@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# key: afig
+# name: figure attribute
+# uuid: afig
+# group: attr
+# 
+# --
+#+attr_org: :width 1.0
+#+attr_latex: :width 0.7\\linewidth :options clip,trim=\{0 0 0 0\}$0

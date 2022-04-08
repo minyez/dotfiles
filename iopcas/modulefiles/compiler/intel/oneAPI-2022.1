@@ -17,7 +17,9 @@ set    prefix      "/opt/intel/oneapi"
 
 set    use_21_vtune_advisor_inspector 1
 if { $use_21_vtune_advisor_inspector eq 1 } {
-		puts stderr "Note: vtune, analyser and inspector are using the 2021.2.0 version"
+  if { [ module-info command load ] || [ module-info command switch ] } {
+    puts stderr "Note: vtune, analyser and inspector are using the 2021.2.0 version"
+  }
 }
 
 ## since 4.6, environment module support source shell script, for example
@@ -84,7 +86,7 @@ prepend-path  LD_LIBRARY_PATH  ${i_mpi_root}/lib
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/libfabric/lib
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/lib/release
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/lib
-prepend-path  FI_PROVIDER_PATH /usr/lib64/libfabric
+# prepend-path  FI_PROVIDER_PATH /usr/lib64/libfabric
 
 # mkl
 set           mklroot         ${prefix}/mkl/2022.0.1

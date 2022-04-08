@@ -80,7 +80,8 @@ prepend-path  LD_LIBRARY_PATH  ${i_mpi_root}/lib
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/libfabric/lib
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/lib/release
 prepend-path  LIBRARY_PATH     ${i_mpi_root}/lib
-prepend-path  FI_PROVIDER_PATH /usr/lib64/libfabric
+### comment out for MPIDI_OFI_mpi_init_hook OFI addrinfo() failed error
+# prepend-path  FI_PROVIDER_PATH /usr/lib64/libfabric
 
 # mkl
 set           mklroot         ${prefix}/mkl/2021.2.0
