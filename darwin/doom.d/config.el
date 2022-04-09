@@ -305,16 +305,6 @@
 
 (require 'config-cjk)
 
-(use-package! pyim
-  :config
-  ;;; 自定义词库
-  ;;; TODO 如何构造 list 使得能根据系统自动调整家目录
-  (add-to-list 'pyim-dicts
-      `(:name "搜狗导出 (2022-02-19)"
-        :file ,(concat doom-private-dir "dict/sougou_out_2022_02_19.pyim"))
-  )
-)
-
 (require 'config-lsp)
 
 ;(setq ns-auto-hide-menu-bar t)

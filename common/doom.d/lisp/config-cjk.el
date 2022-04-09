@@ -21,6 +21,11 @@
   :config
   (global-set-key (kbd "M-\\") 'pyim-convert-string-at-point)
   (setq pyim-dcache-auto-update t)
+  ;;; 自定义词库
+  (add-to-list 'pyim-dicts
+      `(:name "搜狗导出 (2022-02-19)"
+        :file ,(concat doom-private-dir "dict/sougou_out_2022_02_19.pyim"))
+  )
   (setq default-input-method "pyim")
   (setq pyim-page-length 9)
   (setq pyim-default-scheme 'rime-quanpin)
