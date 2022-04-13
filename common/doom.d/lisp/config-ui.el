@@ -49,9 +49,9 @@
   (setq rg-keymap-prefix "\C-cg")
   (rg-enable-default-bindings)
   (setq rg-ignore-case 'smart)
-  ;(global-set-key (kbd "C-c g m") #'rg-menu)
-  ;(global-set-key (kbd "C-c g d") #'rg-diwm)
-  ;(global-set-key (kbd "C-c g f") #'rg-diwm-current-file)
+  (global-set-key (kbd "C-c r g m") #'rg-menu)
+  (global-set-key (kbd "C-c r g d") #'rg-diwm)
+  (global-set-key (kbd "C-c r g f") #'rg-diwm-current-file)
 )
 
 (use-package! window-numbering

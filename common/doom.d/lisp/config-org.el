@@ -478,5 +478,11 @@ parent."
   (setq org-drill-add-random-noise-to-intervals-p t)
 )
 
+(use-package! org-cliplink
+  :after org
+  :bind
+  (:map org-mode-map
+        ("C-c m l c" . org-cliplink)))
+
 (provide 'config-org)
 ;;; config-org.el ends here

@@ -16,7 +16,8 @@
         )
   (map! :leader
         :prefix "r"
-        :desc "Org-Roam-Buffer"         "r" #'org-roam-buffer-toggle
+        :desc "Org-Roam-Buffer"         "R" #'org-roam-buffer-toggle
+        :desc "Org-Roam-Buffer"         "r" #'org-roam-find-ref
         :desc "Org-Roam-Insert"         "i" #'org-roam-node-insert
         :desc "Org-Roam-Find"           "." #'org-roam-node-find
         :desc "Org-Roam-Store"          "l" #'org-roam-store-link
@@ -29,7 +30,7 @@
         (;("C-c r R" . org-roam)
          ;("C-c r f" . org-roam-find-file)
          ("C-c r R" . org-roam-buffer-toggle)
-         ("C-c r f" . org-roam-node-find)
+         ("C-c r ." . org-roam-node-find)
          ("C-c r L" . org-roam-store-link)
          ("C-c r a" . org-roam-alias-add)
          ("C-c r u" . org-roam-unlinked-references)
@@ -38,7 +39,7 @@
          ("C-c r j" . org-roam-jump-to-index)
          ("C-c r b" . org-roam-switch-to-buffer)
          ("C-c r n" . orb-note-actions)
-         ("C-c r g" . org-roam-graph)
+         ;; ("C-c r g" . org-roam-graph)
          ;;("C-c r i" . org-roam-insert)
          ("C-c r i" . org-roam-node-insert)
          )

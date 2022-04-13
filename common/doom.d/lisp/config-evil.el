@@ -41,20 +41,20 @@
 )
 
 (evil-leader/set-key
-; use doom tabs function and evil-leader to switch (centaur) tabs
-; learn lambda function to create closure for key binding
-; https://stackoverflow.com/a/1030409
-  "tb" (lambda () (interactive) (+tabs:previous-or-goto))
-  "tt" (lambda () (interactive) (+tabs:next-or-goto))
-  "t1" (lambda () (interactive) (+tabs:next-or-goto 1))
-  "t2" (lambda () (interactive) (+tabs:next-or-goto 2))
-  "t3" (lambda () (interactive) (+tabs:next-or-goto 3))
-  "t4" (lambda () (interactive) (+tabs:next-or-goto 4))
-  "t5" (lambda () (interactive) (+tabs:next-or-goto 5))
-  "t6" (lambda () (interactive) (+tabs:next-or-goto 6))
-  "t7" (lambda () (interactive) (+tabs:next-or-goto 7))
-  "t8" (lambda () (interactive) (+tabs:next-or-goto 8))
-  "t9" (lambda () (interactive) (+tabs:next-or-goto 9))
+;;; use doom tabs function and evil-leader to switch (centaur) tabs
+;;; learn lambda function to create closure for key binding
+;;; https://stackoverflow.com/a/1030409
+;   "tb" (lambda () (interactive) (+tabs:previous-or-goto))
+;   "tt" (lambda () (interactive) (+tabs:next-or-goto))
+;   "t1" (lambda () (interactive) (+tabs:next-or-goto 1))
+;   "t2" (lambda () (interactive) (+tabs:next-or-goto 2))
+;   "t3" (lambda () (interactive) (+tabs:next-or-goto 3))
+;   "t4" (lambda () (interactive) (+tabs:next-or-goto 4))
+;   "t5" (lambda () (interactive) (+tabs:next-or-goto 5))
+;   "t6" (lambda () (interactive) (+tabs:next-or-goto 6))
+;   "t7" (lambda () (interactive) (+tabs:next-or-goto 7))
+;   "t8" (lambda () (interactive) (+tabs:next-or-goto 8))
+;   "t9" (lambda () (interactive) (+tabs:next-or-goto 9))
   "u"  'outline-up-heading
 )
 
