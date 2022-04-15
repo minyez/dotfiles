@@ -3,6 +3,10 @@
 ;;;   - avy
 ;;;   - rg
 ;;;   - window-numbering
+;;;   - osx-dictionary
+
+;;; disable quit prompt
+(setq confirm-kill-emacs nil)
 
 (use-package! deft
   :after org
@@ -43,21 +47,33 @@
 
 ; rg - ripgrep interface
 ; https://rgel.readthedocs.io/en/latest/
-(use-package rg
+(use-package! rg
   :config
   ; (global-set-key (kbd "C-c s") #'rg-menu)
   (setq rg-keymap-prefix "\C-cg")
   (rg-enable-default-bindings)
   (setq rg-ignore-case 'smart)
-  (global-set-key (kbd "C-c r g m") #'rg-menu)
-  (global-set-key (kbd "C-c r g d") #'rg-diwm)
-  (global-set-key (kbd "C-c r g f") #'rg-diwm-current-file)
+  (global-set-key (kbd "C-c r g m") 'rg-menu)
+  (global-set-key (kbd "C-c r g d") 'rg-dwim)
+  (global-set-key (kbd "C-c r g f") 'rg-dwim-current-file)
 )
 
 (use-package! window-numbering
   :config
   (window-numbering-mode)
   ;; redefine workspaces shortcuts to resolve the conflict with +doom/workspaces
+)
+
+;;; load osx-dictionary when in darwin system
+;;; see https://github.com/xuchunyang/osx-dictionary.el
+(with-system 'darwin
+  (use-package! osx-dictionary
+    :bind
+    (:map global-map
+          ("C-c d" . osx-dictionary-search-word-at-point)
+        )
+    :config
+  )
 )
 
 (provide 'config-ui)

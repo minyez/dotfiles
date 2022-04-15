@@ -531,13 +531,12 @@ function! HeaderC()
     normal o
 endf
 function! HeaderCPP()
-    call setline(1, "/*")
-    call append(1,  ' * Date  : '.strftime('%Y-%m-%d %H:%M:%S'))
-    call append(2,  " * Author: Min-Ye Zhang")
-    call append(3,  " * Usage : ")
-    call append(4,  " * TODO  : ")
+    call setline(1, "/*!")
+    call append(1,  ' * @file   '.expand('%:t'))
+    call append(2,  ' * @date   '.strftime('%Y-%m-%d'))
+    call append(3,  " * @author Min-Ye Zhang")
+    call append(4,  " * @note   ")
     call append(5,  " */")
-    call append(6,  "#include<iostream>")
     normal G
     normal o
 endf

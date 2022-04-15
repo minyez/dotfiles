@@ -101,6 +101,8 @@
 (package! pyim-tsinghua-dict
   :recipe (:host github :repo "redguardtoo/pyim-tsinghua-dict"
            :files ("*.el" "*.pyim")))
+;; call dictionary.app on macos
+(package! osx-dictionary)
 
 ;; xenops for latex live view of equations, tikz, tables and figures
 (package! xenops)

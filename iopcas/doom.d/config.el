@@ -47,7 +47,7 @@
             (substring (current-time-string) 11 13)))
     (if (member hour (number-sequence 6 19))
         (setq now 'doom-nord-light)
-        (setq now 'doom-one))
+        (setq now 'doom-badger))
     (if (equal now doom-theme)
         nil
         (setq doom-theme now)
