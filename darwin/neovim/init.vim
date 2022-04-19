@@ -39,17 +39,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 "   Comment YCM due to slow startup ~430ms
 "    Plug 'valloric/youcompleteme'
     Plug 'editorconfig/editorconfig-vim'
-"   Use deoplete instead
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-    Plug 'zchee/deoplete-jedi',
-    Plug 'davidhalter/jedi-vim'
+""   Use deoplete instead
+"    if has('nvim')
+"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+"    else
+"        Plug 'Shougo/deoplete.nvim'
+"        Plug 'roxma/nvim-yarp'
+"        Plug 'roxma/vim-hug-neovim-rpc'
+"    endif
+"    Plug 'zchee/deoplete-jedi',
+"    Plug 'davidhalter/jedi-vim'
     Plug 'machakann/vim-highlightedyank'
     Plug 'tmhedberg/SimpylFold'
     Plug 'sbdchd/neoformat'
@@ -59,6 +59,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     "Plug 'jceb/vim-orgmode'
     Plug 'axvr/org.vim'
     Plug 'cespare/vim-toml'
+"   Another async compelete plugin to accompany vim-lsp
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 let mapleader=","
@@ -89,15 +95,72 @@ let g:numbers_exclude = ['qf', 'nerdtree', 'unite', 'startify', 'gundo', 'vimshe
 " ===== pymode =====
 "let g:pymode_python = 'python3'
 
+" ===== colorschemes =====
+"Select colorscheme
+"colorscheme wombat256mod "a darkmode
+"colorscheme github
+"colorscheme molokai
+colorscheme woju
 
-" ===== deoplete =====
-let g:deoplete#enable_at_startup = 1
-" Pass a dictionary to set multiple options
-call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#option({
-\ 'smart_case' : v:true,
-\ })
-let g:deoplete#auto_complete=1
+" ===== lsp client: vim-lsp and related =====
+" https://github.com/prabirshrestha/vim-lsp#registering-servers
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+    let g:lsp_format_sync_timeout = 200
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    " refer to doc to add more commands
+endfunction
+
+" supress inline diagnostics, i.e. virtual text
+let g:lsp_diagnostics_virtual_text_enabled = 0
+" instead use a float window
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_float_delay = 100
+" suppress A> code action marker, which does not quite make sense for me
+let g:lsp_document_code_action_signs_enabled = 0
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+" async completion, including lsp and ultisnips
+" register ultisnip auto completion
+if has('python3')
+    "let g:UltiSnipsExpandTrigger="<c-e>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'allowlist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
+" ===== end vim-lsp related =====
+
+"" ===== deoplete =====
+"let g:deoplete#enable_at_startup = 1
+"" Pass a dictionary to set multiple options
+" " ===== deoplete =====
+" let g:deoplete#enable_at_startup = 1
+" " Pass a dictionary to set multiple options
+" call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
+" call deoplete#custom#option({
+" \ 'smart_case' : v:true,
+" \ })
+" let g:deoplete#auto_complete=1
 
 " ===== org.vim =====
 let g:org_state_keywords = ['TODO', 'WIP', 'DONE', 'CANCELED']
@@ -148,36 +211,36 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" ===== neomake =====
-" For default maker, check neomake wiki
-" https://github.com/neomake/neomake/wiki/Makers
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
-"disabled open error list in a window. used to be 2 to show error in location window
-let g:neomake_open_list = 0
-let g:neomake_list_height = 6
-let g:neomake_python_enabled_makers = ['pylint']
-let g:neomake_latex_enabled_makers = ['']
-let g:neomake_python_pylint_maker = {
-    \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
-    \            '-r', 'n'],
-    \}
-let g:neomake_c_enabled_makers = ['gcc']
-let g:neomake_cpp_enabled_makers = ['g++']
-let g:neomake_sh_enabled_makers = ['shellcheck']
-let g:neomake_fortran_enabled_makers = ['gfortran']
-let g:neomake_fortran_gfortran_maker = {
-            \'args': ['-fsyntax-only', '-Wall', '-Wextra', '-cpp']
-            \}
-" Custom warning sign
-let g:neomake_warning_sign = {
-    \   'text': '!',
-    \   'texthl': 'NeomakeWarningSign',
-    \ }
-let g:neomake_error_sign = {
-    \ 'text': 'X',
-    \ 'texthl': 'NeomakeErrorSign',
-    \ }
+" " ===== neomake =====
+" " For default maker, check neomake wiki
+" " https://github.com/neomake/neomake/wiki/Makers
+" let g:neomake_serialize = 1
+" let g:neomake_serialize_abort_on_error = 1
+" "disabled open error list in a window. used to be 2 to show error in location window
+" let g:neomake_open_list = 0
+" let g:neomake_list_height = 6
+" let g:neomake_python_enabled_makers = ['pylint']
+" let g:neomake_latex_enabled_makers = ['']
+" let g:neomake_python_pylint_maker = {
+"     \ 'args' : [ '-d', 'R0913,R0904,C1801,C0102,C0103,C0415,W1201,W1401,C0302,C0305,C0312,R0902,W0612,W0212,E1101',
+"     \            '-r', 'n'],
+"     \}
+" let g:neomake_c_enabled_makers = ['gcc']
+" let g:neomake_cpp_enabled_makers = ['g++']
+" let g:neomake_sh_enabled_makers = ['shellcheck']
+" let g:neomake_fortran_enabled_makers = ['gfortran']
+" let g:neomake_fortran_gfortran_maker = {
+"             \'args': ['-fsyntax-only', '-Wall', '-Wextra', '-cpp']
+"             \}
+" " Custom warning sign
+" let g:neomake_warning_sign = {
+"     \   'text': '!',
+"     \   'texthl': 'NeomakeWarningSign',
+"     \ }
+" let g:neomake_error_sign = {
+"     \ 'text': 'X',
+"     \ 'texthl': 'NeomakeErrorSign',
+"     \ }
 " Automatically trigger neomake only when the laptop is charging 
 function! MyOnBattery()
     if has("unix")
@@ -193,11 +256,11 @@ function! MyOnBattery()
         endif
     endif
 endfunction
-if MyOnBattery()
-  call neomake#configure#automake('rnw', 100)
-endif
+" if MyOnBattery()
+"   call neomake#configure#automake('rnw', 100)
+" endif
 " also use key mapping in normal mode
-noremap <Leader>nm :Neomake<CR>
+" noremap <Leader>nm :Neomake<CR>
 
 " ===== lightline =====
 set noshowmode
@@ -220,20 +283,20 @@ let g:lightline = {
         \     'gitbranch': 'fugitive#head',
         \ },
         \ }
-" add neomake support
-function! LightlineLinterWarnings() abort
-    let l:counts = neomake#statusline#LoclistCounts()
-    let l:warnings = get(l:counts, 'W', 0)
-    return l:warnings == 0 ? '' : printf('%d ◆', l:warnings)
-endfunction
-
-function! LightlineLinterErrors() abort
-    let l:counts = neomake#statusline#LoclistCounts()
-    let l:errors = get(l:counts, 'E', 0)
-    return l:errors == 0 ? '' : printf('%d ✗', l:errors)
-endfunction
-" Ensure lightline update after neomake is done
-autocmd! User NeomakeFinished call lightline#update()
+" " add neomake support
+" function! LightlineLinterWarnings() abort
+"     let l:counts = neomake#statusline#LoclistCounts()
+"     let l:warnings = get(l:counts, 'W', 0)
+"     return l:warnings == 0 ? '' : printf('%d ◆', l:warnings)
+" endfunction
+"
+" function! LightlineLinterErrors() abort
+"     let l:counts = neomake#statusline#LoclistCounts()
+"     let l:errors = get(l:counts, 'E', 0)
+"     return l:errors == 0 ? '' : printf('%d ✗', l:errors)
+" endfunction
+" " Ensure lightline update after neomake is done
+" autocmd! User NeomakeFinished call lightline#update()
 
 " ===== Surrounding =====
 "nnoremap <Leader>q yss
@@ -332,11 +395,6 @@ set nopaste
 set wildignore=*.o,*~,*.pyc,*.mod
 "set shell=/bin/bash
 "set foldmethod=syntax
-"Select colorscheme
-"colorscheme wombat256mod "a darkmode
-"colorscheme github
-"colorscheme molokai
-colorscheme woju
 
 " Restore cursor position
 au BufReadPost *

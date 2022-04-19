@@ -45,12 +45,12 @@
 ;
 
 ;;; auto-save by lazycat
-;(use-package! auto-save
+; (use-package! auto-save
 ;  :load-path "../auto-save"
 ;  :config
 ;  (auto-save-enable)
 ;  (setq auto-save-silent t)
-;)
+; )
 
 (provide 'config-external)
 ;;; config-external.el ends here
