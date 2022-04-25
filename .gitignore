@@ -19,6 +19,7 @@ utils/progconfigs
 # for neovim
 .ropeproject
 .ycm_extra_conf.py
+*/neovim*/plugin
 
 # credential
 gitconfig
