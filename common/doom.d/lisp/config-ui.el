@@ -53,6 +53,7 @@
   (setq rg-keymap-prefix "\C-cg")
   (rg-enable-default-bindings)
   (setq rg-ignore-case 'smart)
+  (global-set-key (kbd "C-c r g r") 'rg)
   (global-set-key (kbd "C-c r g m") 'rg-menu)
   (global-set-key (kbd "C-c r g d") 'rg-dwim)
   (global-set-key (kbd "C-c r g f") 'rg-dwim-current-file)

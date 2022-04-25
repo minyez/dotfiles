@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# key: cpp
+# name: C++ code block, export to verbatim
+# uuid: cpp
+# group: code
+# 
+# --
+#+begin_src cpp :results value code :wrap src
+$0
+#+end_src

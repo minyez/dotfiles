@@ -25,6 +25,7 @@
         :desc "Org-Roam-Unlinked-Refs"  "u" #'org-roam-unlinked-references
         :desc "Orb-Note-Actions"        "n" #'orb-note-actions
         )
+  (setq org-roam-v2-ack t) ;; remove V2 warnings after clean upgrade from V1
   :bind
   (:map org-mode-map
         (;("C-c r R" . org-roam)
@@ -46,6 +47,13 @@
   )
 ;; source: https://github.com/zaeph/.emacs.d/blob/4548c34d1965f4732d5df1f56134dc36b58f6577/init.el
   :config
+  ;; from https://org-roam.discourse.group/t/increasing-the-text-size-of-the-side-panel/2053/3
+  (add-to-list 'display-buffer-alist
+                '("\\*org-roam\\*"
+                  (display-buffer-in-direction)
+                  (direction . right)
+                  (window-width . 0.33)
+                  (window-height . fit-window-to-buffer)))
   (org-roam-setup)
   ;(org-roam-mode +1) ; set to major mode, dropped in V2
   (defun org-roam-search-dup-ids ()
@@ -273,7 +281,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;(add-hook 'after-init-hook 'org-roam-mode)
 ;(add-hook 'org-mode-hook 'org-roam-mode) ;; V1
 ;; no more org-roam-mode in org-roam V2
-(setq org-roam-v2-ack t) ;; remove V2 warnings after clean upgrade from V1
 ;; instead run org-mode-setup before the first build of database
 
 ;; visualize roam graph. commented for low usage and performance
