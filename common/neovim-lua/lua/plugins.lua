@@ -59,6 +59,7 @@ return require("packer").startup(function()
   use "nvim-treesitter/nvim-treesitter-textobjects"  -- enhance texetobject selection
   use "romgrk/nvim-treesitter-context"  -- show class/function at top
   use "andymass/vim-matchup"
+  use "nvim-orgmode/orgmode"
 -- ===========================
 -- nvim-telescope fuzzy finder
   use "nvim-telescope/telescope.nvim"
