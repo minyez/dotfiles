@@ -1,15 +1,15 @@
 -- original file from https://github.com/ravenxrz/dotfiles/blob/master/nvim/lua/user/plugins.lua
 
-return require('packer').startup(function()
+return require("packer").startup(function()
 -- =======================
-  use 'wbthomason/packer.nvim' -- package manager
+  use "wbthomason/packer.nvim" -- package manager
   use "rcarriga/nvim-notify" -- notify
 -- =======================
 -- nvim-tree: directory browser
   use {
-    'kyazdani42/nvim-tree.lua',
+    "kyazdani42/nvim-tree.lua",
     requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      "kyazdani42/nvim-web-devicons", -- optional, for file icon
     }
   }
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
@@ -22,7 +22,7 @@ return require('packer').startup(function()
 -- ===================================
 -- treesitter: language parser
   use {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
   use "nvim-treesitter/nvim-treesitter-textobjects"  -- enhance texetobject selection
@@ -30,22 +30,24 @@ return require('packer').startup(function()
   use "andymass/vim-matchup"
 -- ===========================
 -- nvim-telescope fuzzy finder
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use "nvim-telescope/telescope.nvim"
+  use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use "nvim-telescope/telescope-ui-select.nvim"
   use "nvim-telescope/telescope-live-grep-raw.nvim"
 -- =====
 -- Editor
+  use "honza/vim-snippets" -- snippets
+  use "SirVer/ultisnips" -- snippets engine that I have been using
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "terrortylor/nvim-comment"
-  use "hrsh7th/nvim-cmp"  -- cmp completer
-  use "hrsh7th/cmp-buffer" -- buffer completions
-  use "hrsh7th/cmp-path" -- path completions
-  use "hrsh7th/cmp-cmdline" -- cmdline completions
-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
+  use { "hrsh7th/nvim-cmp",
+    requires = { {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
+                 {"hrsh7th/cmp-buffer"}, -- buffer completions
+                 {"hrsh7th/cmp-path"}, -- path completions
+                 {"hrsh7th/cmp-cmdline"}, -- cmdline completions
+                 {"hrsh7th/cmp-nvim-lua"},
+                 -- {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
+    }
+  }
 --  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
 end)

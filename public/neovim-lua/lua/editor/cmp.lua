@@ -6,6 +6,21 @@ if not cmp_status_ok then
   return
 end
 
+local snip_status_ok, ultisnips = pcall(require, "cmp_nvim_ultisnips")
+if not snip_status_ok then
+  vim.notify("cmp_nvim_ultisnips not found!")
+  return
+end
+
+ultisnips.setup {
+  filetype_source = "treesitter",
+  show_snippets = "all",
+  documentation = function(snippet)
+    return snippet.description
+  end
+}
+
+-- -- if use luasnip as engine
 -- local snip_status_ok, luasnip = pcall(require, "luasnip")
 -- if not snip_status_ok then
 --   vim.notify("luasnip not found!")
@@ -53,11 +68,12 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
-  -- snippet = {
-  --   expand = function(args)
-  --     luasnip.lsp_expand(args.body) -- For `luasnip` users.
-  --   end,
-  -- },
+  snippet = {
+    expand = function(args)
+      -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      vim.fn["UltiSnips#Anon"].lsp_expand(args.body) -- For `ultisnips` users.
+    end,
+  },
   mapping = {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
@@ -76,10 +92,10 @@ cmp.setup {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      -- elseif luasnip.expandable() then
-      --   luasnip.expand()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
+      -- elseif ultisnips.expandable() then
+      --   ultisnips.expand()
+      -- elseif ultisnips.expand_or_jumpable() then
+      --   ultisnips.expand_or_jump()
       elseif check_backspace() then
         fallback()
       else
@@ -92,8 +108,8 @@ cmp.setup {
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      -- elseif luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
+      -- elseif ultisnips.jumpable(-1) then
+      --   ultisnips.jump(-1)
       else
         fallback()
       end
@@ -111,7 +127,7 @@ cmp.setup {
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[NVIM_LUA]",
-        -- luasnip = "[Snippet]",
+        ultisnips = "[USnip]",
         buffer = "[Buffer]",
         path = "[Path]",
       })[entry.source.name]
@@ -119,9 +135,9 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = "nvim_lsp" },
+    -- { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    -- { name = "luasnip" },
+    { name = "ultisnips" },
     { name = "buffer" },
     { name = "path" },
   },
@@ -156,3 +172,4 @@ cmp.setup.cmdline(':', {
     { name = 'path' }
   })
 })
+
