@@ -108,6 +108,7 @@ def main():
     iden_jsonfn = {
         "stevezhang-stevezhangMacBook-Pro.local": "darwin",
         "stevezhang-localhost": "darwin",
+        "stevezhang-stevezhangMBP.lan": "darwin",
         "minyez-myz-amd-fedora": "amdfed",
         "minyez-iopcas-fedora": "iopcas"
     }

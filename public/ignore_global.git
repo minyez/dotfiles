@@ -11,3 +11,5 @@ git.log
 
 flycheck_*
 .auctex-auto
+
+*/neovim/plugin
