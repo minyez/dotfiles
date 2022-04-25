@@ -162,7 +162,7 @@ set           advisor_dir      ${prefix}/advisor/2022.0.0
 }
 setenv        ADVISOR_2022_DIR ${advisor_dir}
 setenv        APM              ${advisor_dir}/perfmodels
-setenv        PYTHONPATH       ${advisor_dir}/pythonapi
+prepend-path  PYTHONPATH       ${advisor_dir}/pythonapi
 prepend-path  PKG_CONFIG_PATH  ${advisor_dir}/include/pkgconfig/lib64
 prepend-path  PATH             ${advisor_dir}/bin64
 # inspector

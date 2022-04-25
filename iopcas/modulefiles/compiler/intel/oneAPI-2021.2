@@ -149,7 +149,7 @@ prepend-path PKG_CONFIG_PATH         ${vtune_profiler_dir}/include/pkgconfig/lib
 set           advisor_dir      ${prefix}/advisor/2021.2.0
 setenv        ADVISOR_2021_DIR ${advisor_dir}
 setenv        APM              ${advisor_dir}/perfmodels
-setenv        PYTHONPATH       ${advisor_dir}/pythonapi
+prepend-path  PYTHONPATH       ${advisor_dir}/pythonapi
 prepend-path  PKG_CONFIG_PATH  ${advisor_dir}/include/pkgconfig/lib64
 prepend-path  PATH             ${advisor_dir}/bin64
 

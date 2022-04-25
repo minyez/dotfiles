@@ -1,6 +1,6 @@
 {
   "iopcas/vimrc" : "~/.vimrc",
-  "public/neovim-lua" : "~/.config/nvim",
+  "iopcas/neovim-lua" : "~/.config/nvim",
   "iopcas/flameshot" : "~/.config/flameshot",
   "iopcas/doom.d" : "~/.doom.d",
   "iopcas/bashrc" : "~/.bashrc",
