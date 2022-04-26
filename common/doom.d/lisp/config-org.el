@@ -98,6 +98,10 @@
           ("HA2EV" . "27.21138602")
           ("THZ2HA" . "1.519829846e-4") ; 10^12 h in Ha unit
           ))
+  ;;; increase the precision, both set
+  ;;; https://stackoverflow.com/questions/21998047/how-to-change-one-component-only-of-org-calc-default-modes
+  (plist-put org-calc-default-modes 'calc-internal-prec 20)
+  (plist-put org-calc-default-modes 'calc-float-format '(float 12))
   ; active and inactive timestamp
   (fset 'now-act
    (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))

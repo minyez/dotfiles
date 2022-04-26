@@ -33,6 +33,7 @@ packer.init {
 
 return require("packer").startup(function()
 -- =======================
+  use 'lewis6991/impatient.nvim'
   use "wbthomason/packer.nvim" -- package manager
   use "rcarriga/nvim-notify" -- notify
 -- =======================
@@ -52,24 +53,32 @@ return require("packer").startup(function()
   use "rebelot/kanagawa.nvim"
 -- ===================================
 -- treesitter: language parser
-  use {
-    "nvim-treesitter/nvim-treesitter",
+  use { "nvim-treesitter/nvim-treesitter",
+    requires = {
+      "nvim-treesitter/nvim-treesitter-textobjects",  -- enhance texetobject selection
+      "romgrk/nvim-treesitter-context",  -- show class/function at top
+    },
     run = ":TSUpdate",
   }
-  use "nvim-treesitter/nvim-treesitter-textobjects"  -- enhance texetobject selection
-  use "romgrk/nvim-treesitter-context"  -- show class/function at top
   use "andymass/vim-matchup"
   use "nvim-orgmode/orgmode"
 -- ===========================
 -- nvim-telescope fuzzy finder
-  use "nvim-telescope/telescope.nvim"
-  use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-  use "nvim-telescope/telescope-ui-select.nvim"
-  use "nvim-telescope/telescope-live-grep-raw.nvim"
+  use { "nvim-telescope/telescope.nvim",
+    requires = {
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-live-grep-raw.nvim",
+      { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks" }
+    }
+  }
 -- ========
 -- other UI
   use "norcalli/nvim-colorizer.lua" -- show color
   use "folke/trouble.nvim"
+  use "nvim-lualine/lualine.nvim" -- status line
+  use "folke/which-key.nvim"
+  -- use "mtdl9/vim-log-highlighting"
 -- ===
 -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP
@@ -94,7 +103,7 @@ return require("packer").startup(function()
       {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
     }
   }
- use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
   -- Automatically set up your configuration after cloning packer.nvim

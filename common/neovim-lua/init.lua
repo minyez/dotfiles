@@ -1,19 +1,11 @@
 require 'plugins'
+require 'impatient'.enable_profile()
 require 'keymaps'
 require 'options'
 require 'colorscheme'
 
+-- groups
 require 'lsp'
+require 'editor'
+require 'ui'
 
-require 'editor.nvim-comment'
-require 'editor.nvim-autopairs'
--- require 'editor.ultisnips'
-require 'editor.cmp'
-require 'editor.nvim-lastplace'
-
-require 'ui.filetype'
-require 'ui.notify'
-require 'ui.nvim-tree'
-require 'ui.nvim-treesitter'
-require 'ui.orgmode'
-require 'ui.nvim-telescope'
