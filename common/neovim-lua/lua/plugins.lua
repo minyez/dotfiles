@@ -66,25 +66,35 @@ return require("packer").startup(function()
   use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use "nvim-telescope/telescope-ui-select.nvim"
   use "nvim-telescope/telescope-live-grep-raw.nvim"
+-- ========
+-- other UI
+  use "norcalli/nvim-colorizer.lua" -- show color
+  use "folke/trouble.nvim"
 -- =====
 -- Editor
-  use "honza/vim-snippets" -- snippets
-  use "SirVer/ultisnips" -- snippets engine that I have been using
+  -- use "honza/vim-snippets" -- snippets
+  -- use "SirVer/ultisnips" -- snippets engine that I have been using
+  use "L3MON4D3/LuaSnip" -- new snippets engine
+  use "rafamadriz/friendly-snippets"
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "terrortylor/nvim-comment"
   use { "hrsh7th/nvim-cmp",
-    requires = { {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
-                 {"hrsh7th/cmp-buffer"}, -- buffer completions
-                 {"hrsh7th/cmp-path"}, -- path completions
-                 {"hrsh7th/cmp-cmdline"}, -- cmdline completions
-                 {"hrsh7th/cmp-nvim-lua"},
-                 -- {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
+    requires = {
+      -- {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
+      {"hrsh7th/cmp-buffer"}, -- buffer completions
+      {"hrsh7th/cmp-path"}, -- path completions
+      {"hrsh7th/cmp-cmdline"}, -- cmdline completions
+      {"hrsh7th/cmp-nvim-lua"},
+      {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
     }
   }
 --  use "hrsh7th/cmp-nvim-lsp"
+  use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
+  use "nathom/filetype.nvim"
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
 end)
+

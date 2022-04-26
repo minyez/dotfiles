@@ -4,7 +4,6 @@ if not status_ok then
   vim.notify("telescope not found!")
   return
 end
-
 local actions = require "telescope.actions"
 
 -- disable preview binaries
