@@ -3,6 +3,8 @@ require 'keymaps'
 require 'options'
 require 'colorscheme'
 
+require 'lsp'
+
 require 'editor.nvim-comment'
 require 'editor.nvim-autopairs'
 -- require 'editor.ultisnips'

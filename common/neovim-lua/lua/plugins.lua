@@ -70,6 +70,12 @@ return require("packer").startup(function()
 -- other UI
   use "norcalli/nvim-colorizer.lua" -- show color
   use "folke/trouble.nvim"
+-- ===
+-- LSP
+  use "neovim/nvim-lspconfig" -- enable LSP
+  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  -- use "kosayoda/nvim-lightbulb" -- code action
+  use "ray-x/lsp_signature.nvim" -- show function signature when typing
 -- =====
 -- Editor
   -- use "honza/vim-snippets" -- snippets
@@ -88,7 +94,7 @@ return require("packer").startup(function()
       {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
     }
   }
---  use "hrsh7th/cmp-nvim-lsp"
+ use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
   -- Automatically set up your configuration after cloning packer.nvim
