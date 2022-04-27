@@ -11,6 +11,7 @@ end
 
 configs.register({
 -- files
+  ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   f = {
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },

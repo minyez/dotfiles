@@ -7,7 +7,7 @@ end
 
 configs.setup {
   -- ensure_installed = {"cpp", "lua", "c", "python", "go"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = {"cpp", "lua", "c", "python"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {"cpp", "lua", "c", "python", "fortran"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "" }, -- List of parsers to ignore installing
   autopairs = {
@@ -18,7 +18,7 @@ configs.setup {
     disable = { "" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = true,
   },
-  indent = { enable = true, disable = { "yaml", "cpp", "toml" } },
+  indent = { enable = false, disable = { "yaml", "cpp", "toml" } },
   -- when cpp is not disable, there will be bad indentation after for {}
   context_commentstring = {
     enable = true,
