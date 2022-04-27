@@ -5,4 +5,6 @@ if not status_ok then
   return
 end
 
-configs.setup({})
+configs.setup({
+  break_line_filetype = nil,
+})

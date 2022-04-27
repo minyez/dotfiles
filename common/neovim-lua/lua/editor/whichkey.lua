@@ -23,6 +23,7 @@ configs.register({
   q = {
     name = "+quit",
     q = { "<cmd>q<cr>", "Quit" },
+    f = { "<cmd>q!<cr>", "Force Quit" },
     a = { "<cmd>qa<cr>", "Quit All" },
   },
   n = {
@@ -42,6 +43,7 @@ configs.register({
     name = "+search",
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
+    g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
   },
 }, { prefix = "<leader>"})
 
