@@ -1,6 +1,7 @@
-local dir = ""
-require(dir .. 'editor.nvim-comment')
-require(dir .. 'editor.nvim-autopairs')
--- require(dir .. 'editor.ultisnips')
-require(dir .. 'editor.cmp')
-require(dir .. 'editor.nvim-lastplace')
+local dir = "editor"
+require(dir .. '.nvim-comment')
+require(dir .. '.nvim-autopairs')
+-- require(dir .tor.ultisnips')
+require(dir .. '.cmp')
+require(dir .. '.nvim-lastplace')
+require(dir .. '.whichkey')

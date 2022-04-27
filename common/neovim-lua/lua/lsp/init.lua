@@ -4,7 +4,7 @@ if not status_ok then
   return
 end
 
-local dir = ""
+local dir = "lsp"
 
-require(dir .. "lsp.installer")
-require(dir .. "lsp.handlers").setup()
+require(dir .. ".installer")
+require(dir .. ".handlers").setup()
