@@ -25,11 +25,17 @@ configs.register({
     q = { "<cmd>q<cr>", "Quit" },
     a = { "<cmd>qa<cr>", "Quit All" },
   },
+  n = {
+    name = "+tree",
+    t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
+  },
 -- toggle things
   t = {
-    name = "+toggle",
-    t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
-    f = { "<cmd>Trouble quickfix<cr>", "Trouble Quickfix" },
+    name = "+trouble",
+    t = { "<cmd>TroubleToggle<cr>", "Toggle Default" },
+    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble Workspace" },
+    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
+    r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
   },
 -- search
   s = {
