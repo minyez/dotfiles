@@ -78,6 +78,9 @@ return require("packer").startup(function()
   use "folke/trouble.nvim"
   use "nvim-lualine/lualine.nvim" -- status line
   use "folke/which-key.nvim"
+  use { "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  }
   -- use "mtdl9/vim-log-highlighting"
 -- ===
 -- LSP

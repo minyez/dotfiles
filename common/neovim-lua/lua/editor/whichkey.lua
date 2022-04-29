@@ -45,6 +45,7 @@ configs.register({
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
+    s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols" },
   },
 }, { prefix = "<leader>"})
 
@@ -52,4 +53,8 @@ configs.register({
 configs.register({
   -- in vanilla vim CTRL-Q same as CTRL-V. remap to quit
   ["<C-q>"] = { "<cmd>q<cr>", "Quit" },
+  g = {
+    name = "+goto",
+    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions" },
+  },
 })
