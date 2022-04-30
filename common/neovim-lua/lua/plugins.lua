@@ -51,6 +51,7 @@ return require("packer").startup(function()
   use "navarasu/onedark.nvim" -- one dark colorscheme
   use "rafamadriz/neon" -- another dark scheme
   use "rebelot/kanagawa.nvim"
+  use "projekt0n/github-nvim-theme"
 -- ===================================
 -- treesitter: language parser
   use { "nvim-treesitter/nvim-treesitter",
@@ -81,6 +82,7 @@ return require("packer").startup(function()
   use { "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
   }
+  use "lewis6991/gitsigns.nvim"
   -- use "mtdl9/vim-log-highlighting"
 -- ===
 -- LSP

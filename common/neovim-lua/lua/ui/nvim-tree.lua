@@ -117,7 +117,9 @@ nvim_tree.setup {
         { key = { "l", "<CR>", "o" }, action = "edit" },
         { key = "h", action ="close_node" },
         { key = "v", action ="vsplit" },
-        { key = "S", action ="split" },
+        -- switch split and system_open in default mappings
+        { key = "s", action ="split" },
+        { key = "<C-x>", action = "system_open" },
         { key = "O", action ="cd" },
       },
     },

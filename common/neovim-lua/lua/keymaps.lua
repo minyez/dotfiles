@@ -64,6 +64,15 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+-- Remap direction keys to window manipulation
+keymap("n", "<UP>", "<C-w>R", opts) -- rotate upwards/leftwards
+keymap("n", "<DOWN>", "<C-w>r", opts) -- rotate downwards/rightwards
+keymap("n", "<RIGHT>", "<C-w>x", opts) -- switch with next
+keymap("n", "<LEFT>", "<C-w>x", opts) -- switch with next
+-- keymap("n", "<LEFT>", ":echo winnr()-1<CR>", opts) -- switch with previous
+-- keymap("n", "<LEFT>", ":exe 1 \"wincmd x\"<CR>", opts) -- switch with previous
+
+
 -- Terminal --
 -- Better terminal navigation
 -- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
