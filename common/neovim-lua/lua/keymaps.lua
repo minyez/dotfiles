@@ -18,6 +18,11 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- in vanilla vim CTRL-Q same as CTRL-V. remap to quit
+keymap("", "<C-q>", "<cmd>q<cr>", opts)
+-- save file
+keymap("", "<C-s>", "<cmd>w<cr>", opts)
+
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)

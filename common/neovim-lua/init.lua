@@ -6,13 +6,12 @@ require('impatient').enable_profile()
 require(dir .. 'keymaps')
 require(dir .. 'options')
 
--- NOTE: need to figure out a light lualine, otherwise stick to the dark theme
--- if IS_DAYTIME() then
---   require(dir .. 'colorscheme')("github-theme")
--- else
---   require(dir .. 'colorscheme')("kanagawa")
--- end
-require(dir .. 'colorscheme')("kanagawa")
+-- NOTE: may need to adapt lualine according to light/dark color theme
+if IS_DAYTIME() then
+  require(dir .. 'colorscheme')("github-theme")
+else
+  require(dir .. 'colorscheme')("kanagawa")
+end
 
 require(dir .. 'lsp')
 

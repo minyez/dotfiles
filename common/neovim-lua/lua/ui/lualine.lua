@@ -5,7 +5,7 @@ if not status_ok then
   return
 end
 
--- configs.setup(
+-- lualine.setup(
 -- {
 --   options = {
 --     icons_enabled = true,
@@ -33,11 +33,11 @@ end
 --     lualine_z = {},
 --   },
 --   tabline = {},
---   extensions = {'nvim-tree', 'fzf'},
+  -- extensions = {'nvim-tree', 'fzf'},
 -- }
 -- )
 
--- evil_lualine https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lualine
+-- evil_lualine https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lua
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -45,8 +45,9 @@ end
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
+  -- use back/foreground from colorscheme
+  -- bg       = '#202328',
+  -- fg       = '#bbc2cf',
   yellow   = '#ECBE7B',
   cyan     = '#008080',
   darkblue = '#081633',
@@ -105,6 +106,8 @@ local config = {
     lualine_c = {},
     lualine_x = {},
   },
+  -- extensions = {'nvim-tree', 'fzf'},
+  -- extensions = {'fzf'},
 }
 
 -- Inserts a component in lualine_c at left section
@@ -198,7 +201,7 @@ ins_left {
 ins_left {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
+    local msg = 'N/A'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local bufmsg = " (" .. buf_ft .. ")"
     local clients = vim.lsp.get_active_clients()
@@ -214,7 +217,7 @@ ins_left {
     return msg .. bufmsg
   end,
   icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+  color = { fg = colors.fg, gui = 'bold' },
 }
 
 -- Add components to right sections

@@ -51,8 +51,6 @@ configs.register({
 
 
 configs.register({
-  -- in vanilla vim CTRL-Q same as CTRL-V. remap to quit
-  ["<C-q>"] = { "<cmd>q<cr>", "Quit" },
   g = {
     name = "+goto",
     d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions" },
