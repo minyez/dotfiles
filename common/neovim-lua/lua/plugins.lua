@@ -32,12 +32,13 @@ packer.init {
 }
 
 return require("packer").startup(function()
--- =======================
-  use 'lewis6991/impatient.nvim'
+  -- =======================
+  use { 'lewis6991/impatient.nvim',
+    config = function() require('impatient').enable_profile() end }
   use "wbthomason/packer.nvim" -- package manager
   use "rcarriga/nvim-notify" -- notify
--- =======================
--- nvim-tree: directory browser
+  -- =======================
+  -- nvim-tree: directory browser
   use {
     "kyazdani42/nvim-tree.lua",
     requires = {
@@ -46,25 +47,25 @@ return require("packer").startup(function()
   }
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used in lots of plugins
--- ============
--- colorschemes
+  -- ============
+  -- colorschemes
   use "navarasu/onedark.nvim" -- one dark colorscheme
   use "rafamadriz/neon" -- another dark scheme
   use "rebelot/kanagawa.nvim"
   use "projekt0n/github-nvim-theme"
--- ===================================
--- treesitter: language parser
+  -- ===================================
+  -- treesitter: language parser
   use { "nvim-treesitter/nvim-treesitter",
     requires = {
-      "nvim-treesitter/nvim-treesitter-textobjects",  -- enhance texetobject selection
-      "romgrk/nvim-treesitter-context",  -- show class/function at top
+      "nvim-treesitter/nvim-treesitter-textobjects", -- enhance texetobject selection
+      "romgrk/nvim-treesitter-context", -- show class/function at top
     },
     run = ":TSUpdate",
   }
   use "andymass/vim-matchup"
   use "nvim-orgmode/orgmode"
--- ===========================
--- nvim-telescope fuzzy finder
+  -- ===========================
+  -- nvim-telescope fuzzy finder
   use { "nvim-telescope/telescope.nvim",
     requires = {
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
@@ -73,8 +74,8 @@ return require("packer").startup(function()
       { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks" }
     }
   }
--- ========
--- other UI
+  -- ========
+  -- other UI
   use "norcalli/nvim-colorizer.lua" -- show color
   use "folke/trouble.nvim"
   use "nvim-lualine/lualine.nvim" -- status line
@@ -85,14 +86,14 @@ return require("packer").startup(function()
   use "lewis6991/gitsigns.nvim"
   -- use "mtdl9/vim-log-highlighting"
   use "simrat39/symbols-outline.nvim"
--- ===
--- LSP
+  -- ===
+  -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   -- use "kosayoda/nvim-lightbulb" -- code action
   use "ray-x/lsp_signature.nvim" -- show function signature when typing
--- =====
--- Editor
+  -- =====
+  -- Editor
   -- use "honza/vim-snippets" -- snippets
   -- use "SirVer/ultisnips" -- snippets engine that I have been using
   use "L3MON4D3/LuaSnip" -- new snippets engine
@@ -102,11 +103,11 @@ return require("packer").startup(function()
   use { "hrsh7th/nvim-cmp",
     requires = {
       -- {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
-      {"hrsh7th/cmp-buffer"}, -- buffer completions
-      {"hrsh7th/cmp-path"}, -- path completions
-      {"hrsh7th/cmp-cmdline"}, -- cmdline completions
-      {"hrsh7th/cmp-nvim-lua"},
-      {"saadparwaiz1/cmp_luasnip"}, -- snippet completions
+      { "hrsh7th/cmp-buffer" }, -- buffer completions
+      { "hrsh7th/cmp-path" }, -- path completions
+      { "hrsh7th/cmp-cmdline" }, -- cmdline completions
+      { "hrsh7th/cmp-nvim-lua" },
+      { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
     }
   }
   use "hrsh7th/cmp-nvim-lsp"
@@ -118,4 +119,3 @@ return require("packer").startup(function()
     require("packer").sync()
   end
 end)
-

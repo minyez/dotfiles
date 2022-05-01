@@ -7,6 +7,7 @@ Directory structure
 ├── keymaps.lua
 ├── options.lua
 ├── plugins.lua
+├── utils.lua
 ├── editor
 ├── lsp
 ├── ui

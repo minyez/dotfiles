@@ -1,13 +1,15 @@
+-- User directory
+USER_DIR = ""
 
-require('utils')
+require(USER_DIR .. '.utils')
 require(USER_DIR .. '.plugins')
-require('impatient').enable_profile()
 require(USER_DIR .. '.keymaps')
 require(USER_DIR .. '.options')
 
 -- NOTE: may need to adapt lualine according to light/dark color theme
 if IS_DAYTIME() then
   require(USER_DIR .. '.colorscheme')("github-theme")
+  -- require(USER_DIR .. '.colorscheme')("onedark")
 else
   require(USER_DIR .. '.colorscheme')("kanagawa")
 end

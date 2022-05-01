@@ -5,7 +5,7 @@ function M(colorscheme)
   --   return
   -- end
 
-  local cs_avail = { "neon", "onedar", "kanagawa", "github-theme" }
+  local cs_avail = { "neon", "onedark", "kanagawa", "github-theme" }
   for _, v in pairs(cs_avail) do
     if v == colorscheme then
       require ("_colorschemes." .. colorscheme)
