@@ -45,7 +45,8 @@ configs.register({
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-    s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols" },
+    s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
+    o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
   },
 }, { prefix = "<leader>"})
 

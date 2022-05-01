@@ -4,15 +4,14 @@ if not status_ok then
   return
 end
 
-local dir = ""
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
   local opts = {
-    on_attach = require(dir .. "lsp.handlers").on_attach,
-    capabilities = require(dir .. "lsp.handlers").capabilities,
+    on_attach = require(USER_DIR .. ".lsp.handlers").on_attach,
+    capabilities = require(USER_DIR .. ".lsp.handlers").capabilities,
     settings = {
-      Lua = require(dir .. "_lang.lua").lsp,
+      Lua = require(USER_DIR .. "._lang.lua").lsp,
     }
   }
   -- This setup() function is exactly the same as lspconfig's setup function.

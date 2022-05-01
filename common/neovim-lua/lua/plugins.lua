@@ -84,6 +84,7 @@ return require("packer").startup(function()
   }
   use "lewis6991/gitsigns.nvim"
   -- use "mtdl9/vim-log-highlighting"
+  use "simrat39/symbols-outline.nvim"
 -- ===
 -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP

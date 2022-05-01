@@ -1,4 +1,7 @@
--- some utilies
+-- some utilies for configs, need to load first
+
+-- User directory
+USER_DIR = ""
 
 -- Check if the operating system is UNIX-like by checking the path separator
 function IS_UNIX()

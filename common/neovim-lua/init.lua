@@ -1,33 +1,32 @@
-local dir = ""
 
-require(dir .. 'utils')
-require(dir .. 'plugins')
+require('utils')
+require(USER_DIR .. '.plugins')
 require('impatient').enable_profile()
-require(dir .. 'keymaps')
-require(dir .. 'options')
+require(USER_DIR .. '.keymaps')
+require(USER_DIR .. '.options')
 
 -- NOTE: may need to adapt lualine according to light/dark color theme
 if IS_DAYTIME() then
-  require(dir .. 'colorscheme')("github-theme")
+  require(USER_DIR .. '.colorscheme')("github-theme")
 else
-  require(dir .. 'colorscheme')("kanagawa")
+  require(USER_DIR .. '.colorscheme')("kanagawa")
 end
 
-require(dir .. 'lsp')
+require(USER_DIR .. '.lsp')
 
-require(dir .. 'editor.whichkey')
-require(dir .. 'editor.nvim-comment')
-require(dir .. 'editor.nvim-autopairs')
-require(dir .. 'editor.cmp')
-require(dir .. 'editor.nvim-lastplace')
+require(USER_DIR .. '.editor.whichkey')
+require(USER_DIR .. '.editor.nvim-comment')
+require(USER_DIR .. '.editor.nvim-autopairs')
+require(USER_DIR .. '.editor.cmp')
+require(USER_DIR .. '.editor.nvim-lastplace')
 --
-require(dir .. 'ui.notify')
-require(dir .. 'ui.gitsigns')
-require(dir .. 'ui.nvim-tree')
-require(dir .. 'ui.nvim-treesitter')
-require(dir .. 'ui.orgmode') -- seems conflict default TODO/FIXME colorizing on macOS
-require(dir .. 'ui.nvim-telescope')
-require(dir .. 'ui.colorizer')
-require(dir .. 'ui.lualine')
-require(dir .. 'ui.todo-comments')
-require(dir .. 'ui.trouble')
+require(USER_DIR .. '.ui.notify')
+require(USER_DIR .. '.ui.gitsigns')
+require(USER_DIR .. '.ui.nvim-tree')
+require(USER_DIR .. '.ui.nvim-treesitter')
+require(USER_DIR .. '.ui.orgmode') -- seems conflict default TODO/FIXME colorizing on macOS
+require(USER_DIR .. '.ui.nvim-telescope')
+require(USER_DIR .. '.ui.colorizer')
+require(USER_DIR .. '.ui.lualine')
+require(USER_DIR .. '.ui.todo-comments')
+require(USER_DIR .. '.ui.trouble')
