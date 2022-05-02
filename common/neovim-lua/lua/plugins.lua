@@ -86,6 +86,7 @@ return require("packer").startup(function()
   use "lewis6991/gitsigns.nvim"
   -- use "mtdl9/vim-log-highlighting"
   use "simrat39/symbols-outline.nvim"
+  use 'karb94/neoscroll.nvim' -- smooth scroll
   -- ===
   -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP

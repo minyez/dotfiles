@@ -8,7 +8,7 @@ function M(colorscheme)
   local cs_avail = { "neon", "onedark", "kanagawa", "github-theme" }
   for _, v in pairs(cs_avail) do
     if v == colorscheme then
-      require ("_colorschemes." .. colorscheme)
+      require (USER_DIR .. "._colorschemes." .. colorscheme)
       return
     end
   end

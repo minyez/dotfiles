@@ -77,6 +77,8 @@ keymap("n", "<LEFT>", "<C-w>x", opts) -- switch with next
 -- keymap("n", "<LEFT>", ":echo winnr()-1<CR>", opts) -- switch with previous
 -- keymap("n", "<LEFT>", ":exe 1 \"wincmd x\"<CR>", opts) -- switch with previous
 
+-- keymap('v', '<leader>sg', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR><ESC>', opts)
+-- keymap('v', '<leader>sg', '"+y:Telescope live_grep default_text=<c-r>+<CR><ESC>', opts)
 
 -- Terminal --
 -- Better terminal navigation
