@@ -5,6 +5,7 @@ require(USER_DIR .. '.utils')
 require(USER_DIR .. '.plugins')
 require(USER_DIR .. '.keymaps')
 require(USER_DIR .. '.options')
+require(USER_DIR .. '.autocmd')
 
 -- NOTE: may need to adapt lualine according to light/dark color theme
 if IS_DAYTIME() then

@@ -40,16 +40,16 @@ function IS_DIR(path)
 end
 
 -- check if current time is daytime.
--- st and et are the hours of staring and ending of daytime,
+-- st and et are the hours of staring and ending of daytime (inclusive),
 -- default to 6 and 18, respectively
 function IS_DAYTIME(st, et)
   st = st or 6
   et = et or 18
   local time = os.date("*t")
-  if time.hour > st and time.hour < et then
-    return true
+  if time.hour > et or time.hour < st then
+    return false
   end
-  return false
+  return true
 end
 
 -- some hand checks

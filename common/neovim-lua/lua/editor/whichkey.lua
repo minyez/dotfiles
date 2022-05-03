@@ -26,9 +26,13 @@ configs.register({
   },
   q = {
     name = "+quit",
-    q = { "<cmd>q<cr>", "Quit All" },
+    q = { "<cmd>qa<cr>", "Quit All" },
     f = { "<cmd>q!<cr>", "Force Quit" },
     a = { "<cmd>qa!<cr>", "Force Quit All" },
+  },
+  m = {
+    name = "+make",
+    m = { "<cmd>make<cr>", "Make" },
   },
   -- n = {
   --   name = "+tree",
