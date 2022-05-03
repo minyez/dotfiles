@@ -63,6 +63,7 @@ configs.register({
     w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble Workspace" },
     d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
     r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
+    s = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
   },
   -- search
   s = {
@@ -72,7 +73,6 @@ configs.register({
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
-    o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
     w = { 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', 'Live Grep Cursor Word' },
   },
   ["/"] = { "<cmd>CommentToggle<cr>", "Comment" },
