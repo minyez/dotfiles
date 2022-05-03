@@ -24,6 +24,7 @@ require(USER_DIR .. '.editor.cmp')
 require(USER_DIR .. '.editor.nvim-lastplace')
 --
 require(USER_DIR .. '.ui.notify')
+require(USER_DIR .. '.ui.filetype')
 require(USER_DIR .. '.ui.gitsigns')
 require(USER_DIR .. '.ui.nvim-tree')
 require(USER_DIR .. '.ui.nvim-treesitter')

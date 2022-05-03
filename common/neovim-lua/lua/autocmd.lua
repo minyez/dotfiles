@@ -17,4 +17,16 @@ vim.cmd [[
     autocmd!
     autocmd BufRead fold_f_pattern autocmd BufWinEnter fold_f_pattern ++once normal! zx
   augroup end
+" set filetype of .ext.in file to ext
+" but will lead to lsp error: unable to handle compilation, expected exactly one compiler job in '' clang
+" check https://neovim.discourse.group/t/how-to-make-clangd-support-more-file-types/1907/4
+" problem with: BufEnter, BufRead, BufNewFile. either set or setlocal
+" not work: BufReadPre, BufAdd, BufWinEnter
+" TODO: check whether it is universal or only on macos
+"  augroup _set_filetype_in
+"    autocmd!
+"    autocmd BufEnter *.{cpp,hpp}.in set filetype=cpp
+"    autocmd BufEnter *.{c,h}.in set filetype=c
+"    autocmd BufEnter *.{f,f90}.in set filetype=fortran
+"  augroup end
 ]]
