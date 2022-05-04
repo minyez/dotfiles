@@ -14,6 +14,7 @@ configs.register({
   -- files
   ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   p = { "a<c-r>+<esc> ", "Paste from system clipboard"},
+  P = { "a<c-r>*<esc> ", "Paste from mouse clip"},
   f = {
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },

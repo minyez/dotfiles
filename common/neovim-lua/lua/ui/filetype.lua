@@ -13,8 +13,13 @@ configs.setup({
         ["cpp.in"] = "cpp",
     },
     literal = {
-      -- Set the filetype of files named "MyBackupFile" to lua
-      -- MyBackupFile = "lua",
+      [".gitignore"] = "config",
+      -- Set the filetype of files named "make.inc" to make (Makefile filetype)
+      ["make.inc"] = "make",
+      ["makefile.include"] = "make",
+      ["Doxyfile.in"] = "make", -- doxygen template
+      ["cmake.arch.inc"] = "cmake",
+      ["cmake.inc"] = "cmake",
     },
     complex = {
         -- Set the filetype of any full filename matching the regex to gitconfig
