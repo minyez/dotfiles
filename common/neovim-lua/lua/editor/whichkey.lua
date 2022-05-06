@@ -28,6 +28,10 @@ configs.register({
     q = { "<cmd>wq<cr>", "Save And Quit" },
     a = { "<cmd>wa<cr>", "Save All Files" },
   },
+  h = {
+    name = "+help",
+    b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
+  },
   q = {
     name = "+quit",
     q = { "<cmd>qa<cr>", "Quit All" },

@@ -84,6 +84,10 @@ return require("packer").startup(function()
     requires = "nvim-lua/plenary.nvim",
   }
   use "lewis6991/gitsigns.nvim"
+  -- use "https://tpope.io/vim/fugitive.git" -- for blame?
+  -- use { 'TimUntersberger/neogit', -- magit in neovim
+  --   requires = 'nvim-lua/plenary.nvim'
+  -- }
   -- use "mtdl9/vim-log-highlighting"
   use { 'stevearc/aerial.nvim', -- outline view
     requires = "nvim-treesitter/nvim-treesitter"
