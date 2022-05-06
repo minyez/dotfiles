@@ -13,6 +13,8 @@ end
 configs.register({
   -- files
   ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+  [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
+  ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   p = { "a<c-r>+<esc> ", "Paste from system clipboard"},
   P = { "a<c-r>*<esc> ", "Paste from mouse clip"},
   f = {
@@ -56,6 +58,7 @@ configs.register({
   -- toggle things
   t = {
     name = "+toggle",
+    a = { "<cmd>AerialToggle!<cr>", "Aerial" },
     t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
     n = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
     L = { "<cmd>set number!<cr>", "Absolute Line Number" },
