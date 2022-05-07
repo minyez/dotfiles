@@ -11,8 +11,7 @@ Directory structure
 ├── editor
 ├── lsp
 ├── ui
-├── _colorschemes
-└── _lang
+└── _colorschemes
 ```
 
 No `init.lua` under direcotries with `_` suffix.
