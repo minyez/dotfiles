@@ -1,0 +1,11 @@
+# I: Bus=0003 Vendor=048d Product=c102 Version=0110
+# N: Name="ITE Tech. Inc. ITE Device(8910) Keyboard"
+# P: Phys=usb-0000:00:14.0-5/input0
+# S: Sysfs=/devices/pci0000:00/0000:00:14.0/usb3/3-5/3-5:1.0/0003:048D:C102.0002/input/input31
+# I: Bus=0003 Vendor=048d Product=c102 Version=0110
+# H: Handlers=sysrq kbd leds event30
+# B: LED=1f
+# Input device ID: bus 0x3 vendor 0x48d product 0xc102 version 0x110
+# Input device name: "ITE Tech. Inc. ITE Device(8910) Keyboard"
+evdev:input:b0003v048DpC102v0110:*
+ KEYBOARD_KEY_70039=leftctrl
