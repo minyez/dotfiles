@@ -96,11 +96,11 @@ noremap <Leader>p "*p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
 
-" 普通模式下，方向键改为切换窗口
-noremap <Up>    <C-w>k
-noremap <Down>  <C-w>j
-noremap <Left>  <C-w>h
-noremap <Right> <C-w>l
+" 切换窗口
+noremap <C-k> <C-w>k
+noremap <C-j> <C-w>j
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
 
 " 普通模式下，用tab键导航标签页切换
 noremap <tab> gt

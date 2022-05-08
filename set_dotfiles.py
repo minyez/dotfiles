@@ -77,6 +77,8 @@ def symlink_dotfile(src, target, debug=False):
             #sp.check_output(["ln", "-s", src, target])
         except PermissionError:
             print("Permission denied in symlinking %s to %s (skip)" % (src, target))
+        except FileNotFoundError:
+            print("Directory of target missing when symlinking %s to %s (skip)" % (src, target))
 
 def load_setup_json(*jsonfns):
     """load the link setup from json files"""
@@ -110,7 +112,8 @@ def main():
         "stevezhang-localhost": "darwin",
         "stevezhang-stevezhangMBP.lan": "darwin",
         "minyez-myz-amd-fedora": "amdfed",
-        "minyez-iopcas-fedora": "iopcas"
+        "minyez-iopcas-fedora": "iopcas",
+        "minyez-y9kp-kde": "y9kde",
     }
 
     try:

@@ -5,34 +5,29 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-[ -f /etc/zshrc ] && . /etc/zshrc
-
-# set the color of terminal
-export LS_OPTIONS='--color=auto' # 如果没有指定，则自动选择颜色
-export LC_ALL="en_US.UTF-8"
-export CLICOLOR='Yes' #是否输出颜色
-export HOMEBREW_NO_AUTO_UPDATE=1 # 禁用Homebrew自动更新
-#export EMACS="*term*"
-
-source /usr/local/opt/modules/init/zsh
-
-## JAVA
-#export JAVA_HOME="$(/usr/libexec/java_home)"
-
-# 加载开发个人python项目所需模块
-#module load py-readmana
-#module load py-mykit
-
-# The next line updates PATH for the Google Cloud SDK.
-[ -f '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc' ] && . '/Users/stevezhang/code/google-cloud-sdk/path.zsh.inc'
-# The next line enables shell command completion for gcloud.
-[ -f '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc' ] && . '/Users/stevezhang/code/google-cloud-sdk/completion.zsh.inc'
-
-# put here to avoid complete error in eval. not know why
-if [ -f ~/.module ]; then
-  . ~/.module
+[ -f /etc/zsh/zprofile ] && . /etc/zsh/zprofile
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
 fi
- 
+export PATH
+
+autoload -Uz compinit
+compinit
+# load bashcompinit for pandoc bash-completion
+# see https://github.com/dsanson/pandoc-completion#installation
+autoload bashcompinit
+bashcompinit
+
+if [[ -f $HOME/.module ]]; then
+  source $HOME/.module
+  module reload
+fi
+
+## comment out for permission error of wine
+#ulimit -s unlimited
+
 # direnv completion
 if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
@@ -46,13 +41,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="avit"
-#ZSH_THEME="xxf"
-#ZSH_THEME="agnoster-my"
-#ZSH_THEME="agnoster"
-#ZSH_THEME="candy"
-#ZSH_THEME="frontcube"
+# the following are themes with dirpath and cmd on two lines
+ZSH_THEME="amuse"
+ZSH_THEME="pmcgee"
+ZSH_THEME="bureau"
+# frontcube hide username and have -> as prompt, suit me best
+ZSH_THEME="frontcube"
+# powerlevel10k https://github.com/romkatv/powerlevel10k
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -107,25 +102,26 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
 plugins=(
   git
   autojump
+  jsontools
   ripgrep
+  zsh-completions
   zsh-autosuggestions
-  zsh-syntax-highlighting
 )
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#777777"
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -z $SSH_CONNECTION ]]; then
    export EDITOR='nvim'
 else
    export EDITOR='/usr/bin/vim'
@@ -145,8 +141,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# reload module to load aliases
-#module reload
 
 # only username appear for local machine for agnoster theme
 prompt_context() {
@@ -155,15 +149,24 @@ prompt_context() {
   fi
 }
 
-#compaudit | xargs chmod g-w
-fpath=(/usr/local/share/zsh-completions $fpath)
-
 # The following lines were added by compinstall
-zstyle :compinstall filename "$HOME/.zshrc"
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
 
+##zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+##zstyle ':completion:*' matcher-list '' '' '+'
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename "$HOME/.zshrc"
+
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=100000
+bindkey -v
+# End of lines configured by zsh-newuser-install
+ 
 zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
   [[ "$PREFIX" == ./* ]] && {
     local -a tmp; set -A tmp ./*(/)
@@ -174,26 +177,29 @@ zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
 # Here, with vi/vim/nvim, ignore files with particular suffixes
 # typically one don't read bib manually
 zstyle ':completion:*:*:(vi|vim|nvim|git):*' file-patterns \
-	'^*.(aux|nav|snm|pdf|dvi|bbl|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|bib|toc|fls|bcf|gif|png|jpg|jpeg|eps|dSYM):source-files' \
+	'^*.(aux|nav|snm|pdf|dvi|bbl|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|bib|toc|fls|bcf|gif|png|jpg|jpeg|eps):source-files' \
 	'*:all-files'
-zstyle ':completion:*:*:(open):*' file-patterns \
+zstyle ':completion:*:*:(xdg-open):*' file-patterns \
 	'^*.(aux|nav|snm|mod|pyc|o|exe|bib|bbl|fdb_latexmk|synctex.gz|blg|toc|fls|bcf|):source-files' \
 	'*:all-files'
 zstyle ':completion:*:*:(python|python2|python3|cp|mv):*' file-patterns \
 	'^*.(mod|pyc|o):source-files' '*:all-files'
+zstyle ':completion:*:*:(xmgrace):*' file-patterns '*.(agr|dat|txt)'
 # Show up menu
 zstyle ':completion:*' menu yes select
 
 # lunchy completion
-LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
-if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
-  . $LUNCHY_DIR/lunchy-completion.zsh
+if gem which lunchy > /dev/null 2>&1; then
+  LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
+  if [ -f $LUNCHY_DIR/lunchy-completion.zsh ]; then
+    . $LUNCHY_DIR/lunchy-completion.zsh
+  fi
 fi
 
 # suppress error when no regex match is found
 unsetopt nomatch
 
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+#cd ~
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

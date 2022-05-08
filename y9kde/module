@@ -1,0 +1,51 @@
+#module setup common to different shells
+#module unuse /usr/share/Modules/modulefiles
+#enable color
+export MODULES_COLOR=auto
+#module use ~/.modulefiles/alias
+#module use ~/.modulefiles/tool
+#module use ~/.modulefiles/math
+#module use ~/.modulefiles/compiler
+#module use ~/.modulefiles/science
+#module use ~/.modulefiles/project
+
+#module load general-alias
+#module load git-alias
+#module load ssh-alias
+#module load sdcv-alias
+#module load vasp-alias
+
+## personal projects
+#module load py-mushroom
+
+if command -v thefuck 1>/dev/null 2>&1; then
+  eval $(thefuck --alias)
+fi
+
+#pyenv init
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  if command -v pyenv-virtualenv-init 1>/dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
+fi
+
+# rbenv initialization
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
+# load nvm, installed by yay -S nvm
+if [ -d ~/.nvm ]; then
+  source /usr/share/nvm/init-nvm.sh
+  nvm use --silent node
+fi
+
+# rust
+[ -f  "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# pandoc completion
+if command -v pandoc 1>/dev/null 2>&1; then
+  eval "$(pandoc --bash-completion)"
+fi
