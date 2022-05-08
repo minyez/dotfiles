@@ -189,7 +189,7 @@
 (require 'config-lsp)
 (require 'config-misc)
 
-(require 'config-external)
+; (require 'config-external)
 
 ; native-comp
 (setq comp-speed 1)
