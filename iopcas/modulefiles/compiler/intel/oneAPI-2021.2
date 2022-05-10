@@ -9,6 +9,7 @@ proc ModulesHelp { } {
         global dotversion
         puts stderr $docstr
 		puts stderr "vtune-gui in this version works on Fedora 34"
+		puts stderr "does not work with GCC11, __malloc__ error. Upgrade at least to 2022.1 can fix"
 }
 
 module-whatis       $docstr

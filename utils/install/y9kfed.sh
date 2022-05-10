@@ -140,7 +140,7 @@ _install_xxenv() {
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 2
   # loads nvm and install the latest long-term-support version
   \. ~/.nvm/nvm.sh || exit 2
-  nvm install --lts || exit 2
+  nvm install node || exit 2
 }
 
 # various tools
@@ -178,6 +178,7 @@ _install_language_tools() {
   ((_DRY_RUN)) && return
   #(( _DRY_RUN )) && return
   #sudo $DNF_CMD -y install ibus-rime librime librime-devel ibus-kkj || exit 2
+  sudo $DNF_CMD -y install ibus-rime librime librime-devel || exit 2
   ibus-daemon -drx
   cecho s "Rime and Kana Kanji installed"
   cecho i "  you need to run ibus-setup to add them to input method"

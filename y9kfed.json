@@ -1,0 +1,11 @@
+{
+  "y9kfed/xprofile" : "~/.xprofile",
+  "y9kfed/doom.d" : "~/.doom.d",
+  "y9kfed/neovim-lua" : "~/.config/nvim",
+  "y9kfed/zshrc" : "~/.zshrc",
+  "y9kfed/p10k.zsh" : "~/.p10k.zsh",
+  "y9kfed/vimrc" : "~/.vimrc",
+  "y9kfed/module" : "~/.module",
+  "y9kfed/modulefiles" : "~/.modulefiles",
+  "public/rime" : "~/.config/ibus/rime"
+}

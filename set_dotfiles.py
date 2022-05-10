@@ -113,7 +113,7 @@ def main():
         "stevezhang-stevezhangMBP.lan": "darwin",
         "minyez-myz-amd-fedora": "amdfed",
         "minyez-iopcas-fedora": "iopcas",
-        "minyez-y9kp-fg": "y9kpfg",
+        "minyez-y9kfed": "y9kfed",
     }
 
     try:

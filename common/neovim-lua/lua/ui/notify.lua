@@ -20,10 +20,10 @@ notify.setup({
   render = "default",
 
   -- Default timeout for notifications
-  timeout = 5000,
+  timeout = 500,
 
   -- Max number of columns for messages
-  max_width = nil,
+  max_width = 80,
   -- Max number of lines for a message
   max_height = nil,
 
