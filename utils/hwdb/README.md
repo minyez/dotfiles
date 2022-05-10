@@ -85,7 +85,7 @@ Keyboards
 
 - `110-108_MX_Keys.hwdb`: Key remap of Logitech MX Keys
 
-## Some trouble shooting
+## Some troubleshooting
 
 Having space around "=" may lead to errors like (note the space inside single quotes)
 ```plain

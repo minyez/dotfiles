@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2086
 
+source common.sh
+
 cwd=$(pwd)
-# conversertive install on this intel+AMD machine
-DNF_CMD="dnf --disablerepo=* --enablerepo=fedora"
 # or disable the updates repo in /etc/yum.repos.d/ and set
-#DNF_CMD="dnf"
+DNF_CMD="dnf"
 
 # WARNING!!! DO NOT use simply "dnf" with updates switched on,
 # since for now this will update the kernel and cause blackscreen
@@ -14,8 +14,8 @@ IS_LINUX=0
 [ "$(uname)" == "Linux" ] && IS_LINUX=1
 USE_DNF=0
 IS_FEDORA=0
-FEDORA_VERSION_MIN=30
-FEDORA_VERSION_MAX=34
+FEDORA_VERSION_MIN=35
+FEDORA_VERSION_MAX=36
 if (( IS_LINUX )); then
   which dnf 1>/dev/null 2>&1 && USE_DNF=1
   OSNAME=$(awk -F = '/^NAME/ {print $2}' /etc/os-release)
@@ -29,28 +29,10 @@ fi
 YES_NO_P=("No" "Yes")
 _DRY_RUN=${dry:=1}
 
-cecho() {
-  # colorize echo
-  colors=""
-  colore=""
-  if [[ -t 1 ]]; then
-    case $1 in
-      "s" | "success" ) colors="\e[1;32m";;
-      "e" | "error" ) colors="\e[1;31m";;
-      "i" | "info" ) colors="\e[1;34m";;
-      "w" | "warn" ) colors="\e[38;2;234;80;3m";;
-      *) colors="\e[0m"
-    esac
-  colore="\e[0m"
-  fi
-  shift 1
-  echo -e "$colors$*$colore"
-}
-
 help_info() {
-  cecho i "========================================="
-  cecho i "Install script of minyez Fedora (IOP CAS)"
-  cecho i "========================================="
+  cecho i "============================================="
+  cecho i "Install script of minyez Fedora (Y9000P 3060)"
+  cecho i "============================================="
   echo "  Your OS: $(uname -snr)"
   (( IS_LINUX )) && \
   echo "      CPU: $(lscpu | awk '/Model name/ {sep = ""; for (i = 3; i <= NF; i++) {printf("%s%s", sep, $i); sep=OFS}; printf("\n")}')"
@@ -78,9 +60,9 @@ _install_compiler_config() {
   sudo $DNF_CMD -y install \
   	gcc gfortran gcc-c++ clang llvm clang-tools-extra || exit 2
   # auto config
-  sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel || exit 2
+  sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel libtool || exit 2
   # shells, ruby
-  sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-deve || exit 2
+  sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-devel || exit 2
   # vi
   sudo $DNF_CMD -y install vim-enhanced neovim || exit 2
 }
@@ -109,12 +91,13 @@ _install_net_tools() {
   cecho i "Installing net tools, e.g. SSL, curl, wget ..."
   ((_DRY_RUN)) || sudo $DNF_CMD -y install openssl-devel curl libcurl-devel wget || exit 2
   # use the latest clash
-  cecho i "Downloading clash ..."
-  ((_DRY_RUN)) && return
-  wget https://github.com/Dreamacro/clash/releases/download/v1.8.0/clash-linux-amd64-v1.8.0.gz || exit 2
-  if ! gunzip clash-linux-amd64-v1.8.0.gz && mv clash-linux-amd64-v1.8.0 clash && chmod +x clash && sudo mv clash /usr/local/bin/; then
-    exit 2
-  fi
+  ((_DRY_RUN)) || sudo $DNF_CMD -y install clash || exit 2
+  # cecho i "Downloading clash ..."
+  # ((_DRY_RUN)) && return
+  # wget https://github.com/Dreamacro/clash/releases/download/v1.8.0/clash-linux-amd64-v1.8.0.gz || exit 2
+  # if ! gunzip clash-linux-amd64-v1.8.0.gz && mv clash-linux-amd64-v1.8.0 clash && chmod +x clash && sudo mv clash /usr/local/bin/; then
+  #   exit 2
+  # fi
   echo s "Net tools installed"
 }
 
@@ -194,7 +177,7 @@ _install_language_tools() {
   cecho i "Installing languages tools: Rime, Kana Kanji, sdcv ..."
   ((_DRY_RUN)) && return
   #(( _DRY_RUN )) && return
-  sudo $DNF_CMD -y install ibus-rime librime librime-devel ibus-kkj || exit 2
+  #sudo $DNF_CMD -y install ibus-rime librime librime-devel ibus-kkj || exit 2
   ibus-daemon -drx
   cecho s "Rime and Kana Kanji installed"
   cecho i "  you need to run ibus-setup to add them to input method"
@@ -214,10 +197,10 @@ _install_omz() {
   cecho i "Installing oh-my-zsh ..."
   ((_DRY_RUN)) && return
   sudo $DNF_CMD -y install autojump-zsh || exit 2
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || exit 2
-  git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions || exit 2
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions || exit 2
-  git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || exit 2
+  [[ ! -d ${ZSH_CUSTOM:=~/.oh-my-zsh} ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  [[ ! -e ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+  [[ ! -e ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  [[ ! -e ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/powerlevel10k ]] && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 }
 
 _install_emacs() {
@@ -227,7 +210,7 @@ _install_emacs() {
   sudo dnf -y copr enable deathwish/emacs-pgtk-nativecomp || exit 2
   sudo dnf -y install emacs emacs-devel || exit 2
   cecho s "emacs-native-comp installed"
-  rm -rf ~/.emacs.d && git clone --depth=1 https://github.com/hlissner/doom-emacs.git .emacs.d || exit 2
+  rm -rf ~/.emacs.d && git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.emacs.d || exit 2
   cecho s "Doom emacs cloned"
 }
 

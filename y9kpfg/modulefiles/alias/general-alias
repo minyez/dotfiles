@@ -1,0 +1,63 @@
+#%Module1.0
+#
+# alias for general Linux command
+#
+module-whatis "alias for general Linux command"
+
+# directory
+set PATH_PRACTICE "~/Documents/SelfDevelopment/Codes/code-practice"
+setenv PATH_PRACTICE "$PATH_PRACTICE"
+set-function practice { pdir="$PATH_PRACTICE/$1";
+if [[ -d "$pdir" ]]; then
+  cd "$pdir" || return 1
+else
+  echo "\"$1\" not found under $PATH_PRACTICE"; return 1;
+fi
+}
+# ; after 1 above is required, otherwise parse error
+
+# ls
+set-alias ll "ls -l"
+set-alias la "ls -a"
+
+# vim and nvim
+# use system vim for vi
+set-alias vi "/usr/bin/vim "
+# use homebrew neovim
+set-alias vim "nvim "
+set-function _vi4 { $1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3" }
+set-function vi4 { _vi4 /usr/bin/vim $1 $2 $3 $4 }
+set-function vim4 { _vi4 nvim $1 $2 $3 $4 }
+
+# tar
+setenv COPYFILE_DISABLE 1 
+#set-alias tar { bsdtar }
+set-alias untargz  { tar -zxf }
+set-alias untarbz  { tar -jxf }
+set-alias targz  { tar -zcf }
+set-alias tarbz  { tar -jcf }
+
+# orginally open as an alias to xdg-open
+# now set as a function to get rid of unnecessary error message
+set-function open { xdg-open $1 > /dev/null 2>&1}
+
+# data related, isoformat
+# today
+set-alias td { date +"%Y-%m-%d"}
+# datetime
+set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
+# org mode datetime
+set-alias odt { date +"%Y-%m-%d %a %H:%M"}
+
+# ip
+#set-alias myip { curl ipinfo.io/ip }
+
+# personal directory
+set    SD "~/Documents/SelfDevelopment/"
+setenv SD "$SD"
+set-function cdsd { cd $SD }
+set-function cdsdrm { cd $SD/org-roam }
+
+# proxies setup
+set-alias set_proxy { http_proxy=$http_proxy https_proxy=$https_proxy all_proxy=$all_proxy }
+

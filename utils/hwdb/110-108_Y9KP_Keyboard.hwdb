@@ -7,5 +7,7 @@
 # B: LED=1f
 # Input device ID: bus 0x3 vendor 0x48d product 0xc102 version 0x110
 # Input device name: "ITE Tech. Inc. ITE Device(8910) Keyboard"
+#evdev:input:b0003v048DpC102v0110:*
+#evdev:name:ITE Tech. Inc. ITE Device(8910) Keyboard:*
 evdev:input:b0003v048DpC102v0110:*
  KEYBOARD_KEY_70039=leftctrl

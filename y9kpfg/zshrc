@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-[ -f /etc/zsh/zprofile ] && . /etc/zsh/zprofile
+[ -f /etc/zshrc ] && . /etc/zshrc
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
 then
@@ -22,7 +22,6 @@ bashcompinit
 
 if [[ -f $HOME/.module ]]; then
   source $HOME/.module
-  module reload
 fi
 
 ## comment out for permission error of wine
