@@ -59,5 +59,8 @@ set-function cdsd { cd $SD }
 set-function cdsdrm { cd $SD/org-roam }
 
 # proxies setup
+setenv http_proxy "http://127.0.0.1:7890"
+setenv https_proxy "http://127.0.0.1:7890"
+setenv all_proxy "socks5://127.0.0.1:7890"
 set-alias set_proxy { http_proxy=$http_proxy https_proxy=$https_proxy all_proxy=$all_proxy }
 

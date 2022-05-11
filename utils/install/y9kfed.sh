@@ -60,7 +60,7 @@ _install_compiler_config() {
   sudo $DNF_CMD -y install \
   	gcc gfortran gcc-c++ clang llvm clang-tools-extra || exit 2
   # auto config
-  sudo $DNF_CMD -y install make cmake autoconf automake binutils binutils-devel libtool || exit 2
+  sudo $DNF_CMD -y install make cmake doxygen autoconf automake binutils binutils-devel libtool || exit 2
   # shells, ruby
   sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-devel || exit 2
   # vi
@@ -156,6 +156,13 @@ _install_misc() {
       lshw htop ytop \
       qalculate-gtk flameshot || exit 2
   sudo $DNF_CMD -y install pandoc* || exit 2
+}
+
+_install_zotero() {
+  cecho i "Installing Zotero from Zoo repository..."
+  ((_DRY_RUN)) && return
+  sudo dnf copr enable -y yaleunixsys/zoo
+  sudo dnf install -y zotero
 }
 
 _install_snap() {
@@ -306,12 +313,14 @@ case "$1" in
   -l | l ) i_latex f ;;
   -s | s ) _install_snap ;;
   -m | m ) _install_misc ;;
+  -z | z ) _install_zotero ;;
   -v | v ) _install_virtualbox ;;
   -a | a ) i_basic;
     i_emacs; i_latex;
     # snap and other tools
     _install_snap;
     _install_misc;
+    _install_zotero;
     # remind of manual installs
     _install_manually;
 esac

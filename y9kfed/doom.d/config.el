@@ -21,7 +21,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (let ((font "Sarasa Term SC") ; "MesloLGMDZ Nerd Font Mono"
-      (size 20))
+      (size 24))
   (setq doom-font (font-spec :family font :size size)
         doom-big-font (font-spec :family font :size size)))
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
