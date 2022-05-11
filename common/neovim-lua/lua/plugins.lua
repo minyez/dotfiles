@@ -121,6 +121,9 @@ return require("packer").startup(function()
   use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
+  use { "jose-elias-alvarez/null-ls.nvim",  -- code formatting
+    requires = "nvim-lua/plenary.nvim",
+  }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

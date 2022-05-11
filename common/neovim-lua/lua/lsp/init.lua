@@ -8,4 +8,5 @@ end
 require(USER_DIR .. ".lsp.installer")
 require(USER_DIR .. ".lsp.handlers").setup()
 require(USER_DIR .. ".lsp.signature")
+-- require(USER_DIR .. '.lsp.null-ls') -- not work
 

@@ -177,7 +177,7 @@ zstyle -e ':completion::complete:-command-::executables' ignored-patterns '
 # Here, with vi/vim/nvim, ignore files with particular suffixes
 # typically one don't read bib manually
 zstyle ':completion:*:*:(vi|vim|nvim|git):*' file-patterns \
-	'^*.(aux|nav|snm|pdf|dvi|bbl|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|bib|toc|fls|bcf|gif|png|jpg|jpeg|eps):source-files' \
+	'^*.(aux|nav|snm|pdf|dSYM|dvi|bbl|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|bib|toc|fls|bcf|gif|png|jpg|jpeg|eps):source-files' \
 	'*:all-files'
 zstyle ':completion:*:*:(xdg-open):*' file-patterns \
 	'^*.(aux|nav|snm|mod|pyc|o|exe|bib|bbl|fdb_latexmk|synctex.gz|blg|toc|fls|bcf|):source-files' \

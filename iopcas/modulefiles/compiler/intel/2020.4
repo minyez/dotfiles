@@ -8,6 +8,7 @@ set docstr  "Intel(R) Compiler 2020 update 4"
 proc ModulesHelp { } {
         global dotversion
         puts stderr $docstr
+		puts stderr "does not work with GCC11.2, __malloc__ error. Use oneapi 2022.1 can fix"
 }
 
 module-whatis       $docstr
