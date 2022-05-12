@@ -4,18 +4,14 @@
 source common.sh
 
 cwd=$(pwd)
-# or disable the updates repo in /etc/yum.repos.d/ and set
-DNF_CMD="dnf"
-
-# WARNING!!! DO NOT use simply "dnf" with updates switched on,
-# since for now this will update the kernel and cause blackscreen
+DNF_CMD="dnf --disablerepo=*updates*"
 
 IS_LINUX=0
 [ "$(uname)" == "Linux" ] && IS_LINUX=1
 USE_DNF=0
 IS_FEDORA=0
 FEDORA_VERSION_MIN=35
-FEDORA_VERSION_MAX=36
+FEDORA_VERSION_MAX=35
 if (( IS_LINUX )); then
   which dnf 1>/dev/null 2>&1 && USE_DNF=1
   OSNAME=$(awk -F = '/^NAME/ {print $2}' /etc/os-release)
@@ -52,19 +48,44 @@ check_prereq() {
   echo "  Version: ${FEDORA_VERSION}"
 }
 
-_install_compiler_config() {
-  cecho i "Installing compilers and tools for config ..."
+_install_config() {
+  cecho i "Installing tools for config ..."
   ((_DRY_RUN)) && return
   # compiler. conservative install
   #sudo $DNF_CMD --disablerepo="*" --enablerepo=fedora -y install \
-  sudo $DNF_CMD -y install \
-  	gcc gfortran gcc-c++ clang llvm clang-tools-extra || exit 2
   # auto config
   sudo $DNF_CMD -y install make cmake doxygen autoconf automake binutils binutils-devel libtool || exit 2
   # shells, ruby
   sudo $DNF_CMD -y install zsh tcsh ShellCheck ruby ruby-devel || exit 2
   # vi
-  sudo $DNF_CMD -y install vim-enhanced neovim || exit 2
+  sudo $DNF_CMD -y install vim-enhanced || exit 2
+}
+
+_install_nvidia() {
+  cecho i "Installing NVIDIA drivers and CUDA"
+  ((DRY_RUN)) && return
+  sudo $DNF_CMD -y config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
+  sudo $DNF_CMD -y install cuda nvidia-driver nvidia-settings nvidia-driver-libs.i686
+  cecho i "Installing CUDA samples from NVIDIA official repo"
+  distro=fedora$(rpm -E %fedora)
+  sudo $DNF_CMD -y config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/$distro/x86_64/cuda-$distro.repo
+  sudo $DNF_CMD -y install cuda-examples-11-6
+}
+
+_install_flatpak() {
+  cecho i "Installing flatpak and related"
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  cecho s "Flatpak installed. Some softwares can be installed: (may need proxy to accelarate)"
+  cecho i "  flatpak install flathub com.netease.CloudMusic"
+}
+
+_install_rpmfree() {
+  cecho i "Installing RPMfree, codecs and OBS"
+  ((DRY_RUN)) && return
+  sudo $DNF_CMD -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo $DNF_CMD -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+  sudo $DNF_CMD -y groupupdate sound-and-video
+  sudo $DNF_CMD -y obs-studio
 }
 
 _install_rust() {
@@ -84,6 +105,13 @@ _install_helix() {
   cd helix
   cargo install --path helix-term
   cecho i "If you meet error, try git submodule update --init --recursive --recommend-shallow"
+}
+
+_install_dev() {
+  cecho i "Installing dev tools, including compilers and gdb..."
+  ((_DRY_RUN)) || sudo $DNF_CMD -y debuginfo-install libgcc libstdc++ || exi 2
+  ((_DRY_RUN)) || sudo $DNF_CMD -y install gdb cgdb || exi 2
+  ((_DRY_RUN)) || sudo $DNF_CMD -y install gcc gfortran gcc-c++ clang llvm clang-tools-extra || exit 2
 }
 
 # network
@@ -145,7 +173,7 @@ _install_xxenv() {
 
 # various tools
 _install_misc() {
-  cecho i "Installing misc tools for PDF reading, plotting..."
+  cecho i "Installing misc tools, e.g. PDF reading, plotting..."
   ((_DRY_RUN)) && return
   sudo $DNF_CMD -y install units okular \
     grace gnuplot ImageMagick ghostscript povray \
@@ -153,16 +181,10 @@ _install_misc() {
       environment-modules direnv \
       jq thefuck fzf \
       ripgrep fd-find \
-      lshw htop ytop \
+      lshw htop \
+      screen{fetch,key} \
       qalculate-gtk flameshot || exit 2
   sudo $DNF_CMD -y install pandoc* || exit 2
-}
-
-_install_zotero() {
-  cecho i "Installing Zotero from Zoo repository..."
-  ((_DRY_RUN)) && return
-  sudo dnf copr enable -y yaleunixsys/zoo
-  sudo dnf install -y zotero
 }
 
 _install_snap() {
@@ -258,7 +280,7 @@ _install_manually() {
 i_basic() {
   # basics
   cecho i "Updating the system ..."
-  ((_DRY_RUN)) || sudo $DNF_CMD -y update || exit 2
+  ((_DRY_RUN)) || sudo $DNF_CMD -y update --exclude kernel* || exit 2
   _install_compiler_config
   _install_net_tools
   _install_language_tools
@@ -290,6 +312,7 @@ usage() {
   echo "  s : install snap"
   echo "  e : install Doom emacs of native comp branch"
   echo "  m : install misc tools"
+  echo "  f : install flatpak and suggest softwares"
   echo "  v : install virtual box"
   echo ""  
   echo "  a : automatic install, i.e. all except Virtual Box"
@@ -312,6 +335,7 @@ case "$1" in
   -e | e ) i_emacs ;;
   -l | l ) i_latex f ;;
   -s | s ) _install_snap ;;
+  -f | f ) _install_flatpak ;;
   -m | m ) _install_misc ;;
   -z | z ) _install_zotero ;;
   -v | v ) _install_virtualbox ;;

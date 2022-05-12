@@ -24,12 +24,13 @@ require(USER_DIR .. '.editor.cmp')
 require(USER_DIR .. '.editor.nvim-lastplace')
 --
 require(USER_DIR .. '.ui.notify')
+-- require(USER_DIR .. '.ui.nvim-lightbulb') -- bulb not shown on Y9KP
 require(USER_DIR .. '.ui.aerial')
 require(USER_DIR .. '.ui.filetype')
 require(USER_DIR .. '.ui.gitsigns')
 require(USER_DIR .. '.ui.nvim-tree')
 require(USER_DIR .. '.ui.nvim-treesitter')
-require(USER_DIR .. '.ui.orgmode') -- seems conflict default TODO/FIXME colorizing on macOS
+require(USER_DIR .. '.ui.orgmode') -- seems conflict default TODO/FIXME colorizing
 require(USER_DIR .. '.ui.nvim-telescope')
 require(USER_DIR .. '.ui.colorizer')
 require(USER_DIR .. '.ui.lualine')

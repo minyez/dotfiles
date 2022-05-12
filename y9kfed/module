@@ -12,6 +12,9 @@ module use ~/.modulefiles/compiler
 module load general-alias
 module load git-alias
 module load ssh-alias
+
+module load pyenv rbenv
+
 ##module load sdcv-alias
 ##module load vasp-alias
 #

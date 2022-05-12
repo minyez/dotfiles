@@ -94,6 +94,9 @@ return require("packer").startup(function()
   }
   use "simrat39/symbols-outline.nvim" -- symbols overview
   use 'karb94/neoscroll.nvim' -- smooth scroll
+  use 'kosayoda/nvim-lightbulb' -- code actions
+  use { 'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu', }
   -- ===
   -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP
@@ -121,7 +124,7 @@ return require("packer").startup(function()
   use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
-  use { "jose-elias-alvarez/null-ls.nvim",  -- code formatting
+  use { "jose-elias-alvarez/null-ls.nvim", -- code formatting
     requires = "nvim-lua/plenary.nvim",
   }
   -- Automatically set up your configuration after cloning packer.nvim

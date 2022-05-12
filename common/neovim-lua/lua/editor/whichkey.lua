@@ -20,7 +20,7 @@ configs.register({
   f = {
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
-    p = { "<cmd>Format<cr>", "Prettify Format (Format)" },
+    p = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "LSP Format" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     N = { "<cmd>enew<cr>", "New File" },
     -- n = { "<cmd>NvimTreeFocus<cr>a", "New File (From NvimTree)" },
@@ -76,6 +76,8 @@ configs.register({
   -- search
   s = {
     name = "+search",
+    -- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions" },
+    a = { "<cmd>CodeActionMenu<cr>", "Code Actions" },
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     S = { "<cmd>Telescope grep_string<cr>", "Search Cursor String" },
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
