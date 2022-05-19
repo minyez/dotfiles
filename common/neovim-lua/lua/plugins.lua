@@ -127,6 +127,14 @@ return require("packer").startup(function()
   use { "jose-elias-alvarez/null-ls.nvim", -- code formatting
     requires = "nvim-lua/plenary.nvim",
   }
+  -- =====
+  -- tools
+  use { "Shatur/neovim-cmake", -- cmake convenient functions
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap"
+    },
+  }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

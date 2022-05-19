@@ -41,6 +41,12 @@ configs.register({
   m = {
     name = "+make",
     m = { "<cmd>make<cr>", "Make" },
+    c = {
+      name = "+CMake",
+      c = { "<cmd>:CMake configure<cr>", "Configure" },
+      s = { "<cmd>:CMake select_target<cr>", "Select Target" },
+      a = { "<cmd>:CMake build_all<cr>", "Build all" },
+    },
   },
   -- n = {
   --   name = "+tree",
@@ -57,6 +63,8 @@ configs.register({
   w = {
     name = "+window",
     v = { "<cmd>vsplit<cr>", "Vertical split" },
+    ["-"] = { "<cmd>vsplit<cr>", "Vertical split" },
+    ["="] = { "<cmd>vsplit<cr>", "Vertical split" },
     s = { "<cmd>split<cr>", "(Horizontal) split" },
   },
   -- toggle things
@@ -67,7 +75,7 @@ configs.register({
     n = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
     L = { "<cmd>set number!<cr>", "Absolute Line Number" },
     R = { "<cmd>set relativenumber!<cr>", "Relative Line Number" },
-    T = { "<cmd>TroubleToggle<cr>", "Trouble" },
+    b = { "<cmd>TroubleToggle<cr>", "Trouble" },
     w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble Workspace" },
     d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
     r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },

@@ -1,0 +1,18 @@
+#%Module1.0#####################################################################
+
+set docstr  "Intel(R) Compiler oneAPI 2022.1.1, including base (2022.1.1.119) and hpc (2022.1.1.97) toolkit"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis $docstr
+
+set prefix "[getenv HOME]/software/mpich-4.0.2-gcc-11.3.1"
+
+prepend-path CPATH            "$prefix/include"
+prepend-path PATH             "$prefix/bin"
+prepend-path LIBRARY_PATH     "$prefix/lib"
+prepend-path LD_LIBRARY_PATH  "$prefix/lib"
+prepend-path MANPATH          "$prefix/share/man"

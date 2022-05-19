@@ -13,6 +13,9 @@ then
 fi
 export PATH
 
+# only use english in command line
+export LANGUAGE=en_US
+
 autoload -Uz compinit
 compinit
 # load bashcompinit for pandoc bash-completion

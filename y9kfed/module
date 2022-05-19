@@ -6,8 +6,8 @@ module use ~/.modulefiles/alias
 module use ~/.modulefiles/tool
 module use ~/.modulefiles/math
 module use ~/.modulefiles/compiler
+module use ~/.modulefiles/project
 #module use ~/.modulefiles/science
-#module use ~/.modulefiles/project
 
 module load general-alias
 module load git-alias
@@ -17,9 +17,9 @@ module load pyenv rbenv
 
 ##module load sdcv-alias
 ##module load vasp-alias
-#
-### personal projects
-##module load py-mushroom
+
+# personal projects
+module load py-mushroom
 
 if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
@@ -52,3 +52,5 @@ fi
 if command -v pandoc 1>/dev/null 2>&1; then
   eval "$(pandoc --bash-completion)"
 fi
+
+[ -f  "$HOME/.xprofile" ] && source "$HOME/.xprofile"

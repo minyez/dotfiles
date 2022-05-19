@@ -303,10 +303,14 @@ it can be passed in POS."
   ; imagemagick/dvipng create a fullwidth picture for both inline and display math
   ; however, this was not the case on macos.
   (with-system 'gnu/linux
-    (setq org-preview-latex-default-process 'dvisvgm)
-  )
+    (with-hostname "iopcas"
+      (setq org-preview-latex-default-process 'dvisvgm)))
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("bili" . "https://www.bilibili.com/video/%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("cnwiki" . "https://zh.wikipedia.org/zh-cn/%s"))
   (add-to-list 'org-link-abbrev-alist
                '("w2kmail" . "http://www.mail-archive.com/wien\%40zeus.theochem.tuwien.ac.at/msg%s.html"))
   (setq org-latex-default-packages-alist

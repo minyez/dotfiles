@@ -8,5 +8,6 @@
   "public/gitconfig" : "~/.gitconfig",
   "public/ssh.config" : "~/.ssh/config",
   "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
-  "public/matplotlibrc/" : "~/.matplotlib"
+  "public/matplotlibrc/" : "~/.matplotlib",
+  "public/texstudio/texstudioen_US.ign": "~/.config/texstudio/texstudioen_US.ign"
 }

@@ -146,6 +146,11 @@ _install_latex() {
   ((_DRY_RUN)) && return
   sudo $DNF_CMD -y install texstudio texlive texlive-scheme-medium texlive-{texlive-en-doc,texlive-zh-cn-doc} \
   	texlive-{vancouver,revtex,revtex-doc,revtex4,revtex4-doc,achemso,tocbibind} || exit 2
+  cecho i "Updating font map"
+  # On Fedora 35, the font map is not correctly updated after TeXLive installation
+  # Update it manually.
+  # see https://tex.stackexchange.com/questions/621447/unable-to-generate-a-pdf-on-fedora-35-pdftex-error-cannot-open-type-1-font-fi
+  (( FEDORA_VERSION == 35 )) && sudo updmap-sys
 }
 
 _install_latex_full() {
@@ -166,7 +171,7 @@ _install_xxenv() {
   # see comments in https://stackoverflow.com/a/48370253
   export LESS="--no-init --quit-if-one-screen -R"
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 2
-  # loads nvm and install the latest long-term-support version
+  # loads nvm and install the latest version
   \. ~/.nvm/nvm.sh || exit 2
   nvm install node || exit 2
 }

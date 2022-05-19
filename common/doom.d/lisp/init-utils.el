@@ -10,6 +10,14 @@
      ,@body))
 
 ;;; =====================
+;;; machine setup
+(defmacro with-hostname (type &rest body)
+  "Evaluate BODY if `system-name' equals TYPE."
+  (declare (indent defun))
+  `(when (eq system-name ,type)
+     ,@body))
+
+;;; =====================
 ;;; general helper function
 (defun mz/find-other-file (EXT &optional IN-NEWWIN REPLACE-OTHER)
   "open the file of same name but with a different extension.

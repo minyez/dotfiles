@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=QtGrace
+Comment=a program to display or plot data, analyze data and prepare it for printing
+Exec=/home/minyez/software/qtgrace_v026_src/bin/qtgrace
+Icon=grace
+Terminal=false
+Type=Application
+Categories=Graphics;
+X-Desktop-File-Install-Version=0.26
