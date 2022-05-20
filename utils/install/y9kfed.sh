@@ -269,12 +269,13 @@ _install_virtualbox() {
   ((_DRY_RUN)) && return
   sudo dnf -y install @development-tools || exit 2
   sudo dnf -y install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras || exit 2
-  wget -q https://download.virtualbox.org/virtualbox/rpm/fedora/33/x86_64/VirtualBox-6.1-6.1.30_148432_fedora33-1.x86_64.rpm -O VirtualBox-6.1.rpm || exit 2
+  wget -q https://download.virtualbox.org/virtualbox/rpm/fedora/35/x86_64/VirtualBox-6.1-6.1.34_150636_fedora35-2.x86_64.rpm -O VirtualBox-6.1.rpm || exit 2
   sudo rpm -i VirtualBox-6.1.rpm || exit 2
   sudo dnf -y install virtualbox-guest-additions fence-agents-vbox || exit 2
   cecho s "Virtual Box v6.1, guest additions and fence agents installed"
   cecho i "To install Win10, you need image from https://www.microsoft.com/en-gb/software-download/windows10ISO"
   cecho w "Note: to enable shared clipboard and directories, you also have to install guest additions inside the Guest machine (say Win10)"
+  cecho w "      Device - Insert GuestAddition Image... - Go to My Computer and install from the disk"
 }
 
 _install_manually() {

@@ -13,6 +13,10 @@ proc ModulesHelp { } {
 
 module-whatis       $docstr
 
+if { [ module-info command load ] } {
+  puts stderr "Note: need to load a GCC with ver<11 to avoid error with malloc arguments"
+}
+
 # You must change PREFIX before using this modulefile
 set PREFIX            "/opt/intel/20u4"
 

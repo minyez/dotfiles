@@ -1,0 +1,19 @@
+#%Module########################################################################
+##
+## GCC@9.2.0  modulefile
+##
+proc ModulesHelp { } {
+
+    puts stderr "    This module defines environment variables, aliases and add PATH, LD_LIBRARY_PATH for GCC"
+    puts stderr "    Version 9.2.0"
+                      }
+
+module-whatis   "GCC@9.2.0"
+set             topdir                  "/home/minyez/software/gcc-9.2.0"
+prepend-path    PATH                    "${topdir}/bin"
+prepend-path    CPATH                   "${topdir}/include"
+prepend-path    LIBRARY_PATH            "${topdir}/lib"
+prepend-path    LD_LIBRARY_PATH         "${topdir}/lib"
+prepend-path    LIBRARY_PATH            "${topdir}/lib64"
+prepend-path    LD_LIBRARY_PATH         "${topdir}/lib64"
+prepend-path    MANPATH                 "${topdir}/share/man"
