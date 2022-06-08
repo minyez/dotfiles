@@ -77,6 +77,7 @@ configs.register({
     L = { "<cmd>set number!<cr>", "Absolute Line Number" },
     R = { "<cmd>set relativenumber!<cr>", "Relative Line Number" },
     b = { "<cmd>TroubleToggle<cr>", "Trouble" },
+    i = { "<cmd>IndentBlanklineToggle<cr>", "indent-blankline"},
     w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble Workspace" },
     d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
     r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
