@@ -1,0 +1,17 @@
+#%Module1.0#####################################################################
+
+set docstr "Quantum Espresso 6.8 compiled by Intel 2022 oneapi update 3"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr "$docstr"
+}
+
+module-whatis    "$docstr"
+
+set QE_HOME      "[getenv HOME]/software/qe/6.8/intel-2022.2"
+prepend-path PATH  "$QE_HOME/bin"
+
+# PWTK Tcl scripts for handling QE I/O
+# require tcl
+prepend-path PATH "[getenv HOME]/software/qe/pwtk/pwtk-2.0"

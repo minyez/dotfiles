@@ -7,7 +7,7 @@ module use ~/.modulefiles/tool
 module use ~/.modulefiles/math
 module use ~/.modulefiles/compiler
 module use ~/.modulefiles/project
-#module use ~/.modulefiles/science
+module use ~/.modulefiles/sci
 
 module load general-alias
 module load git-alias

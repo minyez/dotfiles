@@ -9,4 +9,4 @@
 :PROPERTIES:
 :UNNUMBERED: t
 :END:
-#+latex: \\printbibliography[heading=none]$0
+#+latex: \\printbibliography[heading=bibintoc]$0

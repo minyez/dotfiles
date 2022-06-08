@@ -11,6 +11,7 @@ configs.setup({
     extensions = {
         -- Set the filetype of *.cpp.in files to cpp (fail to overwrite the default, which is make)
         ["cpp.in"] = "cpp",
+        ["pwtk"] = "tcl",
     },
     literal = {
       [".gitignore"] = "config",
@@ -25,6 +26,7 @@ configs.setup({
     complex = {
         -- Set the filetype of any full filename matching the regex to gitconfig
         -- [".*git/config"] = "gitconfig", -- Included in the plugin
+      ["control.*.in"] = "bash",
     },
   }
 })

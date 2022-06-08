@@ -1,6 +1,16 @@
 ;;; provide utilities for configuration
 
 ;;; =====================
+;;; 
+(defun mz/set-choice-to-current-hour (var lchoice dchoice &optional start end)
+  (let ((hour (string-to-number (substring (current-time-string) 11 13)))
+        (start-hour (if start start 6))
+        (end-hour (if end end 19)))
+    (if (member hour (number-sequence start-hour end-hour))
+      (set var lchoice)
+      (set var dchoice))))
+
+;;; =====================
 ;;; system-depedent setup
 ;;; adapted from https://stackoverflow.com/a/26137517
 (defmacro with-system (type &rest body)

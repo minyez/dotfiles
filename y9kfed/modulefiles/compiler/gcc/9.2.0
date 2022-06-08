@@ -9,7 +9,7 @@ proc ModulesHelp { } {
                       }
 
 module-whatis   "GCC@9.2.0"
-set             topdir                  "/home/minyez/software/gcc-9.2.0"
+set             topdir                  "/home/minyez/software/gcc/9.2.0"
 prepend-path    PATH                    "${topdir}/bin"
 prepend-path    CPATH                   "${topdir}/include"
 prepend-path    LIBRARY_PATH            "${topdir}/lib"

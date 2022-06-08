@@ -53,6 +53,7 @@ configs.register({
   -- },
   g = {
     name = "+git",
+    b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
     d = { "<cmd>Gitsigns diffthis<cr>", "Diff This" },
     u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk" },
     a = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },

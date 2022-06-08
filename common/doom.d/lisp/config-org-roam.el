@@ -2,7 +2,6 @@
 ;;; related packages are:
 ;;;   - org-roam-bibtex
 ;;;   - delve
-;;;   - +org-roam-server+
 ;;;   - org-roam-ui
 
 (use-package! org-roam
@@ -25,7 +24,7 @@
         :desc "Org-Roam-Unlinked-Refs"  "u" #'org-roam-unlinked-references
         :desc "Orb-Note-Actions"        "n" #'orb-note-actions
         )
-  (setq org-roam-v2-ack t) ;; remove V2 warnings after clean upgrade from V1
+  ; (setq org-roam-v2-ack t) ;; remove V2 warnings after clean upgrade from V1
   :bind
   (:map org-mode-map
         (;("C-c r R" . org-roam)
@@ -54,7 +53,9 @@
                   (direction . right)
                   (window-width . 0.33)
                   (window-height . fit-window-to-buffer)))
-  (org-roam-setup)
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ; (org-roam-setup)
   ;(org-roam-mode +1) ; set to major mode, dropped in V2
   (defun org-roam-search-dup-ids ()
     (let ((org-id-files (org-roam--list-files org-roam-directory))
@@ -231,6 +232,14 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ** Roadmap
 ** Changelog")
            :unnarrowed t)
+          ("T" "translation" plain "%?"
+           :if-new (file+head
+           "translate/${slug}"
+           "#+title: ${title}
+#+filetags: Translation\n#+created: %U
+
+Source:")
+           :unnarrowed t)
     ))
   (setq org-roam-graph-exclude-matcher '("journal"
                                          "daily"
@@ -239,7 +248,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
                                          "archive.org"
                                          "read.org"
                                          "work.org"
-                                        ))
+                                        )) ;;; not respected by org-roam-ui
 ;  (require 'org-roam-protocol) ; use org-protocol
 ;  (defun my-org-protocol-focus-advice (orig &rest args)
 ;    (x-focus-frame nil)
@@ -282,25 +291,6 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 ;(add-hook 'org-mode-hook 'org-roam-mode) ;; V1
 ;; no more org-roam-mode in org-roam V2
 ;; instead run org-mode-setup before the first build of database
-
-;; visualize roam graph. commented for low usage and performance
-;(use-package org-roam-server
-;;  :ensure t
-;  :config
-;  (setq org-roam-server-host "127.0.0.1"
-;        org-roam-server-port 8080
-;        org-roam-server-export-inline-images t
-;        org-roam-server-authenticate nil
-;	      org-roam-server-serve-files nil
-;        org-roam-server-served-file-extensions '("pdf" "mp4")
-;        org-roam-server-network-poll t
-;        org-roam-server-network-arrows nil
-;        org-roam-server-network-label-truncate t
-;        org-roam-server-network-label-truncate-length 60
-;        org-roam-server-network-label-wrap-length 24)
-;)
-;;(org-roam-server-mode)
-;
 
 ;;; old version delve, comment out
 ;(use-package delve
@@ -353,11 +343,8 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
   (add-to-list 'org-roam-capture-templates
           '("r" "reference" plain "%?"
            :if-new (file+head
-           "ref/${citekey}.org"
-           "#+title: ${citekey}: ${title}
-#+startup: content
-#+created: %U
-:PROPERTIES:
+           "ref/note-${citekey}.org"
+           ":PROPERTIES:
 :TITLE: ${title}
 :AUTHOR: ${author-or-editor}
 :JOURNAL: ${journaltitle}
@@ -366,8 +353,12 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
 :PAGES: ${pages}
 :DOI: [[doi:%(replace-regexp-in-string \" \" \"\" \"${doi}\")]]
 :END:
+#+title: ${citekey}: ${title}
+#+startup: content
+#+created: %U
 
-* Notes :noter:
+* Summary Notes
+* Noter Notes :noter:
 :PROPERTIES:
 :NOTER_DOCUMENT: ${file}
 :END:"
@@ -393,7 +384,9 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+          org-roam-ui-open-on-start t)
+    (setq org-roam-ui-ref-title-template "%^{citekey} %^{title}"))
+
 
 (provide 'config-org-roam)
 ;;; config-org-roam.el ends here

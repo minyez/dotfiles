@@ -133,7 +133,7 @@ _install_net_tools() {
 _install_python() {
   cecho i "Installing system python and packages ..."
   ((_DRY_RUN)) && return
-  sudo $DNF_CMD -y install python mkdocs* || exit 2
+  sudo $DNF_CMD -y install python python3 mkdocs* python3-notebook python3-scipy python3-rasterio || exit 2
   if [[ $(which pip) != "/usr/bin/pip" ]]; then
     cecho e "Error: not system pip, current pip = $(which pip)"
     exit 2

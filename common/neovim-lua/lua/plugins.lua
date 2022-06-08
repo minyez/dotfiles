@@ -97,6 +97,7 @@ return require("packer").startup(function()
   use 'kosayoda/nvim-lightbulb' -- code actions
   use { 'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu', }
+  use "lukas-reineke/indent-blankline.nvim" -- indent line
   -- ===
   -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP

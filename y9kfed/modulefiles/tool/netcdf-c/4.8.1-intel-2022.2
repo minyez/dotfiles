@@ -1,0 +1,23 @@
+#%Module1.0#####################################################################
+##
+
+set docstr "netCDF@4.8.1, compiled by Intel oneapi 2022.2 and HDF5@1.12.0, 2022-05-31 23:07
+All tests passed.
+Check config-netcdf-c.sh for more details
+"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set          NETCDF_HOME       "[getenv HOME]/software/netcdf-c/4.8.1/intel-2022.2"
+setenv       NETCDF_HOME       "$NETCDF_HOME"
+prepend-path PATH              "$NETCDF_HOME/bin"
+prepend-path CPATH             "$NETCDF_HOME/include"
+prepend-path MANPATH           "$NETCDF_HOME/share"
+prepend-path LIBRARY_PATH      "$NETCDF_HOME/lib"
+prepend-path PKG_CONFIG_PATH   "$NETCDF_HOME/lib/pkgconfig"
+prepend-path LD_LIBRARY_PATH   "$NETCDF_HOME/lib"

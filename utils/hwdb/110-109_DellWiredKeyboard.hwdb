@@ -1,0 +1,14 @@
+#I: Bus=0003 Vendor=413c Product=2113 Version=0111
+#N: Name="Dell KB216 Wired Keyboard"
+#P: Phys=usb-0000:00:14.0-6/input0
+#S: Sysfs=/devices/pci0000:00/0000:00:14.0/usb1/1-6/1-6:1.0/0003:413C:2113.0002/input/input4
+#U: Uniq=
+#H: Handlers=sysrq kbd leds event4 
+#B: PROP=0
+#B: EV=120013
+#B: KEY=1000000000007 ff9f207ac14057ff febeffdfffefffff fffffffffffffffe
+#B: MSC=10
+#B: LED=1f
+#evdev:input:b0003v413Cp2113v0111:*
+evdev:name:Dell KB216 Wired Keyboard:*
+ KEYBOARD_KEY_70039=leftctrl

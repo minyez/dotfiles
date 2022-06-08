@@ -1,0 +1,18 @@
+#%Module1.0#####################################################################
+
+set docstr "LIBXC 4.3.4 compiled by Intel 2022.2"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set LIBXC_HOME      "[getenv HOME]/software/libxc/4.3.4/intel-2022.2"
+setenv       LIBXCDIR         "$LIBXC_HOME"
+prepend-path PATH             "$LIBXC_HOME/bin"
+prepend-path LIBRARY_PATH     "$LIBXC_HOME/lib"
+prepend-path LD_LIBRARY_PATH  "$LIBXC_HOME/lib"
+prepend-path CPATH            "$LIBXC_HOME/include"
+

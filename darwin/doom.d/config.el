@@ -53,22 +53,30 @@
 ;(setq doom-theme 'doom-dracula)
 ; make theme adapt to time. Modified from
 ; https://stackoverflow.com/questions/14760567/emacs-auto-load-color-theme-by-time
-(defun synchronize-theme ()
-    (setq hour
-        (string-to-number
-        ; get current time by current-times-string
-	; hour value occupies 3 characters (11-13)
-            (substring (current-time-string) 11 13)))
-    (if (member hour (number-sequence 6 19))
-        (setq now 'doom-nord-light)
-        (setq now 'doom-badger))
-    (if (equal now doom-theme)
-        nil
-        (setq doom-theme now)
-        (load-theme now t) (doom/reload-theme) ) ) ;; end of (defun ...
-; run every 2 hour
-(run-with-timer 0 7200 'synchronize-theme)
-(synchronize-theme)
+; (defun synchronize-theme ()
+;     (setq hour
+;         (string-to-number
+;         ; get current time by current-times-string
+; 	; hour value occupies 3 characters (11-13)
+;             (substring (current-time-string) 11 13)))
+;     (if (member hour (number-sequence 6 19))
+;         (setq now 'doom-nord-light)
+;         (setq now 'doom-badger))
+;     (if (equal now doom-theme)
+;         nil
+;         (setq doom-theme now)
+;         (load-theme now t) (doom/reload-theme) ) ) ;; end of (defun ...
+; ; run every 2 hour
+; (run-with-timer 0 7200 'synchronize-theme)
+;;; disable synchronize, just set it at startup, as reload is causing display glitch of some CJK characters
+; (synchronize-theme)
+
+;;; private configs for individual modules and packages
+(add-to-list 'load-path (concat doom-private-dir "lisp"))
+
+(require 'init-utils)
+; (mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
+(mz/set-choice-to-current-hour 'doom-theme 'doom-badger 'doom-badger)
 
 (use-package! projectile
   :config
@@ -78,11 +86,6 @@
                                          "~/Documents/SelfDevelopment/Projects"
                                          ))
 )
-
-;;; private configs for individual modules and packages
-(add-to-list 'load-path (concat doom-private-dir "lisp"))
-
-(require 'init-utils)
 
 ; Global variables
 ;   mz/org-notes : all my org(-roam) notes

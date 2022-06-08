@@ -1,0 +1,23 @@
+#%Module1.0#####################################################################
+##
+
+set docstr "netCDF-fortran@4.5.4, compiled by Intel 2019.3 and HDF5@1.12.0, 2022-05-31 23:20
+All tests passed."
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+module load netcdf-c/4.8.1-intel-2022.2
+
+set          NETCDF_F_HOME     "[getenv HOME]/software/netcdf-fortran/4.5.4/intel-2022.2"
+setenv       NETCDF_F_HOME     "$NETCDF_F_HOME"
+prepend-path PATH              "$NETCDF_F_HOME/bin"
+prepend-path CPATH             "$NETCDF_F_HOME/include"
+prepend-path MANPATH           "$NETCDF_F_HOME/share"
+prepend-path LIBRARY_PATH      "$NETCDF_F_HOME/lib"
+prepend-path PKG_CONFIG_PATH   "$NETCDF_F_HOME/lib/pkgconfig"
+prepend-path LD_LIBRARY_PATH   "$NETCDF_F_HOME/lib"

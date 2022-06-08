@@ -1,0 +1,13 @@
+#%Module1.0#####################################################################
+#
+
+module-whatis    "YAMBO v5.1.0"
+
+  if { [ module-info command load ] || [ module-info command switch ] } {
+    puts stderr "Need to load libxc and hdf5 to work, for example"
+    puts stderr "  module load libxc/4.3.4-intel-2022.2 hdf5/1.12.0-intel-2022.2"
+  }
+set YAMBO_HOME "[getenv HOME]/software/yambo-github"
+prepend-path PATH "$YAMBO_HOME/bin"
+prepend-path LIBRARY_PATH "$YAMBO_HOME/lib"
+prepend-path CPATH "$YAMBO_HOME/include"

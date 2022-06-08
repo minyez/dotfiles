@@ -8,12 +8,13 @@ require(USER_DIR .. '.options')
 require(USER_DIR .. '.autocmd')
 
 -- NOTE: may need to adapt lualine according to light/dark color theme
-if IS_DAYTIME() then
-  require(USER_DIR .. '.colorscheme')("github-theme")
-  -- require(USER_DIR .. '.colorscheme')("onedark")
-else
-  require(USER_DIR .. '.colorscheme')("kanagawa")
-end
+-- if IS_DAYTIME() then
+--   require(USER_DIR .. '.colorscheme')("github-theme")
+--   -- require(USER_DIR .. '.colorscheme')("onedark")
+-- else
+--   require(USER_DIR .. '.colorscheme')("kanagawa")
+-- end
+require(USER_DIR .. '.colorscheme')("kanagawa")
 
 require(USER_DIR .. '.lsp')
 
@@ -26,6 +27,7 @@ require(USER_DIR .. '.editor.nvim-lastplace')
 require(USER_DIR .. '.ui.notify')
 -- require(USER_DIR .. '.ui.nvim-lightbulb') -- bulb not shown on Y9KP
 require(USER_DIR .. '.ui.aerial')
+require(USER_DIR .. '.ui.indent-blankline')
 require(USER_DIR .. '.ui.filetype')
 require(USER_DIR .. '.ui.gitsigns')
 require(USER_DIR .. '.ui.nvim-tree')

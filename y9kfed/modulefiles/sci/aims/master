@@ -1,0 +1,27 @@
+#%Module1.0#####################################################################
+
+set docstr  "FHI-aims GitLab master branch"
+
+proc ModulesHelp { } {
+    global dotversion
+    puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set AIMS_HOME       "[getenv HOME]/software/FHIaims-master"
+setenv AIMS_HOME    $AIMS_HOME
+setenv AIMS_SPECIES "$AIMS_HOME/species_defaults"
+prepend-path PATH   "$AIMS_HOME/build"
+prepend-path PATH   "$AIMS_HOME/bin"
+prepend-path PATH   "$AIMS_HOME/utilities"
+prepend-path PATH   "$AIMS_HOME/utilities/elsi_matrix"
+
+# setenv OMP_NUM_THREADS 1
+
+# remind the user to relax stack size limit when using aims
+if { [ module-info command load ] } {
+  puts stderr "Note: please check stack size by `ulimit -s`. You may need to run `ulimit -s unlimited`."
+  puts stderr "      also check OMP_NUM_THREADS"
+}
+

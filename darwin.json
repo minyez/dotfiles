@@ -7,5 +7,6 @@
   "darwin/vimrc" : "~/.vimrc",
   "darwin/module" : "~/.module",
   "darwin/neovim-lua/" : "~/.config/nvim",
-  "darwin/doom.d/" : "~/.doom.d"
+  "darwin/doom.d/" : "~/.doom.d",
+  "public/texstudio/texstudioen_US.ign" : "/Applications/texstudio.app/Contents/Resources/en_US.ign"
 }
