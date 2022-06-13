@@ -34,8 +34,8 @@ setenv COPYFILE_DISABLE 1
 #set-alias tar { bsdtar }
 set-alias untargz  { tar -zxf }
 set-alias untarbz  { tar -jxf }
-set-alias targz  { tar -zcf }
-set-alias tarbz  { tar -jcf }
+set-function targz { args=("$@"); mkdir "$1" && cp -a "${args[@]:1}" "$1" &&  tar -zcf "${1}.tar.gz" "${1}" && rm -rf "$1" }
+set-function tarbz { args=("$@"); mkdir "$1" && cp -a "${args[@]:1}" "$1" &&  tar -jcf "${1}.tar.bz" "${1}" && rm -rf "$1" }
 
 # orginally open as an alias to xdg-open
 # now set as a function to get rid of unnecessary error message

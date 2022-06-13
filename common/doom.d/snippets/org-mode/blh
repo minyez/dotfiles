@@ -5,8 +5,6 @@
 # group: latex
 # 
 # --
-#+author: `(eval user-full-name)`
-#+email: `(eval user-mail-address)`
 #+latex_compiler: ${1:xelatex}
 #+latex_class: ${2:article}
 #+latex_header: \\usepackage\{${3:physics}\}

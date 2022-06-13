@@ -77,6 +77,8 @@ _install_flatpak() {
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   cecho s "Flatpak installed. Some softwares can be installed: (may need proxy to accelarate)"
   cecho i "  flatpak install flathub com.netease.CloudMusic"
+  cecho i "  flatpak install flathub com.tencent.wemeet"
+  cecho i "  flatpak install flathub org.audacityteam.Audacity"
 }
 
 _install_rpmfree() {
@@ -178,7 +180,7 @@ _install_xxenv() {
 
 # various tools
 _install_misc() {
-  cecho i "Installing misc tools, e.g. PDF reading, plotting..."
+  cecho i "Installing misc tools, e.g. PDF reading, plotting, audio..."
   ((_DRY_RUN)) && return
   sudo $DNF_CMD -y install units okular \
     grace gnuplot ImageMagick ghostscript povray \
@@ -188,7 +190,9 @@ _install_misc() {
       ripgrep fd-find \
       lshw htop \
       screen{fetch,key} \
-      qalculate-gtk flameshot || exit 2
+      qalculate-gtk flameshot \
+      pavucontrol paman || exit 2
+  # NOTE: paman is useful to increase the volume larger than 150 and even 200.
   sudo $DNF_CMD -y install pandoc* || exit 2
 }
 
