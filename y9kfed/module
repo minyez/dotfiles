@@ -1,3 +1,17 @@
+#!/usr/bin/env bash
+
+# User specific environment
+if ! [[ "$PATH" =~ $HOME/scripts ]]; then
+  # PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
+  PATH="$HOME/scripts:$PATH"
+fi
+export PATH
+
+if ! [[ "$PYTHONPATH" =~ /usr/lib64/python3.10/site-packages ]]; then
+  PYTHONPATH="/usr/lib64/python3.10/site-packages:$PYTHONPATH"
+fi
+export PYTHONPATH
+
 #module setup common to different shells
 module unuse /usr/share/Modules/modulefiles
 #enable color

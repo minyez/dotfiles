@@ -6,13 +6,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 [ -f /etc/zshrc ] && . /etc/zshrc
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/scripts:$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-export PATH
-
 # only use english in command line
 export LANGUAGE=en_US
 
