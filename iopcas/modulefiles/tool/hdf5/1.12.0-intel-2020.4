@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+##
+
+set docstr "HDF5@1.12.0, compiled by Intel 2020.4
+Serial mode with Fortran support. All tests passed"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis      $docstr
+
+set          HDF5_HOME         "[getenv HOME]/local/programs/hdf5/1.12.0/intel-2020.4"
+setenv       HDF5_HOME         "$HDF5_HOME"
+prepend-path PATH              "$HDF5_HOME/bin"
+prepend-path CPATH             "$HDF5_HOME/include"
+prepend-path LIBRARY_PATH      "$HDF5_HOME/lib"
+prepend-path LD_LIBRARY_PATH   "$HDF5_HOME/lib"

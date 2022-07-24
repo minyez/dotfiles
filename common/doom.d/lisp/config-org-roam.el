@@ -76,13 +76,15 @@
         '(
           ("d" "default" plain "%?"
            :if-new (file+head
-           "%<%Y%m%d%H%M%S>-${slug}.org"
+           "${slug}.org"
+           ; "%<%Y%m%d%H%M%S>-${slug}.org"
            "# -*- truncate-lines: t -*-
 #+title: ${title}\n#+startup: content\n#+created: %U\n")
            :unnarrowed t)
           ("l" "lecture" plain "%?"
            :if-new (file+head
-           "%<%Y%m%d%H%M%S>-lecture-${slug}.org"
+           "lecture-${slug}.org"
+           ; "%<%Y%m%d%H%M%S>-lecture-${slug}.org"
            :head "# -*- truncate-lines: t -*-
 #+title: ${title}\n#+startup: overview\n#+options: toc:nil\n#+filetags: Lecture\n#+created: %U
 #+latex_class: article\n#+latex_compiler: xelatex
@@ -123,11 +125,10 @@
            :if-new (file+head
            "bookrev/${slug}.org"
            "# -*- truncate-lines: t -*-
-#+title: 《${title}》笔记\n#+startup: overview\n#+filetags: Book
-#+created: %U\n#+options: toc:nil email:t f:t
-#+latex_compiler: xelatex\n#+latex_class: article\n\n#+latex: \\tableofcontents\n#+latex: \\clearpage\n
-* Summary\n:PROPERTIES:\n:VISIBILITY: folded\n:END:\n
-* Appendix\n#+latex: \\appendix\n** Notes\n")
+#+title: ${title}\n#+startup: overview
+#+created: %U
+#+options: toc:nil email:t f:t
+")
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain "%?"
            :if-new (file+head "slides/${slug}.org"

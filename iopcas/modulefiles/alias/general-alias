@@ -71,7 +71,7 @@ set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 #set-alias myip { curl ipinfo.io/ip }
 
 # personal directory
-set    SD "~/Documents/SelfDevelopment/"
+set    SD "~/Documents/SelfDevelopment"
 setenv SD "$SD"
 set-function cdsd { cd $SD }
 set-function cdsdrm { cd $SD/org-roam }

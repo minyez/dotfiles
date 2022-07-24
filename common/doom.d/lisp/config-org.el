@@ -298,15 +298,33 @@ it can be passed in POS."
   (add-to-list 'org-tags-exclude-from-inheritance "noter")
   (add-to-list 'org-tags-exclude-from-inheritance "Reference")
   (add-to-list 'org-tags-exclude-from-inheritance "Book")
+  (add-to-list 'org-preview-latex-process-alist
+    '(imagemagick-300 :programs
+                 ("latex" "convert")
+                 :description "pdf > png" :message "you need to install the programs: latex and imagemagick." :image-input-type "pdf" :image-output-type "png"
+                 :image-size-adjust (1.0 . 1.0)
+                 :latex-compiler
+                 ("pdflatex -interaction nonstopmode -output-directory %o %f")
+                 :image-converter
+                 ("convert -density 300 -trim -antialias %f -quality 100 %O"))
+  )
   ; change default to dvisvgm on linux,
   ; according to https://emacs-china.org/t/org-latex-fragments-preview/16400/5
   ; imagemagick/dvipng create a fullwidth picture for both inline and display math
   ; however, this was not the case on macos.
   (with-system 'gnu/linux
     (with-hostname "iopcas"
-      (setq org-preview-latex-default-process 'dvisvgm)))
+      (setq org-preview-latex-default-process 'dvisvgm))
+    (with-hostname "y9kfed"
+      (setq org-preview-latex-default-process 'imagemagick-300)
+      )
+  )
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("isbn" . "http://books.google.com/books?vid=ISBN%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("issn" . "http://books.google.com/books?vid=ISSN%s"))
   (add-to-list 'org-link-abbrev-alist
                '("bili" . "https://www.bilibili.com/video/%s"))
   (add-to-list 'org-link-abbrev-alist

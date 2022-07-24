@@ -1,0 +1,14 @@
+#%Module1.0#####################################################################
+
+set msg  "VASP 6.1.0 compiled by mpiifort of Intel oneAPI 2022.2"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $msg
+}
+
+module-whatis      $msg
+
+set VASP_HOME      "[getenv HOME]/software/vasp.6.1.0"
+prepend-path PATH  "$VASP_HOME/bin"
+setenv VASPPOT_54  "[getenv HOME]/software/vasppot-5.4"

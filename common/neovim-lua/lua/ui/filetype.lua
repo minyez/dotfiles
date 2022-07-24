@@ -16,6 +16,7 @@ configs.setup({
     literal = {
       [".gitignore"] = "config",
       [".envrc"] = "bash",
+      ["INCAR"] = "bash",
       -- Set the filetype of files named "make.inc" to make (Makefile filetype)
       ["make.inc"] = "make",
       ["makefile.include"] = "make",

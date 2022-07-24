@@ -24,7 +24,7 @@
 (defmacro with-hostname (type &rest body)
   "Evaluate BODY if `system-name' equals TYPE."
   (declare (indent defun))
-  `(when (eq system-name ,type)
+  `(when (string= system-name ,type)
      ,@body))
 
 ;;; =====================

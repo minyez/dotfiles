@@ -67,4 +67,4 @@ if command -v pandoc 1>/dev/null 2>&1; then
   eval "$(pandoc --bash-completion)"
 fi
 
-[ -f  "$HOME/.xprofile" ] && source "$HOME/.xprofile"
+# [ -f  "$HOME/.xprofile" ] && source "$HOME/.xprofile"
