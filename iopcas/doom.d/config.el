@@ -132,6 +132,7 @@
  '(safe-local-variable-values
    '((org-latex-and-related-regexp)
      (org-highlight-latex-and-related)
+     (org-latex-hyperref-template)
      (org-default-notes-file . "task.org::* Tasks")))
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")

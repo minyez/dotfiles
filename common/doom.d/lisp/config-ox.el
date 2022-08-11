@@ -53,6 +53,10 @@
   (setq org-latex-pdf-process '("latexmk -latexoption=\"-interaction=nonstopmode -shell-escape\" -pdf -pdflatex=%latex -bibtex -f %f"))
   ;; prefer custom label
   (setq org-latex-prefer-user-labels t)
+  ;;; remove default hyperset with author names included
+  ;;; for local variable setup, use for each file
+  ;;; # -*- org-latex-hyperref-template: nil; -*-
+  ; (setq org-latex-hyperref-template nil)
   ;; user-defined headline to-do rendering
   (defun org-latex-format-headline-colored-keywords-function (todo todo-type priority text tags info)
         (concat

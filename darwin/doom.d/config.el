@@ -264,7 +264,8 @@
  ;; including tables
  ;; see https://stackoverflow.com/questions/59990932/slow-cursor-movement-in-large-org-mode-file-and-the-org-do-latex-and-related-f
  '(safe-local-variable-values
-   '((org-latex-and-related-regexp)
+   '((org-latex-hyperref-template)
+     (org-latex-and-related-regexp)
      (org-highlight-latex-and-related)
      (org-default-notes-file . "task.org::* Tasks")))
  '(company-quickhelp-color-background "#4F4F4F")

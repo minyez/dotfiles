@@ -12,7 +12,7 @@
    (org-mode . visual-line-mode)
    ;;; for automatic new line when typing beyond buffer width
    ;;; 70 is appropriate for a two-column view on 15' desktop
-   (org-mode . auto-fill-mode)
+   ; (org-mode . auto-fill-mode)
    (org-mode . (lambda () (setq fill-column 70)))
    ;(org-mode . org-cdlatex-mode) ;; hooked with :lang (latex +cdlatex) in init.el
    ;(before-save . zp/org-set-last-modified)
@@ -321,6 +321,8 @@ it can be passed in POS."
   )
   (add-to-list 'org-link-abbrev-alist
                '("arxiv" . "https://arxiv.org/abs/%s"))
+  (add-to-list 'org-link-abbrev-alist
+               '("ytb" . "https://www.youtube.com/watch?v=%s"))
   (add-to-list 'org-link-abbrev-alist
                '("isbn" . "http://books.google.com/books?vid=ISBN%s"))
   (add-to-list 'org-link-abbrev-alist

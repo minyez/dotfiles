@@ -44,6 +44,8 @@ set-function open { xdg-open $1 > /dev/null 2>&1}
 # data related, isoformat
 # today
 set-alias td { date +"%Y-%m-%d"}
+set-alias mktd { mkdir $(date +"%Y-%m-%d") }
+set-alias cdtd { cd $(date +"%Y-%m-%d") }
 # datetime
 set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
 # org mode datetime
