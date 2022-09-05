@@ -92,6 +92,7 @@ prepend-path  LIBRARY_PATH     ${i_mpi_root}/lib
 set           mklroot         ${prefix}/mkl/2022.0.1
 setenv        MKLROOT         ${mklroot}
 prepend-path  CPATH           ${mklroot}/include
+prepend-path  CPATH           ${mklroot}/include/fftw
 prepend-path  PATH            ${mklroot}/bin/intel64
 prepend-path  NLSPATH         ${mklroot}/lib/intel64/locale/%l_%t/%N
 prepend-path  LIBRARY_PATH    ${mklroot}/lib/intel64

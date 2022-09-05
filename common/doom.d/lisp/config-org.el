@@ -1,6 +1,7 @@
 ;;; configurations for org-mode and related modules, including
 ;;;   - org-superstar
 ;;;   - org-journal
+;;;   - org-download
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -65,11 +66,15 @@
   (setq org-link-search-must-match-exact-headline nil)
   ; for org-capture purpose
   ; defvar by doom
-  (setq +org-capture-todo-file "todos.org")
-  (setq +org-capture-notes-file "todos.org")
+  ; (setq +org-capture-todo-file "todos.org")
+  ; (setq +org-capture-notes-file "todos.org")
   ; short title for Beamer export
   ;  (add-to-list 'org-export-options-alist
   ;               '(:short_title "SHORT_TITLE" nil nil parse))
+  (add-to-list 'org-capture-templates
+   '("i" "Quick Thought to Inbox" entry
+     (file+headline "todos.org" "Inbox")
+     "* TODO %u %?" :prepent t))
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)
@@ -511,6 +516,12 @@ parent."
   :bind
   (:map org-mode-map
         ("C-c m l c" . org-cliplink)))
+
+(use-package! org-download
+  :after org
+  :config
+  (setq-default org-download-image-dir (concat org-directory "/images/downloads"))
+  )
 
 (provide 'config-org)
 ;;; config-org.el ends here

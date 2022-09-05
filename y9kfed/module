@@ -7,9 +7,15 @@ if ! [[ "$PATH" =~ $HOME/scripts ]]; then
 fi
 export PATH
 
-if ! [[ "$PYTHONPATH" =~ /usr/lib64/python3.10/site-packages ]]; then
-  PYTHONPATH="/usr/lib64/python3.10/site-packages:$PYTHONPATH"
-fi
+pps=(
+  "/usr/lib64/python3.10/site-packages"
+  "$HOME/scripts"
+)
+for pp in "${pps[@]}"; do
+  if ! [[ "$PYTHONPATH" =~ $pp ]]; then
+    PYTHONPATH="$pp:$PYTHONPATH"
+  fi
+done
 export PYTHONPATH
 
 #module setup common to different shells

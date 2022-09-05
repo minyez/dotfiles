@@ -1,3 +1,4 @@
+export PYTHONPATH="$HOME/scripts:$PYTHONPATH"
 #module setup common to different shells
 module unuse /usr/share/Modules/modulefiles
 #enable color

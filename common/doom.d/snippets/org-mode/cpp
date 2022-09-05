@@ -5,6 +5,6 @@
 # group: code
 # 
 # --
-#+begin_src cpp :results value code :wrap src
+#+begin_src cpp :results value code :wrap src :eval never
 $0
 #+end_src

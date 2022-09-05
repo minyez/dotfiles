@@ -180,9 +180,9 @@ _install_xxenv() {
 
 # various tools
 _install_misc() {
-  cecho i "Installing misc tools, e.g. PDF reading, plotting, audio..."
+  cecho i "Installing misc tools, e.g. PDF reading, plotting, audio, CLOC (count lines of code) ..."
   ((_DRY_RUN)) && return
-  sudo $DNF_CMD -y install units okular \
+  sudo $DNF_CMD -y install units cloc okular \
     grace gnuplot ImageMagick ghostscript povray \
       gzip p7zip zstd \
       environment-modules direnv \

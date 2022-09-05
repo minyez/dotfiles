@@ -43,7 +43,7 @@
 
 (package! org-roam-dashboard
   :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
-;(package! org-download)
+(package! org-download)
 (package! org-fragtog)
 (package! company-org-roam)
 

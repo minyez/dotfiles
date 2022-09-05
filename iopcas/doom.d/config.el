@@ -62,7 +62,7 @@
 
 (require 'init-utils)
 
-(mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
+(mz/set-choice-to-current-hour 'doom-theme 'doom-one-light 'doom-badger)
 
 ; Global variables
 ;   mz/org-notes : all my org(-roam) notes

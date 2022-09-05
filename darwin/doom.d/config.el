@@ -76,7 +76,7 @@
 
 (require 'init-utils)
 ; (mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
-(mz/set-choice-to-current-hour 'doom-theme 'doom-badger 'doom-badger)
+(mz/set-choice-to-current-hour 'doom-theme 'doom-one-light 'doom-badger)
 
 (use-package! projectile
   :config
