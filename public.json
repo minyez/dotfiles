@@ -1,5 +1,4 @@
 {
-  "public/lyx/" : "~/.lyx",
   "public/mushroomrc.py" : "~/.mushroomrc",
   "public/vim-dir/" : "~/.vim",
   "public/gnuplotrc" : "~/.gnuplot",
