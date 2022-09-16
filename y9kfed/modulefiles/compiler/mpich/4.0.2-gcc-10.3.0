@@ -1,6 +1,6 @@
 #%Module1.0#####################################################################
 
-set docstr  "MPICH 4.0.2 compiled by GCC 11.3.1"
+set docstr  "MPICH 4.0.2 compiled by GCC 10.3.0"
 
 proc ModulesHelp { } {
         global dotversion
@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 
 module-whatis $docstr
 
-set prefix "[getenv HOME]/software/mpich/4.0.2/gcc-11.3.1"
+set prefix "[getenv HOME]/software/mpich/4.0.2/gcc-10.3.0"
 
 prepend-path CPATH            "$prefix/include"
 prepend-path PATH             "$prefix/bin"

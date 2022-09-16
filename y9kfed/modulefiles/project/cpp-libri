@@ -1,0 +1,14 @@
+#%Module1.0
+##
+module-whatis "LibRI and LibComm development, need Cereal"
+
+set    CEREAL_HOME         "[getenv HOME]/software/cereal-1.3.2"
+setenv CEREAL_INCLUDE_DIR  "$CEREAL_HOME/include"
+set    LIBRI_ROOT          "[getenv HOME]/projects/LibRI"
+setenv LIBRI_INCLUDE_DIR   "$LIBRI_ROOT/include"
+set    LIBCOMM_ROOT        "[getenv HOME]/projects/LibComm"
+setenv LIBCOMM_INCLUDE_DIR "$LIBCOMM_ROOT/include"
+
+prepend-path CPATH "$CEREAL_HOME/include"
+prepend-path CPATH "$LIBRI_ROOT/include"
+prepend-path CPATH "$LIBCOMM_ROOT/include"

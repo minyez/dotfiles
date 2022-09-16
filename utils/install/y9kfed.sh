@@ -111,8 +111,8 @@ _install_helix() {
 
 _install_dev() {
   cecho i "Installing dev tools, including compilers and gdb..."
-  ((_DRY_RUN)) || sudo $DNF_CMD -y debuginfo-install libgcc libstdc++ || exi 2
-  ((_DRY_RUN)) || sudo $DNF_CMD -y install gdb cgdb || exi 2
+  ((_DRY_RUN)) || sudo $DNF_CMD -y debuginfo-install libgcc libstdc++ glibc libibverbs libnl3 librdmacm libuuid numactl-libs || exit 2
+  ((_DRY_RUN)) || sudo $DNF_CMD -y install gdb cgdb || exit 2
   ((_DRY_RUN)) || sudo $DNF_CMD -y install gcc gfortran gcc-c++ clang llvm clang-tools-extra || exit 2
 }
 
