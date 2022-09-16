@@ -74,7 +74,11 @@
   (add-to-list 'org-capture-templates
    '("i" "Quick Thought to Inbox" entry
      (file+headline "todos.org" "Inbox")
-     "* TODO %u %?" :prepent t))
+     "* TODO %u %?" :prepend t))
+  (add-to-list 'org-capture-templates
+   '("j" "Journal Log" item
+     (file+function "journal/log.org" mz/org-goto-today-node)
+     "%?"))
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)

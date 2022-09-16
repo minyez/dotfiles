@@ -131,25 +131,26 @@
 ")
            :unnarrowed t)
           ("s" "Beamer seminar slides" plain "%?"
-           :if-new (file+head "slides/${slug}.org"
-           "# -*- truncate-lines: t -*-
-#+title: ${title}\n#+short_title: ${title}\n#+author: Min-Ye Zhang\n#+email: stevezhang@pku.edu.cn
+           :if-new (file+head "slides/%<%Y-%m-%d>_${slug}.org"
+           "#+title: ${title}\n#+short_title: ${title}\n#+author: Min-Ye Zhang\n#+email: minyez.physchem@gmail.com
 #+startup: overivew beamer
-#+filetags: Slides
 #+latex_class: beamer
-#+export_file_name: ${slug}_slides
+#+export_file_name: ZhangMY-%<%Y%m%d>-${slug}_slides
 # #+latex_class: beamerarticle
-# #+export_file_name: ${slug}_handout
+# #+export_file_name: ZhangMY-%<%Y%m%d>-${slug}_handout
 # ==============================
-#+options: H:3
+#+options: H:3 toc:nil tags:nil title:t mail:t
 #+latex_header: \\usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
 #+latex_header: \\addbibresource{../bibliography.bib}
-#+beamer_theme: CambridgeUSzmy
-#+beamer_header: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
-#+beamer_header: \\date[\\today]{@Founder 312, \\today}
-#+beamer_header: \\renewcommand{\\titleheader}{\\itshape TMC Group Seminar}
-#+latex_compiler: xelatex
+#+beamer_theme: CambridgeUS
+# #+beamer_header: \\institute[CCME, PKU]{College of Chemistry and Molecular Engineering\\\\ Peking University}
+#+beamer_header: \\institute[IOP-CAS]{Institute of Physics, Chinese Academy of Sciences}
+#+beamer_header: \\date[\\today]{@Building-M, \\today}
+#+latex_compiler: pdflatex
 #+created: %U
+
+# a link-colored toc in article mode, require package beamerseminar
+#+latex: {\ifarticle{\hypersetup{linkcolor=Blue}\tableofcontents\clearpage}}
 
 * Acknowledgement
 :PROPERTIES:

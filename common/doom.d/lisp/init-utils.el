@@ -10,6 +10,21 @@
       (set var lchoice)
       (set var dchoice))))
 
+(defun mz/org-goto-today-node (&optional DTFORMAT)
+  "go to the node with the time string of today in DTFORMAT as heading"
+  (let* ((dtformat (if DTFORMAT DTFORMAT "%Y-%m-%d %a"))
+         (headline (format-time-string dtformat (current-time))))
+    ;;; following code copied from org-capture.el L983
+    (widen)
+    (goto-char (point-min)) ;;; get to the very beginning in the file
+    (if (re-search-forward (format org-complex-heading-regexp-format
+                                   (regexp-quote headline))
+                           nil t)
+        ()
+      (goto-char (point-max))
+      (unless (bolp) (insert "\n"))
+      (insert "* " headline "\n"))))
+
 ;;; =====================
 ;;; system-depedent setup
 ;;; adapted from https://stackoverflow.com/a/26137517
