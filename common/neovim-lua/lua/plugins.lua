@@ -59,11 +59,14 @@ return require("packer").startup(function()
     requires = {
       "nvim-treesitter/nvim-treesitter-textobjects", -- enhance texetobject selection
       "romgrk/nvim-treesitter-context", -- show class/function at top
+      "JoosepAlviste/nvim-ts-context-commentstring", -- help with comment string
     },
     run = ":TSUpdate",
   }
   use "andymass/vim-matchup"
-  use "nvim-orgmode/orgmode"
+  use {"nvim-orgmode/orgmode",
+    -- config = function() require('orgmode').setup_ts_grammar{} require('orgmode').setup{} end
+  }
   -- ===========================
   -- nvim-telescope fuzzy finder
   use { "nvim-telescope/telescope.nvim",
@@ -112,6 +115,7 @@ return require("packer").startup(function()
   use "rafamadriz/friendly-snippets"
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "terrortylor/nvim-comment"
+  use "numToStr/Comment.nvim"
   use { "hrsh7th/nvim-cmp",
     requires = {
       -- {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
@@ -122,6 +126,7 @@ return require("packer").startup(function()
       { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
     }
   }
+  use "gpanders/editorconfig.nvim" -- respect editorconfig
   use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"

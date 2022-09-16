@@ -95,7 +95,8 @@ configs.register({
     s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
     w = { 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', 'Live Grep Cursor Word' },
   },
-  ["/"] = { "<cmd>CommentToggle<cr>", "Comment" },
+  -- ["/"] = { "<cmd>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
+  ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" }, -- Comment-nvim, new
 }, { mode = "n", prefix = "<leader>" })
 
 -- visual mapping of leader
@@ -109,7 +110,8 @@ configs.register({
     -- s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
     -- o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
   },
-  -- ["/"] = { "<cmd>'<,'>CommentToggle<cr>", "Comment" },
+  -- ["/"] = { "<cmd>'<,'>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
+  ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" }, -- Comment-nvim, new
 }, { mode = "v", prefix = "<leader>" })
 
 configs.register({

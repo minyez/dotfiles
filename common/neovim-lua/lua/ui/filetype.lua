@@ -16,6 +16,7 @@ configs.setup({
     literal = {
       [".gitignore"] = "config",
       [".envrc"] = "bash",
+      [".clangd"] = "yaml",
       ["INCAR"] = "bash",
       -- Set the filetype of files named "make.inc" to make (Makefile filetype)
       ["make.inc"] = "make",

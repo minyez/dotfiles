@@ -1,3 +1,4 @@
+-- https://github.com/terrortylor/nvim-comment
 local status_ok, nvim_comment = pcall(require, "nvim_comment")
 if not status_ok then
   vim.notify("nvim_comment not found!")

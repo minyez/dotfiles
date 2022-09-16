@@ -23,6 +23,10 @@ configs.setup {
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
+    -- for config, see https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+    config = {
+      cpp = { __default = '// %s', }
+    }
   },
 
   -- textobjects extension settings

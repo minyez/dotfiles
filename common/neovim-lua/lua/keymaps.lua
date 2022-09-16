@@ -87,3 +87,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+-- Use Ctrl-/ to Comment, supported by Comment.nvim
+keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
+keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
+
