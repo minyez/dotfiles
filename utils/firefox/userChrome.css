@@ -1,0 +1,13 @@
+/* Custom stylesheet for Firefox
+ * See https://www.userchrome.org/how-create-userchrome-css.html
+ */
+
+/* change tab font size  */
+#tabbrowser-tabs .tab-text{
+ font-size:16pt !important;
+}
+
+/* change bookmark font size  */
+#PlacesToolbarItems .bookmark-item {
+  font-size: 16px !important;
+}
