@@ -1,0 +1,39 @@
+\ProvidesExplFile{ctex-fontset-source.def}
+  {2022-09-17 15:05:00 +0800}{2.4.16}{Adobe Source Han SC fonts definition (CTEX)}
+\sys_if_engine_uptex:TF
+{
+  \ctex_set_upfonts:nnnn
+  {SourceHanSerif.ttc} {FandolKai-Regular.otf}
+  {SourceHanSans.ttc} {FandolFang-Regular.otf}
+  \ctex_set_upfamily:nnn { zhsong } { upzhserif } { upzhserifb }
+  \ctex_set_upfamily:nnn { zhhei } { upzhsans } { upzhsansb }
+  \ctex_set_upfamily:nnn { zhfs } { upzhmono} {}
+  \ctex_set_upfamily:nnn { zhkai } { upzhserifit } {}
+}
+{
+  \setCJKmainfont { Source~Han~Serif~SC }
+  [
+    BoldFont = *~Bold ,
+    ItalicFont = FandolKai,
+    Script = CJK~Ideographic,
+    Language = Chinese~Simplified
+  ]
+  \setCJKsansfont { Source~Han~Sans~SC }
+  [
+    BoldFont = *~Bold,
+    Script = CJK~Ideographic,
+    Language = Chinese~Simplified
+  ]
+  \setCJKmonofont { FandolFang-Regular }
+  [ Extension = .otf ]
+  \setCJKfamilyfont { zhsong }
+  { Source~Han~Serif~CN }[ BoldFont = *~Bold ]
+  \setCJKfamilyfont { zhhei }
+  [ BoldFont = *~Bold ] { Source~Han~Sans~SC }
+  \setCJKfamilyfont { zhfs }  [ Extension = .otf ] { FandolFang-Regular }
+  \setCJKfamilyfont { zhkai } [ Extension = .otf ] { FandolKai-Regular }
+}
+\NewDocumentCommand \songti   { } { \CJKfamily { zhsong } }
+\NewDocumentCommand \heiti    { } { \CJKfamily { zhhei } }
+\NewDocumentCommand \fangsong { } { \CJKfamily { zhfs } }
+\NewDocumentCommand \kaishu   { } { \CJKfamily { zhkai } }

@@ -350,6 +350,7 @@ it can be passed in POS."
       ("AUTO" "inputenc"  t ("pdflatex"))
       ("T1"   "fontenc"   t ("pdflatex"))
       (""     "CJKutf8"   t ("pdflatex"))
+      (""     "ifxetex"   nil)
       (""     "ctex"      nil ("xelatex", "xetex"))
       (""     "xeCJK"     nil ("xelatex", "xetex"))
       (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
