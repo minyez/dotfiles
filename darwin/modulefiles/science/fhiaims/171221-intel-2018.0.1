@@ -1,0 +1,12 @@
+#%Module1.0
+#
+# FHI-AIMS compiled with Intel@2018.1, MPICH@3.2.1 and ScaLApack@2.0.2
+#
+module-whatis "FHI-AIMS compiled with Intel@2018.1, MPICH@3.2.1 and ScaLApack@2.0.2"
+
+set FHIAIMS_HOME "/Users/stevezhang/software/sci/fhi-aims/fhi-aims.171221-intel-2018.0.1"
+setenv UTILITIES 		"$FHIAIMS_HOME/utilities"
+setenv FHIAIMS_HOME 		"$FHIAIMS_HOME"
+setenv SPECIES_DEFAULT          "$FHIAIMS_HOME/species_default/"
+prepend-path PATH               "$FHIAIMS_HOME/bin"
+prepend-path PATH               "$FHIAIMS_HOME/utilities"

@@ -1,0 +1,15 @@
+#%Module1.0
+#
+# SQLite form Homebrew
+#     brew upgrade sqlite --with-json1 --with-functions
+#
+
+module-whatis "SQLite@3.35.3 form Homebrew"
+
+set SQLITE_HOME "/usr/local/Cellar/sqlite/3.35.3"
+setenv SQLITE_HOME "$SQLITE_HOME"
+prepend-path PATH "$SQLITE_HOME/bin"
+prepend-path LIBRARY_PATH "$SQLITE_HOME/lib"
+prepend-path PKG_CONFIG_LIB "$SQLITE_HOME/lib/pkgconfig/"
+prepend-path DYLD_LIBRARY_PATH "$SQLITE_HOME/lib"
+prepend-path CPATH "$SQLITE_HOME/include"

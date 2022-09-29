@@ -1,0 +1,14 @@
+#%Module 1.0
+#
+# alias for manipulation of VASP IO
+#
+
+module-whatis "alias for manipulation of VASP IO"
+
+set-alias checkopt { grep "F=" OSZICAR }
+set-alias checkmag { grep "without" OUTCAR | tail -1; grep "number of ele" OUTCAR | tail -1 | awk "{print \$3 \$4}"}
+set-alias cleanvasp { rm -f REPORT CHG WAVECAR WAVEDER }
+set-alias cleanvaspall { rm -f OSZICAR CHGCAR DOSCAR CONTCAR EIGENVAL OUTCAR PCDAT vasprun.xml XDATCAR REPORT CHG WAVECAR WAVEDER IBZKPT PROCAR }
+
+# need to load the MPI and VASP compiled correspondingly
+set-alias vasp4 { mpirun -np 4 vasp_std }

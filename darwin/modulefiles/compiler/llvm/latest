@@ -1,0 +1,12 @@
+#%Module1.0
+#
+#   brew install llvm
+#
+module-whatis "llvm compiler installed by using homebrew"
+
+set LLVM_HOME "/usr/local/opt/llvm"
+prepend-path PATH "$LLVM_HOME/bin"
+prepend-path PATH "$LLVM_HOME/libexec"
+prepend-path CPATH "$LLVM_HOME/include"
+prepend-path LIBRARY_PATH "$LLVM_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$LLVM_HOME/lib"

@@ -1,0 +1,8 @@
+#%Module1.0
+#
+# KSSLOV 2008
+#
+module-whatis "KSSLOV 2008"
+
+set KSSLOVPATH "/Users/stevezhang/software/sci/crd-kssolv/"
+setenv KSSLOVPATH "$KSSLOVPATH"

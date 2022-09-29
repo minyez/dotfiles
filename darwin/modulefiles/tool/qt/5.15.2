@@ -1,0 +1,14 @@
+#%Module1.0
+##
+## Qt 5.15.1 installed by Homebrew 
+##
+module-whatis "Qt 5.15.2 installed by Homebrew"
+conflict qt-5.12.1
+
+set QT_HOME "/usr/local/Cellar/qt@5/5.15.2"
+setenv QT_HOME "$QT_HOME"
+prepend-path PATH            "$QT_HOME/bin"
+prepend-path LIBRARY_PATH    "$QT_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH    "$QT_HOME/lib"
+prepend-path CPATH           "$QT_HOME/include"
+prepend-path PKG_CONFIG_PATH "$QT_HOME/lib/pkgconfig"

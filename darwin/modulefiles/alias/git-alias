@@ -1,0 +1,13 @@
+#%Module1.0
+#
+# alias related to Git
+#
+module-whatis "alias related to Git"
+
+# set-alias gst "git status "
+# set-alias ga "git add "
+# set-alias gc "git commit -m "
+set-alias gd "git diff "
+set-alias gdc "git diff --cached "
+# set-alias grs  "git restore "
+# set-alias grss "git restore --staged "

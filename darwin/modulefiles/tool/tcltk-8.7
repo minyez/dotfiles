@@ -1,0 +1,15 @@
+#%Module1.0
+#
+# TclTk@8.7, installed by Homebrew
+#
+
+module-whatis "TclTk@8.7, installed by Homebrew"
+
+# Tcl/Tk 8.7
+set TCLTK_HOME "/usr/local/Cellar/tcl-tk/8.7a1/"
+setenv TCLTK_HOME "$TCLTK_HOME"
+prepend-path PATH "$TCLTK_HOME/bin"
+prepend-path LIBRARY_PATH "$TCLTK_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$TCLTK_HOME/lib"
+prepend-path CPATH "$TCLTK_HOME/include"
+prepend-path MANPATH "$TCLTK_HOME/share/man"

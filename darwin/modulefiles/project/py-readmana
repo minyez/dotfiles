@@ -1,0 +1,10 @@
+#%Module1.0
+##
+## Python Reading Manager
+##
+module-whatis "Python Reading Manager"
+
+set          READMANA_HOME 	    "/Users/stevezhang/code/projects/readmanager"
+setenv       READMANA_CONFIG    "/Users/stevezhang/Documents/SelfDevelopment/Notes/Books/config.json"
+prepend-path PATH               "$READMANA_HOME"
+prepend-path PYTHONPATH         "$READMANA_HOME"

@@ -1,0 +1,10 @@
+#%Module1.0
+##
+## "Elk@4.3.6 compiled with Intel@2018, MKL, corresponding FFTW, MPICH
+##
+module-whatis "Elk@4.3.6 compiled with Intel@2018, MKL, corresponding FFTW, MPICH"
+
+# set INSTALLED_PATH
+set          ELKDIR    "/Users/stevezhang/software/sci/elk/elk-4.3.6-intel-2018.0.1"
+setenv       ELKDIR    "$ELKDIR"
+prepend-path PATH       "$ELKDIR/src"

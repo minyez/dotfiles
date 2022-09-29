@@ -1,0 +1,15 @@
+#%Module1.0
+##
+## Mini-XML compiled by Intel@2018.0.1 without make mxml.xml and epub
+##
+
+module-whatis "Mini-XML compiled by Intel@2018.0.1 without make mxml.xml and epub"
+
+set MXML_HOME "/Users/stevezhang/software/devtools/mxml/intel/18.0.1"
+setenv MXML_HOME "$MXML_HOME"
+prepend-path MANPATH         "$MXML_HOME/share/man"
+prepend-path PATH            "$MXML_HOME/bin"
+prepend-path LIBRARY_PATH    "$MXML_HOME/lib"
+prepend-path LD_LIBRARY_PATH    "$MXML_HOME/lib"
+prepend-path CPATH           "$MXML_HOME/include"
+prepend-path PKG_CONFIG_PATH "$MXML_HOME/lib/pkgconfig"

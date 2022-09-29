@@ -6,6 +6,7 @@
   "darwin/alacritty.yml" : "~/.alacritty.yml",
   "darwin/vimrc" : "~/.vimrc",
   "darwin/module" : "~/.module",
+  "darwin/modulefiles" : "~/.modulefiles",
   "darwin/neovim-lua/" : "~/.config/nvim",
   "darwin/doom.d/" : "~/.doom.d",
   "public/texstudio/texstudioen_US.ign" : "/Applications/texstudio.app/Contents/Resources/en_US.ign"

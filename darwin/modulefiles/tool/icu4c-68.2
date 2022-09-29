@@ -1,0 +1,15 @@
+#%Module1.0
+#
+# icu4c installed from homebrew
+#
+
+module-whatis "icu4c@68.2 installed from homebrew"
+
+set ICU4C_HOME "/usr/local/Cellar/icu4c/68.2"
+setenv ICU4C_HOME "$ICU4C_HOME"
+prepend-path PATH "$ICU4C_HOME/bin"
+prepend-path PATH "$ICU4C_HOME/sbin"
+prepend-path LIBRARY_PATH "$ICU4C_HOME/lib"
+prepend-path PKG_CONFIG_LIB "$ICU4C_HOME/lib/pkgconfig/"
+prepend-path DYLD_LIBRARY_PATH "$ICU4C_HOME/lib"
+prepend-path CPATH "$ICU4C_HOME/include"

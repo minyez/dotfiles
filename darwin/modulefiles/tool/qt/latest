@@ -1,0 +1,11 @@
+#%Module1.0
+##
+module-whatis "latest Qt installed by Homebrew"
+
+set QT_HOME "/usr/local/opt/qt"
+setenv QT_HOME "$QT_HOME"
+prepend-path PATH            "$QT_HOME/bin"
+prepend-path LIBRARY_PATH    "$QT_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH    "$QT_HOME/lib"
+prepend-path CPATH           "$QT_HOME/include"
+prepend-path PKG_CONFIG_PATH "$QT_HOME/lib/pkgconfig"

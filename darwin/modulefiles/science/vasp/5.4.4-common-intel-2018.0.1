@@ -1,0 +1,15 @@
+#%Module1.0
+##
+## VASP@5.4.4 common version compiled with Intel@2018, corresponding MPI and ScaLAPACK
+##
+module-whatis "VASP@5.4.4 common version compiled with Intel@2018, corresponding MPI and ScaLAPACK"
+
+conflict vasp/5.4.1-common-intel-2018.0.1
+
+module load intel/2018.1
+module load mpich/3.2.1-intel-2018.0.1
+# set INSTALLED_PATH
+set          VASPDIR    "/Users/stevezhang/software/sci/vasp/vasp.5.4.4-intel-2018.0.1/common"
+setenv       VASPDIR    "$VASPDIR"
+prepend-path PATH       "$VASPDIR/bin"
+prepend-path PATH       "$VASPDIR/build/std"

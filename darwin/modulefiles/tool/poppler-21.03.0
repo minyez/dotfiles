@@ -1,0 +1,13 @@
+#%Module1.0
+#
+# poppler, installed by Homebrew
+#     brew install poppler 
+#
+
+module-whatis "poppler@21.03.0, installed by Homebrew"
+
+set POPPLER_HOME "/usr/local/Cellar/poppler/21.03.0_1"
+set ZLIB_HOME "/usr/local/Cellar/zlib/1.2.11"
+setenv POPPLER_HOME "$POPPLER_HOME"
+prepend-path PKG_CONFIG_PATH "$POPPLER_HOME/lib/pkgconfig"
+prepend-path PKG_CONFIG_PATH "$ZLIB_HOME/lib/pkgconfig"

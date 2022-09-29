@@ -1,0 +1,13 @@
+#%Module1.0
+##
+## IPM compiled with Intel@2018.0.1 and corresponding MPICH@3.2.1, without parser.
+## source path in /Users/stevezhang/code/from_GitHub/IPM
+##
+module-whatis "IPM compiled with Intel@2018.0.1 and MPICH@3.2.1, without parser"
+
+set IPM_HOME "/Users/stevezhang/software/devtools/ipm/intel/18.0.1"
+setenv IPM_HOME "$IPM_HOME"
+prepend-path PATH            "$IPM_HOME/bin"
+prepend-path LIBRARY_PATH    "$IPM_HOME/lib"
+prepend-path LD_LIBRARY_PATH    "$IPM_HOME/lib"
+

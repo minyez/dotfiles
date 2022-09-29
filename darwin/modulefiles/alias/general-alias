@@ -1,0 +1,89 @@
+#%Module1.0
+
+module-whatis " alias for general Linux command"
+
+# directory
+set PATH_PRACTICE "/Users/stevezhang/Documents/minyez/codes/code-practice"
+setenv PATH_PRACTICE "$PATH_PRACTICE"
+#set-function practice {
+#pdir="$PATH_PRACTICE/$1"
+#if [ -d "$pdir" ];then
+#  cd "$pdir" || return 1
+#else
+#  echo "\"$1\" not found under $PATH_PRACTICE"
+#  return 1
+#fi
+#}
+
+# vim
+#set-alias vi  { mvim -v }
+#set-alias vim  { mvim -v }
+#set-alias vi   {/usr/local/Cellar/macvim/8.0-146_1/bin/mvim -v }
+#set-alias vim  {'/Applications/MacVim.app/Contents/MacOS/Vim' }
+#set-alias mvim {'/Applications/MacVim.app/Contents/MacOS/Vim' }
+
+# ls
+set-alias ll "ls -l"
+set-alias la "ls -a"
+
+# vim and nvim
+# use system vim for vi
+set-alias vi "/usr/bin/vim "
+# use homebrew neovim
+set-alias vim "~/bin/nvim-osx64/bin/nvim "
+#set-function _vi4 {
+#    #1 vim executable
+#	#2,3,4,5 4 files to edit
+#	$1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3"
+#}
+#set-function vi4 {
+#	_vi4 /usr/bin/vim $1 $2 $3 $4
+#}
+#set-function vim4 {
+#	_vi4 nvim $1 $2 $3 $4
+#}
+# which
+set-alias whchi "which"
+set-alias wchih "which"
+set-alias whihc "which"
+
+# use GNU core utils
+set-alias sed "gsed"
+set-alias awk "gawk"
+set-alias mktemp "gmktemp"
+
+# false/true 
+set-alias false "/usr/bin/false"
+set-alias true "/usr/bin/true"
+
+# tar
+setenv COPYFILE_DISABLE 1 
+set-alias tar { bsdtar }
+set-function targz { args=("$@"); mkdir "$1" && cp -a "${args[@]:1}" "$1" && bsdtar -zcf "${1}.tar.gz" "${1}" && rm -rf "$1" }
+set-function tarbz { args=("$@"); mkdir "$1" && cp -a "${args[@]:1}" "$1" && bsdtar -jcf "${1}.tar.bz" "${1}" && rm -rf "$1" }
+
+# data related, isoformat
+# today
+set-alias td { date +"%Y-%m-%d"}
+# datetime
+set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
+# org mode datetime
+set-alias odt { date +"%Y-%m-%d %a %H:%M"}
+
+# ip
+#set-alias myip { curl ipinfo.io/ip }
+
+# personal directory
+set    SD "~/Documents/minyez"
+setenv SD "$SD"
+set-alias cdsd { cd $SD }
+set-alias cdsdrm { cd $SD/org-roam }
+set-alias cdsdrs { cd $SD/Research }
+
+set http_proxy  http://127.0.0.1:1086
+set https_proxy http://127.0.0.1:1086
+set all_proxy   socks5://127.0.0.1:1086
+setenv http_proxy $http_proxy
+setenv https_proxy $https_proxy
+setenv all_proxy $all_proxy
+set-alias set_proxy { http_proxy=$https_proxy https_proxy=$https_proxy all_proxy=$all_proxy }

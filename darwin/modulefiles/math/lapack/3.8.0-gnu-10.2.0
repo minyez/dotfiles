@@ -1,0 +1,8 @@
+#%Module1.0
+##
+## BLAS and LAPACK@3.8.0 compiled by GNU@10.2.0 
+##
+module-whatis "BLAS and LAPACK@3.8.0 compiled by GNU@10.2.0"
+
+prepend-path LIBRARY_PATH    "/Users/stevezhang/software/mathlib/lapack/3.8.0/gnu/10.2.0/"
+prepend-path DYLD_LIBRARY_PATH "/Users/stevezhang/software/mathlib/lapack/3.8.0/gnu/10.2.0/"

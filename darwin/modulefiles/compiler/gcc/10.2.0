@@ -1,0 +1,43 @@
+################%Module1.0
+##
+## gcc@10.1.0
+##
+
+set GCC_HOME "/usr/local/Cellar/gcc/10.2.0_4"
+setenv GCC_HOME "$GCC_HOME"
+prepend-path MANPATH         "$GCC_HOME/share/man"
+prepend-path PATH            "$GCC_HOME/bin"
+set-alias gcc      "$GCC_HOME/bin/gcc-10"
+set-alias gfortran "$GCC_HOME/bin/gfortran-10"
+set-alias g++      "$GCC_HOME/bin/g++-10"
+set-alias c++      "$GCC_HOME/bin/c++-10"
+set-alias cpp      "$GCC_HOME/bin/cpp-10"
+
+prepend-path LIBRARY_PATH "/usr/lib"
+prepend-path DYLD_LIBRARY_PATH "/usr/lib"
+prepend-path LD_LIBRARY_PATH "/usr/lib"
+
+set MPFR_HOME "/usr/local/Cellar/mpfr/4.1.0"
+setenv MPFR_HOME "$MPFR_HOME"
+prepend-path LIBRARY_PATH "$MPFR_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$MPFR_HOME/lib"
+prepend-path CPATH           "$MPFR_HOME/include"
+
+set GMP_HOME "/usr/local/Cellar/gmp/6.2.1"
+setenv GMP_HOME "$GMP_HOME"
+prepend-path DYLD_LIBRARY_PATH "$GMP_HOME/lib"
+prepend-path CPATH           "$GMP_HOME/include"
+prepend-path LIBRARY_PATH "$GMP_HOME/lib"
+
+#prepend-path LD_LIBRARY_PATH "$GCC_HOME/lib/"
+#prepend-path LD_LIBRARY_PATH "$GCC_HOME/lib/gcc/8/gcc/x86_64-apple-darwin18.2.0/8.2.0/"
+#prepend-path LD_LIBRARY_PATH "$MPFR_HOME/lib/"
+#/usr/local/Cellar/gcc/8.2.0/lib/gcc/8/
+prepend-path DYLD_LIBRARY_PATH "$GCC_HOME/lib/gcc/10/"
+prepend-path DYLD_LIBRARY_PATH "$GCC_HOME/lib/gcc/10/gcc/x86_64-apple-darwin18/10.2.0"
+prepend-path LIBRARY_PATH "$GCC_HOME/lib/gcc/10"
+prepend-path LIBRARY_PATH "$GCC_HOME/lib/gcc/10/gcc/x86_64-apple-darwin18/10.2.0"
+prepend-path CPATH           "$GCC_HOME/include/c++/10.2.0"
+prepend-path CPATH           "$GCC_HOME/include/c++/10.2.0/x86_64-apple-darwin19/"
+# default clang++ use libc++. This is for compatibility with LLVM clang
+#set-alias clang++ { clang++ -stdlib=libstdc++ }

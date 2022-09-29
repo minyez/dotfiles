@@ -1,0 +1,11 @@
+#%Module1.0
+##
+## BLACS and ScaLAPACK@2.0.2 compiled by Intel 2018.0.1.126 and Corresponding MPICH@3.2.1"
+##
+module-whatis "BLACS and ScaLAPACK@2.0.2 compiled by Intel 2018.0.1.126 and Corresponding MPICH@3.2.1"
+
+prereq   mpich/3.2.1-intel-2018.0.1
+conflict scalapack/2.0.2-mpich-3.2.1-gnu-7.2.0
+
+prepend-path LIBRARY_PATH    "/Users/stevezhang/software/mathlib/scalapack/2.0.2/intel/18.0.1/"
+prepend-path DYLD_LIBRARY_PATH    "/Users/stevezhang/software/mathlib/scalapack/2.0.2/intel/18.0.1/"

@@ -1,0 +1,37 @@
+#%Module1.0
+##
+## gcc@10.1.0
+##
+
+set GCC_HOME "/usr/local/Cellar/gcc/11.2.0_3"
+setenv GCC_HOME "$GCC_HOME"
+prepend-path MANPATH         "$GCC_HOME/share/man"
+prepend-path PATH            "$GCC_HOME/bin"
+# in the bin, there is only gcc-11.
+# create alias or function as wrapper will still use system clang when use make
+# the solution is to create symlink manually in the bin directory
+
+prepend-path LIBRARY_PATH "/usr/lib"
+prepend-path DYLD_LIBRARY_PATH "/usr/lib"
+prepend-path LD_LIBRARY_PATH "/usr/lib"
+
+set MPFR_HOME "/usr/local/Cellar/mpfr/4.1.0"
+setenv MPFR_HOME "$MPFR_HOME"
+prepend-path LIBRARY_PATH "$MPFR_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$MPFR_HOME/lib"
+prepend-path CPATH           "$MPFR_HOME/include"
+
+set GMP_HOME "/usr/local/Cellar/gmp/6.2.1_1"
+setenv GMP_HOME "$GMP_HOME"
+prepend-path DYLD_LIBRARY_PATH "$GMP_HOME/lib"
+prepend-path CPATH           "$GMP_HOME/include"
+prepend-path LIBRARY_PATH "$GMP_HOME/lib"
+
+prepend-path DYLD_LIBRARY_PATH "$GCC_HOME/lib/gcc/11/"
+prepend-path DYLD_LIBRARY_PATH "$GCC_HOME/lib/gcc/11/gcc/x86_64-apple-darwin19/11.2.0"
+prepend-path LIBRARY_PATH "$GCC_HOME/lib/gcc/11"
+prepend-path LIBRARY_PATH "$GCC_HOME/lib/gcc/11/gcc/x86_64-apple-darwin19/11.2.0"
+prepend-path CPATH           "$GCC_HOME/include/c++/11"
+prepend-path CPATH           "$GCC_HOME/include/c++/11/x86_64-apple-darwin19/"
+# default clang++ use libc++. This is for compatibility with LLVM clang
+#set-alias clang++ { clang++ -stdlib=libstdc++ }

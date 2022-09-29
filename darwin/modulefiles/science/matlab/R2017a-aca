@@ -1,0 +1,10 @@
+#%Module1.0
+#
+# Matlab R2017a from PKU software platform
+#
+module-whatis "Matlab R2017a from PKU software platform"
+
+set MATLAB_HOME "/Applications/MATLAB_R2017a.app/"
+setenv MATLAB_HOME "$MATLAB_HOME"
+prepend-path PATH    "$MATLAB_HOME/bin"
+set-alias matlab {matlab -nodisplay -nodesktop }

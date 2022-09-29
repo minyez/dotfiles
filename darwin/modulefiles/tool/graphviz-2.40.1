@@ -1,0 +1,13 @@
+#%Module1.0
+#
+# Graphviz@2.47.0, installed from Homebrew
+#
+module-whatis "Graphviz@2.47.0, installed from Homebrew"
+
+set GRAPHVIZ_HOME "/usr/local/Cellar/graphviz/2.47.0"
+setenv GRAPHVIZ_HOME "/usr/local/Cellar/graphviz/2.47.0"
+prepend-path PATH "$GRAPHVIZ_HOME/bin"
+prepend-path LIBRARY_PATH "$GRAPHVIZ_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$GRAPHVIZ_HOME/lib"
+prepend-path CPATH "$GRAPHVIZ_HOME/include"
+prepend-path PKG_CONFIG_PATH "$GRAPHVIZ_HOME/lib/pkgconfig"

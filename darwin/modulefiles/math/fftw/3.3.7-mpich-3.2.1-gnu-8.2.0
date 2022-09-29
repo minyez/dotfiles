@@ -1,0 +1,16 @@
+#%Module1.0
+##
+## mpich@3.2.1 compiled by GNU@8.2.0 and corresponding MPICH@3.2.1
+##
+module-whatis "FFTW@3.3.7 compiled with GNU@8.2.0 and corresponding MPICH@3.2.1"
+
+prereq mpich/3.2.1-gnu-8.2.0
+conflict fftw/3.3.7-mpich-3.2.1-intel-2018.0.1
+
+set FFTW3_HOME                  "/Users/stevezhang/software/mathlib/fftw/3.3.7/gnu/8.2.0"
+setenv FFTW3_HOME               "$FFTW3_HOME"
+prepend-path MANPATH            "$FFTW3_HOME/share/man"
+prepend-path PATH               "$FFTW3_HOME/bin"
+prepend-path LIBRARY_PATH       "$FFTW3_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH    "$FFTW3_HOME/lib"
+prepend-path CPATH              "$FFTW3_HOME/include"

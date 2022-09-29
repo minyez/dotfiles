@@ -1,0 +1,15 @@
+#%Module1.0
+#
+# GNU Scientific Library compiled with GNU compilers (GCC) 8.2.0
+#
+module-whatis "GNU Scientific Library compiled with GNU compilers (GCC) 8.2.0"
+
+set    GSL_HOME "/Users/stevezhang/software/mathlib/gsl/2.4/gnu/8.2.0"
+setenv GSL_HOME "$GSL_HOME"
+prepend-path MANPATH           "$GSL_HOME/share/man"
+prepend-path PATH              "$GSL_HOME/bin"
+prepend-path LIBRARY_PATH      "$GSL_HOME/lib"
+prepend-path LD_LIBRARY_PATH   "$GSL_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$GSL_HOME/lib"
+prepend-path PKG_CONFIG_PATH   "$GSL_HOME/lib/pkgconfig"
+prepend-path CPATH             "$GSL_HOME/include"

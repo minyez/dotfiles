@@ -1,0 +1,12 @@
+#%Module1.0
+##
+## GPAW@4.3.6 compiled with GNU@7.3.0 and corresponding LAPACK, FFTW, MPICH
+##
+module-whatis "GPAW@4.3.6 compiled with GNU@7.3.0 and corresponding FFTW, MPICH"
+
+# set INSTALLED_PATH
+set          GPAW_HOME    "/Users/stevezhang/software/sci/gpaw/gpaw-1.3.1b1"
+setenv       GPAW_HOME    "$GPAW_HOME"
+setenv GPAW_SETUP_PATH  "$GPAW_HOME/../gpaw-setups-0.9.20000"
+prepend-path PATH       "$GPAW_HOME/tools"
+#append-path PYTHONPATH "$GPAW_HOME/gpaw/"

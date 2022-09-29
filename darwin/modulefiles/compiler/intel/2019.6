@@ -1,0 +1,59 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set  docstr "Intel(R) Compiler 2019.6.323 modulefile for macos"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr "$docstr"
+}
+
+module-whatis       $docstr
+
+set                 topdir                 "/opt/intel/2019.6/compilers_and_libraries_2019.6.323"
+set                 lindist                "mac"
+
+setenv              GDB_CROSS              "/opt/intel/2019.6/debugger_2019/gdb/intel64/bin/gdb-ia"
+setenv              INTEL_PYTHONHOME       "/opt/intel/2019.6/debugger_2019/python/intel64"
+setenv              IPPROOT                "$topdir/$lindist/ipp"
+setenv              DAALROOT               "$topdir/$lindist/daal"
+setenv              TBBROOT                "$topdir/$lindist/tbb"
+setenv              MKLROOT                "$topdir/$lindist/mkl"
+setenv              PSTLROOT               "$topdir/$lindist/pstl"
+
+append-path         INTEL_LICENSE_FILE     "/opt/intel/licenses"
+
+prepend-path        PATH                   "$topdir/$lindist/bin/intel64"
+
+prepend-path        CPATH                  "$topdir/$lindist/daal/include"
+prepend-path        CPATH                  "$topdir/$lindist/tbb/include"
+prepend-path        CPATH                  "$topdir/$lindist/pstl/include"
+prepend-path        CPATH                  "$topdir/$lindist/mkl/include"
+prepend-path        CPATH                  "$topdir/$lindist/ipp/include"
+
+prepend-path        CLASSPATH              "$topdir/$lindist/daal/lib/daal.jar"
+
+prepend-path        INFOPATH               "/opt/intel/2019.6/documentation_2019/en/debugger/gdb-ia/info"
+
+#prepend-path        DYLD_LIBRARY_PATH      "/opt/intel/2019.6/debugger_2019/libipt/intel64/lib"
+#prepend-path        DYLD_LIBRARY_PATH      "/opt/intel/2019.6/debugger_2019/iga/lib"
+prepend-path        DYLD_LIBRARY_PATH      "$topdir/$lindist/daal/lib/"
+prepend-path        DYLD_LIBRARY_PATH      "$topdir/$lindist/mkl/lib/"
+prepend-path        DYLD_LIBRARY_PATH      "$topdir/$lindist/compiler/lib/"
+prepend-path        DYLD_LIBRARY_PATH      "$topdir/$lindist/ipp/lib"
+prepend-path        DYLD_LIBRARY_PATH      "$topdir/$lindist/compiler/lib"
+
+prepend-path        LIBRARY_PATH           "$topdir/$lindist/daal/lib/"
+prepend-path        LIBRARY_PATH           "$topdir/$lindist/mkl/lib/"
+prepend-path        LIBRARY_PATH           "$topdir/$lindist/compiler/lib/"
+prepend-path        LIBRARY_PATH           "$topdir/$lindist/ipp/lib"
+
+prepend-path        MANPATH                "/opt/intel/2019.6/documentation_2019/en/debugger/gdb-ia/man/"
+prepend-path        MANPATH                "/opt/intel/2019.6/man/common"
+
+
+prepend-path        NLSPATH                "/opt/intel/2019.6/debugger_2019/gdb/intel64/share/locale/%l_%t/%N"
+prepend-path        NLSPATH                "$topdir/$lindist/mkl/lib/locale/%l_%t/%N"
+prepend-path        NLSPATH                "$topdir/$lindist/compiler/lib/intel64/locale/%l_%t/%N"

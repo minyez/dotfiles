@@ -1,0 +1,16 @@
+####################%Module1.0
+#
+# OpenSSL@1.0.2q from Homebrew
+#
+
+module-whatis "OpenSSL@1.0.2q from Homebrew"
+conflict openssl-1.0.2p
+
+# Tcl/Tk 8.7
+set OPENSSL_HOME "/usr/local/Cellar/openssl/1.0.2q/"
+setenv OPENSSL_HOME "$OPENSSL_HOME"
+prepend-path PATH "$OPENSSL_HOME/bin"
+prepend-path LIBRARY_PATH "$OPENSSL_HOME/lib"
+prepend-path PKG_CONFIG_LIB "$OPENSSL_HOME/lib/pkgconfig/"
+#prepend-path LD_LIBRARY_PATH "$OPENSSL_HOME/lib"
+prepend-path CPATH "$OPENSSL_HOME/include"

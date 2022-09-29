@@ -1,0 +1,12 @@
+#%Module1.0
+#
+# XQuartz-2.7.11 for virtual display
+#
+module-whatis "XQuartz-2.7.11 for virtual display"
+
+set X11_HOME "/opt/X11"
+setenv X11_HOME "$X11_HOME"
+prepend-path PATH "$X11_HOME/bin"
+#prepend-path CPATH "$X11_HOME/include"
+#prepend-path DYLD_LIBRARY_PATH "$X11_HOME/lib"
+prepend-path PKG_CONFIG_PATH "$X11_HOME/lib/pkg_config"

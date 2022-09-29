@@ -1,0 +1,18 @@
+#%Module1.0
+##
+## mpich@3.2.1 compiled by Intel@2018.0.1.126 
+##
+module-whatis "mpich@3.2.1 compiled with Intel 2018.0.1.126"
+
+conflict mpich/3.2.1-gnu-8.2.0
+conflict openmpi/3.0.0-intel-2018.0.1
+
+set    MPI_ROOT              "/Users/stevezhang/software/compiler/mpich/3.2.1/intel/18.0.1"
+setenv MPI_ROOT              "$MPI_ROOT"
+prepend-path MANPATH           "$MPI_ROOT/share/man"
+prepend-path PATH              "$MPI_ROOT/bin"
+prepend-path LIBRARY_PATH      "$MPI_ROOT/lib"
+prepend-path LD_LIBRARY_PATH   "$MPI_ROOT/lib"
+# load DYLD_LIBRARY_PATH when necessary
+prepend-path DYLD_LIBRARY_PATH "$MPI_ROOT/lib"
+prepend-path CPATH             "$MPI_ROOT/include"

@@ -1,0 +1,27 @@
+#%Module1.0#####################################################################
+#
+# name the modulefile to `program-version-compiler-info`
+# or
+# create a directory named to `program`, and
+# name the modulefile to `version-compiler-info` in it
+#
+# adapt below for use
+
+set  docstr "Some docstring explaining the program, version and usage (install time, e.g. 2020-09-03 10:44:03)"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr "$docstr"
+}
+
+# Extra info, e.g. Homebrew caveat
+
+module-whatis  $docstr
+
+set            topdir             "/path/to/install_dir"
+prepend-path   PATH               "$topdir/bin"
+prepend-path   CPATH              "$topdir/include"
+prepend-path   MANPATH            "$topdir/share"
+prepend-path   LIBRARY_PATH       "$topdir/lib"
+prepend-path   PKG_CONFIG_PATH    "$topdir/lib/pkgconfig"
+prepend-path   DYLD_LIBRARY_PATH  "$topdir/lib"

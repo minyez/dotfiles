@@ -1,0 +1,13 @@
+#%Module1.0
+##
+## LIBXC@4.0.3 compiled with Intel@2018.0.1 
+##
+module-whatis "LIBXC@4.0.3 compiled with Intel@2018.0.1"
+
+set LIBXC_HOME "/Users/stevezhang/software/sci/libxc/4.0.3/intel/18.0.1"
+setenv LIBXC_HOME "$LIBXC_HOME"
+prepend-path PATH               "$LIBXC_HOME/bin"
+prepend-path LIBRARY_PATH       "$LIBXC_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH  "$LIBXC_HOME/lib"
+prepend-path CPATH              "$LIBXC_HOME/include"
+prepend-path PKG_CONFIG_PATH    "$LIBXC_HOME/lib/pkconfig"

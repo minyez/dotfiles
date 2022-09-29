@@ -1,0 +1,10 @@
+#%Module1.0
+#
+
+module-whatis "libffi@3.3_3, installed by Homebrew"
+
+set LIBFFI_HOME "/usr/local/Cellar/libffi/3.3_3"
+prepend-path PATH "$LIBFFI_HOME/bin"
+prepend-path LIBRARY_PATH "$LIBFFI_HOME/lib"
+prepend-path PKG_CONFIG_PATH "$LIBFFI_HOME/lib/pkgconfig"
+prepend-path CPATH "$LIBFFI_HOME/include"

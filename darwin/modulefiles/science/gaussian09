@@ -1,0 +1,33 @@
+#%Module 1.0
+#
+# Gaussian09 and GaussView5.0
+#
+
+module-whatis "Gaussian09 and GaussView5.0"
+
+
+# g09
+set    G09ROOT "/Users/stevezhang/software/sci/gaussian/"
+setenv G09ROOT "$G09ROOT"
+set    GV_DIR "/Users/stevezhang/software/sci/gaussian/gv"
+setenv GV_DIR "$GV_DIR"
+set    GAUSS_EXEDIR "$G09ROOT/g09/bsd:$G09ROOT/g09"
+setenv GAUSS_EXEDIR "$GAUSS_EXEDIR"
+
+#GAUSS_LEXEDIR $env(G09ROOT)/g09/linda-exe
+#GAUSS_ARCHDIR $env(G09ROOT)/g09/arch
+#PGI_TERM trace,abort
+
+setenv G09BASIS "$G09ROOT/g09/basis"
+setenv GAUSS_SCRDIR "/Users/stevezhang/software/sci/gaussian/gtmp"
+
+#gv lib has to be at end for IA64 otherwise IA32 .so files there confuse things
+
+#prepend-path LD_LIBRARY_PATH "$GAUSS_EXEDIR"
+#prepend-path LD_LIBRARY_PATH "$GV_DIR/lib"
+prepend-path DYLD_LIBRARY_PATH "$GAUSS_EXEDIR"
+prepend-path DYLD_LIBRARY_PATH "$GV_DIR/lib"
+prepend-path PATH $GAUSS_EXEDIR
+prepend-path PATH $GV_DIR
+set-alias gv5 { csh -f $GV_DIR/gview.csh }
+

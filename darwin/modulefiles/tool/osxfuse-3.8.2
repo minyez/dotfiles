@@ -1,0 +1,12 @@
+#%Module1.0
+#
+# osxfuse 3.8.2 installed by Homebrew cask install osxfuse
+#
+
+module-whatis "osxfuse 3.8.2 installed by Homebrew cask install osxfuse"
+
+# lib installed under /usr/local/lib/libosxfuse*
+# need to add header files only
+prepend-path CPATH "/usr/local/include/osxfuse"
+# ext2fuse from homebrew to access ext2
+prepend-path PATH "/usr/local/Cellar/ext2fuse/0.8.1_2/bin"

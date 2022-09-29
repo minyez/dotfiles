@@ -1,0 +1,12 @@
+#%Module1.0
+#
+# General library setting
+#
+
+module-whatis "Custom library and binary"
+
+# local lib
+prepend-path PATH "/Users/stevezhang/scripts"
+prepend-path PATH "/Users/stevezhang/bin"
+prepend-path LIBRARY_PATH "/Users/stevezhang/lib"
+prepend-path DYLD_LIBRARY_PATH "/Users/stevezhang/lib"

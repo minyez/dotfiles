@@ -1,0 +1,8 @@
+#%Module1.0
+##
+module-whatis "mushroom"
+
+set          MY_HOME            "[getenv HOME]/Documents/minyez"
+prepend-path PYTHONPATH         "$MY_HOME/codes/mushroom"
+prepend-path PATH               "$MY_HOME/codes/mushroom/scripts"
+prepend-path PYTHONPATH         "$MY_HOME/codes/pygraceplot"

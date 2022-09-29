@@ -1,0 +1,38 @@
+#%Module1.0
+#
+# General library setting
+#
+
+module-whatis "General library setting"
+
+# local lib
+prepend-path PATH "/usr/bin"
+prepend-path PATH "/usr/local/bin"
+prepend-path LIBRARY_PATH "/usr/lib"
+prepend-path LIBRARY_PATH "/usr/local/lib"
+prepend-path PKG_CONFIG_PATH "/usr/local/lib/pkgconfig"
+prepend-path CPATH "/usr/include"
+prepend-path CPATH "/usr/local/include"
+# for GCC
+#prepend-path LD_LIBRARY_PATH "/usr/lib"
+prepend-path LD_LIBRARY_PATH "/usr/local/lib"
+#prepend-path DYLD_LIBRARY_PATH "/usr/lib"
+prepend-path DYLD_LIBRARY_PATH "/usr/local/lib"
+
+# Gem (installed from rbenv ruby)
+prepend-path PATH "~/.gem/ruby/2.7.0/bin"
+
+# default manpath
+prepend-path MANPATH "/usr/share/man"
+prepend-path MANPATH "/usr/local/share/man"
+prepend-path MANPATH "/usr/X11/man"
+#export DYLD_LIBRARY_PATH="/usr/local/lib:/usr/lib/:$DYLD_LIBRARY_PATH"
+
+# Emacs
+prepend-path PATH /Users/stevezhang/.emacs.d/bin
+
+# TeX Live. Version controlled by TeX live utitlity
+set TEXLIVE_HOME "/Library/Tex"
+setenv TEXLIVE_HOME "$TEXLIVE_HOME"
+prepend-path PATH "$TEXLIVE_HOME/texbin"
+

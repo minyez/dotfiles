@@ -1,0 +1,16 @@
+#%Module1.0
+#
+# Wannier90@2.0.1.1 compiled by Intel 2018.0.1, with MKL and without MPI
+#
+module-whatis "Wannier90@2.0.1.1 compiled by Intel 2018.0.1, with MKL and without MPI"
+
+set WANNIER90_HOME "/Users/stevezhang/software/sci/wannier90/2.0.1.1/intel/18.0.1"
+setenv WANNIER90_HOME "$WANNIER90_HOME"
+prepend-path MANPATH           "$WANNIER90_HOME/share/man"
+prepend-path PATH              "$WANNIER90_HOME/bin"
+prepend-path LIBRARY_PATH      "$WANNIER90_HOME/lib"
+prepend-path LD_LIBRARY_PATH   "$WANNIER90_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH   "$WANNIER90_HOME/lib"
+prepend-path PKG_CONFIG_PATH   "$WANNIER90_HOME/lib/pkgconfig"
+#prepend-path DYLD_LIBRARY_PATH "$WANNIER90_HOME/lib"
+prepend-path CPATH             "$WANNIER90_HOME/include"

@@ -1,0 +1,10 @@
+#%Module1.0
+#
+# VESTA version 3 for atomic visualization
+#
+module-whatis "VESTA version 3 for atomic visualization"
+
+set VESTA_HOME "/Users/stevezhang/software/visual/VESTA/VESTA.app/Contents/MacOS"
+setenv VESTA_HOME "$VESTA_HOME"
+prepend-path PATH "$VESTA_HOME"
+set-alias vesta { $VESTA_HOME/VESTA }

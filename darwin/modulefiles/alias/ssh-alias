@@ -1,0 +1,80 @@
+#%Module1.0
+#
+# alias related to SSH
+#
+#
+module-whatis "alias related to SSH"
+
+# ssh      
+#set tmcremote "zhangmy@162.105.153.245"
+#setenv tmcremote "zhangmy@162.105.153.245"
+#set-alias sshtmcre "ssh -X $tmcremote"
+#setenv zyl "zhangyl@162.105.153.251"
+#set-alias sshzyl "ssh -X zhangyl@162.105.153.251"
+#set tmclocal "zhangmy@10.105.27.2"
+#setenv tmclocal "zhangmy@10.105.27.2"
+#set-alias sshtmcloc "ssh -X $tmclocal"
+#set tmcpc "stevezhang@10.105.27.30"
+#setenv tmcpc "stevezhang@10.105.27.30"
+#set-alias sshtmcpc "ssh -X $tmcpc"
+
+# TMC group
+set tmcpc "stevezhang@222.29.156.87"
+setenv tmcpc "$tmcpc"
+set-alias sshtmcpc "ssh -X $tmcpc"
+
+set zcrremote "zhangmy@162.105.153.251"
+setenv zcrremote "$zcrremote"
+set-alias sshzcrre "ssh -X $zcrremote"
+
+# PKUHPC system
+set phwmip "162.105.133.134"
+set phwm "1501210186@$phwmip"
+setenv phwmip "$phwmip"
+setenv phwm "$phwm"
+set phbdip "115.27.161.31"
+set phbd "1501210186@$phbdip"
+setenv phbdip "$phbdip"
+setenv phbd "$phbd"
+set phskip "162.105.133.164"
+set phsk "1501210186@$phskip"
+setenv phskip "$phskip"
+setenv phsk "$phsk"
+#set phedu "1501210186@162.105.133.209"
+#setenv phedu "$phedu"
+set-alias pkuhpc "ssh -X $phwm"
+set-alias pkuhpcsk "ssh -X $phsk"
+set-alias pkuhpcbd "ssh -X $phbd"
+#set-alias pkuhpcedu "ssh -X $phedu"
+
+# Beijing Computer Center
+set bcc "jiangh@114.251.219.52"
+setenv bcc "$bcc"
+set-alias sshbcc "sshy $bcc"
+set sccas "syyf101@159.226.184.211"
+setenv sccas "$sccas"
+set-alias sshsccas "sshy $sccas"
+
+## NCSS-TJ
+#set yhip "jiangh@192.168.2.101"
+#setenv yhip "$yhip"
+#set-alias yh "ssh $yhip"
+## ssl client
+#prepend-path PATH "/opt/sangfor/bin"
+
+set rsync_exclude "--exclude=build* --exclude=*.o --exclude=*.exe --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod "
+# rsync
+# for new version rsync, replace --progress with --info=progress2
+set-alias scsyc    "rsync $rsync_exclude -vazru --progress "
+set-alias scsycfoc "rsync $rsync_exclude -vazr  --progress "
+set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru --progress "
+# rsync pwd between PKUHPC platforms
+set-alias sync2sk { ssh $phsk mkdir -p $(pwd); rsync -vazru --progress $(pwd) $phsk:$(dirname $(pwd)) }
+set-alias sync2wm { ssh $phwm mkdir -p $(pwd); rsync -vazru --progress $(pwd) $phwm:$(dirname $(pwd)) }
+
+# proxies
+set https_proxy http://127.0.0.1:1086
+set http_proxy  http://127.0.0.1:1086
+set socks_proxy socks5://127.0.0.1:1086
+# command line using the proxies
+set-alias myproxy { https_proxy=$https_proxy http_proxy=$http_proxy all_proxy=$socks_proxy }

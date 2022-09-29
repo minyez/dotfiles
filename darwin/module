@@ -1,6 +1,6 @@
 # module setup common to different shells
 module unuse /usr/local/opt/modules/modulefiles
-module unuse /usr/local/Cellar/modules/4.8.0/modulefiles
+module unuse /usr/local/Cellar/modules/5.0.1/modulefiles
 module use ~/.modulefiles/project
 module use ~/.modulefiles/alias
 module use ~/.modulefiles/tool

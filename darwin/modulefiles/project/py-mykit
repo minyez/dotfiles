@@ -1,0 +1,9 @@
+#%Module1.0
+##
+## mykit: utilities for manipulation of inputs and outputs of various electronic structure calculators
+##
+module-whatis "mykit: utilities for manipulation of inputs and outputs of various electronic structure calculators"
+
+set          MYKIT_HOME 	    "/Users/stevezhang/code/projects/mykit"
+prepend-path PYTHONPATH         "$MYKIT_HOME"
+prepend-path PATH               "$MYKIT_HOME/tools"

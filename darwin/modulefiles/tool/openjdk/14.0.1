@@ -1,0 +1,19 @@
+############%Module1.0#
+##
+
+set  docstr "OpenJDK@14.0.1 installed from Homebrew for macos (2020-09-03 10:44:03)"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr "$docstr"
+}
+
+# Homebrew info:
+# For the system Java wrappers to find this JDK, symlink it with
+#   sudo ln -sfn /usr/local/Cellar/openjdk/14.0.1/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+
+module-whatis  $docstr
+
+set            topdir   "/usr/local/Cellar/openjdk/14.0.1"
+prepend-path   PATH     "$topdir/bin"
+prepend-path   CPATH    "$topdir/include"

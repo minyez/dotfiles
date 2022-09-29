@@ -1,0 +1,13 @@
+#%Module1.0
+#
+# OpenSSL@1.1.1k from Homebrew
+#
+
+module-whatis "OpenSSL@1.1.1k from Homebrew"
+
+set OPENSSL_HOME "/usr/local/Cellar/openssl@1.1/1.1.1k"
+prepend-path PATH "$OPENSSL_HOME/bin"
+prepend-path LIBRARY_PATH "$OPENSSL_HOME/lib"
+prepend-path DYLD_LIBRARY_PATH "$OPENSSL_HOME/lib"
+prepend-path PKG_CONFIG_LIB "$OPENSSL_HOME/lib/pkgconfig"
+prepend-path CPATH "$OPENSSL_HOME/include"

@@ -1,0 +1,15 @@
+###%Module1.0
+###
+### e2fsprogs@1.44.3 to access Linux file system, installed by Homebrew
+###     brew install e2fsprogs
+###
+
+module-whatis "e2fsprogs@1.44.3 to access Linux file system, installed by Homebrew"
+
+set E2FSPROGS_HOME "/usr/local/Cellar/e2fsprogs/1.44.3"
+setenv E2FSPROGS_HOME "$E2FSPROGS_HOME"
+prepend-path PATH "$E2FSPROGS_HOME/bin"
+prepend-path LIBRARY_PATH "$E2FSPROGS_HOME/lib"
+prepend-path PKG_CONFIG_PATH "$E2FSPROGS_HOME/lib/pkgconfig"
+#prepend-path LD_LIBRARY_PATH "$TCLTK_HOME/lib"
+prepend-path CPATH "$E2FSPROGS_HOME/include"
