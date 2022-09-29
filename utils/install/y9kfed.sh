@@ -247,10 +247,10 @@ _install_emacs() {
   cecho i "Installing Emacs of native-comp branch ..."
   ((_DRY_RUN)) && return
   sudo dnf -y copr enable deathwish/emacs-pgtk-nativecomp || exit 2
-  sudo dnf -y install emacs emacs-devel || exit 2
+  sudo dnf -y install emacs emacs-devel emacs-pkg-info || exit 2
   cecho s "emacs-native-comp installed"
-  rm -rf ~/.emacs.d && git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.emacs.d || exit 2
-  cecho s "Doom emacs cloned"
+  rm -rf ~/.emacs.d && git clone https://github.com/hlissner/doom-emacs.git ~/.emacs.d || exit 2
+  cecho s "Doom emacs cloned, please run doom install manually"
 }
 
 _install_doom() {
