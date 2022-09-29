@@ -25,6 +25,7 @@
   :bind
   (:map org-mode-map
         ("C-c l" . org-insert-link)
+        ("C-c m l l" . org-insert-link) ; similar to org-clip
         ("C-c i" . org-insert-image)
         ("C-c C-i" . org-time-stamp-inactive)
         ("C-c e v" . (lambda () "make verbatim"

@@ -6,7 +6,7 @@
 module-whatis "alias for general Linux command"
 
 # directory
-set PATH_PRACTICE "~/Documents/SelfDevelopment/Codes/code-practice"
+set PATH_PRACTICE "~/Documents/minyez/codes/code-practice"
 setenv PATH_PRACTICE "$PATH_PRACTICE"
 set-function practice {
 pdir="$PATH_PRACTICE/$1"
@@ -71,7 +71,7 @@ set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 #set-alias myip { curl ipinfo.io/ip }
 
 # personal directory
-set    SD "~/Documents/SelfDevelopment"
+set    SD "~/Documents/minyez"
 setenv SD "$SD"
 set-function cdsd { cd $SD }
 set-function cdsdrm { cd $SD/org-roam }

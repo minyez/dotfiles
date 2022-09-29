@@ -73,7 +73,7 @@
 ;   mz/evil-leader : leader key to unify evil-leader and other keys that I want to emulate as evil-leader
 ;                    the later usage is mainly when I only want to bind key to a particular mode
 (setq
-  mz/org-notes (concat (getenv "HOME") "/Documents/SelfDevelopment/org-roam")
+  mz/org-notes (concat (getenv "HOME") "/Documents/minyez")
   ;bibfile (concat mz/org-notes "/bibliography_linux.bib")
   mz/bibfile (concat mz/org-notes "/bibliography.bib")
   mz/org-roam-graph-executable "/usr/bin/dot"
@@ -171,9 +171,9 @@
 (use-package! projectile
   :config
   (setq projectile-project-search-path
-        '("~/Documents/SelfDevelopment/codes"
-          "~/Documents/SelfDevelopment/Academia"
-          "~/Documents/SelfDevelopment/Projects"
+        '("~/Documents/minyez/codes"
+          "~/Documents/minyez/Academia"
+          "~/Documents/minyez/Projects"
           "~/projects"
           )
         )

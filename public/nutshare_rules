@@ -26,7 +26,7 @@ _minted-*
 *@neomake_*
 *git.log
 
-/Users/stevezhang/Documents/SelfDevelopment/Scripts/.temp_eq.png
+/Users/stevezhang/Documents/minyez/Scripts/.temp_eq.png
 
 # 忽略 /opt/work/test 文件夹, 删除下一行行首的 '#'，不支持相对路径或以'~'开头的路径
 # /opt/work/test
