@@ -73,7 +73,7 @@ configs.register({
     name = "+toggle",
     a = { "<cmd>AerialToggle!<cr>", "Aerial" },
     t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
-    n = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
+    l = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
     L = { "<cmd>set number!<cr>", "Absolute Line Number" },
     R = { "<cmd>set relativenumber!<cr>", "Relative Line Number" },
     b = { "<cmd>TroubleToggle<cr>", "Trouble" },

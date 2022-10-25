@@ -30,7 +30,7 @@ set-alias la "ls -a"
 # use system vim for vi
 set-alias vi "/usr/bin/vim "
 # use homebrew neovim
-set-alias vim "~/bin/nvim-osx64/bin/nvim "
+set-alias vim "~/bin/nvim-macos/bin/nvim "
 #set-function _vi4 {
 #    #1 vim executable
 #	#2,3,4,5 4 files to edit

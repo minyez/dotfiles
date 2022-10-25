@@ -31,6 +31,8 @@
   :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2")
   :pin "37b64e6cc1")
 (package! org-super-agenda)
+(package! dwim-shell-command
+  :recipe (:host github :repo "xenodium/dwim-shell-command"))
 (package! org-superstar)
 (package! org-fancy-priorities)
 (package! org-roam

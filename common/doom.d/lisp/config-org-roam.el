@@ -225,7 +225,7 @@ I appreciate anyone who reads this handout. Suggestions are totally welcome.
            "${slug}"
            "# -*- truncate-lines: t -*-
 #+title: ${title}\n#+author: Min-Ye Zhang\n#+email: stevezhang@pku.edu.cn
-#+startup: overview\n#+filetags: Book\n#+created: %U
+#+startup: overview\n#+filetags: bookrev\n#+created: %U
 #+latex_class: book\n#+latex_compiler: xelatex\n
 * Notes of Ch01
 

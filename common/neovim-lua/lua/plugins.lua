@@ -123,11 +123,15 @@ return require("packer").startup(function()
       { "hrsh7th/cmp-path" }, -- path completions
       { "hrsh7th/cmp-cmdline" }, -- cmdline completions
       { "hrsh7th/cmp-nvim-lua" },
+      { "hrsh7th/cmp-nvim-lsp"}, -- lsp completions
       { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
+      { "bydlw98/cmp-env" }, -- environment variables
+      { "paopaol/cmp-doxygen" }, -- doxygen. require treesitter
+      { "amarakon/nvim-cmp-lua-latex-symbols" }, -- latex symbols
+      { "lukas-reineke/cmp-rg" }, -- ripgrep
     }
   }
   use "gpanders/editorconfig.nvim" -- respect editorconfig
-  use "hrsh7th/cmp-nvim-lsp"
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
   use { "jose-elias-alvarez/null-ls.nvim", -- code formatting

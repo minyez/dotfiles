@@ -1,0 +1,13 @@
+#%Module1.0#####################################################################
+
+set docstr  "pyscf github version, compiled with intel oneAPI 2022.2, numpy/scipy/h5py from system"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis $docstr
+
+prepend-path PYTHONPATH  "[getenv HOME]/software/pyscf-github"
+

@@ -29,6 +29,7 @@ configs.setup({
         -- Set the filetype of any full filename matching the regex to gitconfig
         -- [".*git/config"] = "gitconfig", -- Included in the plugin
       ["control.*.in"] = "bash",
+      ["INCAR*"] = "bash",
     },
   }
 })

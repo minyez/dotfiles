@@ -20,14 +20,16 @@ fi
 set-alias ll "ls -l"
 set-alias la "ls -a"
 
+set _nvim "/usr/local/bin/nvim"
 # vim and nvim
 # use system vim for vi
 set-alias vi "/usr/bin/vim "
-# use homebrew neovim
-set-alias vim "nvim "
+set-alias vim "$_nvim "
+set-alias nvim "$_nvim"
+
 set-function _vi4 { $1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3" }
 set-function vi4 { _vi4 /usr/bin/vim $1 $2 $3 $4 }
-set-function vim4 { _vi4 nvim $1 $2 $3 $4 }
+set-function vim4 { _vi4 $_nvim $1 $2 $3 $4 }
 
 # tar
 setenv COPYFILE_DISABLE 1 

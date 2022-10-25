@@ -34,7 +34,7 @@ Plugin 'godlygeek/tabular'
 """ Snippets related
 Plugin 'sirver/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'Yggdroot/indentLine'
+" Plugin 'Yggdroot/indentLine'
 Plugin 'neomake/neomake'
 "" auto-compeletion
 "Plugin 'Shougo/neocomplete.vim'
@@ -183,9 +183,10 @@ nmap <Leader>a\, :Tabularize /,<CR>
 vmap <Leader>a\, :Tabularize /,<CR>
 
 " ==== Plugin indentLine settings. ====
-let g:indentLine_char = "┆"
-let g:indentLine_enabled = 1
-let g:autopep8_disable_show_diff=1
+" check vim version to see if conceal is enabled
+" let g:indentLine_char = "┆"
+" let g:indentLine_enabled = 1
+" let g:autopep8_disable_show_diff=1
 
 """""""""""""""""""""""
 " Doxygen Plugin

@@ -93,7 +93,7 @@
 ;   mz/evil-leader : leader key to unify evil-leader and other keys that I want to emulate as evil-leader
 ;                    the later usage is mainly when I only want to bind key to particular mode
 (setq
-  mz/org-notes (concat (getenv "HOME") "/Documents/minyez")
+  mz/org-notes (concat (getenv "HOME") "/Documents/minyez/org-roam")
   mz/bibfile (concat mz/org-notes "/bibliography_macos.bib")
   ;mz/org-notes (concat (getenv "HOME") "/tmp/org-demo") ; for demonstration
   ;mz/bibfile (concat (getenv "HOME") "/Documents/SelfDevelopment/Database/test.bib")

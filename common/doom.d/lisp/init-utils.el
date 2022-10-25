@@ -34,12 +34,24 @@
   `(when (eq system-type ,type)
      ,@body))
 
+(defmacro except-system (type &rest body)
+  "Evaluate BODY if `system-type' doest not equal to TYPE."
+  (declare (indent defun))
+  `(unless (eq system-type ,type)
+     ,@body))
+
 ;;; =====================
 ;;; machine setup
 (defmacro with-hostname (type &rest body)
   "Evaluate BODY if `system-name' equals TYPE."
   (declare (indent defun))
   `(when (string= system-name ,type)
+     ,@body))
+
+(defmacro except-hostname (type &rest body)
+  "Evaluate BODY if `system-name' equals TYPE."
+  (declare (indent defun))
+  `(unless (string= system-name ,type)
      ,@body))
 
 ;;; =====================

@@ -122,5 +122,35 @@
 ;  (imp-visit-buffer))
 ;; End Markdown live preview
 
+;;; running async shell command
+;;; https://github.com/xenodium/dwim-shell-command
+(use-package dwim-shell-command
+  :bind (([remap shell-command] . dwim-shell-command)
+         :map dired-mode-map
+         ([remap dired-do-async-shell-command] . dwim-shell-command)
+         ([remap dired-do-shell-command] . dwim-shell-command)
+         ([remap dired-smart-shell-command] . dwim-shell-command))
+  :config
+  ;; (defun my/dwim-shell-command-convert-to-gif ()
+  ;;   "Convert all marked videos to optimized gif(s)."
+  ;;   (interactive)
+  ;;   (dwim-shell-command-on-marked-files
+  ;;    "Convert to gif"
+  ;;    "ffmpeg -loglevel quiet -stats -y -i <<f>> -pix_fmt rgb24 -r 15 <<fne>>.gif"
+  ;;    :utils "ffmpeg"))
+)
+
+(use-package! company
+  :config
+  ;;; disable company mode in some major modes in my old macos mbp
+  (with-system 'darwin
+    (setq company-global-modes
+        '(not markdown-mode org-mode erc-mode message-mode help-mode gud-mode))
+  )
+  ;;; disable auto complete
+  (setq company-idle-delay nil)
+)
+
+
 (provide 'config-misc)
 ;;; config-misc.el ends here

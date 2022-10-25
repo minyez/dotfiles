@@ -65,7 +65,7 @@
 (require 'init-utils)
 
 ; (mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
-(mz/set-choice-to-current-hour 'doom-theme 'doom-one-light 'doom-badger)
+(mz/set-choice-to-current-hour 'doom-theme 'doom-tomorrow-day 'doom-badger)
 
 ; Global variables
 ;   mz/org-notes : all my org(-roam) notes
@@ -73,8 +73,7 @@
 ;   mz/evil-leader : leader key to unify evil-leader and other keys that I want to emulate as evil-leader
 ;                    the later usage is mainly when I only want to bind key to a particular mode
 (setq
-  mz/org-notes (concat (getenv "HOME") "/Documents/minyez")
-  ;bibfile (concat mz/org-notes "/bibliography_linux.bib")
+  mz/org-notes (concat (getenv "HOME") "/Documents/minyez/org-roam")
   mz/bibfile (concat mz/org-notes "/bibliography.bib")
   mz/org-roam-graph-executable "/usr/bin/dot"
   mz/org-roam-graph-viewer "/usr/bin/xdg-open"

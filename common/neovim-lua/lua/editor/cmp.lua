@@ -127,9 +127,13 @@ cmp.setup {
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[NVIM_LUA]",
-        luasnip = "[Snippets]",
-        buffer = "[Buffer]",
+        luasnip = "[Snip]",
+        -- buffer = "[Buf]",
         path = "[Path]",
+        env = "[ENV]",
+        doxygen = "[DOX]",
+        orgmode = "[ORG]",
+        rg = "[RG]",
       })[entry.source.name]
       return vim_item
     end,
@@ -140,8 +144,10 @@ cmp.setup {
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-    { name = "cmdline" },
+    -- { name = "cmdline" }, -- trigger cmdline here will make you tab once only
     { name = "orgmode" },
+    { name = "env" },
+    { name = "rg" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
@@ -169,6 +175,13 @@ cmp.setup.cmdline('/', {
   }
 })
 
+-- Use doxygen source for `@`
+cmp.setup.cmdline('@', {
+  sources = {
+    { name = 'doxygen' }
+  }
+})
+
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
@@ -178,3 +191,9 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- Only enable `lua-latex-symbols` for `tex` and `plaintex` file types
+require "cmp".setup.filetype({ "tex", "plaintex", "markdown", "org" }, {
+    sources = {
+        { name = "lua-latex-symbols"}
+    }
+})

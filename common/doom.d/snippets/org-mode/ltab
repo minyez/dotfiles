@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+# key: ltab
+# name: longtable environment
+# uuid: ltab
+# group: latex
+#
+# --
+# #+begin_landscape
+#+attr_latex: :booktabs t :environment longtable
+#+caption: $1
+#+name: $2
+| $0 |
+# #+end_landscape

@@ -79,7 +79,7 @@
   (add-to-list 'org-capture-templates
    '("j" "Journal Log" item
      (file+function "journal/log.org" mz/org-goto-today-node)
-     "%?"))
+     "%<%H:%M> %?"))
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)
@@ -308,6 +308,8 @@ it can be passed in POS."
   (add-to-list 'org-tags-exclude-from-inheritance "noter")
   (add-to-list 'org-tags-exclude-from-inheritance "Reference")
   (add-to-list 'org-tags-exclude-from-inheritance "Book")
+  (add-to-list 'org-tags-exclude-from-inheritance "bookrev")
+  (add-to-list 'org-tags-exclude-from-inheritance "drill")
   (add-to-list 'org-preview-latex-process-alist
     '(imagemagick-300 :programs
                  ("latex" "convert")
@@ -434,7 +436,6 @@ parent."
 
 (use-package! org-journal
   :after org
-  :ensure t
   :defer t
   :bind
   ("C-c j n" . org-journal-new-entry)

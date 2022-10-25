@@ -62,8 +62,8 @@
     )
   ;; the functionp 'evil-escape-p if condition seems not work
   ;; use with-eval-after-load instead
-  (with-eval-after-load 'evil-escape
-    (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command))
+  ;; (with-eval-after-load 'evil-escape
+  ;;   (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command))
   ;; 探针设置
   (defun mz/pyim-probe-org-src-block ()
     "自定义探针, 进入 org-mode source block 之后自动切换到英文输入"
