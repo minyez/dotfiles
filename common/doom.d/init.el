@@ -25,7 +25,7 @@
        helm            ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +auto)        ; a search engine for love and life
-       ;;vertico           ; the search engine of the future
+       ;; vertico           ; the search engine of the future
 
        :ui
        deft              ; notational velocity for Emacs
@@ -65,7 +65,7 @@
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
-       ;;word-wrap         ; soft wrapping with language-aware indent
+       word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        dired             ; making dired pretty [functional]
@@ -202,7 +202,7 @@
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config

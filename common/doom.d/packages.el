@@ -43,6 +43,9 @@
 ;(package! org-roam-server
 ;  :recipe (:host github :repo "org-roam/org-roam-server"))
 
+(package! command-log-mode
+  :recipe (:host github :repo "lewang/command-log-mode"))
+
 (package! org-roam-dashboard
   :recipe (:host github :repo "publicimageltd/org-roam-dashboard"))
 (package! org-download)

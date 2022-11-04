@@ -1,0 +1,9 @@
+#+title: Useful patches
+
+* ~doom-org-tree-slide.patch~
+In Doom, triggering ~org-tree-slide~ mode by ~org-tree-slide-mode~
+somehow does not narrow to the title as frame.
+
+
+See issues [[https://github.com/takaxp/org-tree-slide/issues/53][#53]] and [[https://github.com/takaxp/org-tree-slide/issues/54][#54]]
+

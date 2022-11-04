@@ -5,6 +5,7 @@
   "public/excludes.git" : "~/.gitexcludes",
   "public/ignore_global.git" : "~/.gitignore_global",
   "public/gitconfig" : "~/.gitconfig",
+  "public/rofi/" : "~/.config/rofi",
   "public/ssh.config" : "~/.ssh/config",
   "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
   "public/matplotlibrc/" : "~/.matplotlib",

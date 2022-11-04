@@ -98,5 +98,19 @@ With \\[universal-argument], pdf will be always opened in the next window."
     (mz/find-other-file "pdf" 'next t)
     (mz/find-other-file "pdf" t t)))
 
+(defun insert-brakets (&optional arg)
+  "Enclose following ARG sexps in braket.
+Leave point after open-paren.
+A negative ARG encloses the preceding ARG sexps instead.
+No argument is equivalent to zero: just insert `[]' and leave point between.
+If `parens-require-spaces' is non-nil, this command also inserts a space
+before and after, depending on the surrounding characters.
+If region is active, insert enclosing characters at region boundaries.
+
+This command assumes point is not in a string or comment.
+The code is copied from emacs internal lisp.el"
+  (interactive "P")
+  (insert-pair arg ?\[ ?\]))
+
 (provide 'init-utils)
 ;;; init-utils.el ends here

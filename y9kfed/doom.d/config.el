@@ -64,6 +64,8 @@
 
 (require 'init-utils)
 
+(global-set-key (kbd "M-[") #'insert-brakets)
+
 ; (mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
 (mz/set-choice-to-current-hour 'doom-theme 'doom-tomorrow-day 'doom-badger)
 

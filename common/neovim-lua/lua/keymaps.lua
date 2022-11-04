@@ -90,5 +90,5 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- Use Ctrl-/ to Comment, supported by Comment.nvim
 -- https://vi.stackexchange.com/questions/26611/is-it-possible-to-map-control-forward-slash-with-vim
 keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
-keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
+keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)gv-gv", opts)
 

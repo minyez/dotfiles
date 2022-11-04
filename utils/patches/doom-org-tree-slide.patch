@@ -1,0 +1,57 @@
+diff --git a/modules/lang/org/autoload/contrib-present.el b/modules/lang/org/autoload/contrib-present.el
+index 2462037ff..4f72551cf 100644
+--- a/modules/lang/org/autoload/contrib-present.el
++++ b/modules/lang/org/autoload/contrib-present.el
+@@ -22,10 +22,10 @@
+   (save-excursion
+     (goto-char (point-min))
+     (while (re-search-forward "^[[:space:]]*\\(#\\+\\)\\(\\(?:BEGIN\\|END\\|ATTR\\)[^[:space:]]+\\).*" nil t)
+-      (org-flag-region (match-beginning 1)
++      (org-fold-region (match-beginning 1)
+                        (match-end 0)
+                        org-tree-slide-mode
+-                       t))))
++                       'block))))
+ 
+ ;;;###autoload
+ (defun +org-present-hide-leading-stars-h ()
+@@ -33,10 +33,10 @@
+   (save-excursion
+     (goto-char (point-min))
+     (while (re-search-forward "^\\(\\*+\\)" nil t)
+-      (org-flag-region (match-beginning 1)
++      (org-fold-region (match-beginning 1)
+                        (match-end 1)
+                        org-tree-slide-mode
+-                       t))))
++                       'headline))))
+ 
+ ;;;###autoload
+ (defun +org-present-detect-slide-h ()
+diff --git a/modules/lang/org/contrib/present.el b/modules/lang/org/contrib/present.el
+index dd126b0d5..925b3bd75 100644
+--- a/modules/lang/org/contrib/present.el
++++ b/modules/lang/org/contrib/present.el
+@@ -45,11 +45,11 @@ headings as titles, and you have more freedom to place them wherever you like.")
+           :n [C-right] #'org-tree-slide-move-next-tree
+           :n [C-left]  #'org-tree-slide-move-previous-tree)
+     (add-hook 'org-tree-slide-mode-hook #'evil-normalize-keymaps))
+-
+   (defadvice! +org-present--hide-first-heading-maybe-a (fn &rest args)
+     "Omit the first heading if `+org-present-hide-first-heading' is non-nil."
+     :around #'org-tree-slide--display-tree-with-narrow
+-    (letf! (defun org-narrow-to-subtree ()
++    (letf! (defun org-narrow-to-subtree (&optional element)
++             (interactive)
+              (save-excursion
+                (save-match-data
+                  (org-with-limited-levels
+@@ -57,7 +57,7 @@ headings as titles, and you have more freedom to place them wherever you like.")
+                    (progn
+                      (when (org-before-first-heading-p)
+                        (org-next-visible-heading 1))
+-                     (ignore-errors (org-up-heading-all 99))
++                       (org-back-to-heading t)
+                      (when +org-present-hide-first-heading
+                        (forward-line 1))
+                      (point))

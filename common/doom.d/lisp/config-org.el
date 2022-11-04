@@ -77,7 +77,21 @@
      (file+headline "todos.org" "Inbox")
      "* TODO %u %?" :prepend t))
   (add-to-list 'org-capture-templates
-   '("j" "Journal Log" item
+   '("S" "Group seminar note" entry
+     (file+headline "meeting.org" "Group Seminar")
+     "* %? %u" :jump-to-captured t))
+  (add-to-list 'org-capture-templates
+   '("e" "English vocaburary" entry
+     (file "english_vocabulary.org")
+     "* %? :drill:
+** Examples :ignore:
+** Origin :ignore:"))
+  (add-to-list 'org-capture-templates
+    '("n" "Personal notes" entry
+      (file+headline "todos.org" "Quick note")
+      "* %u %?\n%i\n%a" :prepend t))
+  (add-to-list 'org-capture-templates
+   '("j" "Journal Log" plain
      (file+function "journal/log.org" mz/org-goto-today-node)
      "%<%H:%M> %?"))
   (setq org-md-headline-style 'atx) ; setext
@@ -529,6 +543,23 @@ parent."
   :config
   (setq-default org-download-image-dir (concat org-directory "/images/downloads"))
   )
+
+;; copied from https://github.com/takaxp/org-tree-slide
+(use-package! org-tree-slide
+  :after org
+  :config
+  (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+  (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+  (define-key org-tree-slide-mode-map (kbd "<f9>")
+    'org-tree-slide-move-previous-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f10>")
+    'org-tree-slide-move-next-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f11>")
+    'org-tree-slide-content)
+  (setq org-tree-slide-skip-outline-level 4)
+  (org-tree-slide-narrowing-control-profile)
+  (setq org-tree-slide-skip-done nil)
+)
 
 (provide 'config-org)
 ;;; config-org.el ends here

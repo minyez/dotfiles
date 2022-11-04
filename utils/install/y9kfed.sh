@@ -191,6 +191,7 @@ _install_misc() {
       lshw htop \
       screen{fetch,key} \
       qalculate-gtk flameshot \
+      rofi rofi-themes rofi-devel*
       pavucontrol paman || exit 2
   # NOTE: paman is useful to increase the volume larger than 150 and even 200.
   sudo $DNF_CMD -y install pandoc* || exit 2
