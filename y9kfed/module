@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
 # User specific environment
-if ! [[ "$PATH" =~ $HOME/scripts ]]; then
-  # PATH="$HOME/scripts:$HOME/.local/bin:$HOME/bin:$PATH"
-  PATH="$HOME/scripts:$PATH"
-fi
+paths=(
+  "$HOME/.cargo/bin"
+  "$HOME/scripts"
+)
+for p in "${paths[@]}"; do
+  if ! [[ "$PATH" =~ "$p": ]]; then
+    PATH="$p:$PATH"
+  fi
+done
 export PATH
 
 pps=(
