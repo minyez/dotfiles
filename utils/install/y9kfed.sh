@@ -193,8 +193,13 @@ _install_misc() {
       qalculate-gtk flameshot \
       rofi rofi-themes rofi-devel*
       pavucontrol paman || exit 2
-  # NOTE: paman is useful to increase the volume larger than 150 and even 200.
+  # NOTE: paman is useful to increase the volume larger than 150 and even 200
+
   sudo $DNF_CMD -y install pandoc* || exit 2
+
+  cecho i "Installing tools written in Rust ..."
+  sudo $DNF_CMD -y procs exa gitui hyperfine dua-cli duf || exit 2
+  cecho s "Finished installing misc tools :)"
 }
 
 _install_snap() {
