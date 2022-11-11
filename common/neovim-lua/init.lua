@@ -23,6 +23,7 @@ require(USER_DIR .. '.editor.whichkey')
 require(USER_DIR .. '.editor.Comment')
 require(USER_DIR .. '.editor.nvim-autopairs')
 require(USER_DIR .. '.editor.cmp')
+require(USER_DIR .. '.editor.formatter')
 require(USER_DIR .. '.editor.nvim-lastplace')
 require(USER_DIR .. '.editor.editorconfig')
 

@@ -134,9 +134,10 @@ return require("packer").startup(function()
   use "gpanders/editorconfig.nvim" -- respect editorconfig
   use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
   use "nathom/filetype.nvim"
-  use { "jose-elias-alvarez/null-ls.nvim", -- code formatting
-    requires = "nvim-lua/plenary.nvim",
-  }
+  use "mhartington/formatter.nvim" -- formatter
+  -- use { "jose-elias-alvarez/null-ls.nvim", -- code formatting
+  --   requires = "nvim-lua/plenary.nvim",
+  -- }
   -- =====
   -- tools
   use { "Shatur/neovim-cmake", -- cmake convenient functions
