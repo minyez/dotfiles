@@ -19,6 +19,7 @@
 (package! yasnippet-snippets)
 (package! jsonrpc) ; to use jieba
 (package! move-text)
+(package! good-scroll)
 ;(package! writegood-mode)
 ;(package! zenburn-theme)
 

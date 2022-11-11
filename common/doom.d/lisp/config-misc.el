@@ -233,5 +233,15 @@
             (insert (propertize title 'face title-faces 'kbd-help title)))
         (insert (propertize title 'face title-faces 'kbd-help title))))))
 
+;;; for smooth scrolling with large inline image
+;;; Note: may have high CPU when global-display-line-numbers-mode toggled
+;;; see https://github.com/io12/good-scroll.el/issues/31
+(use-package! good-scroll
+  :config
+  (good-scroll-mode 1)
+  (global-set-key [next] #'good-scroll-up-full-screen)
+  (global-set-key [prior] #'good-scroll-down-full-screen)
+)
+
 (provide 'config-misc)
 ;;; config-misc.el ends here
