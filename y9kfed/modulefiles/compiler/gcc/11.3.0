@@ -1,0 +1,20 @@
+#%Module########################################################################
+##
+## GCC@11.3.0  modulefile
+##
+proc ModulesHelp { } {
+
+    puts stderr "    This module defines environment variables, aliases and add PATH, LD_LIBRARY_PATH for GCC"
+    puts stderr "    Version 11.3.0"
+                      }
+
+module-whatis   "GCC@11.3.0"
+set             topdir                  "/home/minyez/software/gcc/11.3.0"
+prepend-path    PATH                    "${topdir}/bin"
+prepend-path    CPATH                   "${topdir}/include/c++/11.3.0"
+prepend-path    CPATH                   "${topdir}/lib/gcc/x86_64-linux/11.3.0/include"
+# prepend-path    LIBRARY_PATH            "${topdir}/lib"
+# prepend-path    LD_LIBRARY_PATH         "${topdir}/lib"
+prepend-path    LIBRARY_PATH            "${topdir}/lib64"
+prepend-path    LD_LIBRARY_PATH         "${topdir}/lib64"
+prepend-path    MANPATH                 "${topdir}/share/man"

@@ -1,0 +1,54 @@
+% !BIB TS-program = biber
+% !TeX TS-program = pdflatex
+% Intended LaTeX compiler: pdflatex
+% dont use ignorenonframe option here
+\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\PassOptionsToPackage{%
+colorlinks=True,linkcolor=,filecolor=,citecolor=,urlcolor=Gray,%
+pdfborder={0 0 0}}{hyperref}
+%\documentclass[presentation,10pt]{beamer}
+\documentclass[presentation]{beamer}
+
+\usetheme{mlecture}
+
+\author[MY Zhang]{Min-Ye Zhang}
+\date[June 7, 2021]{@location, June 7, 2021}
+\title[test]{test title}
+%\institute[CCME, PKU]{College of Chemistry and Molecular Engineering, Peking University}
+
+\hypersetup{
+pdfauthor={Min-Ye Zhang},%
+pdfkeywords={},%
+pdfsubject={},%
+pdflang={English}}
+
+% Since section/subsection name are suppressed on each frame
+% it is better to always show toc before a new section to remind the audience
+\AtBeginSection[]
+{
+  \begin{frame}{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Section 1}
+\begin{frame}{Title 1}{}
+test frame 1
+\end{frame}
+
+\begin{frame}{Title 2}{}
+test frame 2
+\end{frame}
+
+\end{document}

@@ -1,0 +1,35 @@
+diff --git a/lisp/ox-beamer.el b/lisp/ox-beamer.el
+index 5168444..8847925 100644
+--- a/lisp/ox-beamer.el
++++ b/lisp/ox-beamer.el
+@@ -879,14 +879,22 @@ holding export options."
+      ;; Document start.
+      "\\begin{document}\n\n"
+      ;; Title command.
+-     (org-element-normalize-string
+-      (cond ((not (plist-get info :with-title)) nil)
+-	    ((string= "" title) nil)
+-	    ((not (stringp org-latex-title-command)) nil)
+-	    ((string-match "\\(?:[^%]\\|^\\)%s"
+-			   org-latex-title-command)
+-	     (format org-latex-title-command title))
+-	    (t org-latex-title-command)))
++     (let* ((titlecmd (org-element-normalize-string
++                     (cond ((not (plist-get info :with-title)) nil)
++                         ((string= "" title) nil)
++                         ((not (stringp org-latex-title-command)) nil)
++                        ((string-match "\\(?:[^%]\\|^\\)%s"
++                                       org-latex-title-command)
++                         (format org-latex-title-command title))
++                        (t org-latex-title-command))))
++            (header (nth 1 (assoc (plist-get info :latex-class) org-latex-classes)))
++            (beamer-class-p (and (stringp header)
++                            (org-string-match-p
++                             "^[ \t]*\\\\documentclass\\(?:\\[.*\\]\\)?{beamer}[ \t]*$"
++                             header))))
++        (if beamer-class-p
++           (format "\\begin{frame}\n%s\\end{frame}\n\n" titlecmd)
++             titlecmd))
+      ;; Table of contents.
+      (let ((depth (plist-get info :with-toc)))
+        (when depth

@@ -7,3 +7,8 @@ somehow does not narrow to the title as frame.
 
 See issues [[https://github.com/takaxp/org-tree-slide/issues/53][#53]] and [[https://github.com/takaxp/org-tree-slide/issues/54][#54]]
 
+* ~org-ox-beamer-maketitle-frame.patch~
+Patches the =ox-beamer.el= file in org to wrap ~\maketitle~ in frame environment
+when the export ~latex_class~ uses beamer document class.
+
+See [[https://list.orgmode.org/87ob48ht2p.fsf@gmail.com/t/]]

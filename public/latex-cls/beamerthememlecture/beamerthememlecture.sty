@@ -1,0 +1,276 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mlecture}[2019/01/29 Beamer style package]
+
+%%%%% define colors %%%%%
+% default
+\definecolor{mlecgithubblue}{RGB}{0,63,126}
+\definecolor{mlecpkured}{cmyk}{0,1,1,0.45}
+\definecolor{mlecbyzantium}{rgb}{0.44, 0.16, 0.39}
+
+\mode<presentation>
+%%% Some useful commands
+% pdf-friendly newline in links
+\newcommand{\pdfnewline}{\texorpdfstring{\newline}{ }}
+% Fill the vertical space in a slide (to put text at the bottom)
+\newcommand{\framefill}{\vskip0pt plus 1filll}
+% insert at the top of the title page
+% renew the command in the main text
+\newcommand{\titleheader}{ }
+
+
+% default
+\colorlet{themefg}{mlecgithubblue}
+\DeclareOption{blue}{\colorlet{themefg}{mlecgithubblue}}
+\DeclareOption{red}{\colorlet{themefg}{mlecpkured}}
+\DeclareOption{purple}{\colorlet{themefg}{mlecbyzantium}}
+\DeclareOption{black}{\colorlet{themefg}{black}}
+% \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
+\setbeamersize{text margin left=1.0em,text margin right=1.0em}
+
+\setbeamercolor{section in toc}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=themefg!80!gray}
+\setbeamercolor*{palette primary}{fg=themefg,bg=white}
+\setbeamercolor*{palette secondary}{fg=themefg,bg=gray!10!white}
+\setbeamercolor*{palette tertiary}{bg=themefg,fg=gray!10!white}
+\setbeamercolor*{palette quaternary}{fg=themefg,bg=gray!5!white}
+
+\setbeamercolor*{sidebar}{fg=themefg,bg=gray!15!white}
+
+\setbeamercolor*{palette sidebar primary}{fg=themefg!10!black}
+\setbeamercolor*{palette sidebar secondary}{fg=white}
+\setbeamercolor*{palette sidebar tertiary}{fg=themefg!50!black}
+\setbeamercolor*{palette sidebar quaternary}{fg=gray!10!white}
+
+%\setbeamercolor*{titlelike}{parent=palette primary}
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{frametitle}{bg=white}
+\setbeamercolor{frametitle right}{bg=white}
+
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}
+
+\setbeamercolor{titlelike}{parent=palette secondary,bg=white}
+
+\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+\setbeamercolor*{link}{parent=palette secondary,bg=white}
+\setbeamercolor*{author}{fg=black}
+\setbeamercolor*{title}{fg=themefg}
+\setbeamercolor*{date}{fg=black}
+
+\setbeamercolor*{caption name}{parent=palette secondary, bg=white}
+
+\setbeamercolor*{section in head/foot}{parent=palette tertiary}
+\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+%Blocks
+\setbeamercolor*{block title}{parent=palette primary}
+\setbeamercolor*{block body}{parent=palette secondary, fg=black}
+%\setbeamercolor{block title alerted}{bg=themefg!20,fg=black}
+%\setbeamercolor{block body alerted}{bg=themefg!5,fg=black}
+%\setbeamercolor{block title example}{bg=themefg!20,fg=black}
+%\setbeamercolor{block body example}{bg=themefg!5,fg=black}
+
+%bibliography
+\setbeamercolor*{bibliography entry author}{fg=black, bg=white}
+\setbeamercolor*{bibliography entry title}{}
+
+\mode<all>
+% set text and maths font independently
+\usefonttheme[stillsansserifmath]{serif} %%\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+
+% general font
+\renewcommand*\rmdefault{ppl}
+
+% monospaced, italics and CJK
+%\renewcommand*\ttdefault{lmvtt} % Latin Modern Mono Proportional Font
+
+\RequirePackage{ifxetex,ifluatex}
+\ifxetex
+  \RequirePackage{fontspec}
+%  \setmainfont[BoldFont=Times Bold,%
+%               ItalicFont=Times Italic,%
+%               BoldItalicFont=Times Bold Italic]{Times}
+  \setmainfont{Palatino} % the font as default in my pdflatex
+  \setmonofont{DejaVu Sans Mono for Powerline}
+  \RequirePackage{xeCJK}
+  \setCJKmainfont[ItalicFont=Kaiti SC Regular,%
+                  BoldItalicFont=Kaiti SC Bold]{Songti SC}
+  \setCJKmonofont{Sarasa Term SC}
+\else
+  \ifluatex
+  \RequirePackage{fontspec}
+  \setmonofont{Sarasa Term SC}
+  \setmainfont[ItalicFont=Kaiti SC Regular,%
+               BoldItalicFont=Kaiti SC Bold]{Songti SC}
+  \else
+  \RequirePackage{DejaVuSansMono} % DejaVu Sans Mono for monospace
+  \RequirePackage[T1]{fontenc}
+  \fi
+\fi
+
+\mode<presentation>
+% Font sizes
+\setbeamerfont{title}{series=\bfseries, size=\LARGE}
+\setbeamerfont{author}{shape=\itshape, size=\large}
+\setbeamerfont{institute}{size=\footnotesize}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{titlelike}{series=\bfseries}
+%\setbeamerfont{framesubtitle}{size=\normalsize}
+%\setbeamerfont{title in head/foot}{size=\footnotesize}
+%\setbeamerfont{page in head/foot}{size=\footnotesize}
+%\setbeamerfont{author in head/foot}{size=\footnotesize}
+
+\setbeamerfont{block title}{size={}}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont*{bibliography item}{size=\scriptsize}
+\setbeamerfont*{bibliography entry author}{series=\bfseries}
+\setbeamerfont*{bibliography entry title}{series=\bfseries}
+\setbeamerfont*{description item}{series=\bfseries}
+\setbeamerfont*{page number in head/foot}{size=\small}
+
+\setbeamerfont*{footnote}{size=\scriptsize}
+
+\setbeamerfont{block title}{size={}}
+% Copyright 2007 by Till Tantau
+% Copyright 2015 by Vedran Mileti\'c, Joseph Wright
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{sections/subsections in toc}[circle]
+
+% background
+%\setbeamertemplate{background}{
+%
+%\ifnum\thepage<2
+%\begin{tikzpicture}
+%  % background for the title page
+%  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+%  % background logo
+%  \node[inner sep=0pt] (logo) at (3.5,3.5){\includegraphics[width=8cm]{graphics/logoGrey5p.pdf}};
+%
+%  % line between institute and author
+%  %\fill[color=themefg] (0,7.1) rectangle(\the\paperwidth,7.15);
+%  % in debug mode, show the grid
+%  \ifdefined\DEBUG
+%    \draw[help lines,xstep=1,ystep=1,gray] (current page.south west) grid (current page.north east);
+%  \fi
+%\end{tikzpicture}
+%\fi
+%}
+%% use default Title page
+%% may use textblock to add additional information
+\setbeamertemplate{title page}[default]{
+\relax
+%\begin{textblock*}{10cm}(2cm,8.1cm)
+%{\usebeamercolor[fg]{author}\usebeamerfont{author}\insertdate}
+%\end{textblock*}
+}
+
+% Lists
+\setbeamercolor*{item}{fg=themefg}
+
+% Quotation and quote
+\setbeamercolor*{quotation}{fg=black,bg=themefg!5}
+
+% Verse
+\setbeamercolor*{verse}{fg=black,bg=themefg!5}
+
+% Abstract
+\setbeamercolor*{abstract}{fg=black,bg=themefg!5}
+
+%%% remove navigation symbols
+%\setbeamertemplate{navigation symbols}{\includegraphics[width=1cm]{graphics/logoRed.pdf}}
+%\setbeamertemplate{navigation symbols}{}
+% a built-in command do the same thing
+\beamertemplatenavigationsymbolsempty
+
+%%% add paragraph spacing
+%\setlength{\parskip}{0.4\baselineskip}
+
+% Table of contents
+%\setbeamercolor*{structure}{fg=black}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]%
+
+\defbeamertemplate*{footline}{infolines theme}
+{%
+  \leavevmode%
+  \ifnum\thepage>1
+  \hbox{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1em,dp=1ex,right]{date in head/foot}%
+  \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex}
+  \end{beamercolorbox}%
+  }
+  \else
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1em,dp=1ex,right]{}%
+  \end{beamercolorbox}%
+  \fi
+  \vskip0pt%
+}
+
+\defbeamertemplate*{headline}{infolines theme}
+{%
+%  \leavevmode%
+%  \ifnum\thepage>1
+%  \hbox{%
+%  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,right]{section in head/foot}%
+%    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,left]{subsection in head/foot}%
+%    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+%  \end{beamercolorbox}}%
+%  \else
+%  \begin{beamercolorbox}[wd=\paperwidth,ht=2.65ex,dp=1.5ex,center]{section in head/foot}%
+%    \usebeamerfont{section in head/foot}\titleheader\hspace*{2ex}
+%  \end{beamercolorbox}%
+%  \fi
+%  \vskip0pt%
+}
+
+\setbeamertemplate{frametitle}{%
+    \nointerlineskip%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.65ex,dp=1.0ex]{frametitle}
+        \hspace*{1ex}\insertframetitle%
+    \end{beamercolorbox}%
+}
+\RequirePackage{xcolor} % colors
+% in debug mode, show the boxes around the text
+\ifdefined\DEBUG
+\RequirePackage[absolute,overlay,showboxes]{textpos}
+\else
+\RequirePackage[absolute,overlay]{textpos}
+\fi
+
+
+\mode<all>
+
+% toc
+\setbeamertemplate{section in toc}[ball numbered]
+\setbeamertemplate{subsection in toc}[square]
+
+\setbeamertemplate{blocks}[rounded]
+
+%%% Bibliography styling
+\setbeamertemplate{bibliography item}[text]
+
+%%% redefine the footnoterule
+\renewcommand{\footnoterule}{%
+  \kern -2pt % all TeX backs up vertically by 2pt
+  {\color{themefg}\hrule width 0.3\textwidth height 1pt}
+  \kern 1pt % all down vertically by 1pt
+  % the skip gives separation between the rule and footnote text
+}
+
+\mode<all>

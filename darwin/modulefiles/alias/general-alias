@@ -77,7 +77,7 @@ set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 set    SD "~/Documents/minyez"
 setenv SD "$SD"
 set-alias cdsd { cd $SD }
-set-alias cdsdrm { cd $SD/org-roam }
+set-alias cdsdrm { cd $SD/../org-roam }
 set-alias cdsdrs { cd $SD/Research }
 
 set http_proxy  http://127.0.0.1:1086

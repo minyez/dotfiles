@@ -44,7 +44,7 @@ end
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
-  if client.server_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
@@ -75,12 +75,16 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dj", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dk", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-  -- vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format()' ]]
+  vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+  -- vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]] -- deprecated
+  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]]
+  -- vim.cmd [[ command! RangeFormat execute 'lua vim.lsp.buf.formatexpr()' ]] -- range format, give E481 error
 end
 
 M.on_attach = function(client, bufnr)
-  client.server_capabilities.document_formatting = true -- disable all server formating capabilities, use null-ls instead
+  -- client.server_capabilities.document_formatting = true -- disable all server formating capabilities, use null-ls instead
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
   -- if client.name == "tsserver" or client.name == "clangd" then
   -- end
   lsp_keymaps(bufnr)

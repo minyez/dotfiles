@@ -14,7 +14,7 @@
 )
 
 (setq mz/org-latex-classes-common-header-passoptions
-      "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}\n\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Rhodamine,pdfborder={0 0 0},breaklinks=true}{hyperref}"
+      "\\PassOptionsToPackage{usenames,dvipsnames}{xcolor}\n\\PassOptionsToPackage{colorlinks=true,linkcolor=,filecolor=Red,citecolor=Green,urlcolor=Rhodamine,pdfborder={0 0 0},breaklinks=true,linktoc=all}{hyperref}"
       mz/org-latex-classes-common-header-after-default-pkgs
       "% blockquote from eisvogel.
 \\definecolor{bg}{rgb}{0.95,0.95,0.95}

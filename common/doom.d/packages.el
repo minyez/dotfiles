@@ -38,6 +38,7 @@
 (package! org-fancy-priorities)
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"))
+(unpin! org)
 (unpin! org-roam)
 (package! websocket)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))

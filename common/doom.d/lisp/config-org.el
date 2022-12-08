@@ -397,8 +397,8 @@ it can be passed in POS."
   (setq org-latex-packages-alist
     '(
       ; hyperref and cleverf should be the last packages to load
-      ("linktoc=all" "hyperref"  nil)
-      (""            "cleveref"  nil)
+      ("" "hyperref"  nil)
+      ("" "cleveref"  nil)
      )
   )
   ; ignore headlines with "ignore" when export

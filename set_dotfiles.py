@@ -15,10 +15,11 @@ The JSON has entries with one of the following structure:
 """
 import os
 import json
-#import subprocess as sp
+# import subprocess as sp
 from pwd import getpwuid
 from socket import gethostname
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
+
 
 def decode_src(src):
     """decode the path of dotfile source"""
@@ -28,6 +29,7 @@ def decode_src(src):
         return os.path.expanduser(src)
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), src)
 
+
 def decode_target(target):
     """decode the path of symlink target"""
     if target.startswith("/"):
@@ -36,24 +38,29 @@ def decode_target(target):
         return os.path.expanduser(target)
     return os.path.join(os.environ["HOME"], target)
 
-def remove_symlink(target, debug=False):
+
+def remove_symlink(target, dry=False):
     """remove symlink dotfile at `target`
     """
     target = decode_target(target)
-    if debug:
+    if dry:
         print(target)
         return
     if os.path.islink(target):
         try:
             os.unlink(target)
-            print("removed {} (symlink to {})".format(target, os.path.realpath(target)))
+            print("removed {} (symlink to {})".format(
+                target, os.path.realpath(target)))
         except PermissionError:
-            print("fail removing {} due to permission (symlink to {})"
-                  .format(target, os.path.realpath(target)))
+            print("fail removing {} due to permission (symlink to {})".format(
+                target, os.path.realpath(target)))
+            print("Please do manually symlink by")
+            print("    sudo rm -f %s" % target)
     else:
         print("%s is not symlink, skip removing for safety" % target)
 
-def symlink_dotfile(src, target, debug=False):
+
+def symlink_dotfile(src, target, dry=False, verbose=False):
     """symlink dotfile at `src` to `target`
 
     TODO:
@@ -61,24 +68,33 @@ def symlink_dotfile(src, target, debug=False):
     """
     src = decode_src(src)
     target = decode_target(target)
-    if debug:
+    if dry:
         print(src, target)
         return
     if os.path.isdir(target):
-        print("found directory at %s (skip)" % target)
+        if verbose:
+            print("found directory at %s (skip)" % target)
     elif os.path.islink(target):
-        print("found link at %s (skip)" % target)
+        if verbose:
+            print("found link at %s (skip)" % target)
     elif os.path.isfile(target):
-        print("found file at %s (skip)" % target)
+        if verbose:
+            print("found file at %s (skip)" % target)
     else:
         print("Symlinking %s to %s" % (src, target))
         try:
             os.symlink(src, target)
-            #sp.check_output(["ln", "-s", src, target])
+            # sp.check_output(["ln", "-s", src, target])
         except PermissionError:
-            print("Permission denied in symlinking %s to %s (skip)" % (src, target))
+            print("Permission denied in symlinking %s to %s (skip)" %
+                  (src, target))
+            print("  Please do manually symlink by")
+            print("    sudo ln -s %s %s" % (src, target))
         except FileNotFoundError:
-            print("Directory of target missing when symlinking %s to %s (skip)" % (src, target))
+            print(
+                "Directory of target missing when symlinking %s to %s (skip)" %
+                (src, target))
+
 
 def load_setup_json(*jsonfns):
     """load the link setup from json files"""
@@ -86,20 +102,26 @@ def load_setup_json(*jsonfns):
     jsonfns = ("public", *jsonfns)
     for jfn in jsonfns:
         try:
-            with open(jfn+".json", 'r') as h:
+            with open(jfn + ".json", 'r') as h:
                 d.update(json.load(h))
                 print("Loaded link setup from {}.json".format(jfn))
         except FileNotFoundError:
             print("link setup {}.json is not found, skip".format(jfn))
     return d
 
+
 def main():
     """main stream"""
-    parser = ArgumentParser(__doc__, formatter_class=RawDescriptionHelpFormatter)
-    parser.add_argument("-D", dest="debug", action="store_true", help="debug mode")
-    parser.add_argument("-r", dest="remove", action="store_true",
+    parser = ArgumentParser(__doc__,
+                            formatter_class=RawDescriptionHelpFormatter)
+    parser.add_argument("--dry", action="store_true", help="dry mode")
+    parser.add_argument("--verbose", action="store_true", help="verbose mode")
+    parser.add_argument("-r",
+                        dest="remove",
+                        action="store_true",
                         help="remove the symlinks")
-    parser.add_argument("--showname", action="store_true",
+    parser.add_argument("--showname",
+                        action="store_true",
                         help="show the OS name and files to link, then exit")
     args = parser.parse_args()
 
@@ -135,11 +157,10 @@ def main():
             print("Warning!! Requested dotfile not found: %s" % k)
             continue
         if args.remove:
-            remove_symlink(v, debug=args.debug)
+            remove_symlink(v, dry=args.dry)
         else:
-            symlink_dotfile(k, v, debug=args.debug)
+            symlink_dotfile(k, v, dry=args.dry, verbose=args.verbose)
 
 
 if __name__ == "__main__":
     main()
-

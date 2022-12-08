@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2086
 
-source common.sh
+source "$(dirname ${BASH_SOURCE[${#BASH_SOURCE[@]} - 1]})/common.sh"
 
 cwd=$(pwd)
-DNF_CMD="dnf --disablerepo=*updates*"
 
 IS_LINUX=0
 [ "$(uname)" == "Linux" ] && IS_LINUX=1
@@ -24,6 +23,12 @@ if (( IS_LINUX )); then
 fi
 YES_NO_P=("No" "Yes")
 _DRY_RUN=${dry:=1}
+update=${update:=0}
+if (( update )); then
+  DNF_CMD="dnf"
+else
+  DNF_CMD="dnf --disablerepo=*updates*"
+fi
 
 help_info() {
   cecho i "============================================="
@@ -129,6 +134,16 @@ _install_net_tools() {
   #   exit 2
   # fi
   echo s "Net tools installed"
+}
+
+# network
+_install_ocr() {
+  cecho i "Installing OCR tools tesseract ..."
+  ((_DRY_RUN)) || sudo $DNF_CMD -y install tesseract tesseract-equ \
+    tesseract-langpack-{deu,chi_sim,chi_tra,jpn}* \
+    tesseract-script-{hans,hant,japanese}* tesseract-tools || exit 2
+  # use the latest clash
+  cecho s "Tesseract and language packages are installed"
 }
 
 # python
@@ -352,6 +367,7 @@ case "$1" in
   -l | l ) i_latex f ;;
   -s | s ) _install_snap ;;
   -f | f ) _install_flatpak ;;
+  -o | o ) _install_ocr ;;
   -m | m ) _install_misc ;;
   -z | z ) _install_zotero ;;
   -v | v ) _install_virtualbox ;;
