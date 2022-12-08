@@ -1,6 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{mlecture}[2019/01/29 Beamer style package]
 
+\RequirePackage{xcolor} % colors
+\RequirePackage{ragged2e} % for justifying
+% in debug mode, show the boxes around the text
+\ifdefined\DEBUG
+\RequirePackage[absolute,overlay,showboxes]{textpos}
+\else
+\RequirePackage[absolute,overlay]{textpos}
+\fi
+
 %%%%% define colors %%%%%
 % default
 \definecolor{mlecgithubblue}{RGB}{0,63,126}
@@ -24,10 +33,16 @@
 \DeclareOption{red}{\colorlet{themefg}{mlecpkured}}
 \DeclareOption{purple}{\colorlet{themefg}{mlecbyzantium}}
 \DeclareOption{black}{\colorlet{themefg}{black}}
-% \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
+% justify the frame texts, see https://tex.stackexchange.com/questions/55589/text-justify-in-beamer
+\DeclareOption{justify}{%
+\apptocmd{\frame}{}{\justifying}{}
+\apptocmd{\itemize}{}{\justifying}{}
+\apptocmd{\enumerate}{}{\justifying}{}
+}
+\DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
-\setbeamersize{text margin left=1.0em,text margin right=1.0em}
+\setbeamersize{text margin left=1.5em,text margin right=1.5em}
 
 \setbeamercolor{section in toc}{fg=black,bg=white}
 \setbeamercolor{alerted text}{fg=themefg!80!gray}
@@ -115,11 +130,11 @@
 
 \mode<presentation>
 % Font sizes
-\setbeamerfont{title}{series=\bfseries, size=\LARGE}
-\setbeamerfont{author}{shape=\itshape, size=\large}
+\setbeamerfont{title}{series=\bfseries, size=\Large}
+\setbeamerfont{author}{shape=\itshape, size=\normalsize}
 \setbeamerfont{institute}{size=\footnotesize}
 \setbeamerfont{date}{size=\footnotesize}
-\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{frametitle}{size=\large}
 \setbeamerfont{titlelike}{series=\bfseries}
 %\setbeamerfont{framesubtitle}{size=\normalsize}
 %\setbeamerfont{title in head/foot}{size=\footnotesize}
@@ -245,14 +260,6 @@
         \hspace*{1ex}\insertframetitle%
     \end{beamercolorbox}%
 }
-\RequirePackage{xcolor} % colors
-% in debug mode, show the boxes around the text
-\ifdefined\DEBUG
-\RequirePackage[absolute,overlay,showboxes]{textpos}
-\else
-\RequirePackage[absolute,overlay]{textpos}
-\fi
-
 
 \mode<all>
 
@@ -261,6 +268,9 @@
 \setbeamertemplate{subsection in toc}[square]
 
 \setbeamertemplate{blocks}[rounded]
+
+% supress Roman numbering in frame breaks
+\setbeamertemplate{frametitle continuation}{}
 
 %%% Bibliography styling
 \setbeamertemplate{bibliography item}[text]
@@ -272,5 +282,52 @@
   \kern 1pt % all down vertically by 1pt
   % the skip gives separation between the rule and footnote text
 }
+
+% redefine framebreak footnote behavior
+% see https://tex.stackexchange.com/questions/267793/latex-beamer-allowframebreaks-with-footnotes
+\def\beamer@autobreakframebox{%
+  \global\setbox\beamer@splitbox=\box\voidb@x%
+  \ifbeamer@autobreak%
+    % Ok, frame was overful -> split it!
+    \setbox\@tempboxa=\vsplit\beamer@framebox to\beamer@autobreakfactor\textheight%
+    \global\setbox\beamer@splitbox=\box\beamer@framebox%
+    \@tempdima=\ht\beamer@splitbox%
+    \ifdim\@tempdima<\beamer@autobreaklastheight%
+      \global\beamer@autobreaklastheight=\@tempdima\relax%
+    \else%
+      \setbox\@tempboxa=\vbox{\unvbox\@tempboxa\unvbox\beamer@splitbox}%
+      \global\setbox\beamer@splitbox=\box\voidb@x%
+    \fi%
+    \setbox\beamer@framebox=\vbox to\textheight{\unvbox\@tempboxa%
+      \vskip\beamer@framebottomskipautobreak%
+      \ifvoid\beamer@footins%                          MODIFIED
+      \else%                                           MODIFIED
+        \begingroup%                                   MODIFIED
+          \usebeamercolor*[fg]{footnote}%              MODIFIED
+          \footnoterule%                               MODIFIED
+          \unvcopy \beamer@footins%                    MODIFIED
+        \endgroup%                                     MODIFIED
+      \fi%                                             MODIFIED
+      \ifvoid\beamer@splitbox%                         MODIFIED
+          \global\setbox\beamer@footins=\box\voidb@x%  MODIFIED
+      \fi%                                             MODIFIED
+      \beamer@exitcode%
+    }%
+  \else%
+    \setbox\beamer@framebox=\vbox to\textheight{\unvbox\beamer@framebox%
+      \vskip\beamer@framebottomskip%
+      \ifvoid\beamer@footins%
+      \else%
+        \begingroup
+          \usebeamercolor*[fg]{footnote}%
+          \footnoterule%
+          \unvbox \beamer@footins%
+          \global\setbox\beamer@footins=\box\voidb@x%
+        \endgroup 
+      \fi%
+      \beamer@exitcode}%
+    \global\setbox\beamer@footins=\box\voidb@x%
+  \fi%
+  }
 
 \mode<all>

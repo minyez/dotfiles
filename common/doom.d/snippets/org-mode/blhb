@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+# key: blhb
+# name: basic latex header for Beamer
+# uuid: blhb
+# group: latex             
+# 
+# --
+#+latex_compiler: ${1:pdflatex}
+#+latex_class: ${2:beamer}
+#+latex_header: \usepackage[maxnames=3,style=nature,date=year,url=false,isbn=false,doi=false,articletitle=false]{biblatex}
+#+latex_header: \addbibresource{../bibliography.bib}
+#+beamer_theme: mlecture [red,justify]
+#+beamer_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Outline}\tableofcontents[currentsection]\end{frame}}
+#+setupfile: lh_symbols.org
+#+setupfile: lh_biblatex.org
+#+exclude_tags: noexport_beamer noexport
+#+options: H:2 toc:t tags:t title:t email:t author:t date:t
+#+columns: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+# Useful properties
+# :BEAMER_OPT: allowframebreaks
+# :BEAMER_ENV: appendix
+# :BEAMER_ENV: ignoreheading
+# :UNNUMBERED: t
+
+$0
