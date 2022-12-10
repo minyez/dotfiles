@@ -11,21 +11,33 @@ if not status_ok then
 end
 
 mason.setup({})
--- mason_lsp_config.setup({})
+mason_lsp_config.setup({})
 
--- mason_lsp_config.setup_handlers {
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
-  -- a dedicated handler.
-  -- function (server_name) -- default handler (optional)
-  --   lspconfig[server_name].setup {}
-  -- end,
-  -- Next, you can provide a dedicated handler for specific servers.
-  -- For example, a handler override for the `rust_analyzer`:
-  -- ["sumneko_lua"] = function ()
-  --   lspconfig.sumneko_lua.setup(servers["sumneko_lua"])
-  -- end,
-  -- ["pylsp"] = function ()
-  --   lspconfig.pylsp.setup(servers["pylsp"])
-  -- end
--- }
+local lspconfig = require("lspconfig")
+local handler = require(USER_DIR .. ".lsp.handlers")
+
+-- global setup
+mason_lsp_config.setup_handlers {
+  function (server_name) -- default handler (optional)
+    lspconfig[server_name].setup {
+      on_attach = handler.on_attach,
+      capabilities = handler.capabilities,
+    }
+  end,
+}
+
+local server_settings = require(USER_DIR .. ".lsp._settings")
+
+-- renew for local
+for name, settings in pairs(server_settings) do
+  mason_lsp_config.setup_handlers {
+    [name] = function()
+      lspconfig[name].setup(
+      {
+        on_attach = handler.on_attach,
+        capabilities = handler.capabilities,
+        settings = settings,
+      })
+    end
+  }
+end

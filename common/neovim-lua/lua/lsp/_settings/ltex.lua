@@ -2,7 +2,7 @@
 local M = {
   settings = {
     ltex = {
-      enabled= {"latex", "tex", "bib", "md"},
+      enabled= { "org", },
       -- enabled= {"latex", "bib", "org", "tex"},
       checkFrequency="save",
       language="en-US",
