@@ -60,6 +60,7 @@ end
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
+  -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
   -- use telescope for gd
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -97,12 +98,11 @@ M.on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = { "utf-16" }
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_ok then
-  return
+if status_ok then
+  M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
-M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-capabilities.offsetEncoding = { "utf-16" }
 return M

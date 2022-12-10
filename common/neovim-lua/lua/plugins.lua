@@ -104,7 +104,9 @@ return require("packer").startup(function()
   -- ===
   -- LSP
   use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
   -- use "kosayoda/nvim-lightbulb" -- code action
   use "ray-x/lsp_signature.nvim" -- show function signature when typing
   -- =====
@@ -124,6 +126,7 @@ return require("packer").startup(function()
       { "hrsh7th/cmp-cmdline" }, -- cmdline completions
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp"}, -- lsp completions
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
       { "bydlw98/cmp-env" }, -- environment variables
       { "paopaol/cmp-doxygen" }, -- doxygen. require treesitter
