@@ -13,7 +13,7 @@ done
 export PATH
 
 pps=(
-  "/usr/lib64/python3.10/site-packages"
+  "/usr/lib64/python3.11/site-packages"
   "$HOME/scripts"
 )
 for pp in "${pps[@]}"; do
