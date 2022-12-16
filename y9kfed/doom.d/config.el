@@ -67,7 +67,8 @@
 (global-set-key (kbd "M-[") #'insert-brakets)
 
 ; (mz/set-choice-to-current-hour 'doom-theme 'doom-nord-light 'doom-badger)
-(mz/set-choice-to-current-hour 'doom-theme 'doom-tomorrow-day 'doom-badger)
+;; (mz/set-choice-to-current-hour 'doom-theme 'doom-tomorrow-day 'doom-badger)
+(mz/set-choice-to-current-hour 'doom-theme 'modus-operandi 'modus-vivendi)
 
 ; Global variables
 ;   mz/org-notes : all my org(-roam) notes
@@ -195,6 +196,7 @@
 (require 'config-cjk)
 (require 'config-lsp)
 (require 'config-misc)
+(require 'config-theme)
 
 ; (require 'config-external)
 

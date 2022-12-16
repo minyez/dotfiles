@@ -250,7 +250,7 @@
           ("bgcolor" "bg")
           ("breaklines" "true")
           ("autogobble" "true")
-          ("fontsize" "\\small")
+          ;; ("fontsize" "\\small") ;; adjust by header \setminted{fontsize=\small}
           )
   )
 )

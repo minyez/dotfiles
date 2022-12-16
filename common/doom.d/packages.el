@@ -15,6 +15,9 @@
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
 
+(package! straight :pin "3eca39d")
+(unpin! straight)
+
 (package! rg)
 (package! yasnippet-snippets)
 (package! jsonrpc) ; to use jieba
@@ -32,6 +35,7 @@
   :recipe (:host github :repo "jkitchin/org-ref" :branch "org-ref-2")
   :pin "37b64e6cc1")
 (package! org-super-agenda)
+(package! org-modern)
 (package! dwim-shell-command
   :recipe (:host github :repo "xenodium/dwim-shell-command"))
 (package! org-superstar)

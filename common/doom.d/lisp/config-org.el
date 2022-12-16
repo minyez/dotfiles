@@ -2,6 +2,7 @@
 ;;;   - org-superstar
 ;;;   - org-journal
 ;;;   - org-download
+;;;   - org-modern
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -93,7 +94,10 @@
   (add-to-list 'org-capture-templates
    '("j" "Journal Log" plain
      (file+function "journal/log.org" mz/org-goto-today-node)
-     "%<%H:%M> %?"))
+     "%<%H:%M> %?" :prepend nil))
+  ;;; babel configuration
+  (setq org-babel-results-keyword "results")
+
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists
   (setq org-footnote-auto-adjust t)
@@ -126,11 +130,12 @@
   ;;; https://stackoverflow.com/questions/21998047/how-to-change-one-component-only-of-org-calc-default-modes
   (plist-put org-calc-default-modes 'calc-internal-prec 20)
   (plist-put org-calc-default-modes 'calc-float-format '(float 12))
-  ; active and inactive timestamp
-  (fset 'now-act
-   (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
-  (fset 'now-inact
-   (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?\C-i] 0 "%d"))
+  ;; ; active and inactive timestamp
+  ;; (fset 'now-act
+  ;;  (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
+  ;; (fset 'now-inact
+  ;;  (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?\C-i] 0 "%d"))
+  (setq org-pretty-entities t)
   ;; set clock to idle state after 10 minutes
   (setq org-clock-persist 'history
   ;      org-clock-idle-time 10
@@ -440,13 +445,14 @@ parent."
 
 (use-package! org-habit)
 
-(use-package! org-superstar
-  :after org
-  :hook
-  (org-mode . org-superstar-mode)
-  :config
-  (setq org-superstar-headline-bullets-list '("⋆" "◉" "○" "†" "‡" "∵")) ;✸ ✿ ✭ ❡
-)
+;;;; deprecated for use of org-modern
+;; (use-package! org-superstar
+;;   :after org
+;;   :hook
+;;   (org-mode . org-superstar-mode)
+;;   :config
+;;   (setq org-superstar-headline-bullets-list '("⋆" "◉" "○" "†" "‡" "∵")) ;✸ ✿ ✭ ❡
+;; )
 
 (use-package! org-journal
   :after org
@@ -560,6 +566,24 @@ parent."
   (org-tree-slide-narrowing-control-profile)
   (setq org-tree-slide-skip-done nil)
 )
+
+(use-package! org-modern
+  :hook
+  ((org-mode . org-modern-mode)
+   (org-agenda-finalize . org-mode-agenda))
+  ;;;; Add frame borders and window dividers, to show src block sideline
+  ;; (modify-all-frames-parameters
+  ;;  '((right-divider-width . 10)
+  ;;    (internal-border-width . 10)))
+  ;; (dolist (face '(window-divider
+  ;;                 window-divider-first-pixel
+  ;;                 window-divider-last-pixel))
+  ;;   (face-spec-reset-face face)
+  ;;   (set-face-foreground face (face-attribute 'default :background)))
+  ;; (set-face-background 'fringe (face-attribute 'default :background))
+)
+
+
 
 (provide 'config-org)
 ;;; config-org.el ends here
