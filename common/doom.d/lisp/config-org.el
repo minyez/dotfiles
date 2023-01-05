@@ -20,13 +20,16 @@
    ;(before-save . zp/org-set-last-modified)
    (before-save . org-update-all-dblocks)        ; update all dynamic table before saving
   )
-  ;:config
-  ;(fset 'make-bold
-  ; (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
+;  ;:config
+;  ;(fset 'make-bold
+;  ; (kmacro-lambda-form [?\C-c ?\C-x ?\C-f ?*] 0 "%d"))
   :bind
   (:map org-mode-map
         ("C-c l" . org-insert-link)
         ("C-c m l l" . org-insert-link) ; similar to org-clip
+        ("C-c m i" . org-toggle-item)
+        ("C-c m h" . org-toggle-heading)
+        ("C-c m o" . org-set-property)
         ("C-c i" . org-insert-image)
         ("C-c C-i" . org-time-stamp-inactive)
         ("C-c e v" . (lambda () "make verbatim"
@@ -135,7 +138,8 @@
   ;;  (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?.] 0 "%d"))
   ;; (fset 'now-inact
   ;;  (kmacro-lambda-form [escape ?  ?u ?  ?u ?\C-c ?\C-i] 0 "%d"))
-  (setq org-pretty-entities t)
+  (setq org-pretty-entities t
+        org-pretty-entities-include-sub-superscripts nil)
   ;; set clock to idle state after 10 minutes
   (setq org-clock-persist 'history
   ;      org-clock-idle-time 10
@@ -502,29 +506,29 @@ parent."
 )
 
 ;;; live preview of latex snippet 
-(use-package! org-latex-impatient
-  :defer t
-  ; :hook (org-mode . org-latex-impatient-mode)
-  :init
-  (setq org-latex-impatient-tex2svg-bin
-        ; "/usr/local/lib/node_modules/mathjax-node-cli/bin/tex2svg")
-        "tex2svg")
-  :config
-  ; (setq org-latex-impatient-user-latex-definitions
-  ;       '("\\usepackage{physics}"
-  ;         "\\newcommand{\\ensuremath}[1]{#1}"
-  ;         "\\renewcommand{\\usepackage}[2][]{}"
-  ;         "\\renewcommand{\\providecommand}[2][]{}"
-  ;         "\\renewcommand{\\input}[1]{}"
-  ;        )
-  ; )
-  ;;; emulating some of physics pacakge
-  (setq 'org-latex-impatient-user-latex-definitions
-        `(,@org-latex-impatient-user-latex-definitions
-           "\\newcommand{\\abs}[1]{\\left|#1\\right|}"
-           "\\newcommand{\\dd}[1]{\mathrm{d}#1\,}"
-           ))
-)
+;(use-package! org-latex-impatient
+;  :defer t
+;  ; :hook (org-mode . org-latex-impatient-mode)
+;  :init
+;  (setq org-latex-impatient-tex2svg-bin
+;        ; "/usr/local/lib/node_modules/mathjax-node-cli/bin/tex2svg")
+;        "tex2svg")
+;  :config
+;  ; (setq org-latex-impatient-user-latex-definitions
+;  ;       '("\\usepackage{physics}"
+;  ;         "\\newcommand{\\ensuremath}[1]{#1}"
+;  ;         "\\renewcommand{\\usepackage}[2][]{}"
+;  ;         "\\renewcommand{\\providecommand}[2][]{}"
+;  ;         "\\renewcommand{\\input}[1]{}"
+;  ;        )
+;  ; )
+;  ;;; emulating some of physics pacakge
+;  (setq 'org-latex-impatient-user-latex-definitions
+;        `(,@org-latex-impatient-user-latex-definitions
+;           "\\newcommand{\\abs}[1]{\\left|#1\\right|}"
+;           "\\newcommand{\\dd}[1]{\mathrm{d}#1\,}"
+;           ))
+;)
 
 ; spaced repitition for memorizing things
 (use-package! org-drill

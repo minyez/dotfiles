@@ -68,7 +68,7 @@ _install_config() {
 
 _install_nvidia() {
   cecho i "Installing NVIDIA drivers and CUDA"
-  ((DRY_RUN)) && return
+  ((_DRY_RUN)) && return
   sudo $DNF_CMD -y config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
   sudo $DNF_CMD -y install cuda nvidia-driver nvidia-settings nvidia-driver-libs.i686
   cecho i "Installing CUDA samples from NVIDIA official repo"
@@ -88,8 +88,8 @@ _install_flatpak() {
 
 _install_rpmfree() {
   cecho i "Installing RPMfree, codecs and OBS"
-  ((DRY_RUN)) && return
-  sudo $DNF_CMD -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  ((_DRY_RUN)) && return
+  sudo $DNF_CMD -y install "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
   sudo $DNF_CMD -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
   sudo $DNF_CMD -y groupupdate sound-and-video
   sudo $DNF_CMD -y obs-studio
@@ -109,7 +109,7 @@ _install_helix() {
   return
   sudo $DNF_CMD group install "C Development Tools and Libraries"
   git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
-  cd helix
+  cd helix || return 0
   cargo install --path helix-term
   cecho i "If you meet error, try git submodule update --init --recursive --recommend-shallow"
 }
@@ -197,7 +197,7 @@ _install_xxenv() {
 _install_misc() {
   cecho i "Installing misc tools, e.g. PDF reading, plotting, audio, CLOC (count lines of code) ..."
   ((_DRY_RUN)) && return
-  sudo $DNF_CMD -y install units cloc okular \
+  sudo $DNF_CMD -y install units cloc okular pdfmod \
     grace gnuplot ImageMagick ghostscript povray \
       gzip p7zip zstd \
       environment-modules direnv \
