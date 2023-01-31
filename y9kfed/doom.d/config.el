@@ -141,7 +141,7 @@
      (org-default-notes-file . "task.org::* Tasks")))
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
- '(menu-bar-mode nil)
+ '(menu-bar-mode t)
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages '(org-roam-server org-journal org-fancy-priorities))

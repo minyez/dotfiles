@@ -5,7 +5,7 @@ local M = {
     pylsp = {
       plugins = {
         pycodestyle = {
-          maxLineLength = 100,
+          maxLineLength = 120,
           ignore = { "E741", "W292", "W391" },
         },
         pyflakes = {

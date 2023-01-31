@@ -75,15 +75,15 @@ end
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
-  open_on_setup = false,
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-    "startup",
-  },
+  -- open_on_setup = false, -- deprecated
+  -- ignore_ft_on_setup = {
+  --   "startify",
+  --   "dashboard",
+  --   "alpha",
+  --   "startup",
+  -- }, -- deprecated
   -- auto_close = true,
-  open_on_tab = false,
+  -- open_on_tab = false, -- deprecated
   hijack_cursor = false,
   update_cwd = true,
   diagnostics = {

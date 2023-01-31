@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: stime
+# name: short current time
+# uuid: stime
+# group: datetime     
+# 
+# --
+`(format-time-string "%H:%M")`$0

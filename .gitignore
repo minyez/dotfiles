@@ -34,3 +34,5 @@ utils/wine/*.msi
 # helix git clone
 public/helix/helix
 public/helix/runtime
+
+lazy-lock.json
