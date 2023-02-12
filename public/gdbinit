@@ -1,0 +1,7 @@
+set history save on
+set breakpoint pending on
+set logging enabled on
+set debuginfod enabled off
+set print pretty on
+set pagination off
+set confirm off

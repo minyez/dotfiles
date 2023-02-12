@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# key: odwh1c
+# name: org-drill word hide1 cloze template
+# uuid: odwh1c
+# group: drill       
+# 
+# --
+* ${1:word}
+:PROPERTIES:
+:DRILL_CARD_TYPE: hide1_firstmore
+:END:
+[$1||GE]: [${2:meaning}||EN]$0

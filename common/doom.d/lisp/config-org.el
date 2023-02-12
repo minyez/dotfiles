@@ -501,8 +501,8 @@ parent."
     ;(kill-buffer-and-window)
     (kill-current-buffer)
     )
-  (define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
-  (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
+  ;; (define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
+  ;; (define-key org-journal-mode-map (kbd "s-s") 'org-journal-save-entry-and-exit)
 )
 
 ;;; live preview of latex snippet 
@@ -537,7 +537,7 @@ parent."
   ;    '("index-english_slang_phrases.org"
   ;      "index-english_vocabulary.org"))
   (setq org-drill-scope 'directory)
-  (setq org-drill-spaced-repetition-algorithm 'simple8)
+  (setq org-drill-spaced-repetition-algorithm 'sm2)
   (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
   (setq org-drill-add-random-noise-to-intervals-p t)
 )
@@ -573,7 +573,7 @@ parent."
 
 (use-package! org-modern
   :hook
-  ((org-mode . org-modern-mode)
+  (;(org-mode . org-modern-mode)
    (org-agenda-finalize . org-mode-agenda))
   ;;;; Add frame borders and window dividers, to show src block sideline
   ;; (modify-all-frames-parameters

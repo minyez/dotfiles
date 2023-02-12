@@ -9,11 +9,12 @@
 ;; pyim with librime
 ;; https://gist.github.com/merrickluo/553f39c131d0eb717cd59f72c9d4b60d
 (use-package! liberime
-  :config
+  :init
   ; use rime user data of ibus-rime on my Linux
   (with-system 'gnu/linux
     (setq liberime-user-data-dir "~/.config/ibus/rime")
   )
+  :config
   (liberime-select-schema "luna_pinyin_simp")
 )
 

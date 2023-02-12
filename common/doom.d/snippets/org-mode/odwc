@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# key: odt
-# name: org-drill template
-# uuid: odt
-# group: drill
+# key: odwc
+# name: org-drill word cloze
+# uuid: odwc
+# group: drill   
 # 
 # --
 * ${1:word}

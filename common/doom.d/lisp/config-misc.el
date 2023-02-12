@@ -8,6 +8,9 @@
 ;;(setq-default global-visual-line-mode t)
 ;(setq-default truncate-lines t)
 
+(global-set-key (kbd "C-c f") 'fill-region)
+(global-set-key (kbd "C-c s") 'save-buffer)
+
 ; company-jedi
 ;     https://github.com/emacsorphanage/company-jedi
 (defun my/python-mode-hook ()

@@ -73,7 +73,8 @@
 ;  :recipe (:host github :repo "rudolfochrist/interleave"))
 ;(package! golden-ratio
 ;  :recipe (:host github :repo "roman/golden-ratio.el"))
-(package! org-noter)
+(package! org-noter
+  :recipe (:host github :repo "dmitrym0/org-noter-plus-djvu" :branch "master"))
 ;(package! org-noter-pdftools)
 ;; When using org-roam via the `+roam` flag
 ;(unpin! org-roam company-org-roam)
