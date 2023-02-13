@@ -12,3 +12,11 @@ set-alias gd "git diff "
 set-alias gdc "git diff --cached "
 set-alias grs  "git restore "
 set-alias grss "git restore --staged "
+
+# infomation command
+# current commit
+set-alias gih "git rev-parse --short HEAD"
+# set-alias gih "git log -1 --pretty=format:'%h'"
+
+# current branch
+set-alias gib "git branch --show-current"

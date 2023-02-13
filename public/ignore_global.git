@@ -13,3 +13,7 @@ flycheck_*
 .auctex-auto
 
 */neovim/plugin
+
+# gdb stuff
+.gdb_history
+gdbinfo.txt
