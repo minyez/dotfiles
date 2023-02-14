@@ -27,6 +27,12 @@
   :config
 )
 
+(use-package! smartparens
+  :config
+  ;; (setq show-smartparens-global-mode-buffers t)
+  (show-smartparens-global-mode t)
+)
+
 (use-package! ws-butler
   :config
   (setq ws-butler-keep-whitespace-before-point t)
