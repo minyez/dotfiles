@@ -245,6 +245,7 @@ Source:")
     ))
   (setq org-roam-graph-exclude-matcher '("journal"
                                          "daily"
+                                         "drills"
                                          "slides"
                                          "org-agenda.org"
                                          "archive.org"

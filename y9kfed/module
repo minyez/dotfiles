@@ -25,6 +25,7 @@ export PYTHONPATH
 
 #module setup common to different shells
 module unuse /usr/share/Modules/modulefiles
+module unuse /usr/share/modulefiles
 #enable color
 export MODULES_COLOR=auto
 module use ~/.modulefiles/alias

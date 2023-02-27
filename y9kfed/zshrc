@@ -157,7 +157,7 @@ zstyle :compinstall filename "$HOME/.zshrc"
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=10000
+HISTSIZE=1000
 SAVEHIST=100000
 bindkey -v
 # End of lines configured by zsh-newuser-install
