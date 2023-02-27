@@ -8,6 +8,5 @@
   "y9kfed/module" : "~/.module",
   "y9kfed/tmux.conf" : "~/.tmux.conf",
   "y9kfed/modulefiles" : "~/.modulefiles",
-  "public/rime" : "~/.config/ibus/rime",
   "public/latex-cls" : "/usr/share/texlive/texmf-local/tex/latex/local"
 }
