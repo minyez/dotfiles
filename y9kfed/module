@@ -23,10 +23,10 @@ for pp in "${pps[@]}"; do
 done
 export PYTHONPATH
 
-#module setup common to different shells
+# module setup common to different shells
 module unuse /usr/share/Modules/modulefiles
 module unuse /usr/share/modulefiles
-#enable color
+# enable color
 export MODULES_COLOR=auto
 module use ~/.modulefiles/alias
 module use ~/.modulefiles/tool

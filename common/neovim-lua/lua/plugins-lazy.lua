@@ -17,6 +17,8 @@ if not status_ok then
   return
 end
 
+local gitsigns_ghurl = "lewis6992/gitsigns.nvim"
+
 local plugins = {
   "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
   "nvim-lua/plenary.nvim", -- Useful lua functions used in lots of plugins
@@ -27,7 +29,7 @@ local plugins = {
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
-  "lewis6992/gitsigns.nvim",
+  gitsigns_ghurl,
   -- nvim-tree: directory browser
   {
     "kyazdani42/nvim-tree.lua",
@@ -72,6 +74,7 @@ local plugins = {
     'stevearc/aerial.nvim', -- outline view
     dependencies = "nvim-treesitter/nvim-treesitter"
   },
+  "windwp/nvim-autopairs",
 
   -- ====== start LSP
   "neovim/nvim-lspconfig", -- enable LSP
@@ -109,9 +112,24 @@ local plugins = {
   'karb94/neoscroll.nvim', -- smooth scroll
 
   { 'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu', }
+    cmd = 'CodeActionMenu', },
+
+  "fladson/vim-kitty",
 }
 
 local opts = {}
 
 lazy.setup(plugins, opts)
+
+-- workaround for gitsigns, not work ...
+-- local gitsigns_path = vim.fn.stdpath("data") .. "/lazy/gitsigns.nvim"
+-- if not vim.loop.fs_stat(gitsigns_path) then
+-- 	if plugins[gitsigns_ghurl] ~= nil then
+-- 		vim.fn.system({
+-- 			"git",
+-- 			"clone",
+-- 			"https://github.com/" .. gitsigns_ghurl .. ".git",
+-- 		 gitsigns_path,
+-- 		})
+-- 	end
+-- end

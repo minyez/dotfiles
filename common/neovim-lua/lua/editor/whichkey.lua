@@ -15,6 +15,7 @@ configs.register({
   ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
+  l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
   p = { "a<c-r>+<esc> ", "Paste from system clipboard"},
   P = { "a<c-r>*<esc> ", "Paste from mouse clip"},
   f = {
