@@ -177,6 +177,7 @@
           "~/Documents/minyez/Academia"
           "~/Documents/minyez/Projects"
           "~/projects"
+          "~/blogs"
           )
         )
   ; for org export

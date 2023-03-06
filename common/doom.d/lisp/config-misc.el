@@ -252,5 +252,18 @@
   (global-set-key [prior] #'good-scroll-down-full-screen)
 )
 
+;;; easy-hugo
+(use-package easy-hugo
+ :init
+ (setq easy-hugo-basedir "~/blogs/minyez.gitlab.io/")
+ (setq easy-hugo-postdir "content/posts")
+ (setq easy-hugo-url "https://minyez.gitlab.io")
+ ;; (setq easy-hugo-sshdomain "blogdomain")
+ (setq easy-hugo-root "~/blogs/minyez.gitlab.io")
+ (setq easy-hugo-previewtime "300")
+ :bind
+ ("C-c C-e" . easy-hugo)
+)
+
 (provide 'config-misc)
 ;;; config-misc.el ends here

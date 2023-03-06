@@ -24,6 +24,7 @@
   (evil-set-initial-state 'dired-mode 'normal)
   (evil-set-initial-state 'elfeed-search-mode 'emacs)
   (evil-set-initial-state 'pyim-dict-manager-mode 'emacs)
+  (evil-set-initial-state 'easy-hugo-mode 'emacs)
   )
 )
 
