@@ -115,6 +115,8 @@ local plugins = {
     cmd = 'CodeActionMenu', },
 
   "fladson/vim-kitty",
+  "junegunn/vim-easy-align",
+  "echasnovski/mini.align",
 }
 
 local opts = {}

@@ -69,6 +69,12 @@ keymap("v", "p", '"_dP', opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+vim.cmd[[
+  xmap ga <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+]]
+
+
 -- Remap direction keys to window manipulation
 -- keymap("n", "<UP>", "<C-w>R", opts) -- rotate upwards/leftwards
 -- keymap("n", "<DOWN>", "<C-w>r", opts) -- rotate downwards/rightwards
