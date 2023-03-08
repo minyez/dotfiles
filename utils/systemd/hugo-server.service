@@ -1,0 +1,12 @@
+[Unit]
+Description=Hugo server
+After=network.target
+
+[Service]
+Type=exec
+Restart=on-abort
+ExecStart=/home/minyez/blogs/minyez.gitlab.io/preview.sh
+
+[Install]
+WantedBy=default.target
+

@@ -1,0 +1,11 @@
+[Unit]
+Description=org-roam WebDAV using rclone
+After=network.target
+
+[Service]
+Type=exec
+Restart=on-abort
+ExecStart=/home/minyez/scripts/rclone_webdav_roam.sh
+
+[Install]
+WantedBy=default.target
