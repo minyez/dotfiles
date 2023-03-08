@@ -16,4 +16,6 @@ flycheck_*
 
 # gdb stuff
 .gdb_history
+# gdb log
+gdb.txt
 gdbinfo.txt

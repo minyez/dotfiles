@@ -28,6 +28,8 @@ set-alias v "$_nvim "
 set-alias vim "$_nvim "
 set-alias nvim "$_nvim "
 
+# set-function vf { fn="$(fzf -m)" && /usr/bin/nvim -O $fn }
+set-function vf { /usr/bin/nvim -O $(fzf -m)}
 set-function _vi4 { $1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3" }
 set-function vi4 { _vi4 /usr/bin/vim $1 $2 $3 $4 }
 set-function vim4 { _vi4 /usr/bin/nvim $1 $2 $3 $4 }
