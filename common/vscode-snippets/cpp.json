@@ -1,0 +1,36 @@
+{
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for (${1:size_t} ${2:i} = ${3:0}; $2 < ${4:length}; $2++)",
+      "{",
+      "\t$0",
+      "}"
+    ],
+    "description": "Code snippet for 'for' loop"
+  },
+  "ifdefcpp": {
+    "prefix": "#cpp",
+    "body": [
+      "#ifdef __cplusplus",
+      "$0",
+      "#endif"
+    ],
+    "description": "cplusplus preprocessor directive"
+  },
+  "externc": {
+    "prefix": "extc",
+    "body": [
+      "#ifdef __cplusplus",
+      "extern \"C\" {",
+      "#endif",
+      "",
+      "$0",
+      "",
+      "#ifdef __cplusplus",
+      "}",
+      "#endif"
+    ],
+    "description": "extern C quick insertion"
+  }
+}

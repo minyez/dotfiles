@@ -20,14 +20,15 @@ end
 --   end
 -- }
 
--- if use luasnip as engine
+-- use luasnip as engine
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
   vim.notify("luasnip not found!")
   return
 end
 
-require("luasnip.loaders.from_vscode").lazy_load()    -- load freindly-snippets
+-- move loading to luasnip.lua
+-- require("luasnip.loaders.from_vscode").lazy_load()    -- load friendly-snippets
 -- require("luasnip.loaders.from_vscode").load({ paths = { -- load custom snippets
 --   vim.fn.stdpath("config") .. "/my-snippets"
 -- } }) -- Load snippets from my-snippets folder

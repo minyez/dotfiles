@@ -91,6 +91,7 @@ configs.register({
     a = { "<cmd>CodeActionMenu<cr>", "Code Actions" },
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     S = { "<cmd>Telescope grep_string<cr>", "Search Cursor String" },
+    b = { "<cmd>Telescope vim_bookmarks<cr>", "Search Bookmarks" },
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },

@@ -103,7 +103,7 @@ local plugins = {
   },
   -- ====== end cmp
   -- ====== start snippets
-  "L3MON4D3/LuaSnip", -- new snippets engine
+  {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",
   -- ====== end snippets
 
