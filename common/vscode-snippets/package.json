@@ -13,6 +13,12 @@
           "cpp"
         ],
         "path": "./cpp.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "./markdown.json"
       }
     ]
   }

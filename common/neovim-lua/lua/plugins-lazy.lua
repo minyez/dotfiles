@@ -81,6 +81,7 @@ local plugins = {
   -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
+  "WhoIsSethDaniel/mason-tool-installer.nvim",
   "ray-x/lsp_signature.nvim", -- show function signature when typing
   -- ====== end LSP
   -- ====== start cmp

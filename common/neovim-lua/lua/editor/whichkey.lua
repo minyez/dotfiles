@@ -54,9 +54,14 @@ configs.register({
   -- },
   g = {
     name = "+git",
-    b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
-    d = { "<cmd>Gitsigns diffthis<cr>", "Diff This" },
+    d = {
+      name = "+diff",
+      d = { "<cmd>Gitsigns diffthis<cr>", "Diff This" },
+      w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
+    },
     u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk" },
+    R = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer" },
+    r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
     a = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
     S = { "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer" },
     ["["] = { "<cmd>Gitsigns prev_hunk<cr>", "Previous Hunk" },
@@ -83,6 +88,7 @@ configs.register({
     d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
     r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
     s = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
+    g = { "<cmd>Gitsigns toggle_linehl<cr><cmd>Gitsigns toggle_deleted<cr>", "Toggle git diff inline" },
   },
   -- search
   s = {

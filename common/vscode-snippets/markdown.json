@@ -1,0 +1,11 @@
+{
+  "srcblk": {
+    "prefix": "src",
+    "body": [
+      "```$1",
+      "$0",
+      "```"
+    ],
+    "description": "Source code block"
+  }
+}
