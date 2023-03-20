@@ -3,6 +3,7 @@ local servers = {
   "lua_ls",
   "pylsp",
   "ltex",
+  "fortls",
 }
 
 local function get_server_settings(name)

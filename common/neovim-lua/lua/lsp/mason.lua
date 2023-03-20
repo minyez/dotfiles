@@ -16,32 +16,32 @@ mason_lsp_config.setup({})
 local lspconfig = require("lspconfig")
 local handler = require(USER_DIR .. ".lsp.handlers")
 
-local status_ok, mason_tool_installer = pcall(require, "mason-tool-installer")
-if status_ok then
-  mason_tool_installer.setup({
-    ensure_installed =
-    {
-      'bash-debug-adapter',
-      'bash-language-server',
-      'clangd',
-      'clang-format',
-      'cmakelang',
-      'fortls',
-      'json-lsp',
-      'lua-language-server',
-      'marksman',
-      'neocmakelsp',
-      'python-lsp-server',
-      'rust-analyzer',
-      'rustfmt',
-      'shellcheck',
-      'shellharden',
-      'stylua',
-      'yamlfmt',
-      'yaml-language-server',
-      'yapf',
-    }})
-end
+-- local status_ok, mason_tool_installer = pcall(require, "mason-tool-installer")
+-- if status_ok then
+--   mason_tool_installer.setup({
+--     ensure_installed =
+--     {
+--       'bash-debug-adapter',
+--       'bash-language-server',
+--       'clangd',
+--       'clang-format',
+--       'cmakelang',
+--       'fortls',
+--       'json-lsp',
+--       'lua-language-server',
+--       'marksman',
+--       'neocmakelsp',
+--       'python-lsp-server',
+--       'rust-analyzer',
+--       'rustfmt',
+--       'shellcheck',
+--       'shellharden',
+--       'stylua',
+--       'yamlfmt',
+--       'yaml-language-server',
+--       'yapf',
+--     }})
+-- end
 
 -- global setup
 mason_lsp_config.setup_handlers {

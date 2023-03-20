@@ -19,6 +19,12 @@
           "markdown"
         ],
         "path": "./markdown.json"
+      },
+      {
+        "language": [
+          "sh"
+        ],
+        "path": "./sh.json"
       }
     ]
   }

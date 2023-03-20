@@ -17,8 +17,6 @@ if not status_ok then
   return
 end
 
-local gitsigns_ghurl = "lewis6992/gitsigns.nvim"
-
 local plugins = {
   "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
   "nvim-lua/plenary.nvim", -- Useful lua functions used in lots of plugins
@@ -29,7 +27,7 @@ local plugins = {
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
-  gitsigns_ghurl,
+  "lewis6991/gitsigns.nvim",
   -- nvim-tree: directory browser
   {
     "kyazdani42/nvim-tree.lua",
@@ -75,6 +73,7 @@ local plugins = {
     dependencies = "nvim-treesitter/nvim-treesitter"
   },
   "windwp/nvim-autopairs",
+  -- "mg979/vim-visual-multi",
 
   -- ====== start LSP
   "neovim/nvim-lspconfig", -- enable LSP
@@ -118,21 +117,9 @@ local plugins = {
   "fladson/vim-kitty",
   "junegunn/vim-easy-align",
   "echasnovski/mini.align",
+  "rmagatti/alternate-toggler", -- toggle between true/false
 }
 
 local opts = {}
 
 lazy.setup(plugins, opts)
-
--- workaround for gitsigns, not work ...
--- local gitsigns_path = vim.fn.stdpath("data") .. "/lazy/gitsigns.nvim"
--- if not vim.loop.fs_stat(gitsigns_path) then
--- 	if plugins[gitsigns_ghurl] ~= nil then
--- 		vim.fn.system({
--- 			"git",
--- 			"clone",
--- 			"https://github.com/" .. gitsigns_ghurl .. ".git",
--- 		 gitsigns_path,
--- 		})
--- 	end
--- end

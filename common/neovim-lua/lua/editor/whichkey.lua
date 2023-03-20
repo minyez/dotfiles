@@ -13,6 +13,7 @@ end
 configs.register({
   -- files
   ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+  e = { "<cmd>Telescope find_files hidden=true<cr>", "Find File (including hidden)" },
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
@@ -21,6 +22,7 @@ configs.register({
   f = {
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
+    e = { "<cmd>Telescope find_files hidden=true<cr>", "Find File (including hidden)" },
     p = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "LSP Format" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     N = { "<cmd>enew<cr>", "New File" },
@@ -77,7 +79,8 @@ configs.register({
   -- toggle things
   t = {
     name = "+toggle",
-    a = { "<cmd>AerialToggle!<cr>", "Aerial" },
+    a = { "<cmd>ToggleAlternate<cr>", "Alternate Boolean Value" },
+    A = { "<cmd>AerialToggle!<cr>", "Aerial" },
     t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
     l = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
     L = { "<cmd>set number!<cr>", "Absolute Line Number" },
