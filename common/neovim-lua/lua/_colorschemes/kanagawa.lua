@@ -4,38 +4,43 @@ if not status_ok then
   return
 end
 
-local colors = {
--- switch the default and dark background
-  sumiInk0 = "#1F1F28",
-  sumiInk1 = "#16161D",
-}
+local overrides = function(colors)
+  return {}
+end
 
-local overrides = {
-    -- create a new hl-group using default palette colors and/or new ones
---    MyHlGroup1 = { fg = default_colors.waveRed, bg = "#AAAAAA", style="underline,bold", guisp="blue" },
-
-    -- override existing hl-groups, the new keywords are merged with existing ones
---    VertSplit  = { fg = default_colors.bg_dark, bg = "NONE" },
---    TSError    = { link = "Error" },
---    TSKeywordOperator = { style = 'bold'},
---    StatusLine = { fg = my_colors.new_color }
-}
+local dark = "dragon"
+local light = "lotus"
 
 kanagawa.setup({
-  undercurl = true,           -- enable undercurls
-  comment = "italic",
-  -- functionStyle = "NONE",
-  keyword = { italic = true },
-  statement = { bold = true },
-  -- typeStyle = "NONE",
+  compile = false,             -- enable compiling the colorscheme
+  undercurl = true,            -- enable undercurls
+  commentStyle = { italic = true },
+  functionStyle = {},
+  keywordStyle = { italic = true},
+  statementStyle = { bold = true },
+  typeStyle = {},
+  transparent = false,         -- do not set background color
+  dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+  terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+  colors = {                   -- add/modify theme and palette colors
+      palette = {
+        -- switch the default and dark background
+        sumiInk0 = "#1F1F28",
+        sumiInk1 = "#16161D",
+        fujiWhite = "#FFFFFF"
+      },
+      theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  },
+  overrides = overrides,
+  theme = dark,            -- them to load when 'background' option is not set
+  background = {           -- map the value of 'background' option to a theme
+      dark = dark,         -- try "dragon" !
+      light = light
+  },
   variablebuiltin = { italic = true },
   specialReturn = true,       -- special highlight for the return keyword
   specialException = true,    -- special highlight for exception handling keywords
-  transparent = false,        -- do not set background color
-  dimInactive = false,        -- dim inactive window `:h hl-NormalNC`
   globalStatus = false,       -- adjust window separators highlight for laststatus=3
-  colors = colors,
-  overrides = overrides,
 })
 
 -- setup must be called before loading
