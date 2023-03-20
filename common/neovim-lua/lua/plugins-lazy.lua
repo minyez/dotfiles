@@ -30,9 +30,17 @@ local plugins = {
   "lewis6991/gitsigns.nvim",
   -- nvim-tree: directory browser
   {
-    "kyazdani42/nvim-tree.lua",
+    "nvim-tree/nvim-tree.lua",
     dependencies = {
-      "kyazdani42/nvim-web-devicons", -- optional, for file icon
+      "nvim-tree/nvim-web-devicons", -- optional, for file icon
+    }
+  },
+  -- dashboard
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", -- optional, for file icon
     }
   },
   -- ====== end UI
@@ -73,7 +81,7 @@ local plugins = {
     dependencies = "nvim-treesitter/nvim-treesitter"
   },
   "windwp/nvim-autopairs",
-  -- "mg979/vim-visual-multi",
+  "mg979/vim-visual-multi",
 
   -- ====== start LSP
   "neovim/nvim-lspconfig", -- enable LSP

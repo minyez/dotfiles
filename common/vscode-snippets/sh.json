@@ -1,0 +1,10 @@
+{
+  "aimsprep": {
+    "prefix": "aimsprep",
+    "body": [
+      "ulimit -s unlimited",
+      "export OMP_NUM_THREADS=1$0"
+    ],
+    "description": "aims ulim omp"
+  }
+}
