@@ -1,0 +1,43 @@
+*.swp
+
+# Python
+*.pyc
+__pycache__
+
+# Objects
+*.mod
+*.o
+
+# Executable, library
+a.out
+*.exe
+*.a
+*.la
+*.so
+*.dylib
+
+git.log
+
+# Emacs
+flycheck_*
+.auctex-auto
+
+
+# gdb stuff
+gdb.txt
+gdbinfo.txt
+.gdb_history
+
+# Vim/NeoVim
+*/neovim/plugin
+.vim-bookmarks
+
+# macOS
+.DS_Store
+.Spotlight-V100
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.LSOverride
+._*
+

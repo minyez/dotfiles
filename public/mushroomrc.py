@@ -3,7 +3,7 @@
 """configurable parameters for mushroom"""
 
 # logging
-log_level = "debug"
+log_level = "notset"
 stream_level = "info"
 
 # custom color map

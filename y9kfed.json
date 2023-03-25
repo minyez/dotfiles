@@ -8,5 +8,8 @@
   "y9kfed/module" : "~/.module",
   "y9kfed/tmux.conf" : "~/.tmux.conf",
   "y9kfed/modulefiles" : "~/.modulefiles",
-  "public/latex-cls" : "/usr/share/texlive/texmf-local/tex/latex/local"
+  "public/latex-cls" : "/usr/share/texlive/texmf-local/tex/latex/local",
+  "public/vim-dir/" : "~/.vim",
+  "public/texstudio/texstudioen_US.ign": "~/.config/texstudio/texstudioen_US.ign",
+  "public/rofi/" : "~/.config/rofi"
 }

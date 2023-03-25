@@ -6,5 +6,37 @@
       "export OMP_NUM_THREADS=1$0"
     ],
     "description": "aims ulim omp"
+  },
+  "sheban": {
+    "prefix": "#!",
+    "body": [
+      "#!/usr/bin/env bash",
+      "$0"
+    ],
+    "description": "shell sheban"
+  },
+  "shellcheckdis": {
+    "prefix": "scd",
+    "body": [
+      "# shellcheck disable=${1:2043,2086}",
+      "$0"
+    ],
+    "description": "shellcheck disable"
+  },
+  "optswhilecase": {
+    "prefix": "optarg",
+    "body": [
+      "while [ \\${#} -gt 0 ]; do",
+      "  case \"\\$1\" in",
+      "  --debug) DEBUG=1 ;;",
+      "  -n | --nproc) nproc=\"\\$2\"; shift;;",
+      "  -h | --help | help | h ) echo \"help function here\"; \\",
+      "    exit ;;",
+      "  esac",
+      "  shift 1",
+      "done"
+    ],
+    "description": "option arguments using while-case withouth getopts"
   }
 }
+

@@ -1,0 +1,98 @@
+#!/usr/bin/env sh
+
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+#
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+#
+
+# global settings
+yabai -m config                                 \
+    insert_feedback_color        0xffd75f5f     \
+    split_ratio                  0.50           \
+    split_type                   auto           \
+    auto_balance                 off            \
+    layout                       bsp
+
+
+# mouse
+yabai -m config    mouse_follows_focus          on
+yabai -m config    focus_follows_mouse          off
+yabai -m config    mouse_modifier               fn
+yabai -m config    mouse_action1                move
+yabai -m config    mouse_action2                resize
+yabai -m config    mouse_drop_action            swap
+
+
+# window behavior
+yabai -m config  window_origin_display        default
+yabai -m config  window_placement             second_child
+yabai -m config  window_topmost               off
+yabai -m config  window_shadow                off
+yabai -m config  window_opacity               off
+yabai -m config  window_animation_duration    0.0
+yabai -m config  window_opacity_duration      0.0
+yabai -m config  active_window_opacity        1.0
+yabai -m config  normal_window_opacity        0.90
+
+
+# window border
+yabai -m config  window_gap                  02
+yabai -m config  window_border_width         1
+yabai -m config  window_border_radius        12
+yabai -m config  window_border_blur          off
+yabai -m config  window_border_hidpi         on
+yabai -m config  window_border               on
+# yabai -m config  active_window_border_color  0xff775759
+yabai -m config  active_window_border_color  0xff3e5ea3
+# yabai -m config  normal_window_border_color  0xff555555
+yabai -m config  normal_window_border_color  0xfff9cdd4
+
+
+# padding
+yabai -m config  top_padding                   1
+yabai -m config  bottom_padding                0
+yabai -m config  left_padding                127
+yabai -m config  right_padding                 1
+yabai -m config  external_bar main:24:0
+
+# app rule works
+yabai -m rule --add app="^MacForge$" manage=off
+yabai -m rule --add app="^Xnip$" manage=off
+yabai -m rule --add app="^TencentMeeting$" manage=off
+yabai -m rule --add app="^Macs Fan Control$" manage=off
+yabai -m rule --add app="^(Calculator|计算器)$" manage=off
+yabai -m rule --add app="^(Activity Monitor|活动监视器)$" manage=off
+yabai -m rule --add app="^(Calendar|日历)$" manage=off
+yabai -m rule --add app="^(System Settings|系统设置)$" manage=off
+yabai -m rule --add app="^(Nutstore|坚果云)$" manage=off
+# Fix App to space (desktop)
+yabai -m rule --add app="^(Code|Xcode)$" space=2
+yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=3
+yabai -m rule --add app="^(PDF Viewer)$" space=5
+yabai -m rule --add app="^(Mail)$" space=8
+yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
+yabai -m rule --add app="^(Wechat|Slack|WhatsApp)$" space=10
+# app rule not work now
+
+
+# space naming
+yabai -m space 1 --label www
+yabai -m space 2 --label code
+yabai -m space 3 --label term
+yabai -m space 4 --label media
+yabai -m space 5 --label read
+yabai -m space 6 --label note
+yabai -m space 7 --label 書
+yabai -m space 8 --label 信
+yabai -m space 9 --label 音
+yabai -m space 10 --label 訊
+
+
+echo "yabai configuration loaded.."
+

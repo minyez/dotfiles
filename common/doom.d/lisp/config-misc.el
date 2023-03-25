@@ -10,6 +10,7 @@
 
 (global-set-key (kbd "C-c f") 'fill-region)
 (global-set-key (kbd "C-c s") 'save-buffer)
+(global-set-key (kbd "M-[") 'insert-brakets)
 
 ; company-jedi
 ;     https://github.com/emacsorphanage/company-jedi

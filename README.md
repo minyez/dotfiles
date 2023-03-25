@@ -30,10 +30,11 @@ More functionalities
 
 Current machines:
 
-- `darwin`: MBP 15 (2016), Intel i7-6820HQ, AMD Radeon Pro 455, 16G + 512G, macOS Catalina 10.15.7
-- `amdfed`: DIY PC, AMD R5 5600X, AMD Radeon RX 6700XT, 32G + (500G + 2T), Fedora 34 Gnome (dual boot Windows 10)
-- `iopcas`: Dell workstation, i9-11900, Radeon RX 640, 32G + (500G + 2T), Fedora 34 Gnome
+- `darwin` : MBP 15 (2016), Intel i7-6820HQ, AMD Radeon Pro 455, 16G + 512G, macOS Catalina 10.15.7
+- `amdfed` : DIY PC, AMD R5 5600X, AMD Radeon RX 6700XT, 32G + (500G + 2T), Fedora 34 Gnome (dual boot Windows 10)
+- `iopcas` : Dell workstation, i9-11900, Radeon RX 640, 32G + (500G + 2T), Fedora 34 Gnome
 - `y9kfed` : Y900P, i7-12700H, RTX 3060, 16G + 1T, Fedora 35 KDE (dual boot Windows 11, 500G)
+- `taiyi`  : MBP 14 (2023), M2 Max, 64G + 2T, macOS Ventura
 
 Some directories:
 - `public`: rc files that is not quite machine-specific and directly loaded by the script

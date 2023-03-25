@@ -136,6 +136,7 @@ def main():
         "minyez-myz-amd-fedora": "amdfed",
         "minyez-iopcas-fedora": "iopcas",
         "minyez-y9kfed": "y9kfed",
+        "minyez-taiyi": "taiyi",
     }
 
     try:

@@ -1,0 +1,42 @@
+[user]
+	name = Minye Zhang
+	email = minyez.physchem@gmail.com
+	signingkey = E24AEEBE573C60EA
+[core]
+	editor = nvim
+[init]
+	defaultBranch = master
+[merge]
+	tool = nvim -d
+
+[https]
+	postBuffer = 524288000
+[http]
+	postBuffer = 524288000
+[socks5]
+	postBuffer = 524288000
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+#[pager]
+#    diff = delta
+#    log = delta
+#    reflog = delta
+#    show = delta
+#
+#[delta]
+#    plus-style = "syntax #012800"
+#    minus-style = "syntax #340001"
+##    syntax-theme = Monokai Extended
+#    navigate = true
+#
+#[interactive]
+#    diffFilter = delta --color-only
+
+# needed to handle the error of unauthenticated git protocol on port 9418
+# [url "https://github.com/"]
+# 	insteadOf = git://github.com/

@@ -43,6 +43,7 @@ local plugins = {
       "nvim-tree/nvim-web-devicons", -- optional, for file icon
     }
   },
+  "rickhowe/diffchar.vim",
   -- ====== end UI
   -- ====== start colorschemes
   "rebelot/kanagawa.nvim",
@@ -105,7 +106,7 @@ local plugins = {
       { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
       { "bydlw98/cmp-env" }, -- environment variables
       { "paopaol/cmp-doxygen" }, -- doxygen. require treesitter
-      { "amarakon/nvim-cmp-lua-latex-symbols" }, -- latex symbols
+      -- { "amarakon/nvim-cmp-lua-latex-symbols" }, -- latex symbols
       { "lukas-reineke/cmp-rg" }, -- ripgrep
     }
   },
@@ -125,7 +126,16 @@ local plugins = {
   "fladson/vim-kitty",
   "junegunn/vim-easy-align",
   "echasnovski/mini.align",
-  "rmagatti/alternate-toggler", -- toggle between true/false
+  "rmagatti/alternate-toggler", -- quick toggle between true/false
+  {
+    "edluffy/hologram.nvim",
+    -- lazy = true,
+    config = function()
+        require("hologram").setup({
+          auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+        })
+    end
+  },
 }
 
 local opts = {}

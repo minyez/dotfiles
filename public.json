@@ -1,14 +1,9 @@
 {
   "public/mushroomrc.py" : "~/.mushroomrc",
-  "public/vim-dir/" : "~/.vim",
   "public/gnuplotrc" : "~/.gnuplot",
-  "public/excludes.git" : "~/.gitexcludes",
-  "public/ignore_global.git" : "~/.gitignore_global",
-  "public/gitconfig" : "~/.gitconfig",
+  "public/git/" : "~/.config/git",
   "public/gdbinit" : "~/.gdbinit",
-  "public/rofi/" : "~/.config/rofi",
   "public/ssh.config" : "~/.ssh/config",
   "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
-  "public/matplotlibrc/" : "~/.matplotlib",
-  "public/texstudio/texstudioen_US.ign": "~/.config/texstudio/texstudioen_US.ign"
+  "public/matplotlibrc/" : "~/.matplotlib"
 }

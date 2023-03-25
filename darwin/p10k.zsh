@@ -118,6 +118,10 @@
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
   typeset -g POWERLEVEL9K_ICON_PADDING=none
 
+  # Basic style options that define the overall look of your prompt. You probably don't want to
+  # change them.
+  typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
+  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
   # When set to true, icons appear before content on both sides of the prompt. When set
   # to false, icons go after content. If empty or not set, icons go before content in the left
   # prompt and after content in the right prompt.

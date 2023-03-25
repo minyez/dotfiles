@@ -540,6 +540,8 @@ parent."
   (setq org-drill-spaced-repetition-algorithm 'sm2)
   (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
   (setq org-drill-add-random-noise-to-intervals-p t)
+  ;;; reduce space, repeat more
+  (setq org-drill-learn-fraction 0.35)
 )
 
 (use-package! org-cliplink
