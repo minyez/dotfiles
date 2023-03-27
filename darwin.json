@@ -10,5 +10,6 @@
   "darwin/neovim-lua/" : "~/.config/nvim",
   "darwin/doom.d/" : "~/.doom.d",
   "public/vim-dir/" : "~/.vim",
+  "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
   "public/texstudio/texstudioen_US.ign" : "/Applications/texstudio.app/Contents/Resources/en_US.ign"
 }

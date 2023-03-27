@@ -4,6 +4,5 @@
   "public/git/" : "~/.config/git",
   "public/gdbinit" : "~/.gdbinit",
   "public/ssh.config" : "~/.ssh/config",
-  "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
   "public/matplotlibrc/" : "~/.matplotlib"
 }

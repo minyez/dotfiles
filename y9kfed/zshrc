@@ -7,7 +7,8 @@ fi
 
 [ -f /etc/zshrc ] && . /etc/zshrc
 # only use english in command line
-export LANGUAGE=en_US
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 autoload -Uz compinit
 compinit
