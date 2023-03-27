@@ -3,9 +3,9 @@
 # --------------- CUSTOMIZE ME ---------------
 # these are dimensions of the widget in pixels
 TOP = 38
-LEFT = 3
-BOTTOM = 2
-WIDTH = 120
+LEFT = 1
+BOTTOM = 3
+WIDTH = 72
 # font size of the event
 EVENT_FONT_SIZE = 12
 
@@ -13,11 +13,13 @@ EVENT_FONT_SIZE = 12
 BLOCK_HEIGHT = 75
 # place of first hour line
 MIN_HOUR_LINE_TOP = 10
+# event overlap indent
+EVENT_OVLP_INDENT = 10
 # left padding of dot
-DOT_LEFT_PAD = 40
-EVENT_RIGHT_PAD = 56
+DOT_LEFT_PAD = 16
+EVENT_RIGHT_PAD = 26
 # automatic refresh per second
-refreshFrequency: 10
+refreshFrequency: 0.1
 # --------------------------------------------
 
 # Construct bash command using options.
@@ -77,23 +79,23 @@ style: """
         cursor: hand
 
     #line
-        left: 37px;
-        width: #{WIDTH-45}px;
+        left: 16px;
+        width: #{WIDTH-EVENT_RIGHT_PAD+5}px;
         border: 1px solid #3e5ea3
     #hour-line
-        left: 37px;
-        width: #{WIDTH-45}px;
+        left: 16px;
+        width: #{WIDTH-EVENT_RIGHT_PAD+6}px;
         border: 0.5px solid #bbbbbb
 
     #line-text
         font-size: 12px
-        left: 5px
+        left: 0px
         color: #3e5ea3
         background-color: #ffffff
 
     #hour-text
         font-size: 12px
-        left: 5px
+        left: 0px
         color: #bbbbbb
 
     #dot
@@ -138,7 +140,8 @@ update: (output, domEl) ->
     today = new Date()
     # current_time = today.getHours().toString().padStart(2, '0') + ":" + today.getMinutes().toString().padStart(2, '0')
     # remove pad, to be consistent with date command line output
-    current_time = today.getHours().toString() + ":" + today.getMinutes().toString().padStart(2, '0')
+    current_min = today.getMinutes().toString().padStart(2, '0')
+    current_time = today.getHours().toString() + ":" + current_min
 
     current_hour =  today.getHours() + today.getMinutes() / 60
     min_hour = current_hour
@@ -186,7 +189,7 @@ update: (output, domEl) ->
         height = diff_hours * BLOCK_HEIGHT
 
         left = DOT_LEFT_PAD
-        wdth = WIDTH - EVENT_RIGHT_PAD;
+        wdth = WIDTH - EVENT_RIGHT_PAD - 2;
 
         for ev in events
             if @intersects(event, ev)
@@ -199,12 +202,12 @@ update: (output, domEl) ->
                         if event.title < ev.title
                             wdth = (WIDTH-EVENT_RIGHT_PAD) / 2
                         else
-                            wdth = (WIDTH-EVENT_RIGHT_PAD) / 2 - MIN_HOUR_LINE_TOP
-                            left = DOT_LEFT_PAD + (WIDTH-EVENT_RIGHT_PAD) / 2 + MIN_HOUR_LINE_TOP
+                            wdth = (WIDTH-EVENT_RIGHT_PAD) / 2 - EVENT_OVLP_INDENT
+                            left = DOT_LEFT_PAD + (WIDTH-EVENT_RIGHT_PAD) / 2 + EVENT_OVLP_INDENT
 
                     if event.start_time > ev.start_time or event.end_time < ev.end_time
-                        wdth = (WIDTH-EVENT_RIGHT_PAD) / 2 - MIN_HOUR_LINE_TOP
-                        left = DOT_LEFT_PAD + (WIDTH-EVENT_RIGHT_PAD) / 2 + MIN_HOUR_LINE_TOP
+                        wdth = (WIDTH-EVENT_RIGHT_PAD) / 2 - EVENT_OVLP_INDENT
+                        left = DOT_LEFT_PAD + (WIDTH-EVENT_RIGHT_PAD) / 2 + EVENT_OVLP_INDENT
                 else
                     if event.start_time > ev.start_time
                         left = DOT_LEFT_PAD + 5
@@ -222,13 +225,17 @@ update: (output, domEl) ->
 
         dom.append(str)
 
-    for hour in [Math.floor(min_hour+1)...25]
-        rel_current_hour = hour - min_hour
-
-        dom.append("""<hr id="hour-line" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP}px;"></hr>""")
-        dom.append("""<span id="hour-text" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{hour}:00</span>""")
-
     rel_current_hour = current_hour - min_hour
+    # dom.append("""<span id="line-text" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{current_time}</span>""")
+    dom.append("""<span id="line-text" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{current_min}</span>""")
+
+    for hour in [Math.floor(min_hour+1)...25]
+        rel_hour = hour - min_hour
+        hour_show = hour.toString().padStart(2, '0')
+
+        dom.append("""<hr id="hour-line" style="position: absolute; top: #{rel_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP}px;"></hr>""")
+        # dom.append("""<span id="hour-text" style="position: absolute; top: #{rel_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{hour}:00</span>""")
+        dom.append("""<span id="hour-text" style="position: absolute; top: #{rel_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{hour_show}</span>""")
+
     dom.append("""<hr id="line" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP}px;"></hr>""")
     dom.append("""<span id="dot" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 5}px;"></span>""")
-    dom.append("""<span id="line-text" style="position: absolute; top: #{rel_current_hour * BLOCK_HEIGHT + MIN_HOUR_LINE_TOP + 2}px;">#{current_time}</span>""")

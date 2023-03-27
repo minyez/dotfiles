@@ -2,5 +2,7 @@
   "taiyi/skhd" : "~/.config/skhd",
   "taiyi/yabai" : "~/.config/yabai",
   "taiyi/kitty" : "~/.config/kitty",
+  "taiyi/zprofile" : "~/.zprofile",
+  "taiyi/zshrc" : "~/.zshrc",
   "taiyi/ubersicht/widgets": "~/Library/Application Support/Übersicht/widgets"
 }

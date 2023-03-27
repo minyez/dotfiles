@@ -17,7 +17,7 @@ commands =
   input : "osascript -e 'input volume of (get volume settings)'"
   cpu    : "ESC=`printf \"\e\"`; ps -A -r -o %cpu | awk '{s+=$1} END {printf(\"%2d\",s/8);}'"
   freemem: "memory_pressure | awk '/System-wide memory free percentage/ {print $5}' | sed 's/%//'"
-  disk   : "df -H -l / | awk '/\\/.*/ { print $5 }'"
+  disk   : "df -H -l /System/Volumes/Data | awk '/\\/.*/ { print $5 }'"
 
 colors =
   black   : "#3B4252"
