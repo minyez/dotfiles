@@ -84,11 +84,13 @@ yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|�
 
 
 # Fix App to space (desktop)
+yabai -m rule --add app="^(Firefox)$" space=1
 yabai -m rule --add app="^(Code|Xcode)$" space=2
 yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=3
 yabai -m rule --add app="^OBS Studio$" space=4
 yabai -m rule --add app="^(PDF Viewer)$" space=5
 yabai -m rule --add app="^(Day One)$" space=6
+yabai -m rule --add app="^(备忘录|Notes)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8
 yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
 yabai -m rule --add app="^(WeChat|Slack|WhatsApp)$" space=10
