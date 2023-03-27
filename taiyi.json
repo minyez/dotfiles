@@ -4,5 +4,6 @@
   "taiyi/kitty" : "~/.config/kitty",
   "taiyi/zprofile" : "~/.zprofile",
   "taiyi/zshrc" : "~/.zshrc",
+  "taiyi/neovim-lua" : "~/.config/nvim",
   "taiyi/ubersicht/widgets": "~/Library/Application Support/Übersicht/widgets"
 }
