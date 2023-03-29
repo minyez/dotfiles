@@ -116,6 +116,11 @@ local plugins = {
   {
     "SirVer/ultisnips", -- snippets engine that I have been using
     dependencies = {"honza/vim-snippets"}, -- default snippets
+    config = function()
+      -- add local snippet directory to search and set as the edit path
+      vim.cmd [[ let g:UltiSnipsSnippetDirectories=[$HOME.'/snippets/UltiSnips'] ]]
+      vim.cmd [[ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$HOME.'/snippets/UltiSnips' ]]
+    end
   },
   {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",

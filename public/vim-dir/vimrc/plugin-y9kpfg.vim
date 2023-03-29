@@ -82,7 +82,7 @@ let g:jedi#use_splits_not_buffers = "right"
 
 " ==== UltiSnips ====
 set runtimepath+=~/.vim/bundle/ultisnips
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/snippets/UltiSnips']
 "let g:UltiSnipsEditSplit = 'vertical'
 "let g:UltiSnipsUsePythonVersion=3
 " better key bindings for UltiSnipsExpandTrigger
