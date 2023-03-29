@@ -6,18 +6,29 @@ if not cmp_status_ok then
   return
 end
 
-local snip_status_ok, cmpulti = pcall(require, "cmp_nvim_ultisnips")
+-- local snip_status_ok, ultisnips = pcall(require, "cmp_nvim_ultisnips")
+-- if not snip_status_ok then
+--   vim.notify("cmp_nvim_ultisnips not found!")
+-- else
+--   ultisnips.setup {
+--     filetype_source = "treesitter",
+--     show_snippets = "all",
+--     documentation = function(snippet)
+--       return snippet.description
+--     end
+-- }
+
+-- use luasnip as engine
+local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
-  vim.notify("cmp_nvim_ultisnips not found!")
-else
-  cmpulti.setup {
-    filetype_source = "treesitter",
-    show_snippets = "all",
-    documentation = function(snippet)
-      return snippet.description
-    end
-  }
+  vim.notify("luasnip not found!")
 end
+
+-- move loading to luasnip.lua
+-- require("luasnip.loaders.from_vscode").lazy_load()    -- load friendly-snippets
+-- require("luasnip.loaders.from_vscode").load({ paths = { -- load custom snippets
+--   vim.fn.stdpath("config") .. "/my-snippets"
+-- } }) -- Load snippets from my-snippets folder
 
 local check_backspace = function()
   local col = vim.fn.col "." - 1
@@ -54,11 +65,11 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
-local cmpulti_mappings = require("cmp_nvim_ultisnips.mappings")
 cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      vim.fn["UltiSnips#Anon"].lsp_expand(args.body) -- For `ultisnips` users.
     end,
   },
   mapping = {
@@ -77,14 +88,30 @@ cmp.setup {
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm { select = false },
     ["<Tab>"] = cmp.mapping(function(fallback)
-      cmpulti_mappings.expand_or_jump_forwards(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif check_backspace() then
+        fallback()
+      else
+        fallback()
+      end
     end, {
       "i",
       "s",
       "c",
     }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      cmpulti_mappings.jump_backwards(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
     end, {
       "i",
       "s",
@@ -100,25 +127,28 @@ cmp.setup {
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[NVIM_LUA]",
-        ultisnips = "[Snip]",
+        luasnip = "[Snip]",
+        -- ultisnips = "[Snip]",
+        -- buffer = "[Buf]",
         path = "[Path]",
         env = "[ENV]",
         doxygen = "[DOX]",
+        orgmode = "[ORG]",
         rg = "[RG]",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
-    -- { name = "luasnip" },
-    { name = "ultisnips" },
+    { name = "luasnip" },
+    -- { name = "ultisnips" },
     { name = "nvim_lsp" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "path" },
     -- { name = "cmdline" }, -- trigger cmdline here will make you tab once only
-    -- { name = "orgmode" },
+    { name = "orgmode" },
     { name = "env" },
     { name = "rg" },
   },
@@ -165,8 +195,8 @@ cmp.setup.cmdline(':', {
 })
 
 -- Only enable `lua-latex-symbols` for `tex` and `plaintex` file types
--- require "cmp".setup.filetype({ "tex", "plaintex", "markdown", "org" }, {
---     sources = {
---         { name = "lua-latex-symbols"}
---     }
--- })
+require "cmp".setup.filetype({ "tex", "plaintex", "markdown", "org" }, {
+    sources = {
+        { name = "lua-latex-symbols"}
+    }
+})

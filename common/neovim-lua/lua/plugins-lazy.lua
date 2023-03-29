@@ -22,6 +22,7 @@ local plugins = {
   "nvim-lua/plenary.nvim", -- Useful lua functions used in lots of plugins
   -- ====== start UI
   "rcarriga/nvim-notify", -- notify
+  "wellle/context.vim", -- showing meaningful code context (condition, loop, ...) at the top
   "folke/trouble.nvim",
   "nvim-lualine/lualine.nvim", -- status line
   "folke/which-key.nvim",
@@ -96,7 +97,7 @@ local plugins = {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      -- {"quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips
+      { "quangnguyen30192/cmp-nvim-ultisnips"}, -- ultisnips completion frontend
       { "hrsh7th/cmp-buffer" }, -- buffer completions
       { "hrsh7th/cmp-path" }, -- path completions
       { "hrsh7th/cmp-cmdline" }, -- cmdline completions
@@ -112,6 +113,10 @@ local plugins = {
   },
   -- ====== end cmp
   -- ====== start snippets
+  {
+    "SirVer/ultisnips", -- snippets engine that I have been using
+    dependencies = {"honza/vim-snippets"}, -- default snippets
+  },
   {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",
   -- ====== end snippets
