@@ -28,8 +28,12 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Sarasa Term SC" :size 20)
-      doom-big-font (font-spec :family "Sarasa Term SC" :size 20))
+(let ((font "Sarasa Term SC")
+      (size 20))
+  (setq doom-font (font-spec :family font :size size)
+        doom-variable-pitch-font (font-spec :family font :size size)
+        doom-unicode-font (font-spec :family font :size size)
+        doom-big-font (font-spec :family font :size (+ size 4))))
 ; (setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 20)
 ;       doom-big-font (font-spec :family "Iosevka Nerd Font Mono" :size 20))
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)

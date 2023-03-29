@@ -23,7 +23,9 @@
 (let ((font "Sarasa Term SC") ; "MesloLGMDZ Nerd Font Mono"
       (size 24))
   (setq doom-font (font-spec :family font :size size)
-        doom-big-font (font-spec :family font :size size)))
+        doom-variable-pitch-font (font-spec :family font :size size)
+        doom-unicode-font (font-spec :family font :size size)
+        doom-big-font (font-spec :family font :size (+ size 4))))
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
