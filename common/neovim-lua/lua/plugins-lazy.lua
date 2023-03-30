@@ -24,7 +24,22 @@ local plugins = {
   "rcarriga/nvim-notify", -- notify
   "wellle/context.vim", -- showing meaningful code context (condition, loop, ...) at the top
   "folke/trouble.nvim",
-  "nvim-lualine/lualine.nvim", -- status line
+  {
+    "nvim-lualine/lualine.nvim", -- status line
+    dependencies = {
+      "linrongbin16/lsp-progress.nvim",
+      "SmiteshP/nvim-navic",
+    }
+  },
+  {
+    "linrongbin16/lsp-progress.nvim", -- display a progress icon of LSP indexing, TODO not working
+                                      -- might try https://github.com/j-hui/fidget.nvim later
+    event = { 'VimEnter' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+        require('lsp-progress').setup()
+    end
+  },
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
@@ -87,6 +102,10 @@ local plugins = {
 
   -- ====== start LSP
   "neovim/nvim-lspconfig", -- enable LSP
+  {
+    "SmiteshP/nvim-navic",
+    dependencies = {"neovim/nvim-lspconfig"},
+  },
   -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",

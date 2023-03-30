@@ -199,6 +199,10 @@ ins_left {
 }
 
 ins_left {
+  require("lsp-progress").progress, -- LSP progress bar
+}
+
+ins_left {
   -- Lsp server name .
   function()
     local msg = 'N/A'
@@ -216,7 +220,7 @@ ins_left {
     end
     return msg .. bufmsg
   end,
-  icon = ' LSP:',
+  -- icon = ' LSP:',
   color = { fg = colors.fg, gui = 'bold' },
 }
 
@@ -263,3 +267,12 @@ ins_right {
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
+
+-- lsp-progress: listen to user event and trigger lualine refresh
+vim.cmd([[
+augroup lualine_augroup
+    autocmd!
+    autocmd User LspProgressStatusUpdated lua require("lualine").refresh()
+augroup END
+]])
+
