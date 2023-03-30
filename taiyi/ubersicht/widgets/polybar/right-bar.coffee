@@ -2,6 +2,8 @@ refreshFrequency: 1
 
 DARK = false
 
+IDIOM = "E.P.K."
+
 commands =
   battery: "pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto " +
             "| cut -f1 -d';'"
@@ -12,6 +14,7 @@ commands =
   #           "Versions/Current/Resources/airport -I | " +
   #           "sed -e \"s/^ *SSID: //p\" -e d"
   wifi   : "echo 0"
+  music  : "echo 'tell application \"Music\"\nreturn name of current track\nend tell' | osascript"
   date   : "date +\"%a %d %b\""
   volume : "osascript -e 'output volume of (get volume settings)'"
   input : "osascript -e 'input volume of (get volume settings)'"
@@ -66,11 +69,14 @@ command: "echo " +
           "$(#{commands.date}):::" +
           "$(#{commands.cpu}):::" +
           "$(#{commands.disk}):::"
+          # "$(#{commands.music}):::"
 
 render: () ->
   """
   <link rel="stylesheet" href="./polybar/assets/font-awesome/css/all.css" />
   <div class="elements">
+    <div class="idiom">#{IDIOM}</div>
+    <div><span class="spacer">|</span></div>
     <div class="input">
       <span>
         <span class="mic-icon"></span>
@@ -151,7 +157,7 @@ update: (output) ->
   cpu      = output[7]
   disk     = output[8]
 
-  $(".battery-output") .text("#{battery}")
+  # $(".battery-output") .text("#{battery}")
   $(".mem-output")    .text("#{mem}%")
   # $(".wifi-output")    .text("#{wifi}")
   $(".volume-output")  .text("#{volume}%")
@@ -198,7 +204,7 @@ style: """
     display: flex
     align-items: stretch
     height: 24px
-    margin: 0 3px
+    margin: 0 0px
 
   .elements > div
     display: flex
@@ -206,6 +212,9 @@ style: """
     padding: 2px 2px
     margin: 0px auto
 
+  .idiom > span
+    padding: 2px 2px
+    
   .spacer
     color: #{widgetc.spacer}
 

@@ -54,6 +54,7 @@ handleSpaces: (list) ->
   list = " " + list
   list = list.split(" ")
 
+  # $(".spaces").append("""<div class="workspace fab fa-apple"></div>""")
   $.each(list, (index, value) ->
     if (index > 0)
       $(".spaces").append(
@@ -76,7 +77,7 @@ style: """
     color: #{colors.workspace}
     align-items: center
     justify-content: center
-    padding: 6px 6px
+    padding: 4px 4px
 
   .active
     color: #{colors.active_fg}
