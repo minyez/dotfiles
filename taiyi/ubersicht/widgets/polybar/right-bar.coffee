@@ -2,7 +2,9 @@ refreshFrequency: 1
 
 DARK = false
 
-IDIOM = "E.P.K."
+IDIOM = "<span>生きた轍を君と呼べ</span>"
+IDIOM = "<span><a href='https:\/\/music.apple.com\/cn\/album\/%E6%82%B2%E3%81%97%E3%81%BF%E4%B8%80%E3%81%A4%E3%82%82%E6%AE%8B%E3%81%95%E3%81%AA%E3%81%84%E3%81%A7\/1538105636?i=1538105643'>悲しみ一つも残さないで</a></span>"
+IDIOM = "<span>悲しみ一つも残さないで</span>"
 
 commands =
   battery: "pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto " +
@@ -212,8 +214,11 @@ style: """
     padding: 2px 2px
     margin: 0px auto
 
+  a:link
+    color: inherit !important
+
   .idiom > span
-    padding: 2px 2px
+    padding: 3px 3px
     
   .spacer
     color: #{widgetc.spacer}
