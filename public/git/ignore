@@ -15,6 +15,7 @@ a.out
 *.la
 *.so
 *.dylib
+*.dSYM/
 
 git.log
 
