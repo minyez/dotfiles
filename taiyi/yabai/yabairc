@@ -83,6 +83,8 @@ yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 
 yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|显示|提醒|支持)$" manage=off
 # float all preferences
 yabai -m rule --add title="^(Preferences)$" manage=off
+# float all Finder info
+yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
 
 
 # Fix App to space (desktop)
