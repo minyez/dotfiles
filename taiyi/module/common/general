@@ -1,0 +1,81 @@
+#%Module1.0
+#
+
+module-whatis "general aliases and functions"
+
+# directory
+set path_practice "[getenv HOME]/Documents/minyez/codes/code-practice"
+setenv PATH_PRACTICE "$path_practice"
+set-function practice {
+  pdir="$PATH_PRACTICE/$1"
+  if [ -d "$pdir" ];then
+    cd "$pdir" || return 1
+  else
+    echo "\"$1\" not found under $PATH_PRACTICE"
+    return 1
+  fi
+}
+
+set-function is_macos {
+  [[ ${OSTYPE} != ${OSTYPE##darwin} ]]  
+}
+
+set-alias la "ls -a"
+
+# vi is alreadly aliased to vim on macOS Ventura
+# Just map vim to neovim
+set-alias vim "nvim "
+set-function _vi4 {
+    #1 vim executable
+	#2,3,4,5 4 files to edit
+	$1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3"
+}
+set-function vi4 {
+	_vi4 /usr/bin/vim $1 $2 $3 $4
+}
+set-function vim4 {
+	_vi4 $HOMEBREW_PREFIX/bin/nvim $1 $2 $3 $4
+}
+
+# # false/true 
+# set-alias false "/usr/bin/false"
+# set-alias true "/usr/bin/true"
+
+# tar
+setenv COPYFILE_DISABLE 1 
+#set-alias tar { bsdtar }
+set-alias untargz  { tar -zxf }
+set-alias untarbz  { tar -jxf }
+set-alias targz  { tar -zcf }
+set-alias tarbz  { tar -jcf }
+
+# orginally open as an alias to xdg-open
+# now set as a function to get rid of unnecessary error message
+# set-function open { xdg-open $1 > /dev/null 2>&1}
+
+# data related, isoformat
+# today
+set-alias td { date +"%Y-%m-%d"}
+# datetime
+set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
+# org mode datetime
+set-alias odt { date +"%Y-%m-%d %a %H:%M"}
+
+# ip
+#set-alias myip { curl ipinfo.io/ip }
+
+# personal directory
+set    SD "[getenv HOME]/Documents/minyez"
+setenv SD "$SD"
+set-function cdsd { cd $SD }
+set-function cdsdrm { cd $SD/org-roam }
+
+# proxies setup
+# set http_proxy  http://127.0.0.1:9891
+# set https_proxy http://127.0.0.1:9891
+# set all_proxy   socks5://127.0.0.1:9892
+# setenv http_proxy $http_proxy
+# setenv https_proxy $https_proxy
+# setenv all_proxy $all_proxy
+# set-alias set_proxy { http_proxy=$https_proxy https_proxy=$https_proxy all_proxy=$all_proxy }
+

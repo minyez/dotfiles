@@ -23,6 +23,7 @@ commands =
   cpu    : "ESC=`printf \"\e\"`; ps -A -r -o %cpu | awk '{s+=$1} END {printf(\"%2d\",s/8);}'"
   freemem: "memory_pressure | awk '/System-wide memory free percentage/ {print $5}' | sed 's/%//'"
   disk   : "df -H -l /System/Volumes/Data | awk '/\\/.*/ { print $5 }'"
+  mute : "osascript -e 'output muted of (get volume settings)'"
 
 colors =
   black   : "#3B4252"
@@ -70,7 +71,8 @@ command: "echo " +
           "$(#{commands.input}):::" +
           "$(#{commands.date}):::" +
           "$(#{commands.cpu}):::" +
-          "$(#{commands.disk}):::"
+          "$(#{commands.disk}):::" +
+          "$(#{commands.mute}):::"
           # "$(#{commands.music}):::"
 
 render: () ->
@@ -158,18 +160,19 @@ update: (output) ->
   date     = output[6]
   cpu      = output[7]
   disk     = output[8]
+  mute     = output[9]
 
   # $(".battery-output") .text("#{battery}")
   $(".mem-output")    .text("#{mem}%")
   # $(".wifi-output")    .text("#{wifi}")
-  $(".volume-output")  .text("#{volume}%")
-  $(".volume-input")  .text("#{input}%")
+  # $(".volume-output")  .text("#{volume}%")
+  # $(".volume-input")  .text("#{input}%")
   $(".date-output")    .text("#{date}")
   $(".cpu-output")     .text("#{cpu}%")
   $(".disk-output")    .text("#{disk}")
 
   @handleBattery(Number(battery.replace( /%/g, "")), charging == '1')
-  @handleVolume(Number(volume))
+  @handleVolume(Number(volume), mute)
   @handleInput(Number(input))
 
 handleBattery: ( percentage, charging ) ->
@@ -186,18 +189,21 @@ handleBattery: ( percentage, charging ) ->
   
   $(".battery-icon").html("<i class=\"fa #{batteryIcon} \"></i>")
 
-handleVolume: (volume) ->
+handleVolume: (volume, mute) ->
   volumeIcon = switch
     when volume ==   0 then "fa-volume-off"
     when volume <=  50 then "fa-volume-down"
     when volume <= 100 then "fa-volume-up"
+  if mute == "true"
+    volumeIcon = "fa-volume-mute"
   $(".volume-icon").html("<i class=\"fa #{volumeIcon}\"></i>")
 
 handleInput: (volume) ->
   micIcon = switch
     when volume ==   0 then "fa-microphone-slash"
+    when volume <=  50 then "fa-microphone-alt"
     when volume <= 100 then "fa-microphone"
-  $(".mic-icon").html("<i class=\"fa #{micIcon}\"></i>")
+  $(".mic-icon").html("<i class=\"fas #{micIcon}\"></i>")
 
 
 style: """
