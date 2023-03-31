@@ -83,9 +83,9 @@ yabai -m rule --add title="(Preferences|设置)$" manage=off
 yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
 # float all Reminders
 yabai -m rule --add app="^(Reminders|提醒事项)$" manage=off
-# float the mini music player
+# float the mini music player and other small tools
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
-yabai -m rule --add app="^(Dictionary|词典)$" manage=off
+yabai -m rule --add app="^(Dictionary|词典|数码测色计)$" manage=off
 yabai -m rule --add app="^(ChatGPT)$" manage=off
 
 
