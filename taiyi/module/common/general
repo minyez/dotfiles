@@ -65,10 +65,12 @@ set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 #set-alias myip { curl ipinfo.io/ip }
 
 # personal directory
-set    SD "[getenv HOME]/Documents/minyez"
-setenv SD "$SD"
-set-function cdsd { cd $SD }
-set-function cdsdrm { cd $SD/org-roam }
+set    my    "[getenv HOME]/Documents/minyez"
+set    myrm  "[getenv HOME]/projects/org-roam"
+setenv MY    "$my"
+setenv MYRM  "$myrm"
+set-alias cm { cd "$MY" }
+set-alias cmr { cd "$MYRM" }
 
 # proxies setup
 # set http_proxy  http://127.0.0.1:9891

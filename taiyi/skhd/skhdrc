@@ -76,8 +76,12 @@
 # A REFERENCE ONLY, WHEN MAKING YOUR OWN CONFIGURATION..          #
 # ############################################################### #
 
-# Reload yabai
+# Reload yabai/skhd
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+
+# Open apps & shell command
+# open a new emacsclient frame
+ctrl + cmd - e : /opt/homebrew/bin/emacsclient -c || osascript -e "display notification \"emacsclient -c return 1, try restart brew service\" with title \"Emacs Client failed\""
 
 # focus window
 alt - h : yabai -m window --focus west
@@ -103,6 +107,11 @@ ctrl + alt - left       : yabai -m window --grid 1:2:0:0:1:1
 ctrl + alt - right      : yabai -m window --grid 1:2:1:0:1:1
 ctrl + alt - up         : yabai -m window --grid 2:1:0:0:1:1
 ctrl + alt - down       : yabai -m window --grid 2:1:0:1:1:1
+# move floating window
+# shift + ctrl - a : yabai -m window --move rel:-20:0
+# shift + ctrl - s : yabai -m window --move rel:0:20
+# shift + ctrl - d : yabai -m window --move rel:20:0
+# shift + ctrl - f : yabai -m window --move rel:0:-20
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
 # shift + cmd - n : yabai -m space --create && \
@@ -132,16 +141,6 @@ ctrl + shift - 0 : yabai -m window --space 10; yabai -m space --focus 10
 # focus monitor
 # ctrl + alt - z  : yabai -m display --focus prev
 # ctrl + alt - 3  : yabai -m display --focus 3
-
-# send window to monitor and follow focus
-# ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
-# ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
-
-# move floating window
-# shift + ctrl - a : yabai -m window --move rel:-20:0
-# shift + ctrl - s : yabai -m window --move rel:0:20
-# shift + ctrl - d : yabai -m window --move rel:20:0
-# shift + ctrl - f : yabai -m window --move rel:0:-20
 
 # increase window size
 # shift + alt - a : yabai -m window --resize left:-20:0

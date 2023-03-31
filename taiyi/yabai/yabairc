@@ -34,15 +34,15 @@ yabai -m config  window_origin_display        default
 yabai -m config  window_placement             second_child
 yabai -m config  window_topmost               off
 yabai -m config  window_shadow                off
-yabai -m config  window_opacity               off
+yabai -m config  window_opacity               on
 yabai -m config  window_animation_duration    0.0
 yabai -m config  window_opacity_duration      0.0
-yabai -m config  active_window_opacity        1.0
-yabai -m config  normal_window_opacity        0.90
+yabai -m config  active_window_opacity        0.95
+yabai -m config  normal_window_opacity        0.95
 
 
 # window border
-yabai -m config  window_gap                  02
+yabai -m config  window_gap                  05
 yabai -m config  window_border_width         1
 yabai -m config  window_border_radius        12
 yabai -m config  window_border_blur          off
@@ -55,25 +55,22 @@ yabai -m config  normal_window_border_color  0xfff9cdd4
 
 
 # padding
-yabai -m config  top_padding                   3
-yabai -m config  bottom_padding                3
-yabai -m config  left_padding                  4
-yabai -m config  right_padding                 4
+yabai -m config  top_padding                   6
+yabai -m config  bottom_padding                8
+yabai -m config  left_padding                 10
+yabai -m config  right_padding                10
 yabai -m config  external_bar all:24:0
 
 
 # app specific setting.
 # try to use yabai -m query --windows for window reference
 # apps that shall be float
-yabai -m rule --add app="^MacForge$" manage=off
-yabai -m rule --add app="^Xnip$" manage=off
-yabai -m rule --add app="^Macs Fan Control$" manage=off
+yabai -m rule --add app="^(MacForge|App Store|Xnip|Macs Fan Control|Fig)$" manage=off
 yabai -m rule --add app="^(Calculator|计算器|安装器)$" manage=off
 yabai -m rule --add app="^(Activity Monitor|活动监视器)$" manage=off
 yabai -m rule --add app="^(Calendar|日历)$" manage=off
 yabai -m rule --add app="^(System Settings|系统设置)$" manage=off
-yabai -m rule --add app="^(Nutstore|坚果云)$" manage=off
-yabai -m rule --add app="^(Fig)$" manage=off
+yabai -m rule --add app="^(Nutstore|坚果云|Typora|CotEditor)$" manage=off
 yabai -m rule --add app="^(系统信息)$" manage=off
 yabai -m rule --add app="^(Codye|Keka)$" manage=off
 yabai -m rule --add app="^(Alfred Preferences)$" manage=off
@@ -89,6 +86,7 @@ yabai -m rule --add app="^(Reminders|提醒事项)$" manage=off
 # float the mini music player
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
 yabai -m rule --add app="^(Dictionary|词典)$" manage=off
+yabai -m rule --add app="^(ChatGPT)$" manage=off
 
 
 # Fix App to space (desktop)
