@@ -23,7 +23,7 @@ set-alias sync2y  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync -
 set-alias syncfy  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 yuan:"/home/users/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
 
 set-alias sync2cob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" cobra:"/u/minyez/$(dirname $relap)" }
-set-alias syncfcob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 cobra:"/u/minyez/$(dirname $relap)" "/home/minyez/$relap" }
+set-alias syncfcob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 cobra:"/u/minyez/$relap" "/home/minyez/$(dirname $relap)" }
 
 set-alias sync2rav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" raven:"/u/minyez/$(dirname $relap)" }
-set-alias syncfrav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$(dirname $relap)" "/home/minyez/$relap" }
+set-alias syncfrav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$relap" "/home/minyez/$(dirname $relap)" }

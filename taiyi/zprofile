@@ -2,5 +2,12 @@
 # [[ -f "$HOME/.fig/shell/zprofile.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zprofile.pre.zsh"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# display a fortune
+if which fortune >/dev/null 2>&1; then
+  echo
+  fortune
+  echo
+fi
+
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zprofile.post.zsh" ]] && builtin source "$HOME/.fig/shell/zprofile.post.zsh"

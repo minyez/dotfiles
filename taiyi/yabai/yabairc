@@ -66,14 +66,10 @@ yabai -m config  external_bar all:24:0
 # try to use yabai -m query --windows for window reference
 # apps that shall be float
 yabai -m rule --add app="^(MacForge|App Store|Xnip|Macs Fan Control|Fig)$" manage=off
-yabai -m rule --add app="^(Calculator|计算器|安装器)$" manage=off
-yabai -m rule --add app="^(Activity Monitor|活动监视器)$" manage=off
+yabai -m rule --add app="^(Calculator|计算器|安装器|Activity Monitor|活动监视器)$" manage=off
 yabai -m rule --add app="^(Calendar|日历)$" manage=off
-yabai -m rule --add app="^(System Settings|系统设置)$" manage=off
-yabai -m rule --add app="^(Nutstore|坚果云|Typora|CotEditor)$" manage=off
-yabai -m rule --add app="^(系统信息)$" manage=off
-yabai -m rule --add app="^(Codye|Keka)$" manage=off
-yabai -m rule --add app="^(Alfred Preferences)$" manage=off
+yabai -m rule --add app="^(System Settings|系统设置|系统信息)$" manage=off
+yabai -m rule --add app="^(Alfred Preferences|Codye|Keka|Nutstore|坚果云|Typora|CotEditor)$" manage=off
 yabai -m rule --add app="^(TencentMeeting|腾讯会议|TeamViewer|TeamViewer QuickSupport)$" manage=off
 yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 \(聊天\)$" manage=off
 yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|显示|提醒|支持)$" manage=off
@@ -81,12 +77,9 @@ yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|�
 yabai -m rule --add title="(Preferences|设置)$" manage=off
 # float all Finder Info window
 yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
-# float all Reminders
-yabai -m rule --add app="^(Reminders|提醒事项)$" manage=off
 # float the mini music player and other small tools
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
-yabai -m rule --add app="^(Dictionary|词典|数码测色计)$" manage=off
-yabai -m rule --add app="^(ChatGPT)$" manage=off
+yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT)$" manage=off
 
 
 # Fix App to space (desktop)

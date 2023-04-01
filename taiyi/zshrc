@@ -133,6 +133,8 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
+[[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
+[[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
 
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
