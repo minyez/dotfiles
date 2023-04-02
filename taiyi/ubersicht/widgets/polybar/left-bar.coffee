@@ -1,4 +1,4 @@
-refreshFrequency: 6000
+refreshFrequency: 1000
 
 DARK = false
 

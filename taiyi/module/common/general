@@ -71,6 +71,9 @@ setenv MY    "$my"
 setenv MYRM  "$myrm"
 set-alias cm { cd "$MY" }
 set-alias cmr { cd "$MYRM" }
+# back-compatibility of my mind
+set-alias cdsd { cd "$MY" }
+set-alias cdsdrm { cd "$MYRM" }
 
 # proxies setup
 # set http_proxy  http://127.0.0.1:9891

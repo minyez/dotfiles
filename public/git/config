@@ -3,7 +3,7 @@
 	email = minyez.physchem@gmail.com
 	signingkey = E24AEEBE573C60EA
 [core]
-	editor = nvim
+	editor = nvim +startinsert
 [init]
 	defaultBranch = master
 [merge]
