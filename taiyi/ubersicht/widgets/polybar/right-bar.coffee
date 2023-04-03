@@ -2,9 +2,10 @@ refreshFrequency: 1000
 
 DARK = false
 
-IDIOM = "<span>生きた轍を君と呼べ</span>"
 IDIOM = "<span><a href='https:\/\/music.apple.com\/cn\/album\/%E6%82%B2%E3%81%97%E3%81%BF%E4%B8%80%E3%81%A4%E3%82%82%E6%AE%8B%E3%81%95%E3%81%AA%E3%81%84%E3%81%A7\/1538105636?i=1538105643'>悲しみ一つも残さないで</a></span>"
 IDIOM = "<span>悲しみ一つも残さないで</span>"
+IDIOM = "<span>生きた轍を君と呼べ</span>"
+IDIOM = "<span>慎独</span>"
 
 commands =
   battery: "pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto " +
@@ -18,7 +19,7 @@ commands =
   wifi   : "echo 0"
   music  : "echo 'tell application \"Music\"\nreturn name of current track\nend tell' | osascript"
   # date   : "date +\"%a %d %b\""
-  date   : "LC_TIME=zh_CN.UTF-8 date +\"%y-%m-%d %a\""
+  date   : "LC_TIME=zh_CN.UTF-8 date +\"%y-%m-%d %a %H:%M\""
   volume : "osascript -e 'output volume of (get volume settings)'"
   input : "osascript -e 'input volume of (get volume settings)'"
   cpu    : "ESC=`printf \"\e\"`; ps -A -r -o %cpu | awk '{s+=$1} END {printf(\"%2d\",s/8);}'"
@@ -34,7 +35,7 @@ colors =
   green   : "#A3BE8C"
   dgreen  : "#4B7A47"
   yellow  : "#EBCB8B"
-  dyellow : "#FFCC0D"
+  dyellow : "#C88523"
   blue    : "#4078c0"
   magenta : "#B48EAD"
   cyan    : "#88C0D0"
@@ -54,7 +55,7 @@ if DARK
       wifi : "#{colors.white}"
 else
     widgetc = 
-      date : "#{colors.yellow}"
+      date : "#{colors.dyellow}"
       input : "#{colors.red}"
       volume : "#{colors.red}"
       spacer : "#{colors.grey}"
@@ -213,7 +214,7 @@ style: """
     display: flex
     align-items: stretch
     height: 24px
-    margin: 0 0px
+    margin: 0 10px
 
   .elements > div
     display: flex

@@ -62,7 +62,7 @@ set-alias dt { date +"%Y-%m-%d %H:%M:%S"}
 set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 
 # ip
-#set-alias myip { curl ipinfo.io/ip }
+set-alias myip { curl ipinfo.io/ip }
 
 # personal directory
 set    my    "[getenv HOME]/Documents/minyez"
@@ -74,6 +74,13 @@ set-alias cmr { cd "$MYRM" }
 # back-compatibility of my mind
 set-alias cdsd { cd "$MY" }
 set-alias cdsdrm { cd "$MYRM" }
+
+# module related
+set-alias ma { module avail }
+
+# git related, copied from zsh git plugin, no need if zsh git plugin is used.
+# set-alias gds { git diff --staged }
+# set-alias gc { git commit --verbose }
 
 # proxies setup
 # set http_proxy  http://127.0.0.1:9891
