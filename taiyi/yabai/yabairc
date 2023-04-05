@@ -85,10 +85,10 @@ yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
 
 # Fix App to space (desktop)
-yabai -m rule --add app="^(Firefox|Google Chrome)$" space=1
-yabai -m rule --add app="^(Code|Xcode)$" space=2
-yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=3
-yabai -m rule --add app="^(PDF Viewer|PDF Expert)$" space=4
+yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=^1
+yabai -m rule --add app="^(Code|Xcode)$" space=^2
+yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=^3
+yabai -m rule --add app="^(PDF Viewer)$" space=^4
 yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
 yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8
@@ -110,7 +110,7 @@ yabai -m space 10 --label 訊
 
 # refresh my Übersicht bar when the space changes
 yabai -m signal --add event=space_changed \
-    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"spaces-widget\"'"
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"polybar-left-bar-coffee\"'"
 
 echo "yabai configuration loaded.."
 

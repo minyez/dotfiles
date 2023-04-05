@@ -1,1 +1,1 @@
-require('kanagawa')
+require('ui.kanagawa')

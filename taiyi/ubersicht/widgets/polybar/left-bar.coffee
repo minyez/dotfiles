@@ -16,15 +16,20 @@ cdef =
   elegant: "#1C2331"
   magenta: "#af005f"
   cyan:    "#00afd7"
+  dblue:   "#1C2331"
+  white:   "#FFFFFF"
+
 
 if DARK
   colors = 
-    workspace : "#{cdef.orange}"
+    workspace_fg : "#{cdef.orange}"
+    workspace_bg : "#{cdef.dblue}"
     active_fg : "#{cdef.elegant}"
     active_bg : "#{cdef.silver}"
 else
   colors = 
-    workspace : "#{cdef.ghblue}"
+    workspace_fg : "#{cdef.ghblue}"
+    workspace_bg : "#{cdef.white}"
     active_fg : "#{cdef.elegant}"
     active_bg : "#{cdef.silver}"
 
@@ -74,10 +79,11 @@ style: """
 
   .workspace
     display: flex
-    color: #{colors.workspace}
+    color: #{colors.workspace_fg}
     align-items: center
     justify-content: center
-    padding: 4px 4px
+    padding: 3px 3px
+    border: 1px solid #{colors.workspace_bg}
 
   .active
     color: #{colors.active_fg}
@@ -85,7 +91,7 @@ style: """
     border: 1px solid #{colors.active_fg}
 
   top: 5px
-  left: 12px
+  left: 6px
   font-family: 'Monaco'
   font-size: 14px
   font-smoothing: antialiasing

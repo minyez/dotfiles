@@ -107,6 +107,10 @@ ctrl + alt - left       : yabai -m window --grid 1:2:0:0:1:1
 ctrl + alt - right      : yabai -m window --grid 1:2:1:0:1:1
 ctrl + alt - up         : yabai -m window --grid 2:1:0:0:1:1
 ctrl + alt - down       : yabai -m window --grid 2:1:0:1:1:1
+ctrl + alt - e          : yabai -m window --grid 2:2:0:0:1:1
+ctrl + alt - r          : yabai -m window --grid 2:2:1:0:1:1
+ctrl + alt - d          : yabai -m window --grid 2:2:0:1:1:1
+ctrl + alt - f          : yabai -m window --grid 2:2:1:1:1:1
 # move floating window
 # shift + ctrl - a : yabai -m window --move rel:-20:0
 # shift + ctrl - s : yabai -m window --move rel:0:20
@@ -157,8 +161,6 @@ ctrl + shift - 0 : id=$(yabai -m query --windows --window | jq '.id'); yabai -m 
 alt - d : yabai -m window --toggle zoom-parent
 # make window fill screen
 alt - f : yabai -m window --toggle zoom-fullscreen
-# make floating window fill screen
-shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 # alt - p : if [[ $(yabai -m query --windows --window | jq '."is-topmost"') == "false" ]]; then yabai -m window --layer above; else yabai -m window --layer normal; fi
@@ -168,7 +170,10 @@ alt - o : if (( $(yabai -m query --windows --window | jq '.opacity') == 1 )); th
 # toggle window split type
 alt - e : yabai -m window --toggle split
 
+# toggle picture-in-picture and turn off border (assume default on)
+shift + alt - i : yabai -m window --toggle pip --toggle border
+
 # toggle sticky(+float), topmost, picture-in-picture
 # alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip
 # toggle sticky(+float), topmost
-alt - p : yabai -m window --toggle sticky --toggle topmost
+# alt - p : yabai -m window --toggle sticky --toggle topmost

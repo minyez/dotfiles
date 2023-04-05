@@ -1,4 +1,4 @@
-refreshFrequency: 1000
+refreshFrequency: '5s'
 
 DARK = false
 
@@ -215,6 +215,7 @@ style: """
     align-items: stretch
     height: 24px
     margin: 0 10px
+    cursor: default // selectable text, but cursor will not change to I
 
   .elements > div
     display: flex

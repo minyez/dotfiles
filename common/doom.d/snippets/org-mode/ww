@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# key: ww
+# name: week number of current year
+# uuid: ww
+# group: datetime        
+# 
+# --
+`(format-time-string "%Y Week %V")`$0
