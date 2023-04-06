@@ -17,9 +17,13 @@ compinit
 autoload bashcompinit
 bashcompinit
 
-if [[ -f $HOME/.module ]]; then
-  source $HOME/.module
-fi
+# if [[ -f $HOME/.module ]]; then
+#   source $HOME/.module
+# fi
+
+[[ ! -f $HOME/.zprofile ]] || source $HOME/.zprofile
+[[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
+[[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
 
 ## comment out for permission error of wine
 #ulimit -s unlimited

@@ -1,0 +1,27 @@
+#%Module1.0
+# module setup common to different shells
+module unuse /usr/share/Modules/modulefiles
+module unuse /usr/share/modulefiles
+# enable color
+setenv MODULES_COLOR auto
+
+module use [getenv HOME]/.module/alias
+module load general-alias
+module load git-alias
+module load ssh-alias
+##module load sdcv-alias
+##module load vasp-alias
+
+module use [getenv HOME]/.module/tool
+module load pyenv rbenv
+
+module use [getenv HOME]/.module/math
+
+module use [getenv HOME]/.module/compiler
+
+# personal projects
+module use [getenv HOME]/.module/project
+module load py-mushroom
+
+module use [getenv HOME]/.module/sci
+
