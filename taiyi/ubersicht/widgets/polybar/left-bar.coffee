@@ -16,14 +16,13 @@ cdef =
   elegant: "#1C2331"
   magenta: "#af005f"
   cyan:    "#00afd7"
-  dblue:   "#1C2331"
   white:   "#FFFFFF"
 
 
 if DARK
   colors = 
     workspace_fg : "#{cdef.orange}"
-    workspace_bg : "#{cdef.dblue}"
+    workspace_bg : "#{cdef.elegant}"
     active_fg : "#{cdef.elegant}"
     active_bg : "#{cdef.silver}"
 else

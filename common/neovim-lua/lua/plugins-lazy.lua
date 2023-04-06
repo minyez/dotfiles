@@ -156,15 +156,16 @@ local plugins = {
   "junegunn/vim-easy-align",
   "echasnovski/mini.align",
   "rmagatti/alternate-toggler", -- quick toggle between true/false
-  {
-    "edluffy/hologram.nvim",
-    -- lazy = true,
-    config = function()
-        require("hologram").setup({
-          auto_display = true -- WIP automatic markdown image display, may be prone to breaking
-        })
-    end
-  },
+  -- comment out hologram for some error on macos
+  -- {
+  --   "edluffy/hologram.nvim",
+  --   -- lazy = true,
+  --   config = function()
+  --       require("hologram").setup({
+  --         auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+  --       })
+  --   end
+  -- },
 }
 
 local opts = {}
