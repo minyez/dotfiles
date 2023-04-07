@@ -99,7 +99,6 @@ def symlink_dotfile(src, target, dry=False, verbose=False):
 def load_setup_json(*jsonfns):
     """load the link setup from json files"""
     d = {}
-    jsonfns = ("public", *jsonfns)
     for jfn in jsonfns:
         try:
             with open(jfn + ".json", 'r') as h:
@@ -112,6 +111,8 @@ def load_setup_json(*jsonfns):
 
 def main():
     """main stream"""
+    AVAILABLE_SETUPS = ("public", "darwin", "taiyi", "y9kfed", "amdfed", "iopcas")
+
     parser = ArgumentParser(__doc__,
                             formatter_class=RawDescriptionHelpFormatter)
     parser.add_argument("--dry", action="store_true", help="dry mode")
@@ -123,12 +124,11 @@ def main():
     parser.add_argument("--showname",
                         action="store_true",
                         help="show the OS name and files to link, then exit")
+    parser.add_argument("--setups", nargs="+", type=str, default=None,
+                        choices=AVAILABLE_SETUPS, help="manually chosen setups")
     args = parser.parse_args()
 
     # identifier from name and host
-    _user = getpwuid(os.geteuid()).pw_name
-    _host = gethostname()
-    iden = "{}-{}".format(_user, _host)
     iden_jsonfn = {
         "stevezhang-stevezhangMacBook-Pro.local": "darwin",
         "stevezhang-localhost": "darwin",
@@ -138,15 +138,22 @@ def main():
         "minyez-y9kfed": "y9kfed",
         "minyez-taiyi": "taiyi",
     }
-
-    try:
-        jfn = iden_jsonfn[iden]
-        print("Set JSON '{}' for identifier: {}".format(jfn, iden))
-        src_target_pair = load_setup_json(jfn)
-    except KeyError:
-        print("No JSON set for identifier: {}".format(iden))
-        src_target_pair = load_setup_json()
-        print("Public only")
+    jsonfns = []
+    if args.setups is None:
+        _user = getpwuid(os.geteuid()).pw_name
+        _host = gethostname()
+        iden = "{}-{}".format(_user, _host)
+        jsonfns = ["public", ]
+        try:
+            jfn = iden_jsonfn[iden]
+            print("Set JSON '{}' for identifier: {}".format(jfn, iden))
+            jsonfns.append(jfn)
+        except KeyError:
+            print("No JSON set for identifier: {}".format(iden))
+            print("Public only")
+    else:
+        jsonfns = args.setups
+    src_target_pair = load_setup_json(*jsonfns)
 
     if args.showname:
         for s, t in src_target_pair.items():
