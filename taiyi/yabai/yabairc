@@ -69,7 +69,7 @@ yabai -m rule --add app="^(MacForge|App Store|Xnip|Macs Fan Control|Fig)$" manag
 yabai -m rule --add app="^(Calculator|计算器|安装器|Activity Monitor|活动监视器)$" manage=off
 yabai -m rule --add app="^(Calendar|日历)$" manage=off
 yabai -m rule --add app="^(System Settings|系统设置|系统信息)$" manage=off
-yabai -m rule --add app="^(Alfred Preferences|Codye|Keka|Nutstore|坚果云|Typora|CotEditor)$" manage=off
+yabai -m rule --add app="^(Alfred Preferences|Codye|Keka|Nutstore|坚果云|Dropbox|Typora|CotEditor)$" manage=off
 yabai -m rule --add app="^(TencentMeeting|腾讯会议|TeamViewer|TeamViewer QuickSupport)$" manage=off
 yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 \(聊天\)$" manage=off
 yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|显示|提醒|支持)$" manage=off
@@ -79,7 +79,7 @@ yabai -m rule --add title="(Preferences|设置)$" manage=off
 yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
 # float the mini music player and other small tools
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
-yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT|天气|Weather)$" manage=off
+yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT|天气|Weather|qtgrace)$" manage=off
 
 # temporary rule to float and topmost flypy keyboard
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
@@ -93,7 +93,7 @@ yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
 yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8
 yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
-yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp)$" space=10
+yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp|Discord)$" space=10
 
 
 # space naming

@@ -53,9 +53,9 @@ fi
 # rust
 [ -f  "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# pandoc completion
-if command -v pandoc 1>/dev/null 2>&1; then
-  eval "$(pandoc --bash-completion)"
-fi
+# # pandoc completion
+# if command -v pandoc 1>/dev/null 2>&1; then
+#   eval "$(pandoc --bash-completion)"
+# fi
 
 # [ -f  "$HOME/.xprofile" ] && source "$HOME/.xprofile"
