@@ -3,7 +3,7 @@
 # Tested for Doom Emacs, liberime version 0.0.6
 librime_install_dir=/opt/librime
 SUDO=sudo  # set to empty if librime_install_dir is accessible without sudo permission
-liberime_dir=$HOME/.config/emacs/.local/straight/build-28.2/liberime
+liberime_dir=${liberime_dir:=$HOME/.config/emacs/.local/straight/build-28.2/liberime}
 
 librime_ver=1.8.5
 librime_name=rime-08dd95f-macOS.tar.bz2
