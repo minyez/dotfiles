@@ -81,7 +81,7 @@ local plugins = {
   "lukas-reineke/indent-blankline.nvim", -- indent line
   "gpanders/editorconfig.nvim", -- respect editorconfig
   "ethanholz/nvim-lastplace", -- auto return back to the last modified positon when open a file
-  "nathom/filetype.nvim",
+  -- "nathom/filetype.nvim",
 
   {
     "nvim-treesitter/nvim-treesitter",

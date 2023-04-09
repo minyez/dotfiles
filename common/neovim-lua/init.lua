@@ -25,7 +25,7 @@ require(USER_DIR .. '.ui.notify')
 -- -- require(USER_DIR .. '.ui.nvim-lightbulb') -- bulb not shown on Y9KP
 require(USER_DIR .. '.ui.aerial')
 require(USER_DIR .. '.ui.indent-blankline')
-require(USER_DIR .. '.ui.filetype')
+-- require(USER_DIR .. '.ui.filetype')
 require(USER_DIR .. '.ui.gitsigns')
 require(USER_DIR .. '.ui.nvim-tree')
 require(USER_DIR .. '.ui.nvim-treesitter')
