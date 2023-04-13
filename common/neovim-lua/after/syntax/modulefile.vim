@@ -17,7 +17,7 @@ syn match tclCommand		"\v<(lreplace|lreverse|lsearch|lset|lsort|memory|my|namesp
 syn match tclCommand		"\v<(next|nextto|open|package|pid|puts|pwd|read|refchan|regexp)>"
 syn match tclCommand		"\v<(registry|regsub|rename|scan|seek|self|set|socket|source)>"
 syn match tclCommand		"\v<(split|string|subst|tell|time|trace|unknown|unload|unset)>"
-syn match tclCommand		"\v<(update|uplevel|upvar|variable|vwait)>"
+syn match tclCommand		"\v<(update|uplevel|upvar|use|variable|vwait)>"
 
 " The 'Tcl Standard Library' commands: http://www.tcl-lang.org/man/tcl8.6/TclCmd/library.htm
 syn match tclCommand		"\v<(auto_execok|auto_import|auto_load|auto_mkindex|auto_reset)>"
