@@ -45,6 +45,11 @@ if not status_ok then
 end
 
 nvim_tree.setup {
+  update_focused_file = {
+    enable = true,
+    update_root = false,
+    ignore_list = {},
+  },
 }
 
 -- Default mapping defined in nvim-tree.lua/lua/actions/init.lua
@@ -96,4 +101,4 @@ nvim_tree.setup {
 -- with relative path
 -- require"nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..file.fname) end)
 -- -- with absolute path
-require"nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..vim.fn.fnamemodify(file.fname, ":p")) end)
+-- require"nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..vim.fn.fnamemodify(file.fname, ":p")) end)

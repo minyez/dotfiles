@@ -8,7 +8,7 @@ syn match aimsExtOption	    	"\v<(print_input_librpa)>"
 syn match aimsOutputOption	    "output\s\+\v<(basis|self_energy|gw_regular_kgrid|k_eigenvalue|matrices|grids|v_eff|v_hartree|band|dos)>"
 
 syn match aimsBasisOption       "\v<(species|nucleus|mass|l_hartree|cut_pot|basis_dep_cutoff|radial_base|radial_multiplier|angular_grids|division|outer_grid|include_min_basis|pure_gauss|cite_reference|basis_acc)>"
-syn match aimsBasisOption       "^\s*\v<(for_aux\s*)?(gaussian|valence|ion_occ|hydro)>"
+syn match aimsBasisOption       "^\s*\v<(for_aux\s*)?(gaussian|valence|ion_occ|hydro|ionic)>"
 
 " bind to existing syntax groups
 hi def link aimsGeneralOption		Identifier
