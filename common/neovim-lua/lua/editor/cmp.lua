@@ -118,7 +118,7 @@ cmp.setup {
     { name = "buffer" },
     { name = "path" },
     -- { name = "cmdline" }, -- trigger cmdline here will make you tab once only
-    -- { name = "orgmode" },
+    { name = "orgmode" },
     { name = "env" },
     { name = "rg" },
   },

@@ -100,6 +100,14 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.offsetEncoding = { "utf-16" }
 
+-- -- from nvim-ufo Option 2, i.e. nvim lsp as LSP client,
+-- -- but encounter Request textDocument/foldingRange failed error with lineFoldingOnly in yaml
+-- -- so switched to nvim-treesitter
+-- capabilities.textDocument.foldingRange = {
+--     dynamicRegistration = false,
+--     lineFoldingOnly = true
+-- }
+
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if status_ok then
   M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)

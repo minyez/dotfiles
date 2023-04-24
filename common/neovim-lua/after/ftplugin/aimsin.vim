@@ -8,3 +8,4 @@ set syntax=aimsin
 
 setlocal comments=:#
 setlocal commentstring=#%s
+setlocal completefunc=aimsincomplete#CompleteOption

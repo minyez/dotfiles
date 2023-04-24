@@ -75,7 +75,16 @@ local plugins = {
     }
   },
 
-  -- "nvim-orgmode/orgmode", -- for Emacs orgmode file, disable as it will BREAK ENTER key
+  {
+    'nvim-orgmode/orgmode', -- for Emacs orgmode file
+    ft = {'org'},
+    config = function()
+      require('orgmode').setup_ts_grammar()
+      require('orgmode').setup{
+        org_default_notes_file = '~/projects/org-roam/inbox.org',
+      }
+    end
+  },
   "norcalli/nvim-colorizer.lua", -- show color
   "folke/trouble.nvim",
   "lukas-reineke/indent-blankline.nvim", -- indent line
@@ -144,6 +153,11 @@ local plugins = {
   {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",
   -- ====== end snippets
+
+  -- Modern folding
+  {'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async'},
+  -- folding preview
+  {"anuvyklack/fold-preview.nvim", dependencies = "anuvyklack/keymap-amend.nvim", config = true },
 
   "andymass/vim-matchup",
   "simrat39/symbols-outline.nvim", -- symbols overview

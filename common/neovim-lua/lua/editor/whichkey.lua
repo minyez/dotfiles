@@ -104,6 +104,7 @@ configs.register({
     r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
+    t = { "<cmd>TodoTelescope<cr>", "Search TODOs" },
     w = { 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', 'Live Grep Cursor Word' },
   },
   -- ["/"] = { "<cmd>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
