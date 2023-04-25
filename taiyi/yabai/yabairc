@@ -73,6 +73,8 @@ yabai -m rule --add app="^(Alfred Preferences|Codye|Keka|Nutstore|坚果云|Drop
 yabai -m rule --add app="^(TencentMeeting|腾讯会议|TeamViewer|TeamViewer QuickSupport)$" manage=off
 yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 \(聊天\)$" manage=off
 yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|显示|提醒|支持)$" manage=off
+# do not track Inkscape windows other than the main workspace
+yabai -m rule --add app="^(Inkscape)$" title!="^(.* - Inkscape)$" manage=off
 # float all preferences
 yabai -m rule --add title="(Preferences|设置)$" manage=off
 # float all Finder Info window
@@ -85,13 +87,14 @@ yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
 
 # Fix App to space (desktop)
-yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=^1
-yabai -m rule --add app="^(Code|Xcode)$" space=^2
+yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=1
+yabai -m rule --add app="^(Code|Xcode|VSCodium)$" space=2
 yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=^3
-yabai -m rule --add app="^(PDF Viewer)$" space=^4
-yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=^5
+yabai -m rule --add app="^(PDF Viewer)$" space=4
+yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
 yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" manage=off
-yabai -m rule --add app="^(Mail)$" space=^8
+yabai -m rule --add app="^(DaVinci Resolve)$" space=6
+yabai -m rule --add app="^(Mail)$" space=8
 yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
 yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp|Discord)$" space=10
 # Disable mouse follow for Clocker tray menu

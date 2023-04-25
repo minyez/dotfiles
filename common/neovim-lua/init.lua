@@ -11,7 +11,6 @@ require(USER_DIR .. '.colorscheme')("kanagawa")
 
 require(USER_DIR .. '.lsp')
 
-require(USER_DIR .. '.editor.luasnip')
 require(USER_DIR .. '.editor.whichkey')
 -- require(USER_DIR .. '.editor.nvim-comment')
 require(USER_DIR .. '.editor.Comment')
