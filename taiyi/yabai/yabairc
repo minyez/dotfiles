@@ -42,12 +42,12 @@ yabai -m config  normal_window_opacity        0.95
 
 
 # window border
-yabai -m config  window_gap                  05
+yabai -m config  window_gap                  03
 yabai -m config  window_border_width         1
 yabai -m config  window_border_radius        12
 yabai -m config  window_border_blur          off
 yabai -m config  window_border_hidpi         on
-yabai -m config  window_border               on
+yabai -m config  window_border               off
 # yabai -m config  active_window_border_color  0xff775759
 yabai -m config  active_window_border_color  0xff3e5ea3
 # yabai -m config  normal_window_border_color  0xff555555
@@ -68,10 +68,13 @@ yabai -m config  external_bar all:24:0
 yabai -m rule --add app="^(MacForge|App Store|Xnip|Macs Fan Control|Fig)$" manage=off
 yabai -m rule --add app="^(Calculator|计算器|安装器|Activity Monitor|活动监视器)$" manage=off
 yabai -m rule --add app="^(Calendar|日历)$" manage=off
+yabai -m rule --add app="^(Docker Desktop)$" manage=off
+yabai -m rule --add app="^(问题报告程序)$" manage=off
 yabai -m rule --add app="^(System Settings|系统设置|系统信息)$" manage=off
 yabai -m rule --add app="^(Alfred Preferences|Codye|Keka|Nutstore|坚果云|Dropbox|Typora|CotEditor)$" manage=off
 yabai -m rule --add app="^(TencentMeeting|腾讯会议|TeamViewer|TeamViewer QuickSupport)$" manage=off
-yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 \(聊天\)$" manage=off
+# yabai -m rule --add label="float-wechat-nonchat" app="^微信$" title!="^微信 \(聊天\)$" manage=off
+yabai -m rule --add app="^微信$" manage=off
 yabai -m rule --add app="^(Day One)$" title="^(通用|安全|同步|日记本|显示|提醒|支持)$" manage=off
 # do not track Inkscape windows other than the main workspace
 yabai -m rule --add app="^(Inkscape)$" title!="^(.* - Inkscape)$" manage=off
@@ -88,6 +91,7 @@ yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
 
 # Fix App to space (desktop)
 yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=1
+# yabai -m rule --add title="^(.*DeepL Translate.*)$" manage=off
 yabai -m rule --add app="^(Code|Xcode|VSCodium)$" space=2
 yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=^3
 yabai -m rule --add app="^(PDF Viewer)$" space=4

@@ -81,13 +81,13 @@ ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Open apps & shell command
 # open a new emacsclient frame
-ctrl + cmd - e : /opt/homebrew/bin/emacsclient -c || osascript -e "display notification \"emacsclient -c return 1, try restart brew service\nbrew services restart d12frosted/emacs-plus/emacs-plus@28\" with title \"Emacs Client failed\""
+ctrl + cmd - e : /opt/homebrew/bin/emacsclient -c || osascript -e "display notification \"emacsclient -c return 1, try restart brew service\nbrew services restart d12frosted/emacs-plus/emacs-plus\" with title \"Emacs Client failed\""
 
 # focus window
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
+ctrl + alt - h : yabai -m window --focus west
+ctrl + alt - l : yabai -m window --focus east
+ctrl + alt - j : yabai -m window --focus south
+ctrl + alt - k : yabai -m window --focus north
 
 # swap managed window
 # shift + alt - h : yabai -m window --swap north

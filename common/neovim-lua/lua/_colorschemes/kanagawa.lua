@@ -4,11 +4,11 @@ if not status_ok then
   return
 end
 
-local overrides = function(colors)
-  return {}
-end
+-- local overrides = function(colors)
+--   return {}
+-- end
 
-local dark = "dragon"
+local dark = "wave"
 local light = "lotus"
 
 kanagawa.setup({
@@ -31,8 +31,7 @@ kanagawa.setup({
       },
       theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
   },
-  overrides = overrides,
-  theme = dark,            -- them to load when 'background' option is not set
+  -- overrides = overrides,
   background = {           -- map the value of 'background' option to a theme
       dark = dark,         -- try "dragon" !
       light = light

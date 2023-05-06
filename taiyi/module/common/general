@@ -24,7 +24,7 @@ set-alias la "ls -a"
 
 # vi is alreadly aliased to vim on macOS Ventura
 # Just map vim to neovim
-set-alias v "nvim "
+set-alias v "nvim -O "
 set-alias vim "nvim "
 set-function _vi4 {
     #1 vim executable

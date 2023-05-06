@@ -4,6 +4,7 @@
 paths=(
   "$HOME/.cargo/bin"
   "$HOME/scripts"
+  "$HOME/bin"
 )
 for p in "${paths[@]}"; do
   if ! [[ "$PATH" =~ "$p": ]]; then
