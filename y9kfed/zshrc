@@ -18,11 +18,11 @@ autoload bashcompinit
 bashcompinit
 
 [[ ! -f $HOME/.zprofile ]] || source $HOME/.zprofile
-[[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
-[[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
+# [[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
+# [[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
 
-## comment out for permission error of wine
-#ulimit -s unlimited
+# comment out for permission error of wine
+ulimit -s unlimited
 
 # direnv completion
 if command -v direnv 1>/dev/null 2>&1; then

@@ -77,28 +77,28 @@
   ; short title for Beamer export
   ;  (add-to-list 'org-export-options-alist
   ;               '(:short_title "SHORT_TITLE" nil nil parse))
-  (add-to-list 'org-capture-templates
-   '("i" "Quick Thought to Inbox" entry
-     (file+headline "todos.org" "Inbox")
-     "* TODO %u %?" :prepend t))
-  (add-to-list 'org-capture-templates
-   '("S" "Group seminar note" entry
-     (file+headline "meeting.org" "Group Seminar")
-     "* %? %u" :jump-to-captured t))
-  (add-to-list 'org-capture-templates
-   '("e" "English vocaburary" entry
-     (file "english_vocabulary.org")
-     "* %? :drill:
-** Examples :ignore:
-** Origin :ignore:"))
-  (add-to-list 'org-capture-templates
-    '("n" "Personal notes" entry
-      (file+headline "todos.org" "Quick note")
-      "* %u %?\n%i\n%a" :prepend t))
-  (add-to-list 'org-capture-templates
-   '("j" "Journal Log" plain
-     (file+function "journal/log.org" mz/org-goto-today-node)
-     "%<%H:%M> %?" :prepend nil))
+  (setq org-capture-templates
+        '(
+          ("S" "Group seminar note" entry
+               (file+headline "meeting.org" "Group Seminar")
+               "* %? %u" :jump-to-captured t)
+          ("e" "English vocaburary" entry
+               (file "english_vocabulary.org")
+               "* %? :drill:\n** Examples :ignore:\n** Origin :ignore:")
+          ("j" "Journal Log" plain
+               (file+function "journal/log.org" mz/org-goto-today-node)
+               "%<%H:%M> %?" :prepend nil)
+          ("t" "TODO items")
+          ("tw" "Work" entry
+               (file+headline "todos.org" "工作 Work")
+               "* %u %?\n%i\n%a" :prepend t)
+          ("tr" "Reading" entry
+               (file+headline "todos.org" "阅读 Reading")
+               "* %u %?\n%i\n%a" :prepend t)
+          ("ti" "Quick Thought Inbox" entry
+               (file+headline "todos.org" "Inbox")
+               "* TODO %u %?" :prepend t)
+          ))
   ;;; babel configuration
   (setq org-babel-results-keyword "results")
 
@@ -167,13 +167,13 @@
   ; each state with ! is recorded as state change
   ; for org-habit, it seems that DONE logging is enabled automatically
   ; add ! after d will make org-habit log twice
-  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAITING(w)" "NEEDREVIEW(r!)" "|" "DONE(d)" "CANCELLED(c!@)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAIT(w)" "REVIEW(r!)" "|" "DONE(d)" "CANCELLED(c!@)"))
         org-todo-keyword-faces
-          '(("TODO" :foreground "#ffffff" :background "#ff9933" :weight bold)
-            ("WAITING" :foreground "#ffffff" :background "#9f7efe")
-            ("WIP" :foreground "#ffffff" :background"#0098dd" :weight bold)
-            ("NEEDREVIEW" :foreground "#ffffff" :background "#8c1400" :weight bold)
-            ("DONE" :foreground "#ffffff" :background "#50a14f")
+          '(("REVIEW" :foreground "#ff9933" :weight bold)
+            ("WAIT" :foreground "#9f7efe")
+            ("WIP" :foreground "#0098dd" :weight bold)
+            ("TODO" :foreground "#8c1400" :weight bold)
+            ("DONE" :foreground "#50a14f")
             ("CANCELLED" :foreground "#ff6480" :strike-through t)
              )
   )
