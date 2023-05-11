@@ -6,4 +6,4 @@ module unuse "[getenv HOMEBREW_CELLAR]/modules/*/modulefiles"
 module use "[getenv HOME]/.module/common"
 module use "[getenv HOME]/.module/brew"
 
-module load general ssh
+module load general git ssh

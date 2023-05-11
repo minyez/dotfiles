@@ -40,6 +40,7 @@
   :recipe (:host github :repo "xenodium/dwim-shell-command"))
 (package! org-superstar)
 (package! org-fancy-priorities)
+(package! org-appear)
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam"))
 (unpin! org)

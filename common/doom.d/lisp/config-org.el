@@ -65,7 +65,8 @@
         )
   ; show the whole markup
   (setq org-fold-core-style 'overlays)
-  (setq org-link-descriptive nil)
+  (setq org-link-descriptive t)
+  (setq org-hide-emphasis-markers t)
   (setq org-archive-location (concat mz/org-notes "/archive.org::* From %s"))
   (setq org-default-notes-file (concat mz/org-notes "/todos.org::* Inbox"))
   ; match target and named construct
@@ -167,9 +168,9 @@
   ; each state with ! is recorded as state change
   ; for org-habit, it seems that DONE logging is enabled automatically
   ; add ! after d will make org-habit log twice
-  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAIT(w)" "REVIEW(r!)" "|" "DONE(d)" "CANCELLED(c!@)"))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WIP(i)" "WAIT(w)" "REV(r!)" "|" "DONE(d)" "CANCELLED(c!@)"))
         org-todo-keyword-faces
-          '(("REVIEW" :foreground "#ff9933" :weight bold)
+          '(("REV" :foreground "#ff9933" :weight bold)
             ("WAIT" :foreground "#9f7efe")
             ("WIP" :foreground "#0098dd" :weight bold)
             ("TODO" :foreground "#8c1400" :weight bold)
@@ -440,6 +441,30 @@ parent."
       info nil)
   data)
   (add-hook 'org-export-filter-parse-tree-functions 'org-export-ignore-headlines)
+)
+
+(use-package! prog-mode
+  :init
+  (setq-hook! org-mode
+    prettify-symbols-alist '(("#+end_quote" . "”")
+                             ("#+END_QUOTE" . "”")
+                             ("#+begin_quote" . "“")
+                             ("#+BEGIN_QUOTE" . "“")
+                             ("#+end_src" . "«")
+                             ("#+END_SRC" . "«")
+                             ("#+begin_src" . "»")
+                             ("#+BEGIN_SRC" . "»")
+                             ("#+name:" . "»")
+                             ("#+NAME:" . "»")))
+  :hook
+  (org-mode . prettify-symbols-mode)
+)
+
+(use-package! org-appear
+  :hook
+  (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autolinks t) ;; autolinks not working
 )
 
 (use-package! org-archive

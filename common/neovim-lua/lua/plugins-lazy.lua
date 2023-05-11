@@ -77,6 +77,13 @@ local plugins = {
       "nvim-tree/nvim-web-devicons", -- optional, for file icon
     }
   },
+  {
+    'sindrets/diffview.nvim',
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- optional, for file icon
+    }
+  },
   "rickhowe/diffchar.vim",
   -- ====== end UI
   -- ====== start colorschemes

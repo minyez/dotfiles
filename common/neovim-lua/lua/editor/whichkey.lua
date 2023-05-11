@@ -66,6 +66,7 @@ configs.register({
     r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
     a = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
     S = { "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer" },
+    v = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
     ["["] = { "<cmd>Gitsigns prev_hunk<cr>", "Previous Hunk" },
     ["]"] = { "<cmd>Gitsigns next_hunk<cr>", "Next Hunk" },
   },
@@ -75,6 +76,12 @@ configs.register({
     ["-"] = { "<cmd>vsplit<cr>", "Vertical split" },
     ["="] = { "<cmd>vsplit<cr>", "Vertical split" },
     s = { "<cmd>split<cr>", "(Horizontal) split" },
+  },
+  -- tab operations
+  b = {
+    name = "+tab",
+    x = { "<cmd>tabclose<cr>", "tabclose" },
+    n = { "<cmd>tabnew<cr>", "tabnew" },
   },
   -- toggle things
   t = {

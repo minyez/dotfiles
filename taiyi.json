@@ -10,5 +10,6 @@
   "taiyi/neovim-lua" : "~/.config/nvim",
   "taiyi/ubersicht/widgets": "~/Library/Application Support/Übersicht/widgets",
   "taiyi/tmux.conf" : "~/.tmux.conf",
+  "public/hushlogin": "~/.hushlogin",
   "public/mambarc": "~/.mambarc"
 }

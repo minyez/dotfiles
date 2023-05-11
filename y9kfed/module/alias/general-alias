@@ -61,7 +61,7 @@ set-alias odt { date +"%Y-%m-%d %a %H:%M"}
 
 # personal directory
 set    my    "[getenv HOME]/Documents/minyez"
-set    myrm  "[getenv HOME]/Documents/org-roam"
+set    myrm  "[getenv HOME]/Library/CloudStorage/Dropbox/org-roam"
 setenv MY    "$my"
 setenv MYRM  "$myrm"
 set-alias cm { cd "$MY" }

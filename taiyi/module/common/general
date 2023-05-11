@@ -3,19 +3,6 @@
 
 module-whatis "general aliases and functions"
 
-# directory
-set path_practice "[getenv HOME]/Documents/minyez/codes/code-practice"
-setenv PATH_PRACTICE "$path_practice"
-set-function practice {
-  pdir="$PATH_PRACTICE/$1"
-  if [ -d "$pdir" ];then
-    cd "$pdir" || return 1
-  else
-    echo "\"$1\" not found under $PATH_PRACTICE"
-    return 1
-  fi
-}
-
 set-function is_macos {
   [[ ${OSTYPE} != ${OSTYPE##darwin} ]]  
 }
@@ -28,14 +15,14 @@ set-alias v "nvim -O "
 set-alias vim "nvim "
 set-function _vi4 {
     #1 vim executable
-	#2,3,4,5 4 files to edit
-	$1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3"
+    ##2,3,4,5 4 files to edit
+    $1 -O $4 $5 -c "split $2" -c 'wincmd l"' -c "split $3"
 }
 set-function vi4 {
-	_vi4 /usr/bin/vim $1 $2 $3 $4
+    _vi4 /usr/bin/vim $1 $2 $3 $4
 }
 set-function vim4 {
-	_vi4 $HOMEBREW_PREFIX/bin/nvim $1 $2 $3 $4
+    _vi4 $HOMEBREW_PREFIX/bin/nvim $1 $2 $3 $4
 }
 
 # # false/true 
@@ -68,13 +55,27 @@ set-alias myip { curl ipinfo.io/ip }
 # personal directory
 set    my    "[getenv HOME]/Documents/minyez"
 set    myrm  "[getenv HOME]/projects/org-roam"
+setenv M     "$my"
 setenv MY    "$my"
 setenv MYRM  "$myrm"
 set-alias cm { cd "$MY" }
 set-alias cmr { cd "$MYRM" }
 # back-compatibility of my mind
-set-alias cdsd { cd "$MY" }
-set-alias cdsdrm { cd "$MYRM" }
+# set-alias cdsd { cd "$MY" }
+# set-alias cdsdrm { cd "$MYRM" }
+
+# directory
+set path_practice "$my/codes/code-practice"
+setenv PATH_PRACTICE "$path_practice"
+set-function practice {
+  pdir="$PATH_PRACTICE/$1"
+  if [ -d "$pdir" ];then
+    cd "$pdir" || return 1
+  else
+    echo "\"$1\" not found under $PATH_PRACTICE"
+    return 1
+  fi
+}
 
 # module related
 set-alias ma { module avail }

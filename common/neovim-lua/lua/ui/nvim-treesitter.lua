@@ -7,7 +7,7 @@ end
 
 configs.setup {
   -- ensure_installed = {"cpp", "lua", "c", "python", "go"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "cpp", "lua", "c", "python", "fortran", "org", "markdown", "javascript", }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "cpp", "lua", "c", "python", "fortran", "org", "markdown", "javascript", "commonlisp" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "" }, -- List of parsers to ignore installing
   autopairs = {

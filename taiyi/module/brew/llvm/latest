@@ -1,16 +1,16 @@
-####%Module1.0
+#%Module1.0
 ##
-## llvm@16.0.2
+## llvm, latest in opt
 ##
 
-set hbc "[getenv HOMEBREW_CELLAR]"
-set llvm_home "$hbc/llvm/16.0.2"
+set hbp "[getenv HOMEBREW_PREFIX]"
+set llvm_home "$hbp/opt/llvm"
 setenv LLVM_HOME "$llvm_home"
 
 prepend-path MANPATH    "$llvm_home/share/man"
 
 # setenv VIMRUNTIME "$llvm_home/share/vim/vimfiles,[getenv HOMEBREW_PREFIX]/opt/neovim/share/nvim/runtime" 
-setenv VIMRUNTIME "[getenv HOMEBREW_PREFIX]/opt/neovim/share/nvim/runtime" 
+# setenv VIMRUNTIME "[getenv HOMEBREW_PREFIX]/opt/neovim/share/nvim/runtime" 
 
 prepend-path PATH       "$llvm_home/bin"
 prepend-path PATH       "$llvm_home/libexec"

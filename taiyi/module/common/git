@@ -1,0 +1,20 @@
+#%Module1.0
+#
+module-whatis "git aliases and functions"
+
+# infomation command
+# current commit
+set-alias gih "git rev-parse --short HEAD"
+# set-alias gih "git log -1 --pretty=format:'%h'"
+
+# current branch
+set-alias gib "git branch --show-current"
+
+set-function gac {
+  datetime=$(date +"%Y-%m-%d %H:%M:%S")
+  details=$(git status --porcelain)
+  tmpf=$(mktemp)
+  echo -e "Auto commit: $datetime\n\n" > "$tmpf"
+  echo "$details" >> "$tmpf"
+  git commit -F "$tmpf"
+}
