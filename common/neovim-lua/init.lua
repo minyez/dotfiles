@@ -2,7 +2,7 @@
 USER_DIR = ""
 
 require(USER_DIR .. '.utils')
-require(USER_DIR .. '.plugins-lazy')
+require(USER_DIR .. '.plugins')
 require(USER_DIR .. '.keymaps')
 require(USER_DIR .. '.options')
 require(USER_DIR .. '.autocmd')
