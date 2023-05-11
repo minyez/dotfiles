@@ -62,6 +62,10 @@ local plugins = {
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
   "lewis6991/gitsigns.nvim",
+  {
+    "TimUntersberger/neogit",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
   -- nvim-tree: directory browser
   {
     "nvim-tree/nvim-tree.lua",

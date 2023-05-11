@@ -69,6 +69,7 @@ configs.register({
     v = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
     ["["] = { "<cmd>Gitsigns prev_hunk<cr>", "Previous Hunk" },
     ["]"] = { "<cmd>Gitsigns next_hunk<cr>", "Next Hunk" },
+    g = { "<cmd>Neogit<cr>", "Neogit" },
   },
   w = {
     name = "+window",
