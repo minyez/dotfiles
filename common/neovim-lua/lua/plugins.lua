@@ -103,16 +103,9 @@ local plugins = {
       { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = "MattesGroeger/vim-bookmarks" }
     }
   },
-
   {
     'nvim-orgmode/orgmode', -- for Emacs orgmode file
     ft = {'org'},
-    config = function()
-      require('orgmode').setup_ts_grammar()
-      require('orgmode').setup{
-        org_default_notes_file = '~/projects/org-roam/inbox.org',
-      }
-    end
   },
   "norcalli/nvim-colorizer.lua", -- show color
   "folke/trouble.nvim",
@@ -167,7 +160,7 @@ local plugins = {
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" }, -- lsp completions
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
+      -- { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
       { "bydlw98/cmp-env" }, -- environment variables
       { "paopaol/cmp-doxygen" }, -- doxygen. require treesitter
       -- { "amarakon/nvim-cmp-lua-latex-symbols" }, -- latex symbols
@@ -185,12 +178,12 @@ local plugins = {
       vim.cmd [[ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$HOME.'/snippets/UltiSnips' ]]
     end
   },
-  {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
+  -- {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",
   -- ====== end snippets
 
   -- Modern folding
-  {'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async'},
+  -- {'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async'},
   -- folding preview
   {"anuvyklack/fold-preview.nvim", dependencies = "anuvyklack/keymap-amend.nvim", config = true },
 

@@ -6,6 +6,12 @@ if not status_ok then
 end
 
 configs.setup_ts_grammar()
+configs.setup {
+  org_default_notes_file = '~/Library/CloudStorage/Dropbox/org-roam/todos.org',
+  org_highlight_latex_and_related = 'native',
+  -- disable indent after heading and list
+  org_indent_mode = 'noindent',
+}
 
 local status_ok, tsconfigs = pcall(require, "nvim-treesitter.configs")
 if status_ok then
@@ -18,6 +24,9 @@ if status_ok then
       -- disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
       additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
     },
-    -- ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
+end
+
+if vim.bo.filetype == 'org' then
+  vim.cmd([[edit!]])
 end

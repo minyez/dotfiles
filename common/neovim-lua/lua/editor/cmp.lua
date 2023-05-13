@@ -102,6 +102,7 @@ cmp.setup {
         nvim_lua = "[NVIM_LUA]",
         ultisnips = "[Snip]",
         path = "[Path]",
+        orgmode = "[ORG]",
         env = "[ENV]",
         doxygen = "[DOX]",
         rg = "[RG]",
