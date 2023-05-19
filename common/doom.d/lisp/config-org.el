@@ -443,22 +443,22 @@ parent."
   (add-hook 'org-export-filter-parse-tree-functions 'org-export-ignore-headlines)
 )
 
-(use-package! prog-mode
-  :init
-  (setq-hook! org-mode
-    prettify-symbols-alist '(("#+end_quote" . "”")
-                             ("#+END_QUOTE" . "”")
-                             ("#+begin_quote" . "“")
-                             ("#+BEGIN_QUOTE" . "“")
-                             ("#+end_src" . "«")
-                             ("#+END_SRC" . "«")
-                             ("#+begin_src" . "»")
-                             ("#+BEGIN_SRC" . "»")
-                             ("#+name:" . "»")
-                             ("#+NAME:" . "»")))
-  :hook
-  (org-mode . prettify-symbols-mode)
-)
+;; (use-package! prog-mode
+;;   :init
+;;   (setq-hook! org-mode
+;;     prettify-symbols-alist '(("#+end_quote" . "”")
+;;                              ("#+END_QUOTE" . "”")
+;;                              ("#+begin_quote" . "“")
+;;                              ("#+BEGIN_QUOTE" . "“")
+;;                              ("#+end_src" . "«")
+;;                              ("#+END_SRC" . "«")
+;;                              ("#+begin_src" . "»")
+;;                              ("#+BEGIN_SRC" . "»")
+;;                              ("#+name:" . "»")
+;;                              ("#+NAME:" . "»")))
+;;   :hook
+;;   (org-mode . prettify-symbols-mode)
+;; )
 
 (use-package! org-appear
   :hook

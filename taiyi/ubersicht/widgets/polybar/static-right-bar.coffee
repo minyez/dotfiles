@@ -2,7 +2,9 @@ refreshFrequency: false
 
 DARK = false
 
-IDIOM = "<span>修</span>"
+IDIOM = "<span>昇る</span>"
+
+DAYS = "<span>11186/27394</span>"
 
 colors =
   black   : "#3B4252"
@@ -22,6 +24,8 @@ render: () ->
   <link rel="stylesheet" href="./polybar/assets/font-awesome/css/all.css" />
   <div class="elements">
     <div class="idiom">#{IDIOM}</div>
+    <div><span class="spacer">|</span></div>
+    <div class="days">#{DAYS}</div>
   </div>
   """
 
@@ -50,6 +54,11 @@ style: """
 
   .idiom > span
     padding: 3px 3px
+    color: #{widgetc.text}
+
+  .days > span
+    padding: 3px 3px
+    color: #{widgetc.text}
 
   top: 5px
   right: 12px

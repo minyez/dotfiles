@@ -11,11 +11,12 @@ module-whatis      $docstr
 
 set AIMS_HOME       "[getenv HOME]/software/FHIaims-master"
 setenv AIMS_HOME    $AIMS_HOME
-setenv AIMS_SPECIES "$AIMS_HOME/species_defaults"
 prepend-path PATH   "$AIMS_HOME/build"
 prepend-path PATH   "$AIMS_HOME/bin"
 prepend-path PATH   "$AIMS_HOME/utilities"
 prepend-path PATH   "$AIMS_HOME/utilities/elsi_matrix"
+
+setenv AIMS_SPECIES_DEFAULTS "$AIMS_HOME/species_defaults"
 
 # setenv OMP_NUM_THREADS 1
 

@@ -69,6 +69,14 @@ sbatch_headers = {
               "-J test",
               "-e err.slurm.%j-%N",
               "-o out.slurm.%j-%N",],
+    "raven": ["--partition=640",
+              "--cpus-per-task=1",
+              "--nodes=1",
+              "--ntasks-per-node=48",
+              "--mem=240000",
+              "-J test",
+              "-e tjob.err.%j",
+              "-o tjob.out.%j",],
 }
 
 pbs_headers = {}
@@ -80,6 +88,7 @@ uname_platforms = {
         "1501210186@sk1-login01": ("sk", False),
         "1501210186@bd-login01": ("bd", False),
         "zhangmy@mgmt": ("iophr", False),
+        "minyez@raven02": ("raven", False),
         }
 
 # remote servers for rsync distribution
@@ -89,5 +98,6 @@ dist_remotes = {
     "tmcpc": "/home/stevezhang/codes/project/",
     "phbd": "/gpfs/share/home/1501210186/",
     "phwm": "/gpfs/share/home/1501210186/",
+    "raven": "/u/minyez/",
 #    "phsk": "/gpfs/share/home/1501210186/",
     }

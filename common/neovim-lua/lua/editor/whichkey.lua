@@ -13,12 +13,15 @@ end
 configs.register({
   -- files
   ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
-  e = { "<cmd>Telescope find_files hidden=true<cr>", "Find File (including hidden)" },
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
   p = { "a<c-r>+<esc> ", "Paste from system clipboard"},
   P = { "a<c-r>*<esc> ", "Paste from mouse clip"},
+  e = {
+    name = "+edit",
+    ["s"] = { "<cmd>%s/\\s\\+$//g<cr>", "Remove trailing spaces" },
+  },
   f = {
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
@@ -28,7 +31,6 @@ configs.register({
     N = { "<cmd>enew<cr>", "New File" },
     -- n = { "<cmd>NvimTreeFocus<cr>a", "New File (From NvimTree)" },
     s = { "<cmd>w<cr>", "Save File" },
-    q = { "<cmd>wq<cr>", "Save And Quit" },
     a = { "<cmd>wa<cr>", "Save All Files" },
   },
   h = {
@@ -38,8 +40,10 @@ configs.register({
   q = {
     name = "+quit",
     q = { "<cmd>qa<cr>", "Quit All" },
+    s = { "<cmd>wq<cr>", "Quit After Save" },
     f = { "<cmd>q!<cr>", "Force Quit" },
     a = { "<cmd>qa!<cr>", "Force Quit All" },
+    A = { "<cmd>wqa<cr>", "Save All and Quit" },
   },
   m = {
     name = "+make",

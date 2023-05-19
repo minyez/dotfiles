@@ -86,24 +86,26 @@ yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
 yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT|天气|Weather|qtgrace)$" manage=off
 
+yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" manage=off
+
 # temporary rule to float and topmost flypy keyboard
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
+# Disable mouse follow for Clocker tray menu
+yabai -m rule --add app="^(Clocker)$" mouse_follows_focus=off
+yabai -m rule --add app="^(Steam)$" space=6 mouse_follows_focus=off
+
+# yabai -m rule --add title="^(.*DeepL Translate.*)$" manage=off
 
 # Fix App to space (desktop)
 yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=1
-# yabai -m rule --add title="^(.*DeepL Translate.*)$" manage=off
 yabai -m rule --add app="^(Code|Xcode|VSCodium)$" space=2
 yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=^3
-yabai -m rule --add app="^(PDF Viewer)$" space=4
+# yabai -m rule --add app="^(PDF Viewer)$" space=4
 yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
-yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" manage=off
 yabai -m rule --add app="^(DaVinci Resolve)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8
 yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
 yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp|Discord)$" space=10
-# Disable mouse follow for Clocker tray menu
-yabai -m rule --add app="^(Clocker)$" mouse_follows_focus=off
-yabai -m rule --add app="^(Steam)$" space=6 mouse_follows_focus=off
 
 
 # space naming

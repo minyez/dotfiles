@@ -171,7 +171,8 @@ alt - o : if (( $(yabai -m query --windows --window | jq '.opacity') == 1 )); th
 alt - e : yabai -m window --toggle split
 
 # toggle picture-in-picture and turn off border (assume default on)
-shift + alt - i : yabai -m window --toggle pip --toggle border
+# shift + alt - i : yabai -m window --toggle pip --toggle border
+shift + alt - i : yabai -m window --toggle pip
 
 # toggle sticky(+float), topmost, picture-in-picture
 # alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip

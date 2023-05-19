@@ -62,6 +62,7 @@ setenv M     "$my"
 setenv MY    "$my"
 setenv MYRM  "$myrm"
 set-alias cm { cd "$MY" }
+set-alias cmd { cd "$MY/Snippets/dotfiles" }
 set-alias cmr { cd "$MYRM" }
 # back-compatibility of my mind
 # set-alias cdsd { cd "$MY" }
