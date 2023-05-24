@@ -11,6 +11,7 @@ set-alias gih "git rev-parse --short HEAD"
 set-alias gib "git branch --show-current"
 
 set-function gac {
+# Auto commit
   datetime=$(date +"%Y-%m-%d %H:%M:%S")
   details=$(git status --porcelain)
   tmpf=$(mktemp)

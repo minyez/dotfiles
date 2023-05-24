@@ -9,26 +9,29 @@ set-alias scsyc    "rsync $rsync_exclude -vazru $info_opt "
 set-alias scsycfoc "rsync $rsync_exclude -vazr  $info_opt "
 set-alias scsycdel "rsync $rsync_exclude --remove-source-files -vazru $info_opt "
 
+# for macOS, use grealpath
+set-alias realpath { grealpath }
+
 # sync directory to IOP-HR server
-set-alias sync2hr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
-set-alias syncfhr { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 iophr:"/home/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2hr { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" iophr:"/home/zhangmy/$(dirname $relap)" }
+set-alias syncfhr { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 iophr:"/home/zhangmy/$relap" "$HOME/$(dirname $relap)" }
 
 # sync directory to PKU-big-data server
-set-alias sync2bd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" phbd:"/gpfs/share/home/1501210186/$(dirname $relap)" }
-set-alias syncfbd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 phbd:"/gpfs/share/home/1501210186/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2bd { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" phbd:"/gpfs/share/home/1501210186/$(dirname $relap)" }
+set-alias syncfbd { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 phbd:"/gpfs/share/home/1501210186/$relap" "$HOME/$(dirname $relap)" }
 
 # sync directory to XDB server
-set-alias sync2xd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" xdb:"/public/home/zhangmy_xdb/$(dirname $relap)" }
-set-alias syncfxd { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 xdb:"/public/home/zhangmy_xdb/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2xd { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" xdb:"/public/home/zhangmy_xdb/$(dirname $relap)" }
+set-alias syncfxd { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 xdb:"/public/home/zhangmy_xdb/$relap" "$HOME/$(dirname $relap)" }
 
 # sync directory to YUAN server
-set-alias sync2y  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" yuan:"/home/users/zhangmy/$(dirname $relap)" }
-set-alias syncfy  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 yuan:"/home/users/zhangmy/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias sync2y  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" yuan:"/home/users/zhangmy/$(dirname $relap)" }
+set-alias syncfy  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 yuan:"/home/users/zhangmy/$relap" "$HOME/$(dirname $relap)" }
 
 # sync directory to cobra server
-set-alias sync2cob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" cobra:"/u/minyez/$(dirname $relap)" }
-set-alias syncfcob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 cobra:"/u/minyez/$(dirname $relap)" "/home/minyez/$relap" }
+set-alias sync2cob  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" cobra:"/u/minyez/$(dirname $relap)" }
+set-alias syncfcob  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 cobra:"/u/minyez/$relap" "$HOME/$(dirname $relap)" }
 
 # sync directory to raven server
-set-alias sync2rav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" raven:"/u/minyez/$(dirname $relap)" }
-set-alias syncfrav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$(dirname $relap)" "/home/minyez/$relap" }
+set-alias sync2rav  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "$HOME/$relap" raven:"/u/minyez/$(dirname $relap)" }
+set-alias syncfrav  { relap="$(realpath . --relative-to=$HOME/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$relap" "$HOME/$(dirname $relap)" }

@@ -25,6 +25,7 @@ set _nvim "/usr/bin/nvim"
 # use system vim for vi
 set-alias vi "/usr/bin/vim "
 set-alias v "$_nvim -O "
+set-alias V "$_nvim -o "
 set-alias vim "$_nvim "
 set-alias nvim "$_nvim "
 

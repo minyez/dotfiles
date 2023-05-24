@@ -1,6 +1,10 @@
 #%Module1.0
 module-whatis "alias related to SSH"
 
+if { "[getenv OSTYPE]" != "linux-gnu" } {
+setenv ABCD      "[getenv OSTYPE]"
+}
+
 set rsync_exclude "--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod"
 # for old rsync version, replace --info=progress2 with --progress
 set info_opt      "--info=progress2"
@@ -26,4 +30,4 @@ set-alias sync2cob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync
 set-alias syncfcob  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 cobra:"/u/minyez/$relap" "/home/minyez/$(dirname $relap)" }
 
 set-alias sync2rav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 "/home/minyez/$relap" raven:"/u/minyez/$(dirname $relap)" }
-set-alias syncfrav  { relap="$(realpath . --relative-to=/home/minyez/)" && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$relap" "/home/minyez/$(dirname $relap)" }
+set-alias syncfrav  { relap="$(realpath . --relative-to=/home/minyez/)" && echo $relap && rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude=".envrc" -vazru --info=progress2 raven:"/u/minyez/$relap" "/home/minyez/$(dirname $relap)" }
