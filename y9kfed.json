@@ -12,6 +12,7 @@
   "y9kfed/module" : "~/.module",
   "public/latex-cls" : "/usr/share/texlive/texmf-local/tex/latex/local",
   "public/vim-dir/" : "~/.vim",
+  "public/UltiSnips/" : "~/snippets/UltiSnips",
   "public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
   "public/texstudio/texstudioen_US.ign": "~/.config/texstudio/texstudioen_US.ign",
   "public/rofi/" : "~/.config/rofi"

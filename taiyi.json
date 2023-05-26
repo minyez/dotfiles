@@ -12,5 +12,6 @@
   "taiyi/tmux.conf" : "~/.tmux.conf",
   "public/alias": "~/.alias",
   "public/hushlogin": "~/.hushlogin",
-  "public/mambarc": "~/.mambarc"
+  "public/mambarc": "~/.mambarc",
+  "public/UltiSnips/" : "~/snippets/UltiSnips"
 }
