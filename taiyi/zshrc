@@ -132,9 +132,18 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# direnv completion
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
 # [[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
 # [[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
+# module load ssh
+module load mushroom
+
+[[ ! -f "$HOME/.alias" ]] || source "$HOME/.alias"
 
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 

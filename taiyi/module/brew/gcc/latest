@@ -42,7 +42,7 @@ prepend-path CPATH             "$mpfr_home/include"
 prepend-path INFOPATH          "$mpfr_home/share/info"
 
 set gmp_home "$hbp/opt/gmp"
-setenv GMP_HOME "$GMP_HOME"
+setenv GMP_HOME "$gmp_home"
 prepend-path LIBRARY_PATH      "$gmp_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$gmp_home/lib"
 prepend-path PKG_CONFIG_PATH   "$gmp_home/lib/pkgconfig"

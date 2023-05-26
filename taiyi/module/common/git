@@ -1,5 +1,6 @@
-#%Module1.0
-#
+####%Module1.0
+# retired as moved to .alias
+
 module-whatis "git aliases and functions"
 
 # infomation command

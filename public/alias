@@ -1,0 +1,198 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2139
+#
+# In this file, I define my often used alias and functions
+#
+# This is originally in an alias module file, but later I
+# found that zsh history fails to record alias there, which
+# is not convenient.
+#
+#=====================================================
+# system check for macOS
+function is_macos {
+  [[ ${OSTYPE} != "${OSTYPE##darwin}" ]]
+}
+
+# system check for Linux
+function is_linux {
+  [[ ${OSTYPE} != "${OSTYPE##linux}" ]]
+}
+
+#=====================================================
+# macOS specific
+
+# alias "g"-prefixed tools in coreutils
+if is_macos; then
+  alias realpath="grealpath"
+  alias sed="gsed"
+  alias awk="gawk"
+  alias make="gmake"
+  alias tar="gtar"
+fi
+
+#=====================================================
+# ls
+alias ll="ls -l "
+alias la="ls -a "
+
+#=====================================================
+# vim
+_vi="/usr/bin/vim"
+_vim="nvim"
+alias vi="$_vi"
+alias vim="$_vim"
+alias v="$_vim -O "
+alias V="$_vim -o "
+unset _vim
+
+function _vi4 {
+  #1 vim executable
+  ##2,3,4,5 4 files to edit
+  $1 -O "$4" "$5" -c "split $2" -c 'wincmd l"' -c "split $3"
+}
+function vi4 {
+  _vi4 /usr/bin/vim "$1" "$2" "$3" "$4"
+}
+function vim4 {
+  _vi4 nvim "$1" "$2" "$3" "$4"
+}
+
+#=====================================================
+# directory surfing
+
+# quick navigation to higher-level directoires
+alias 1-="cd ../"
+alias 2-="cd ../../"
+alias 3-="cd ../../../"
+alias 4-="cd ../../../../"
+alias 5-="cd ../../../../../"
+alias 6-="cd ../../../../../../"
+
+# personal directory related
+export M="$HOME/Documents/minyez"
+export MY="$M"
+export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
+
+alias cm="cd \"\$MY\""
+alias cmd="cd \"\$MY/Snippets/dotfiles\""
+alias cmr="cd \"\$MYRM\""
+
+function practice {
+  PATH_PRACTICE="$M/codes/code-practice"
+  pdir="$PATH_PRACTICE/$1";
+  if [[ -d "$pdir" ]]; then
+    cd "$pdir" || return 1
+  else
+    echo "\"$1\" not found under $PATH_PRACTICE"; return 1;
+  fi
+}
+
+#=====================================================
+# tar
+
+export COPYFILE_DISABLE=1
+alias untargz="tar -zxf "
+alias untarbz="tar -jxf "
+
+function targz {
+  args=("$@")
+  mkdir "$1" && cp -a "${args[@]:1}" "$1" && tar -zcf "${1}.tar.gz" "${1}" && rm -rf "$1"
+}
+
+function tarbz {
+  args=("$@")
+  mkdir "$1" && cp -a "${args[@]:1}" "$1" &&  tar -jcf "${1}.tar.bz" "${1}" && rm -rf "$1"
+}
+
+function targzd {
+  tar -zcf "${1}.tar.gz" "${1}"
+}
+
+#=====================================================
+# data related
+
+# today, isoformat
+alias td="date +\"%Y-%m-%d\""
+# datetime, isoformat
+alias dt="date +\"%Y-%m-%d %H:%M:%S\""
+# datetime, org-mode timestamp
+alias odt="date +\"%Y-%m-%d %a %H:%M\""
+
+#=====================================================
+# module related
+alias ma="module avail"
+
+alias ms="module show "
+
+#=====================================================
+# git related
+alias gih="git rev-parse --short HEAD"
+
+alias gib="git branch --show-current"
+
+function gac {
+# Auto commit
+  datetime=$(date +"%Y-%m-%d %H:%M:%S")
+  details=$(git status --porcelain)
+  tmpf=$(mktemp)
+  echo -e "Auto commit: $datetime\n\n" > "$tmpf"
+  echo "$details" >> "$tmpf"
+  git commit -F "$tmpf"
+}
+
+#=====================================================
+# ssh related
+
+# verbose rsync with general object and cache files excluded
+rsync_exclude="--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod --exclude=build*/"
+info_opt="--info=progress2 --human-readable"
+alias scsyc="rsync $rsync_exclude -vazru $info_opt "
+alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
+alias scsycdel="rsync $rsync_exclude --remove-source-files -vazru $info_opt "
+
+unset rsync_exclude
+
+# sync directory structure from/to HPC center
+# a general wrapper to sync to
+# $1: HPC ssh target  $2: absolute home dir on HPC
+function _sync2 {
+  relap="$(realpath . --relative-to=$HOME/)"
+  rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+  unset relap
+}
+
+# a general wrapper to sync from
+# $1: HPC ssh target  $2: absolute home dir on HPC
+function _syncf {
+  relap="$(realpath . --relative-to=$HOME/)"
+  rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+  unset relap
+}
+
+# PKU-big-data server
+alias sync2bd="_sync2 phbd /gpfs/share/home/1501210186"
+alias syncfbd="_syncf phbd /gpfs/share/home/1501210186"
+
+# IOP Huairou
+alias sync2hr="_sync2 iophr /home/zhangmy"
+alias syncfhr="_syncf iophr /home/zhangmy"
+
+# CAS XDB
+alias sync2xd="_sync2 xdb /public/home/zhangmy_xdb"
+alias syncfxd="_syncf xdb /public/home/zhangmy_xdb"
+
+# CAS Yuan
+alias sync2y="_sync2 yuan /home/users/zhangmy"
+alias syncfy="_syncf yuan /home/users/zhangmy"
+
+# MPCDF Cobra
+alias sync2cob="_sync2 cobra /u/minyez"
+alias syncfcob="_syncf cobra /u/minyez"
+
+# MPCDF Raven
+# alias sync2rav="relap=\"\$(realpath . --relative-to=\$HOME/)\" && rsync --rsync-path=\"mkdir -p ~/\$relap; rsync\" -vazru $info_opt \"\$HOME/\$relap\" raven:\"/u/minyez/\$(dirname \$relap)\""
+# alias syncfrav="relap=\"\$(realpath . --relative-to=\$HOME/)\" && rsync --rsync-path=\"mkdir -p ~/\$relap; rsync\" -vazru $info_opt raven:\"/u/minyez/\$relap\" \"\$HOME/\$(dirname \$relap)\""
+alias sync2rav="_sync2 raven /u/minyez"
+alias syncfrav="_syncf raven /u/minyez"
+
+unset info_opt

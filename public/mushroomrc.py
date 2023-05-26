@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """configurable parameters for mushroom"""
+import os
 
 # logging
 log_level = "notset"
@@ -90,6 +91,8 @@ uname_platforms = {
         "zhangmy@mgmt": ("iophr", False),
         "minyez@raven02": ("raven", False),
         }
+
+aims_species_defaults = os.path.expanduser("~/software/FHIaims-develop/species_defaults")
 
 # remote servers for rsync distribution
 dist_remotes = {

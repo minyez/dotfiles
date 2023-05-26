@@ -8,6 +8,8 @@
 ;;; disable quit prompt
 (setq confirm-kill-emacs nil)
 
+(display-time-mode 1)
+
 (use-package! deft
   :after org
   :commands deft
@@ -63,6 +65,13 @@
   :config
   (window-numbering-mode)
   ;; redefine workspaces shortcuts to resolve the conflict with +doom/workspaces
+)
+
+(use-package! doom-modeline
+  :config
+  (setq doom-modeline-time t
+        doom-modeline-enable-word-count t
+        doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
 )
 
 ;;; load osx-dictionary when in darwin system

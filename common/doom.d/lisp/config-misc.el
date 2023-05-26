@@ -266,5 +266,26 @@
  ("C-c C-e" . easy-hugo)
 )
 
+;; not working
+;; (use-package! flymake-proselint
+;;   :init
+;;   (add-hook 'text-mode-hook (lambda ()
+;;                             (flymake-mode)
+;;                             (flymake-proselint-setup))))
+
+(after! flycheck
+  (flycheck-define-checker proselint
+    "A linter for prose."
+    :command ("proselint" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+  	    (id (one-or-more (not (any " "))))
+  	    (message) line-end))
+    :modes (text-mode markdown-mode gfm-mode org-mode latex-mode))
+  (add-to-list 'flycheck-checkers 'proselint))
+
+(after! ispell
+  (setq ispell-personal-dictionary (concat doom-private-dir "words")))
+
 (provide 'config-misc)
 ;;; config-misc.el ends here

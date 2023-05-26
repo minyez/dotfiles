@@ -1,5 +1,5 @@
-#%Module1.0
-#
+#####%Module1.0
+# retired as moved to .alias
 
 module-whatis "general aliases and functions"
 
@@ -83,6 +83,7 @@ set-function practice {
 
 # module related
 set-alias ma { module avail }
+set-alias ms { module show }
 
 # proxies setup
 # set http_proxy  http://127.0.0.1:9891
