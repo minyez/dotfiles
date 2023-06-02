@@ -87,7 +87,6 @@
                 ("article"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper]{article}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
@@ -99,7 +98,6 @@
                 ("mwe"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper]{article}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "\\usepackage{mwe}\n\\usepackage{amsmath,amssymb}\n"
                            "[NO-DEFAULT-PACKAGES]\n[EXTRA]\n[NO-PACKAGES]"
                            )
@@ -112,7 +110,6 @@
                 ("ctexart"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper,scheme=plain]{ctexart}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
@@ -124,7 +121,6 @@
                 ("journal"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper,scheme=plain]{ctexart}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
                  ("\\section{%s}" . "\\section*{%s}")
@@ -137,7 +133,6 @@
                 ("book"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper,titlepage]{book}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n\\usepackage{physics}\n\\usepackage{cases}\n"
                            mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
@@ -150,7 +145,6 @@
                 ("report"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt]{report}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n" mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
                  ("\\chapter{%s}" . "\\chaper*{%s}")
@@ -162,7 +156,6 @@
                 ("ctexbook"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper,titlepage]{ctexbook}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n\\usepackage{physics}\n\\usepackage{cases}\n"
                            mz/org-latex-classes-common-header-after-default-pkgs "\n"
                            "[EXTRA]\n[PACKAGES]")
@@ -176,7 +169,6 @@
                 ("sci"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[a4paper,11pt]{article}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "[DEFAULT-PACKAGES]\n"
                            "\\usepackage{threeparttable}\n"
                            "\\usepackage{physics}\n\\usepackage{multirow}\n"
@@ -229,7 +221,6 @@
                 ("beamerarticle"
                   ,(concat mz/org-latex-classes-common-header-passoptions "\n"
                            "\\documentclass[11pt,a4paper]{article}\n"
-                           "\\usepackage[margin=0.9in,bmargin=1.0in,tmargin=1.0in]{geometry}\n"
                            "\\usepackage{beamerarticle}" "\n"
                            "\\usepackage{beamerseminar}" "\n"
                            "[DEFAULT-PACKAGES]\n"

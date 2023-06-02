@@ -5,10 +5,10 @@ module unuse /usr/share/modulefiles
 # enable color
 setenv MODULES_COLOR auto
 
-module use [getenv HOME]/.module/alias
-module load general-alias
-module load git-alias
-module load ssh-alias
+# module use [getenv HOME]/.module/alias
+# module load general-alias
+# module load git-alias
+# module load ssh-alias
 ##module load sdcv-alias
 ##module load vasp-alias
 

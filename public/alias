@@ -18,32 +18,48 @@ function is_linux {
   [[ ${OSTYPE} != "${OSTYPE##linux}" ]]
 }
 
+# check if it is on a HPC system
+function is_on_hpc {
+  hsn=$(hostname)
+  rt=1
+  case "$hsn" in
+    mgmt ) rt=0;;
+    * ) rt=1;;
+  esac
+  return $rt
+}
+
 #=====================================================
 # macOS specific
 
-# alias "g"-prefixed tools in coreutils
+# alias "g"-prefixed tools in homebrew coreutils, gawk
 if is_macos; then
   alias realpath="grealpath"
   alias sed="gsed"
   alias awk="gawk"
+  alias date="gdate"
   alias make="gmake"
   alias tar="gtar"
 fi
 
 #=====================================================
 # ls
-alias ll="ls -l "
-alias la="ls -a "
+alias ll="ls -lh "
+alias la="ls -ah "
 
 #=====================================================
 # vim
-_vi="/usr/bin/vim"
-_vim="nvim"
+if is_on_hpc; then
+  _vi="vi"
+  _vim="vim"
+else
+  _vi="/usr/bin/vim"
+  _vim="nvim"
+fi
 alias vi="$_vi"
 alias vim="$_vim"
 alias v="$_vim -O "
 alias V="$_vim -o "
-unset _vim
 
 function _vi4 {
   #1 vim executable
@@ -51,10 +67,10 @@ function _vi4 {
   $1 -O "$4" "$5" -c "split $2" -c 'wincmd l"' -c "split $3"
 }
 function vi4 {
-  _vi4 /usr/bin/vim "$1" "$2" "$3" "$4"
+  _vi4 $_vi "$1" "$2" "$3" "$4"
 }
 function vim4 {
-  _vi4 nvim "$1" "$2" "$3" "$4"
+  _vi4 $_vim "$1" "$2" "$3" "$4"
 }
 
 #=====================================================
@@ -69,23 +85,25 @@ alias 5-="cd ../../../../../"
 alias 6-="cd ../../../../../../"
 
 # personal directory related
-export M="$HOME/Documents/minyez"
-export MY="$M"
-export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
+if ! is_on_hpc; then
+  export M="$HOME/Documents/minyez"
+  export MY="$M"
+  export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
 
-alias cm="cd \"\$MY\""
-alias cmd="cd \"\$MY/Snippets/dotfiles\""
-alias cmr="cd \"\$MYRM\""
+  alias cm="cd \"\$MY\""
+  alias cmd="cd \"\$MY/Snippets/dotfiles\""
+  alias cmr="cd \"\$MYRM\""
 
-function practice {
-  PATH_PRACTICE="$M/codes/code-practice"
-  pdir="$PATH_PRACTICE/$1";
-  if [[ -d "$pdir" ]]; then
-    cd "$pdir" || return 1
-  else
-    echo "\"$1\" not found under $PATH_PRACTICE"; return 1;
-  fi
-}
+  function practice {
+    PATH_PRACTICE="$M/codes/code-practice"
+    pdir="$PATH_PRACTICE/$1";
+    if [[ -d "$pdir" ]]; then
+      cd "$pdir" || return 1
+    else
+      echo "\"$1\" not found under $PATH_PRACTICE"; return 1;
+    fi
+  }
+fi
 
 #=====================================================
 # tar
@@ -118,11 +136,15 @@ alias dt="date +\"%Y-%m-%d %H:%M:%S\""
 # datetime, org-mode timestamp
 alias odt="date +\"%Y-%m-%d %a %H:%M\""
 
+alias mktd="mkdir \$(date +\"%Y-%m-%d\")"
+alias cdtd="cd \$(date +\"%Y-%m-%d\")"
+
 #=====================================================
 # module related
 alias ma="module avail"
-
+alias ml="module list"
 alias ms="module show "
+alias mld="module load "
 
 #=====================================================
 # git related
@@ -144,7 +166,7 @@ function gac {
 # ssh related
 
 # verbose rsync with general object and cache files excluded
-rsync_exclude="--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod --exclude=build*/"
+rsync_exclude="--exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude 'build*/' --exclude '.pytest_cache'"
 info_opt="--info=progress2 --human-readable"
 alias scsyc="rsync $rsync_exclude -vazru $info_opt "
 alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
@@ -156,7 +178,7 @@ unset rsync_exclude
 # a general wrapper to sync to
 # $1: HPC ssh target  $2: absolute home dir on HPC
 function _sync2 {
-  relap="$(realpath . --relative-to=$HOME/)"
+  relap="$(realpath . --relative-to="$HOME/")"
   rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   unset relap
 }
@@ -164,7 +186,7 @@ function _sync2 {
 # a general wrapper to sync from
 # $1: HPC ssh target  $2: absolute home dir on HPC
 function _syncf {
-  relap="$(realpath . --relative-to=$HOME/)"
+  relap="$(realpath . --relative-to="$HOME/")"
   rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   unset relap
 }
@@ -196,3 +218,42 @@ alias sync2rav="_sync2 raven /u/minyez"
 alias syncfrav="_syncf raven /u/minyez"
 
 unset info_opt
+
+#=====================================================
+# slurm related
+
+# query my jobs
+alias sq="squeue -u \$(whoami)"
+# query the number of all jobs, to see the load of the HPC
+alias sqwc="squeue | wc -l"
+
+# show details of a job
+alias showjob="scontrol show job "
+# show details of a node
+alias shownode="scontrol show node "
+
+# show the start time of a job
+function showjobst() {
+  [[ -z "$1" ]] && echo "Usage: showjobst <jobid>" && return 1
+  scontrol show job $1 | grep "StartTime="
+}
+
+# show the start time of all my jobs
+function showjobstall() {
+  squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "StartTime="
+}
+
+# sort and print the working directories of all my jobs
+function showjobdirall() {
+  alljobss=$(squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "WorkDir=" | awk -F= '{print $2}')
+  # convert to array
+  alljobs=($alljobss)
+  cwd=$(pwd)
+  for j in "${alljobs[@]}"; do realpath "$j" --relative-to="$cwd"; done | sort
+}
+
+#=====================================================
+# Scientific programs related
+if is_macos; then
+  alias vesta="/Applications/VESTA.app/Contents/MacOS/VESTA "
+fi

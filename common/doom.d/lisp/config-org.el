@@ -64,7 +64,9 @@
         :nv (concat mz/evil-leader " N")     #'widen
         )
   ; show the whole markup
-  (setq org-fold-core-style 'overlays)
+  (setq org-fold-core-style 'overlays
+  ; avoid anoying "edit in invisible region aborted" when editing markup
+        org-fold-catch-invisible-edits 'show)
   (setq org-link-descriptive t)
   (setq org-hide-emphasis-markers t)
   (setq org-archive-location (concat mz/org-notes "/archive.org::* From %s"))
@@ -102,6 +104,33 @@
           ))
   ;;; babel configuration
   (setq org-babel-results-keyword "results")
+
+  ;;; create ID if there is no CUSTOM_ID
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+  ;;; add a CUSTOM_ID according to the name of heading
+  ;;; adapted from https://writequit.org/articles/emacs-org-mode-generate-ids.html
+  ;;; the original one use id from org-id-new, which creates a non-human-readable id
+  (defun mz/org-custom-id-get (&optional pom create)
+    "Get the CUSTOM_ID property of the entry at point-or-marker POM.
+     If POM is nil, refer to the entry at point. If the entry does
+     not have an CUSTOM_ID, the function returns nil. However, when
+     CREATE is non nil, create a CUSTOM_ID if none is present
+     already. PREFIX will be passed through to `org-id-new'. In any
+     case, the CUSTOM_ID of the entry is returned."
+    (interactive)
+    (org-with-point-at pom
+      (let ((id (org-entry-get nil "CUSTOM_ID")))
+        (cond
+         ((and id (stringp id) (string-match "\\S-" id))
+          id)
+         (create
+          ;; naively remove emphasis
+          (setq id (replace-regexp-in-string "[~*+]" "" (org-entry-get nil "ITEM")))
+          (org-entry-put pom "CUSTOM_ID" id)
+          (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
+          id)))))
+  (map! :nv "SPC e i" (lambda () "create custom id"
+                       (interactive) (mz/org-custom-id-get nil 'create)))
 
   (setq org-md-headline-style 'atx) ; setext
   (setq org-cycle-include-plain-lists 'integrate) ; allow folded-subtree cycle of plain lists

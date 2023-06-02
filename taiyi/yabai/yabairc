@@ -90,8 +90,9 @@ yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" manage=off
 
 # temporary rule to float and topmost flypy keyboard
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
-# Disable mouse follow for Clocker tray menu
-yabai -m rule --add app="^(Clocker)$" mouse_follows_focus=off
+# Disable mouse follow in Clocker for tray menu, PowerPoint for entering symbols
+yabai -m rule --add app="^(Clocker|Microsoft PowerPoint)$" mouse_follows_focus=off
+
 yabai -m rule --add app="^(Steam)$" space=6 mouse_follows_focus=off
 
 # yabai -m rule --add title="^(.*DeepL Translate.*)$" manage=off
@@ -100,7 +101,7 @@ yabai -m rule --add app="^(Steam)$" space=6 mouse_follows_focus=off
 yabai -m rule --add app="^(Safari|Firefox|Google Chrome)$" space=1
 yabai -m rule --add app="^(Code|Xcode|VSCodium)$" space=2
 yabai -m rule --add app="^(iTerm2|kitty|Alacritty)$" space=^3
-# yabai -m rule --add app="^(PDF Viewer)$" space=4
+yabai -m rule --add app="^(Books|图书)$" space=4
 yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
 yabai -m rule --add app="^(DaVinci Resolve)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8

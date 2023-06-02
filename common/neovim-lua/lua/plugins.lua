@@ -111,6 +111,7 @@ local plugins = {
   "folke/trouble.nvim",
   "lukas-reineke/indent-blankline.nvim", -- indent line
   "gpanders/editorconfig.nvim", -- respect editorconfig
+  "tpope/vim-sleuth", -- respect tab and indentation in current file
   "ethanholz/nvim-lastplace", -- auto return back to the last modified positon when open a file
   -- "nathom/filetype.nvim",
 
@@ -167,7 +168,59 @@ local plugins = {
       { "lukas-reineke/cmp-rg" }, -- ripgrep
     }
   },
+  --  to allow completion in code snippets inside markdown (maybe org?)
+  -- WARN: not working yet
+  {
+    "jmbuhr/otter.nvim",
+    dependencies = {
+      'hrsh7th/nvim-cmp',
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter'
+    },
+  },
   -- ====== end cmp
+  -- {
+  --   'quarto-dev/quarto-nvim',
+  --   dependencies = {
+  --     'hrsh7th/nvim-cmp',
+  --     {
+  --       'jmbuhr/otter.nvim',
+  --       config = function()
+  --         require 'otter.config'.setup {
+  --           -- lsp = {
+  --           --   hover = {
+  --           --     border = require 'misc.style'.border
+  --           --   }
+  --           -- }
+  --         }
+  --       end,
+  --     },
+  --     'neovim/nvim-lspconfig',
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  --   config = function()
+		-- 	require'quarto'.setup({
+  --       debug = false,
+  --       closePreviewOnExit = true,
+  --       lspFeatures = {
+  --         enabled = true,
+  --         languages = { 'r', 'python', 'julia', 'bash', 'lua' },
+  --         chunks = 'curly', -- 'curly' or 'all'
+  --         diagnostics = {
+  --           enabled = true,
+  --           triggers = { "BufWritePost" }
+  --         },
+  --         completion = {
+  --           enabled = true,
+  --         },
+  --       },
+  --       keymap = {
+  --         hover = 'K',
+  --         definition = 'gd'
+  --       },
+  --     })
+		-- end
+  -- },
   -- ====== start snippets
   {
     "SirVer/ultisnips", -- snippets engine that I have been using
@@ -208,6 +261,19 @@ local plugins = {
   --       })
   --   end
   -- },
+  {
+    "ekickx/clipboard-image.nvim", -- for pasting images to markdown
+    config = function()
+      require("clipboard-image").setup({
+        org = {
+          affix = "[[file:%s]]",
+        }
+      })
+    end,
+  },
+  -- HACK: for latest neovim version, modify health.lua therein 
+  -- local health = vim.health or require "health"
+  -- instead of local health = require "health"
 }
 
 local opts = {}

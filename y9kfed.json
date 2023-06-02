@@ -10,6 +10,7 @@
   "y9kfed/modulerc" : "~/.modulerc",
   "y9kfed/tmux.conf" : "~/.tmux.conf",
   "y9kfed/module" : "~/.module",
+  "public/alias": "~/.alias",
   "public/latex-cls" : "/usr/share/texlive/texmf-local/tex/latex/local",
   "public/vim-dir/" : "~/.vim",
   "public/UltiSnips/" : "~/snippets/UltiSnips",

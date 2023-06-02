@@ -16,8 +16,11 @@ configs.register({
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
-  p = { "a<c-r>+<esc> ", "Paste from system clipboard"},
-  P = { "a<c-r>*<esc> ", "Paste from mouse clip"},
+  p = {
+    name = "+paste",
+    p     = { "a<c-r>+<esc> ", "Paste from system clipboard"},
+    ["1"] = { "a<c-r>*<esc> ", "Paste from mouse clip"},
+  },
   e = {
     name = "+edit",
     ["s"] = { "<cmd>%s/\\s\\+$//g<cr>", "Remove trailing spaces" },
@@ -39,11 +42,10 @@ configs.register({
   },
   q = {
     name = "+quit",
-    q = { "<cmd>qa<cr>", "Quit All" },
+    q = { "<cmd>wqa<cr>", "Save All and Quit" },
     s = { "<cmd>wq<cr>", "Quit After Save" },
     f = { "<cmd>q!<cr>", "Force Quit" },
     a = { "<cmd>qa!<cr>", "Force Quit All" },
-    A = { "<cmd>wqa<cr>", "Save All and Quit" },
   },
   m = {
     name = "+make",
@@ -79,8 +81,10 @@ configs.register({
     name = "+window",
     v = { "<cmd>vsplit<cr>", "Vertical split" },
     ["-"] = { "<cmd>vsplit<cr>", "Vertical split" },
-    ["="] = { "<cmd>vsplit<cr>", "Vertical split" },
+    ["\\"] = { "<cmd>split<cr>", "Horizontal split" },
     s = { "<cmd>split<cr>", "(Horizontal) split" },
+    ["."] = { "<cmd>:vertical resize +5<cr>", "increase width by 5" },
+    [","] = { "<cmd>:vertical resize -5<cr>", "decrease width by 5" },
   },
   -- tab operations
   b = {
@@ -133,6 +137,10 @@ configs.register({
     -- r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
     -- s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
     -- o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
+  },
+  y = {
+    name = "+yank",
+    ["1"] = { "\"*y", "Yank to mouse clip"},
   },
   -- ["/"] = { "<cmd>'<,'>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
   ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" }, -- Comment-nvim, new
