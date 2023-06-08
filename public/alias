@@ -222,35 +222,37 @@ unset info_opt
 #=====================================================
 # slurm related
 
+if is_on_hpc; then
 # query my jobs
-alias sq="squeue -u \$(whoami)"
+  alias sq="squeue -u \$(whoami)"
 # query the number of all jobs, to see the load of the HPC
-alias sqwc="squeue | wc -l"
+  alias sqwc="squeue | wc -l"
 
 # show details of a job
-alias showjob="scontrol show job "
+  alias showjob="scontrol show job "
 # show details of a node
-alias shownode="scontrol show node "
+  alias shownode="scontrol show node "
 
 # show the start time of a job
-function showjobst() {
-  [[ -z "$1" ]] && echo "Usage: showjobst <jobid>" && return 1
-  scontrol show job $1 | grep "StartTime="
-}
+  function showjobst() {
+    [[ -z "$1" ]] && echo "Usage: showjobst <jobid>" && return 1
+    scontrol show job $1 | grep "StartTime="
+  }
 
 # show the start time of all my jobs
-function showjobstall() {
-  squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "StartTime="
-}
+  function showjobstall() {
+    squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "StartTime="
+  }
 
 # sort and print the working directories of all my jobs
-function showjobdirall() {
-  alljobss=$(squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "WorkDir=" | awk -F= '{print $2}')
-  # convert to array
-  alljobs=($alljobss)
-  cwd=$(pwd)
-  for j in "${alljobs[@]}"; do realpath "$j" --relative-to="$cwd"; done | sort
-}
+  function showjobdirall() {
+    alljobss=$(squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "WorkDir=" | awk -F= '{print $2}')
+    # convert to array
+    alljobs=($alljobss)
+    cwd=$(pwd)
+    for j in "${alljobs[@]}"; do realpath "$j" --relative-to="$cwd"; done | sort
+  }
+fi
 
 #=====================================================
 # Scientific programs related

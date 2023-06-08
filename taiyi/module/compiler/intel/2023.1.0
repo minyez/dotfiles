@@ -1,0 +1,114 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) Compiler oneAPI 2023.1.0, including base and hpc toolkit (BaseKit 2023.1.0.45568, HPCKit 2023.1.0.44543)"
+
+proc ModulesHelp { } {
+    global dotversion
+    puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt prefix before using this modulefile
+set    prefix      "/opt/intel/oneapi"
+set    platform    "mac"
+
+setenv ONEAPI_ROOT ${prefix}
+
+# license
+# prepend-path    INTEL_LICENSE_FILE /opt/intel/licenses
+# prepend-path    INTEL_LICENSE_FILE [getenv HOME]/intel/licenses
+# prepend-path    INTEL_LICENSE_FILE {/Users/Shared/Library/Application Support/Intel/Licenses}
+
+# tbb
+set           tbbroot           ${prefix}/tbb/2021.9.0
+setenv        TBBROOT           ${tbbroot}
+prepend-path  CMAKE_PREFIX_PATH ${tbbroot}
+prepend-path  CPATH             ${tbbroot}/include
+prepend-path  LIBRARY_PATH      ${tbbroot}/lib
+prepend-path  DYLD_LIBRARY_PATH ${tbbroot}/lib
+prepend-path  PKG_CONFIG_PATH   ${tbbroot}/lib/pkgconfig
+
+# compiler public
+set           cmplr_root          ${prefix}/compiler/2023.1.0
+setenv        CMPLR_ROOT          ${cmplr_root}
+setenv        FPGA_VARS_ARGS      {}
+prepend-path  DYLD_LIBRARY_PATH   ${cmplr_root}/${platform}/compiler/lib
+prepend-path  DYLD_LIBRARY_PATH   ${cmplr_root}/${platform}/compiler/lib/intel64
+prepend-path  PATH                ${cmplr_root}/${platform}/bin/intel64
+prepend-path  MANPATH             ${cmplr_root}/documentation/en/man/common
+prepend-path  LIBRARY_PATH        ${cmplr_root}/${platform}/compiler/lib
+prepend-path  LIBRARY_PATH        ${cmplr_root}/${platform}/compiler/lib/intel64
+prepend-path  NLSPATH             ${cmplr_root}/${platform}/compiler/lib/intel64/locale/%l_%t/%N
+prepend-path  PKG_CONFIG_PATH     ${cmplr_root}/lib/pkgconfig
+
+# mkl
+set           mklroot             ${prefix}/mkl/2023.1.0
+setenv        MKLROOT             ${mklroot}
+prepend-path  CPATH               ${mklroot}/include
+prepend-path  PATH                ${mklroot}/bin/mkl_link_tool
+prepend-path  NLSPATH             ${mklroot}/lib/locale/%l_%t/%N
+prepend-path  LIBRARY_PATH        ${mklroot}/lib
+prepend-path  DYLD_LIBRARY_PATH   ${mklroot}/lib
+prepend-path  PKG_CONFIG_PATH     ${mklroot}/lib/pkgconfig
+
+# ipp
+set           ipproot             ${prefix}/ippcp/2021.8.0
+setenv        IPPROOT             ${ipproot}
+setenv        IPP_TARGET_ARCH     intel64
+prepend-path  CPATH               ${ipproot}/include
+prepend-path  LIBRARY_PATH        ${ipproot}/lib
+prepend-path  DYLD_LIBRARY_PATH   ${ipproot}/lib
+
+# ippcp
+set           ippcryptoroot       ${prefix}/ippcp/2021.7.0
+setenv        IPPCRYPTOROOT       ${ippcryptoroot}
+setenv        IPPCP_TARGET_ARCH   intel64
+prepend-path  PKG_CONFIG_PATH     ${ippcryptoroot}/lib/pkgconfig
+prepend-path  CPATH               ${ippcryptoroot}/include
+prepend-path  LIBRARY_PATH        ${ippcryptoroot}/lib
+prepend-path  DYLD_LIBRARY_PATH   ${ippcryptoroot}/lib
+
+# dal
+set           dalroot             ${prefix}/dal/2023.1.0
+setenv        DALROOT             ${dalroot}
+setenv        DAALROOT            ${dalroot}
+setenv        DAL_MAJOR_BINARY    1
+setenv        DAL_MINOR_BINARY    1
+prepend-path  CPATH               ${dalroot}/include
+prepend-path  LIBRARY_PATH        ${dalroot}/lib
+prepend-path  DYLD_LIBRARY_PATH   ${dalroot}/lib
+prepend-path  CLASSPATH           ${dalroot}/lib/onedal.jar
+prepend-path  CMAKE_PREFIX_PATH   ${dalroot}
+prepend-path  PKG_CONFIG_PATH     ${dalroot}/lib/pkgconfig
+
+# dnnl
+set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_tbb
+# set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_iomp
+setenv        DNNLROOT            ${dnnlroot}
+prepend-path  DYLD_LIBRARY_PATH   ${dnnlroot}/lib
+prepend-path  LIBRARY_PATH        ${dnnlroot}/lib
+prepend-path  CPATH               ${dnnlroot}/include
+prepend-path  CMAKE_PREFIX_PATH   ${dnnlroot}/lib/cmake
+
+# dev-utils
+set           dev_util_root ${prefix}/dev-utilities/2021.9.0
+prepend-path  CPATH         ${dev_util_root}/include
+prepend-path  PATH          ${dev_util_root}/bin
+
+# vtune
+set          vtune_profiler_dir      ${prefix}/vtune_profiler/2023.1.0
+setenv       VTUNE_PROFILER_DIR      ${vtune_profiler_dir}
+setenv       VTUNE_PROFILER_2023_DIR ${vtune_profiler_dir}
+prepend-path PATH                    ${vtune_profiler_dir}/MacOS
+
+# advisor
+set           advisor_dir      ${prefix}/advisor/2023.1.0
+setenv        ADVISOR_DIR      ${advisor_dir}
+setenv        ADVISOR_2023_DIR ${advisor_dir}
+setenv        APM              ${advisor_dir}/perfmodels
+prepend-path  PYTHONPATH       ${advisor_dir}/pythonapi
+prepend-path  PATH             ${advisor_dir}/MacOS

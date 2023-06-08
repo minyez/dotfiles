@@ -21,25 +21,25 @@ local plugins = {
   "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
   "nvim-lua/plenary.nvim", -- Useful lua functions used in lots of plugins
   -- ====== start UI
-  {
-    "folke/noice.nvim",
-    config = function()
-      require("noice").setup({
-        cmdline = {
-          view = "cmdline",
-        },
-        lsp = {
-          signature = {
-            enabled = false
-          },
-        }
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify", -- notify
-    }
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   config = function()
+  --     require("noice").setup({
+  --       cmdline = {
+  --         view = "cmdline",
+  --       },
+  --       lsp = {
+  --         signature = {
+  --           enabled = false
+  --         },
+  --       }
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify", -- notify
+  --   }
+  -- },
   "wellle/context.vim", -- showing meaningful code context (condition, loop, ...) at the top
   "folke/trouble.nvim",
   {

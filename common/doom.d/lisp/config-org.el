@@ -85,9 +85,13 @@
           ("S" "Group seminar note" entry
                (file+headline "meeting.org" "Group Seminar")
                "* %? %u" :jump-to-captured t)
+          ("d" "drills")
           ("e" "English vocaburary" entry
-               (file "english_vocabulary.org")
+               (file "drills/english_vocabulary.org")
                "* %? :drill:\n** Examples :ignore:\n** Origin :ignore:")
+          ("g" "German vocaburary" entry
+               (file "drills/german_vocabulary.org")
+               "* %? :drill:\n:PROPERTIES:\n:DRILL_CARD_TYPE: hide1_firstmore\n:END:[||GE]: [||EN,CN]")
           ("j" "Journal Log" plain
                (file+function "journal/log.org" mz/org-goto-today-node)
                "%<%H:%M> %?" :prepend nil)
@@ -143,6 +147,13 @@
         "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%:]*\\|[<>]?[-+]?0[xX][[:xdigit:].]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|N/A\\|[-+u]?inf\\)$")
   ;(fset 'agenda-buffer
   ; (kmacro-lambda-form [?  ?< ?a ?g ?e ?n ?d ?a return] 0 "%d"))
+
+  ;; cell movement in table
+  (map! :nv "SPC e t j" #'org-table-move-cell-down
+        :nv "SPC e t l" #'org-table-move-cell-right
+        :nv "SPC e t h" #'org-table-move-cell-left
+        :nv "SPC e t k" #'org-table-move-cell-up)
+                      
   (setq org-table-formula-constants ; physical constants in SI units
         '(
           ("pi" . "3.14159265358")

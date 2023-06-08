@@ -1,4 +1,4 @@
-#%Module5.0
+####%Module5.0
 module-whatis "common facilities for SSH"
 
 set rsync_exclude "--exclude=*.o --exclude=__pycache__ --exclude=*.pyc --exclude=*.mod"
