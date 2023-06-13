@@ -43,6 +43,12 @@ if is_macos; then
 fi
 
 #=====================================================
+# Linux specific
+if is_linux; then
+  alias open="xdg-open"
+fi
+
+#=====================================================
 # ls
 alias ll="ls -lh "
 alias la="ls -ah "
@@ -77,6 +83,10 @@ function vim4 {
 # directory surfing
 
 # quick navigation to higher-level directoires
+if is_on_hpc; then
+# avoid overwrite zsh - (cd -)
+  alias -="cd ../"
+fi
 alias 1-="cd ../"
 alias 2-="cd ../../"
 alias 3-="cd ../../../"
@@ -184,7 +194,7 @@ function _sync2 {
 }
 
 # a general wrapper to sync from
-# $1: HPC ssh target  $2: absolute home dir on HPC
+# $1: ssh target  $2: absolute home dir on HPC
 function _syncf {
   relap="$(realpath . --relative-to="$HOME/")"
   rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
@@ -206,6 +216,10 @@ alias syncfxd="_syncf xdb /public/home/zhangmy_xdb"
 # CAS Yuan
 alias sync2y="_sync2 yuan /home/users/zhangmy"
 alias syncfy="_syncf yuan /home/users/zhangmy"
+
+# y9000k laptop
+alias sync2y9="_sync2 y9k /home/minyez"
+alias syncfy9="_syncf y9k /home/minyez"
 
 # MPCDF Cobra
 alias sync2cob="_sync2 cobra /u/minyez"

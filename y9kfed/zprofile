@@ -13,9 +13,11 @@ for p in "${paths[@]}"; do
 done
 export PATH
 
+pver="3.11"
 pps=(
-  "/usr/lib64/python3.11/site-packages"
+  "/usr/lib64/python$pver/site-packages"
   "$HOME/scripts"
+  "$HOME/.local/lib/python$pver/site-packages"
 )
 for pp in "${pps[@]}"; do
   if ! [[ "$PYTHONPATH" =~ $pp ]]; then
