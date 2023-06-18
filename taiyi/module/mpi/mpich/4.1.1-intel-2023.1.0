@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+
+set docstr  "MPICH 4.1.1 compiled by Intel oneAPI 2023.1.0"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis $docstr
+
+set prefix "[getenv HOME]/packages/mpich/4.1.1/intel-2023.1.0"
+
+prepend-path CPATH              "$prefix/include"
+prepend-path PATH               "$prefix/bin"
+prepend-path LIBRARY_PATH       "$prefix/lib"
+prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"
+prepend-path MANPATH            "$prefix/share/man"
+prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"
