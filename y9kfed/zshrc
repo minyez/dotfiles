@@ -200,4 +200,4 @@ unsetopt nomatch
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-which zoxide 1> /dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
+# which zoxide 1> /dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"

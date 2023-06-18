@@ -74,6 +74,8 @@
 ;  :recipe (:host github :repo "rudolfochrist/interleave"))
 ;(package! golden-ratio
 ;  :recipe (:host github :repo "roman/golden-ratio.el"))
+;;; alternative to golden-ratio
+(package! zoom)
 (package! org-noter
   :recipe (:host github :repo "dmitrym0/org-noter-plus-djvu" :branch "master"))
 ;(package! org-noter-pdftools)
