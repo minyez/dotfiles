@@ -91,26 +91,26 @@ cmp.setup {
       "c",
     }),
   },
-  formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      -- Kind icons
-      vim_item.kind = string.format("%s ", kind_icons[vim_item.kind])
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      vim_item.menu = ({
-        otter = "[🦦]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[NVIM_LUA]",
-        ultisnips = "[Snip]",
-        path = "[Path]",
-        orgmode = "[ORG]",
-        env = "[ENV]",
-        doxygen = "[DOX]",
-        rg = "[RG]",
-      })[entry.source.name]
-      return vim_item
-    end,
-  },
+ formatting = {
+   fields = { "kind", "abbr", "menu" },
+   format = function(entry, vim_item)
+     -- Kind icons
+     -- vim_item.kind = string.format("%s ", kind_icons[vim_item.kind])
+     -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+     vim_item.menu = ({
+       -- otter = "[🦦]",
+       nvim_lsp = "[LSP]",
+       nvim_lua = "[LUA]",
+       ultisnips = "[Snip]",
+       path = "[Path]",
+       orgmode = "[ORG]",
+       env = "[ENV]",
+       doxygen = "[DOX]",
+       rg = "[RG]",
+     })[entry.source.name]
+     return vim_item
+   end,
+ },
   sources = {
     -- { name = "luasnip" },
     { name = "ultisnips" },

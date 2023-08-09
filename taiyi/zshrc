@@ -101,6 +101,8 @@ if [[ -d "$ZPLUG_HOME" ]]; then
   # Then, source plugins and add commands to $PATH
   # zplug load --verbose
   zplug load
+else
+  brew install zplug
 fi
 
 [[ -d "$ZSH" ]] && source $ZSH/oh-my-zsh.sh
@@ -136,6 +138,9 @@ fi
 if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
+
+export PATH="$HOME/scripts:$PATH"
+export PYTHONPATH="$HOME/scripts:$PYTHONPATH"
 
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
 # [[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"

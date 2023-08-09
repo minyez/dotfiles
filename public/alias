@@ -21,12 +21,16 @@ function is_linux {
 # check if it is on a HPC system
 function is_on_hpc {
   hsn=$(hostname)
-  rt=1
-  case "$hsn" in
-    mgmt ) rt=0;;
-    * ) rt=1;;
-  esac
-  return $rt
+  if [[ $hsn == mgmt ]]; then
+    return 0
+  elif [[ $hsn != ${hsn#raven} ]]; then
+    return 0
+  elif [[ $hsn != ${hsn#cobra} ]]; then
+    return 0
+  elif [[ $hsn != ${hsn#uan} ]]; then
+    return 0
+  fi
+  return 1
 }
 
 #=====================================================
@@ -86,6 +90,12 @@ function vim4 {
 if is_on_hpc; then
 # avoid overwrite zsh - (cd -)
   alias -="cd ../"
+  alias ..="cd ../"
+  alias ...="cd ../../"
+  alias ....="cd ../../../"
+  alias .....="cd ../../../../"
+  alias ......="cd ../../../../../"
+  alias .......="cd ../../../../../../"
 fi
 alias 1-="cd ../"
 alias 2-="cd ../../"
@@ -93,6 +103,9 @@ alias 3-="cd ../../../"
 alias 4-="cd ../../../../"
 alias 5-="cd ../../../../../"
 alias 6-="cd ../../../../../../"
+alias 7-="cd ../../../../../../../"
+alias 8-="cd ../../../../../../../../"
+alias 9-="cd ../../../../../../../../../"
 
 # personal directory related
 if ! is_on_hpc; then
@@ -247,6 +260,13 @@ if is_on_hpc; then
 # show details of a node
   alias shownode="scontrol show node "
 
+# get my jobids
+  function _getmyjobids() {
+    squeue --me -h -o "%A"
+  }
+  function _getmyrunjobids() {
+    squeue --me -h -o "%A %T" | awk '/RUNNING/ {print $1}'
+  }
 # show the start time of a job
   function showjobst() {
     [[ -z "$1" ]] && echo "Usage: showjobst <jobid>" && return 1
@@ -255,16 +275,38 @@ if is_on_hpc; then
 
 # show the start time of all my jobs
   function showjobstall() {
-    squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "StartTime="
+    _getmyjobids | xargs -I {} scontrol show job {} | grep "StartTime="
   }
 
 # sort and print the working directories of all my jobs
   function showjobdirall() {
-    alljobss=$(squeue -u "$(whoami)" -h -o "%A" | xargs -I {} scontrol show job {} | grep "WorkDir=" | awk -F= '{print $2}')
+    # alljobss=$(squeue -u $(whoami) -h -o "%A" | xargs -I {} scontrol show job {} | grep "WorkDir=" | awk -F= '{print $2}')
+    alljobss=$(_getmyjobids)
     # convert to array
     alljobs=($alljobss)
     cwd=$(pwd)
-    for j in "${alljobs[@]}"; do realpath "$j" --relative-to="$cwd"; done | sort
+    for j in "${alljobs[@]}"; do echo -n "$j "; realpath "$(scontrol show job $j | grep 'WorkDir=' | awk -F= '{print $2}')" --relative-to="$cwd"; done | sort
+  }
+
+# sort and print the working directories of my running jobs
+  function showjobdirrun() {
+    runjobss=$(_getmyrunjobids)
+    # convert to array
+    runjobs=($runjobss)
+    cwd=$(pwd)
+    for j in "${runjobs[@]}"; do echo -n "$j "; realpath "$(scontrol show job $j | grep 'WorkDir=' | awk -F= '{print $2}')" --relative-to="$cwd"; done | sort
+  }
+
+  function showjobpwd() {
+    cwd="$(pwd)"
+    jobids=($(_getmyjobids))
+    for j in "${jobids[@]}"; do
+      d="$(echo $(sacct -j $j -o WorkDir%1000 -n))"
+      if [[ "$d" == "$cwd" ]] || [[ "$d" == "$cwd/./" ]] || [[ "$d" == "$cwd/" ]]; then
+        echo $j
+        break
+      fi
+    done
   }
 fi
 

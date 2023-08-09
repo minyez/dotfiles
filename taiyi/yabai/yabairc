@@ -55,10 +55,10 @@ yabai -m config  normal_window_border_color  0xfff9cdd4
 
 
 # padding
-yabai -m config  top_padding                   6
-yabai -m config  bottom_padding                8
-yabai -m config  left_padding                 10
-yabai -m config  right_padding                10
+yabai -m config  top_padding                   3
+yabai -m config  bottom_padding                3
+yabai -m config  left_padding                  3
+yabai -m config  right_padding                 3
 yabai -m config  external_bar all:24:0
 
 
@@ -84,9 +84,9 @@ yabai -m rule --add title="(Preferences|设置)$" manage=off
 yabai -m rule --add app="^(Finder|访达)$" title="简介$" manage=off
 # float the mini music player and other small tools
 yabai -m rule --add title="^(迷你播放程序)$" manage=off
-yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT|天气|Weather|qtgrace)$" manage=off
+yabai -m rule --add app="^(Reminders|提醒事项|Dictionary|词典|数码测色计|G2FA|ChatGPT|天气|Weather|qtgrace|快捷指令)$" manage=off
 
-yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player)$" manage=off
+yabai -m rule --add app="^(IINA|OBS Studio|QuickTime Player|Bob)$" manage=off
 
 # temporary rule to float and topmost flypy keyboard
 yabai -m rule --add title="^hejp_flypy.png$" manage=off sticky=on layer=above
@@ -106,7 +106,7 @@ yabai -m rule --add app="^(备忘录|Notes|Day One)$" space=5
 yabai -m rule --add app="^(DaVinci Resolve)$" space=6
 yabai -m rule --add app="^(Mail)$" space=8
 yabai -m rule --add app="^(音乐|Music|Spotify)$" space=9
-yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp|Discord)$" space=10
+yabai -m rule --add app="^(微信|WeChat|Slack|WhatsApp|Discord|Rocket\.Chat)$" space=10
 
 
 # space naming

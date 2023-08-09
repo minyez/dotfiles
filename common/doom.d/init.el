@@ -1,5 +1,10 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
+;;; uncomment following line to solve native-comp-deferred-compilation-deny-list
+;;; as void variable when doing doom upgrade/install/sync
+;;; see https://github.com/doomemacs/doomemacs/issues/5682
+(defvar native-comp-deferred-compilation-deny-list nil)
+
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
@@ -99,7 +104,7 @@
        lookup              ; navigate your code and its documentation
        (lsp +eglot)
        ;;; NOTE: with emacs-pgtk-gcc 29, one has to comment out magit to doom sync,
-       ;;;       then
+       ;;;       then uncomment to restore magit
        ;;; See https://github.com/hlissner/doom-emacs/issues/5918#issuecomment-1000320778
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs

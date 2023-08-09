@@ -21,6 +21,12 @@ configs.register({
     p     = { "a<c-r>+<esc> ", "Paste from system clipboard"},
     ["1"] = { "a<c-r>*<esc> ", "Paste from mouse clip"},
   },
+  d = {
+    name = "+definition",
+    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions" },
+    s = { "<c-w><c-]>", "Open Definitions in vertical split" },
+    v = { "<c-w>v<c-]>", "Open Definitions in horizontal split" },
+  },
   e = {
     name = "+edit",
     ["s"] = { "<cmd>%s/\\s\\+$//g<cr>", "Remove trailing spaces" },

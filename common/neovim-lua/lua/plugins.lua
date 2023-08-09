@@ -20,6 +20,7 @@ end
 local plugins = {
   "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
   "nvim-lua/plenary.nvim", -- Useful lua functions used in lots of plugins
+  "rcarriga/nvim-notify", -- notify
   -- ====== start UI
   -- {
   --   "folke/noice.nvim",

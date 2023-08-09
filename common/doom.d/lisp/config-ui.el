@@ -86,5 +86,17 @@
   )
 )
 
+(when (modulep! :ui doom-dashboard)
+  ;; remove the footer, i.e. the GitHub icon
+  (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
+  ;; remove the ascii splash logo
+  ;; (setq +doom-dashboard-ascii-banner-fn nil)
+  ;; remove short menu
+  ;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+  ;; remove some of the buttons
+  (dolist (btname '("Open project"))
+    (assoc-delete-all btname +doom-dashboard-menu-sections))
+)
+
 (provide 'config-ui)
 ;;; config-ui.el ends here

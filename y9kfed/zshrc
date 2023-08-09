@@ -180,7 +180,9 @@ zstyle ':completion:*:*:(xdg-open):*' file-patterns \
 	'*:all-files'
 zstyle ':completion:*:*:(python|python2|python3|cp|mv):*' file-patterns \
 	'^*.(mod|pyc|o):source-files' '*:all-files'
-zstyle ':completion:*:*:(xmgrace):*' file-patterns '*.(agr|dat|txt)'
+# zstyle ':completion:*:*:(xmgrace):*' file-patterns '*.(agr|dat|txt)'
+zstyle ':completion:*:*:(agr2png):*' file-patterns '*.agr'
+zstyle ':completion:*:*:(agr2eps):*' file-patterns '*.agr'
 # Show up menu
 zstyle ':completion:*' menu yes select
 
