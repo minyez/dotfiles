@@ -59,6 +59,16 @@ local plugins = {
         require('lsp-progress').setup()
     end
   },
+  {
+    "kylechui/nvim-surround", -- for quick modification of text surroundings
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",

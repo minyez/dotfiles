@@ -4,7 +4,9 @@
 import os
 
 # logging
-log_level = "notset"
+# log_level = "notset"
+log_level = "debug"
+logfile_mode = "a"
 stream_level = "info"
 
 # custom color map
@@ -27,6 +29,11 @@ prefer_gracecolors = ["Red", "Blue", "orange", "SkyBlue", "Goldenrod", "Green"]
 
 # numeric precision
 symprec = 1.0e-5
+
+try:
+    db_cell_path = os.path.join(os.environ["M"], "Database", "crystal_structures")
+except KeyError:
+    db_cell_path = None
 
 # workflow platform header
 sbatch_headers = {
@@ -95,6 +102,7 @@ uname_platforms = {
 aims_paths = [
     os.path.expanduser("~/software/FHIaims-develop/species_defaults"),
     os.path.expanduser("~/software/FHIaims-latest-master/species_defaults"),
+    os.path.expanduser("~/programs/FHIaims-latest-master/species_defaults"),
 ]
 aims_species_defaults = None
 for p in aims_paths:

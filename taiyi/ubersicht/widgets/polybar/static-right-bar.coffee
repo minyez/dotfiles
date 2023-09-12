@@ -2,9 +2,10 @@ refreshFrequency: false
 
 DARK = false
 
-IDIOM = "<span>昇る</span>"
+# IDIOM = "<span>fail gracefully</span>"
+IDIOM = "<span></span>"
 
-DAYS = "<span>11186/27394</span>"
+DAYS = "<span>11269/27394</span>"
 
 colors =
   black   : "#3B4252"

@@ -1,0 +1,7 @@
+#%Module1.0
+##
+## macOS clang in Apple SDKs
+##
+
+set applesdk "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+prepend-path CPATH "$applesdk/usr/include/c++/v1"

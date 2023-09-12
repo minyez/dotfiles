@@ -2,6 +2,8 @@
 # [[ -f "$HOME/.fig/shell/zprofile.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zprofile.pre.zsh"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # get mamba setup by issuing
 #    ${HOMEBREW_PREFIX}/opt/micromamba/bin/micromamba shell init -s $(basename "${SHELL}") -p ${HOME}/micromamba
 # >>> mamba initialize >>>

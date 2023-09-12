@@ -27,8 +27,8 @@ prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current"
 prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
 prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/"
 prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
-prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver"
 prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver/$aarch/"
+prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver"
 
 # default clang++ use libc++. This is for compatibility with LLVM clang
 #set-alias clang++ { clang++ -stdlib=libstdc++ }

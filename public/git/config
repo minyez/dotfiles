@@ -3,7 +3,7 @@
 	email = minyez.physchem@gmail.com
 	signingkey = E24AEEBE573C60EA
 [core]
-	editor = nvim +startinsert
+	editor = nvim
 [init]
 	defaultBranch = master
 [merge]
@@ -40,3 +40,5 @@
 # needed to handle the error of unauthenticated git protocol on port 9418
 # [url "https://github.com/"]
 # 	insteadOf = git://github.com/
+[submodule]
+	recurse = true
