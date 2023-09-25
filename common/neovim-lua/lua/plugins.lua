@@ -242,6 +242,17 @@ local plugins = {
       vim.cmd [[ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$HOME.'/snippets/UltiSnips' ]]
     end
   },
+  -- -- for inserting license in file. Commented out due to error on init.el:373
+  -- {
+  --   url = "https://git.sr.ht/~reggie/licenses.nvim",
+  --   config = function()
+  --     require('licenses').setup({
+  --       copyright_holder = 'Min-Ye Zhang',
+  --       email = 'minyez.physchem@gmail.com',
+  --       license = 'MIT'
+  --     })
+  --   end
+  -- },
   -- {"L3MON4D3/LuaSnip", build = "make install_jsregexp" }, -- new snippets engine
   "rafamadriz/friendly-snippets",
   -- ====== end snippets
