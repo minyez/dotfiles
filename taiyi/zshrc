@@ -83,6 +83,7 @@ if [[ -d "$ZPLUG_HOME" ]]; then
   zplug "plugins/git", from:oh-my-zsh
   zplug "plugins/ripgrep", from:oh-my-zsh
   zplug "plugins/autojump", from:oh-my-zsh
+  zplug "plugins/changelog", from:oh-my-zsh
 
   # external plugins
   # zplug "marlonrichert/zsh-autocomplete", defer:0

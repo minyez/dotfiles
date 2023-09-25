@@ -5,8 +5,8 @@ import os
 
 # logging
 # log_level = "notset"
-log_level = "debug"
-logfile_mode = "a"
+log_level = "info"
+logfile_mode = "w"
 stream_level = "info"
 
 # custom color map

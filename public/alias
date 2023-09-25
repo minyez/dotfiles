@@ -202,7 +202,13 @@ unset rsync_exclude
 # $1: HPC ssh target  $2: absolute home dir on HPC
 function _sync2 {
   relap="$(realpath . --relative-to="$HOME/")"
-  rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+  if [[ -n "$rsyncopts" ]]; then
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+  elif [[ -n "$rsyncex" ]]; then
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+  else
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+  fi
   unset relap
 }
 
@@ -210,7 +216,13 @@ function _sync2 {
 # $1: ssh target  $2: absolute home dir on HPC
 function _syncf {
   relap="$(realpath . --relative-to="$HOME/")"
-  rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+  if [[ -n "$rsyncopts" ]]; then
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+  elif [[ -n "$rsyncex" ]]; then
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+  else
+    rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+  fi
   unset relap
 }
 
@@ -239,8 +251,6 @@ alias sync2cob="_sync2 cobra /u/minyez"
 alias syncfcob="_syncf cobra /u/minyez"
 
 # MPCDF Raven
-# alias sync2rav="relap=\"\$(realpath . --relative-to=\$HOME/)\" && rsync --rsync-path=\"mkdir -p ~/\$relap; rsync\" -vazru $info_opt \"\$HOME/\$relap\" raven:\"/u/minyez/\$(dirname \$relap)\""
-# alias syncfrav="relap=\"\$(realpath . --relative-to=\$HOME/)\" && rsync --rsync-path=\"mkdir -p ~/\$relap; rsync\" -vazru $info_opt raven:\"/u/minyez/\$relap\" \"\$HOME/\$(dirname \$relap)\""
 alias sync2rav="_sync2 raven /u/minyez"
 alias syncfrav="_syncf raven /u/minyez"
 
