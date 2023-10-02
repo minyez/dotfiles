@@ -29,7 +29,8 @@
   )
   (setq default-input-method "pyim")
   (setq pyim-page-length 9)
-  (setq pyim-default-scheme 'rime-quanpin)
+  ;;(setq pyim-default-scheme 'rime-quanpin)
+  (setq pyim-default-scheme 'xiaohe-shuangpin)
   ;; 中文使用全角标点，英文使用半角标点。
   (setq pyim-punctuation-translate-p '(auto yes no))
   ;; 设置选词框的绘制方式

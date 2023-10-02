@@ -114,6 +114,13 @@ local plugins = {
       { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = "MattesGroeger/vim-bookmarks" }
     }
   },
+  { -- mintelligent prioritization when selecting files from editing history
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension "frecency"
+    end,
+    dependencies = { "kkharji/sqlite.lua" },
+  },
   {
     'nvim-orgmode/orgmode', -- for Emacs orgmode file
     ft = {'org'},
@@ -259,6 +266,26 @@ local plugins = {
 
   -- Modern folding
   -- {'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async'},
+
+  -- More sensible search and jump between matched instances
+  -- https://github.com/kevinhwang91/nvim-hlslens
+  {
+    'kevinhwang91/nvim-hlslens',
+     config = function()
+       require("hlslens").setup()
+       local kopts = {noremap = true, silent = true}
+      vim.api.nvim_set_keymap('n', 'n',
+        [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+        kopts)
+      vim.api.nvim_set_keymap('n', 'N',
+        [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+        kopts)
+      vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+     end
+  },
   -- folding preview
   {"anuvyklack/fold-preview.nvim", dependencies = "anuvyklack/keymap-amend.nvim", config = true },
 

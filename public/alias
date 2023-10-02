@@ -129,6 +129,15 @@ if ! is_on_hpc; then
 fi
 
 #=====================================================
+# quick command
+
+# clear is too long
+alias c="clear"
+
+# c and p are too far
+alias af="cp"
+
+#=====================================================
 # tar
 
 export COPYFILE_DISABLE=1
