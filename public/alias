@@ -44,6 +44,9 @@ if is_macos; then
   alias date="gdate"
   alias make="gmake"
   alias tar="gtar"
+  function ls {
+    gls "$@"
+  }
 fi
 
 #=====================================================
@@ -54,8 +57,9 @@ fi
 
 #=====================================================
 # ls
-alias ll="ls -lh "
-alias la="ls -ah "
+alias ls="ls --color=auto --group-directories-first"
+alias ll="ls -lh"
+alias la="ls -ah"
 
 #=====================================================
 # vim
@@ -212,7 +216,7 @@ unset rsync_exclude
 function _sync2 {
   relap="$(realpath . --relative-to="$HOME/")"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt '$HOME/$relap' $1:'$2/$(dirname '$relap')'"
+    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt '$HOME/$relap' $1:"$2/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   elif [[ -n "$rsyncex" ]]; then
     rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
@@ -227,7 +231,7 @@ function _sync2 {
 function _syncf {
   relap="$(realpath . --relative-to="$HOME/")"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt $1:'$2/$relap' '$HOME/$(dirname '$relap')'"
+    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt $1:'$2/$relap' "$HOME/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   elif [[ -n "$rsyncex" ]]; then
     rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
