@@ -114,6 +114,7 @@ local plugins = {
       { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = "MattesGroeger/vim-bookmarks" }
     }
   },
+  "salsifis/vim-transpose",
   { -- mintelligent prioritization when selecting files from editing history
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
@@ -127,7 +128,10 @@ local plugins = {
   },
   "norcalli/nvim-colorizer.lua", -- show color
   "folke/trouble.nvim",
-  "lukas-reineke/indent-blankline.nvim", -- indent line
+  {
+    "lukas-reineke/indent-blankline.nvim", -- indent line
+    main = "ibl", opts = {}
+  },
   "gpanders/editorconfig.nvim", -- respect editorconfig
   "tpope/vim-sleuth", -- respect tab and indentation in current file
   "ethanholz/nvim-lastplace", -- auto return back to the last modified positon when open a file

@@ -155,6 +155,8 @@ configs.register({
 configs.register({
   g = {
     name = "+goto",
-    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions" },
+    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions (Telescope)" },
+    -- D = { "<cmd>Telescope lsp_implementations<cr>", "LSP Implementations (Telescope)" },
+    t = { "<cmd>Telescope lsp_type_definitions<cr>", "LSP Type Definitions (Telescope)" },
   },
 })

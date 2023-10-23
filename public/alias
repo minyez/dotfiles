@@ -178,9 +178,10 @@ alias cdtd="cd \$(date +\"%Y-%m-%d\")"
 #=====================================================
 # module related
 alias ma="module avail"
-alias ml="module list"
-alias ms="module show "
-alias mld="module load "
+alias mls="module list"
+alias ms="module show"
+alias ml="module load"
+alias mul="module unload"
 
 #=====================================================
 # git related

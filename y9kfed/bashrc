@@ -31,4 +31,6 @@ fi
 
 unset rc
 
+[[ -f "$HOME/.alias" ]] && source "$HOME/.alias"
+
 export LANG=en_US.utf8

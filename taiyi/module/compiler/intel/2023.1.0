@@ -56,7 +56,7 @@ prepend-path  DYLD_LIBRARY_PATH   ${mklroot}/lib
 prepend-path  PKG_CONFIG_PATH     ${mklroot}/lib/pkgconfig
 
 # ipp
-set           ipproot             ${prefix}/ippcp/2021.7.0
+set           ipproot             ${prefix}/ipp/2021.8.0
 setenv        IPPROOT             ${ipproot}
 setenv        IPP_TARGET_ARCH     intel64
 prepend-path  CPATH               ${ipproot}/include
@@ -64,7 +64,7 @@ prepend-path  LIBRARY_PATH        ${ipproot}/lib
 prepend-path  DYLD_LIBRARY_PATH   ${ipproot}/lib
 
 # ippcp
-set           ippcryptoroot       ${prefix}/ippcp/2021.7.0
+set           ippcryptoroot       ${prefix}/ippcp/2021.6.3
 setenv        IPPCRYPTOROOT       ${ippcryptoroot}
 setenv        IPPCP_TARGET_ARCH   intel64
 prepend-path  PKG_CONFIG_PATH     ${ippcryptoroot}/lib/pkgconfig
@@ -73,7 +73,7 @@ prepend-path  LIBRARY_PATH        ${ippcryptoroot}/lib
 prepend-path  DYLD_LIBRARY_PATH   ${ippcryptoroot}/lib
 
 # dal
-set           dalroot             ${prefix}/dal/2023.1.0
+set           dalroot             ${prefix}/dal/2023.0.0
 setenv        DALROOT             ${dalroot}
 setenv        DAALROOT            ${dalroot}
 setenv        DAL_MAJOR_BINARY    1
@@ -85,14 +85,14 @@ prepend-path  CLASSPATH           ${dalroot}/lib/onedal.jar
 prepend-path  CMAKE_PREFIX_PATH   ${dalroot}
 prepend-path  PKG_CONFIG_PATH     ${dalroot}/lib/pkgconfig
 
-# dnnl
-set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_tbb
-# set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_iomp
-setenv        DNNLROOT            ${dnnlroot}
-prepend-path  DYLD_LIBRARY_PATH   ${dnnlroot}/lib
-prepend-path  LIBRARY_PATH        ${dnnlroot}/lib
-prepend-path  CPATH               ${dnnlroot}/include
-prepend-path  CMAKE_PREFIX_PATH   ${dnnlroot}/lib/cmake
+# # dnnl
+# set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_tbb
+# # set           dnnlroot            ${prefix}/dnnl/2023.1.0/cpu_iomp
+# setenv        DNNLROOT            ${dnnlroot}
+# prepend-path  DYLD_LIBRARY_PATH   ${dnnlroot}/lib
+# prepend-path  LIBRARY_PATH        ${dnnlroot}/lib
+# prepend-path  CPATH               ${dnnlroot}/include
+# prepend-path  CMAKE_PREFIX_PATH   ${dnnlroot}/lib/cmake
 
 # dev-utils
 set           dev_util_root ${prefix}/dev-utilities/2021.9.0
