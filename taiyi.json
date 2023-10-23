@@ -3,6 +3,7 @@
   "taiyi/yabai" : "~/.config/yabai",
   "taiyi/kitty" : "~/.config/kitty",
   "taiyi/zprofile" : "~/.zprofile",
+  "taiyi/vimrc" : "~/.vimrc",
   "taiyi/zshrc" : "~/.zshrc",
   "taiyi/modulerc" : "~/.modulerc",
   "taiyi/module" : "~/.module",
