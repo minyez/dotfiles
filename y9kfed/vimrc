@@ -1,4 +1,4 @@
 let mapleader = " "
-source ~/.vim/vimrc/plugin-y9kpfg.vim
+source ~/.vim/vimrc/plugin-y9kfed.vim
 source ~/.vim/vimrc/basic.vim
 source ~/.vim/vimrc/header.vim
