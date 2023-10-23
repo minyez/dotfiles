@@ -1,18 +1,20 @@
-#####%Module1.0
+#%Module1.0
 ##
-## gcc@11.4.0
+## gcc@13.2.0
 ##
 
 set hbc "[getenv HOMEBREW_CELLAR]"
 set arch "aarch64"
-set darwinver "23"
+set darwinver "22"
+set gcc_majorver "13"
 set aarch "${arch}-apple-darwin${darwinver}"
-set gcc_home "$hbc/gcc@11/11.4.0"
+set gcc_home "$hbc/gcc/13.2.0"
 setenv GCC_HOME "$gcc_home"
 
 prepend-path MANPATH    "$gcc_home/share/man"
 
 prepend-path PATH       "$gcc_home/bin"
+
 # There is only gcc-12 in the bin/.
 # Creating alias or function as wrapper will still use system clang gcc when using make.
 # The solution is to create symlink manually in the bin directory
@@ -21,12 +23,13 @@ prepend-path PATH       "$gcc_home/bin"
 # prepend-path LIBRARY_PATH "/usr/lib"
 # prepend-path DYLD_LIBRARY_PATH "/usr/lib"
 # prepend-path LD_LIBRARY_PATH "/usr/lib"
-prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/11"
-prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/11/gcc/$aarch/11"
-prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/11/"
-prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/11/gcc/$aarch/11"
-prepend-path CPATH             "$gcc_home/include/c++/11"
-prepend-path CPATH             "$gcc_home/include/c++/11/$aarch/"
+prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current"
+prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
+prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/"
+prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
+prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver/$aarch/"
+prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver"
+
 # default clang++ use libc++. This is for compatibility with LLVM clang
 #set-alias clang++ { clang++ -stdlib=libstdc++ }
 
@@ -34,20 +37,23 @@ set mpfr_home "$hbc/mpfr/4.2.0-p12"
 setenv MPFR_HOME "$mpfr_home"
 prepend-path LIBRARY_PATH      "$mpfr_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$mpfr_home/lib"
+prepend-path PKG_CONFIG_PATH   "$mpfr_home/lib/pkgconfig"
 prepend-path CPATH             "$mpfr_home/include"
 prepend-path INFOPATH          "$mpfr_home/share/info"
 
-set GMP_HOME "$hbc/gmp/6.2.1_1"
-setenv GMP_HOME "$GMP_HOME"
-prepend-path LIBRARY_PATH      "$GMP_HOME/lib"
-prepend-path DYLD_LIBRARY_PATH "$GMP_HOME/lib"
-prepend-path CPATH             "$GMP_HOME/include"
-prepend-path INFOPATH          "$GMP_HOME/share/info"
+set gmp_home "$hbc/gmp/6.2.1_1"
+setenv GMP_HOME "$gmp_home"
+prepend-path LIBRARY_PATH      "$gmp_home/lib"
+prepend-path DYLD_LIBRARY_PATH "$gmp_home/lib"
+prepend-path PKG_CONFIG_PATH   "$gmp_home/lib/pkgconfig"
+prepend-path CPATH             "$gmp_home/include"
+prepend-path INFOPATH          "$gmp_home/share/info"
 
 set libmpc_home "$hbc/libmpc/1.3.1"
 setenv LIBMPC_HOME  "$libmpc_home"
 prepend-path LIBRARY_PATH      "$libmpc_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$libmpc_home/lib"
+prepend-path PKG_CONFIG_PATH   "$libmpc_home/lib/pkgconfig"
 prepend-path CPATH             "$libmpc_home/include"
 prepend-path INFOPATH          "$libmpc_home/share/info"
 

@@ -55,7 +55,7 @@ set shell=/bin/bash
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
 
-set foldmethod=syntax
+" set foldmethod=syntax
 " 寄存器复制粘贴
 noremap <Leader>y "*y
 noremap <Leader>p "*p
