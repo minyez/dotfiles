@@ -7,7 +7,7 @@ end
 
 configs.setup_ts_grammar()
 configs.setup {
-  org_default_notes_file = '~/Library/CloudStorage/Dropbox/org-roam/todos.org',
+  org_default_notes_file = '~/Library/CloudStorage/Dropbox/org-roam/inbox.org',
   org_highlight_latex_and_related = 'native',
   -- disable indent after heading and list
   org_indent_mode = 'noindent',

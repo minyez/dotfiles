@@ -119,6 +119,14 @@ local plugins = {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
       require("telescope").load_extension "frecency"
+      require("telescope").setup {
+        extensions = {
+          frecency = {
+            -- force prune files that no longer exist from the database
+            db_safe_mode = false,
+          }
+        },
+      }
     end,
     dependencies = { "kkharji/sqlite.lua" },
   },
