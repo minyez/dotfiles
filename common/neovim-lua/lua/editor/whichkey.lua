@@ -12,7 +12,7 @@ end
 -- normal mapping with leader
 configs.register({
   -- files
-  ["<leader>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+  ["<leader>"] = { "<cmd>Telescope frecency workspace=CWD<cr>", "Find File" },
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},

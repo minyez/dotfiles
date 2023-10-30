@@ -77,11 +77,11 @@ nnoremap n nzz
 nnoremap N Nzz
 
 " 记住代码折叠状态
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
+" augroup remember_folds
+"   autocmd!
+"   autocmd BufWinLeave * mkview
+"   autocmd BufWinEnter * silent! loadview
+" augroup END
 
 augroup auto_language_selection
     autocmd!

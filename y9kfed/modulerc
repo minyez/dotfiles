@@ -18,7 +18,7 @@ module load pyenv rbenv
 module use [getenv HOME]/.module/math
 
 module use [getenv HOME]/.module/compiler
-module load gcc/12.3.0
+# module load gcc/12.3.0
 
 # personal projects
 module use [getenv HOME]/.module/project
