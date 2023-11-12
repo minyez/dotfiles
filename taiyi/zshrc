@@ -162,3 +162,5 @@ source /opt/homebrew/opt/asdf/libexec/asdf.sh
 # Fig post block. Keep at the bottom of this file.
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
