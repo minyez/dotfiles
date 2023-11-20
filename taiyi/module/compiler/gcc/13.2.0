@@ -33,7 +33,7 @@ prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver"
 # default clang++ use libc++. This is for compatibility with LLVM clang
 #set-alias clang++ { clang++ -stdlib=libstdc++ }
 
-set mpfr_home "$hbc/mpfr/4.2.0-p12"
+set mpfr_home "$hbc/mpfr/4.2.1"
 setenv MPFR_HOME "$mpfr_home"
 prepend-path LIBRARY_PATH      "$mpfr_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$mpfr_home/lib"
