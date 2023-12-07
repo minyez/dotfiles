@@ -5,7 +5,7 @@ syn match aimsRelaOption        "\v<include_spin_orbit|relativistic>"
 syn match aimsBeyondDFTOption   "\v<calculate_fock_matrix_version|hf_version|prodbas_threshold|auxil_basis|use_density_matrix_hf|prodbas_threshold|frozen_core_postscf|RI_method|state_upper_limit|state_lower_limit|default_prodbas_acc|set_blacsdim +(true|false)>"
 syn match aimsDebugOption       "\v<global_memory_tracking|output_level|postprocess_anyway>"
 syn match aimsEXXOption	    	"\v<(exx_band_structure_version)>"
-syn match aimsQPEOption	    	"\v<(qpe_calc|anacon_type|n_anacon_par|freq_grid_type|frequency_points|periodic_gw_optimize(_kgrid_symmetry|_use_gpu|_single_precision|_init|_lvl_init)?|periodic_gw_modify_head_with_dielec_func)>"
+syn match aimsQPEOption	    	"\v<(qpe_calc|qpe_solver|anacon_type|n_anacon_par|freq_grid_type|frequency_points|periodic_gw_optimize(_kgrid_symmetry|_use_gpu|_single_precision|_init|_lvl_init)?|periodic_gw_modify_head_with_dielec_func)>"
 
 syn match aimsELSIOption	    	"\v<(elsi_(restart))>"
 

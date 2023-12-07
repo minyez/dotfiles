@@ -19,15 +19,15 @@ configs.setup {
     additional_vim_regex_highlighting = true,
   },
   indent = { enable = false, disable = { "yaml", "cpp", "toml" } },
-  -- when cpp is not disable, there will be bad indentation after for {}
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-    -- for config, see https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-    config = {
-      cpp = { __default = '// %s', }
-    }
-  },
+  -- -- when cpp is not disable, there will be bad indentation after for {}
+  -- context_commentstring = {
+  --   enable = true,
+  --   enable_autocmd = false,
+  --   -- for config, see https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+  --   config = {
+  --     cpp = { __default = '// %s', }
+  --   }
+  -- },
 
   -- https://github.com/nvim-treesitter/nvim-treesitter#incremental-selection
   incremental_selection = {
@@ -104,4 +104,7 @@ require'treesitter-context'.setup{
   -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
   separator = nil,
   zindex = 20, -- The Z-index of the context window
+}
+
+require('ts_context_commentstring').setup {
 }
