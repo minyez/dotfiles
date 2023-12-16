@@ -140,6 +140,7 @@ alias c="clear"
 
 # c and p are too far
 alias af="cp"
+alias ca="cp -a"
 
 #=====================================================
 # tar

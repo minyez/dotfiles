@@ -1,5 +1,8 @@
 syn match aimsComment	"#.*$"
 
+"  tags in geometry match from the beginning
+syn match aimsGeometryOption    "\v^<atom(_frac)?|lattice_vector>"
+
 syn match aimsGeneralOption		"\v<(xc|k_grid|symmetry_reduced_k_grid|k_offset|empty_states|partition_acc|use_density_matrix|total_energy_method|spin|occupation_acc|occupation_type|packed_matrix_format|use_full_symmetry|KS_method|mixer|n_max_pulay|charge_mix_param|override_illconditioning|elsi_output_matrix|preconditioner|sc_accuracy_rho|sc_accuracy_eev|sc_accuracy_etot|sc_iter_limit|sc_init_iter|basis_threshold|distributed_spline_storage|restart|restart_save_iterations|restart_periodic_gw|relax_geometry|sc_accuracy_forces|hartree_potential_version|use_local_index|load_balancing|packed_matrix_threshold|use_logsbt|charge|default_initial_moment|hse_unit|frozen_core_postSCF)>"
 syn match aimsRelaOption        "\v<include_spin_orbit|relativistic>"
 syn match aimsBeyondDFTOption   "\v<calculate_fock_matrix_version|hf_version|prodbas_threshold|auxil_basis|use_density_matrix_hf|prodbas_threshold|frozen_core_postscf|RI_method|state_upper_limit|state_lower_limit|default_prodbas_acc|set_blacsdim +(true|false)>"
@@ -17,6 +20,7 @@ syn match aimsBasisOption       "\v<(species|nucleus|mass|l_hartree|cut_pot|basi
 syn match aimsBasisOption       "^\s*\v<(for_aux\s*)?(gaussian|valence|ion_occ|hydro|ionic)>"
 
 " bind to existing syntax groups
+hi def link aimsGeometryOption		Identifier
 hi def link aimsGeneralOption		Identifier
 hi def link aimsRelaOption  		Identifier
 hi def link aimsBeyondDFTOption		Identifier
