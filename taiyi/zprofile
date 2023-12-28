@@ -1,4 +1,12 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+__brew="/opt/homebrew/bin/brew"
+if [ ! -x $__brew ]; then
+  echo "Homebrew is not found, installing"
+  if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+      echo "Warning! brew installation failed"
+  fi
+fi
+eval "$($__brew shellenv)"
+unset __brew
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
