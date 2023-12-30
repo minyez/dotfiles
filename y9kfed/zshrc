@@ -194,6 +194,8 @@ if gem which lunchy > /dev/null 2>&1; then
   fi
 fi
 
+[[ -f "$HOME/.alias" ]] && source "$HOME/.alias"
+
 # suppress error when no regex match is found
 unsetopt nomatch
 

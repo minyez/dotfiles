@@ -63,5 +63,3 @@ fi
 # fi
 
 # [ -f  "$HOME/.xprofile" ] && source "$HOME/.xprofile"
-
-[[ -f "$HOME/.alias" ]] && source "$HOME/.alias"
