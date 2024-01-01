@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# key: crtd
+# name: add "created" header
+# uuid: crtd
+# group: datetime
+# 
+# --
+#+created: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+$0

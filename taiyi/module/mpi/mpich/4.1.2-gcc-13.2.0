@@ -1,6 +1,6 @@
 #%Module1.0#####################################################################
 
-set docstr  "MPICH 4.1.1 compiled by GCC 13.2.0"
+set docstr  "MPICH 4.1.2 (Homebrew) compiled by GCC 13.2.0"
 
 proc ModulesHelp { } {
         global dotversion
@@ -9,11 +9,11 @@ proc ModulesHelp { } {
 
 module-whatis $docstr
 
-set prefix "/opt/packages/mpich/4.1.1/gcc-13.2.0"
+set prefix "/opt/homebrew/Cellar/mpich/4.1.2"
 
 prepend-path CPATH              "$prefix/include"
 prepend-path PATH               "$prefix/bin"
-prepend-path LIBRARY_PATH       "$prefix/lib"
-prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"
 prepend-path MANPATH            "$prefix/share/man"
 prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"
+prepend-path LIBRARY_PATH       "$prefix/lib"
+prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"

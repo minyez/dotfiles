@@ -7,9 +7,11 @@
 # --
 #+latex_compiler: ${1:xelatex}
 #+latex_class: ${2:article}
-#+latex_header: \\usepackage\{${3:physics}\}
+#+latex_header: \\usepackage[hmargin=1.0in,top=1.0in,bottom=0.7in]\{geometry\}
+#+latex_header: %\\usepackage\{ctex\} % Chinese layout
+#+latex_header: %\\usepackage\{zxjatype\} % Japanese layout
 #+setupfile: lh_symbols.org
-#+options: toc:nil tags:nil title:t email:nil author:nil date:nil
+#+options: toc:nil tags:nil title:t email:t author:t date:t
 
 # if you want a preface before toc,
 # write the preface below and uncomment the following latex line

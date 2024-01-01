@@ -1,0 +1,8 @@
+# -*- mode: snippet; coding: utf-8 -*-
+# key: hm
+# name: hour:minute
+# uuid: hm
+# group: datetime        
+# 
+# --
+`(format-time-string "%H:%M")` $0
