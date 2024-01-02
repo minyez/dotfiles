@@ -1,4 +1,6 @@
 {
+  "public/rime" : "~/.config/ibus/rime",
+  "public/tmux.conf" : "~/.tmux.conf",
   "iopcas/vimrc" : "~/.vimrc",
   "iopcas/neovim-lua" : "~/.config/nvim",
   "iopcas/flameshot" : "~/.config/flameshot",
@@ -6,8 +8,6 @@
   "iopcas/bashrc" : "~/.bashrc",
   "iopcas/module": "~/.module",
   "iopcas/modulefiles": "~/.modulefiles",
-  "public/rime" : "~/.config/ibus/rime",
-  "iopcas/tmux.conf" : "~/.tmux.conf",
   "iopcas/zshrc" : "~/.zshrc",
   "iopcas/p10k.zsh" : "~/.p10k.zsh"
 }

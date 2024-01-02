@@ -11,7 +11,7 @@
   "taiyi/p10k.zsh" : "~/.p10k.zsh",
   "taiyi/neovim-lua" : "~/.config/nvim",
   "taiyi/ubersicht/widgets": "~/Library/Application Support/Übersicht/widgets",
-  "taiyi/tmux.conf" : "~/.tmux.conf",
+  "public/tmux.conf" : "~/.tmux.conf",
   "public/alias": "~/.alias",
   "public/hushlogin": "~/.hushlogin",
   "public/mambarc": "~/.mambarc",
