@@ -7,6 +7,7 @@
   "taiyi/zshrc" : "~/.zshrc",
   "taiyi/modulerc" : "~/.modulerc",
   "taiyi/module" : "~/.module",
+  "taiyi/doom-literate" : "~/.config/doom",
   "taiyi/p10k.zsh" : "~/.p10k.zsh",
   "taiyi/neovim-lua" : "~/.config/nvim",
   "taiyi/ubersicht/widgets": "~/Library/Application Support/Übersicht/widgets",

@@ -1,3 +1,6 @@
 [submodule "common/doom.d/auto-save"]
 	path = common/doom.d/auto-save
 	url = https://github.com/manateelazycat/auto-save
+[submodule "taiyi/doom-literate"]
+	path = taiyi/doom-literate
+	url = git@github.com:minyez/doom.git
