@@ -42,7 +42,7 @@ Usage
 ```shell
 python set_dotfiles.py
 ```
-To use configuration of Doom Emacs literate configuration, make sure Doom works
+To use Doom Emacs literate configuration, make sure Doom works
 ```shell
 git submodule update --init --recursive
 cd taiyi/doom-literate
