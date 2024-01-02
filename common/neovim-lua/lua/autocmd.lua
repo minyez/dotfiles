@@ -9,7 +9,7 @@ vim.cmd [[
     autocmd!
     autocmd BufWinLeave fold_f_pattern silent! mkview
     autocmd BufWinEnter fold_f_pattern silent! loadview
-  augroup END
+  augroup end
 " fix no folding when open with telescope
 " https://github.com/nvim-telescope/telescope.nvim/issues/559
 " from https://github.com/ravenxrz/dotfiles/blob/master/nvim/lua/user/conf/autocommands.lua
@@ -29,4 +29,12 @@ vim.cmd [[
 "    autocmd BufEnter *.{c,h}.in set filetype=c
 "    autocmd BufEnter *.{f,f90}.in set filetype=fortran
 "  augroup end
+
+" Use fprettify to format fortran code, if the executable exists
+"  if executable('fprettify')
+"    augroup _format_fortran
+"      autocmd!
+"      autocmd Filetype fortran setlocal formatprg=fprettify\ --silent
+"    augroup end
+"  endif
 ]]

@@ -1,3 +1,4 @@
+-- https://fortls.fortran-lang.org/editor_integration.html#neovim
 local M = {
   cmd = {
     'fortls',
