@@ -1,1 +1,1 @@
-setlocal tabstop=2 shiftwidth=2 softtabstop=2
+setlocal tabstop=3 shiftwidth=3 softtabstop=3

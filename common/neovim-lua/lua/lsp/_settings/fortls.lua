@@ -1,14 +1,10 @@
 local M = {
-  settings = {
-    fortls = {
-      cmd = {
-        'fortls',
-        -- '--lowercase_intrisics',
-        '--hover_signature',
-        '--hover_language=fortran',
-        '--use_signature_help'
-      }
-    }
+  cmd = {
+    'fortls',
+    '--lowercase_intrinsics',
+    '--hover_signature',
+    '--hover_language=fortran',
+    '--use_signature_help'
   }
 }
 

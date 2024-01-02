@@ -9,7 +9,7 @@ local servers = {
 local function get_server_settings(name)
   local status, setting = pcall(require, USER_DIR .. ".lsp._settings." .. name)
   if status then
-    return setting.settings
+    return setting
   end
   return {}
 end

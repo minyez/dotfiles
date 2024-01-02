@@ -59,12 +59,12 @@ local server_settings = require(USER_DIR .. ".lsp._settings")
 for name, settings in pairs(server_settings) do
   mason_lsp_config.setup_handlers {
     [name] = function()
-      lspconfig[name].setup(
-      {
+      local setup = {
         on_attach = handler.on_attach,
         capabilities = handler.capabilities,
-        settings = settings,
-      })
+      }
+      setup = vim.tbl_deep_extend("force", settings, setup)
+      lspconfig[name].setup(setup)
     end
   }
 end
