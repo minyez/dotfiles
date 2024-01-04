@@ -35,7 +35,7 @@ configs.register({
     name = "+file",
     f = { "<cmd>Telescope find_files<cr>", "Find File" },
     e = { "<cmd>Telescope find_files hidden=true<cr>", "Find File (including hidden)" },
-    p = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "LSP Format" },
+    p = { "<cmd>Telescope git_files<cr>", "Find File (Git project)" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     N = { "<cmd>enew<cr>", "New File" },
     -- n = { "<cmd>NvimTreeFocus<cr>a", "New File (From NvimTree)" },
@@ -97,6 +97,11 @@ configs.register({
     name = "+tab",
     x = { "<cmd>tabclose<cr>", "tabclose" },
     n = { "<cmd>tabnew<cr>", "tabnew" },
+  },
+  -- Refactor
+  r = {
+    name = "+refactor",
+    p = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Prettify by LSP Format" },
   },
   -- toggle things
   t = {

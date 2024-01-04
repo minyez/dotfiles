@@ -47,8 +47,9 @@ keymap("n", "<A-l>", ">>", opts)
 keymap("n", "<A-h>", "<<", opts)
 
 -- Insert --
--- Press jk fast to enter
+-- Press jk fast to enter ESC
 keymap("i", "jk", "<ESC>", opts)
+-- keymap("i", "<C-g>", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
