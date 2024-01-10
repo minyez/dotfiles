@@ -135,7 +135,6 @@ local plugins = {
     ft = {'org'},
   },
   "norcalli/nvim-colorizer.lua", -- show color
-  "folke/trouble.nvim",
   {
     "lukas-reineke/indent-blankline.nvim", -- indent line
     main = "ibl", opts = {}
@@ -173,6 +172,13 @@ local plugins = {
   {
     "SmiteshP/nvim-navic",
     dependencies = {"neovim/nvim-lspconfig"},
+    config = function()
+      require("nvim-navic").setup({
+        lsp = {
+          auto_attach = true,
+        }
+      })
+    end
   },
   -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   "williamboman/mason.nvim",
@@ -200,14 +206,14 @@ local plugins = {
   },
   --  to allow completion in code snippets inside markdown (maybe org?)
   -- WARN: not working yet
-  {
-    "jmbuhr/otter.nvim",
-    dependencies = {
-      'hrsh7th/nvim-cmp',
-      'neovim/nvim-lspconfig',
-      'nvim-treesitter/nvim-treesitter'
-    },
-  },
+  -- {
+  --   "jmbuhr/otter.nvim",
+  --   dependencies = {
+  --     'hrsh7th/nvim-cmp',
+  --     'neovim/nvim-lspconfig',
+  --     'nvim-treesitter/nvim-treesitter'
+  --   },
+  -- },
   -- ====== end cmp
   -- {
   --   'quarto-dev/quarto-nvim',

@@ -92,6 +92,12 @@ M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 
+  -- local status_ok, navic = pcall(require, "nvim-navic")
+  -- if status_ok then
+  --   if client.server_capabilities.documentSymbolProvider then
+  --       navic.attach(client, bufnr)
+  --   end
+  -- end
   -- add outline support for evey lanuage
   -- require("aerial").on_attach(client, bufnr)
 

@@ -278,7 +278,7 @@ unset info_opt
 
 if is_on_hpc; then
 # query my jobs
-  alias sq="squeue -u \$(whoami)"
+  alias sq="squeue --me -o \"%.10i %.18j %.8T %.10M %.6D %R\""
 # query the number of all jobs, to see the load of the HPC
   alias sqwc="squeue | wc -l"
 
