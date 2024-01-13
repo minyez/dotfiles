@@ -30,6 +30,7 @@ configs.register({
   e = {
     name = "+edit",
     ["s"] = { "<cmd>%s/\\s\\+$//g<cr>", "Remove trailing spaces" },
+    ["S"] = { "<cmd>sort<cr>", "Sort" },
   },
   f = {
     name = "+file",
