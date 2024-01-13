@@ -24,6 +24,31 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
+-- Toggle cmp-completion
+-- https://github.com/hrsh7th/nvim-cmp/issues/429
+vim.g.cmp_toggle_flag = false -- initialize
+local normal_buftype = function()
+  return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+end
+local toggle_completion = function()
+  local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
+    if next_cmp_toggle_flag then
+      print("completion on")
+    else
+      print("completion off")
+    end
+    cmp.setup({
+      enabled = function()
+        vim.g.cmp_toggle_flag = next_cmp_toggle_flag
+        if next_cmp_toggle_flag then
+          return normal_buftype
+        else
+          return next_cmp_toggle_flag
+        end
+      end,
+    })
+end
+
 --   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
@@ -69,8 +94,15 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-e>"] = cmp.mapping {
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
+      i = function()
+        if cmp.visible() then
+          cmp.mapping.abort()
+        else
+          cmp.mapping.complete()
+        end
+        toggle_completion()
+      end,
+      c = cmp.mapping.close()
     },
     -- ["<C-e>"] = cmp.mapping.confirm { select = true },
     -- Accept currently selected item. If none selected, `select` first item.
