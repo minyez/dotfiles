@@ -1,4 +1,4 @@
-" must put into an autogroup
+" This file is generated automatically. Manual edit might be lost
 augroup filetype_aimsin
   autocmd!
   autocmd BufNewFile,BufRead geometry*.in,geometry.in[_.]*,control*.in,control.in[_.]* set filetype=aimsin
