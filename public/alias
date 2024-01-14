@@ -42,7 +42,8 @@ if is_macos; then
   alias sed="gsed"
   alias awk="gawk"
   alias date="gdate"
-  alias make="gmake"
+  # alias make="gmake"
+  alias make="remake"
   alias tar="gtar"
   function ls {
     gls "$@"
