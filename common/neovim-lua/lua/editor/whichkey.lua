@@ -16,6 +16,10 @@ configs.register({
   [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
   ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
   l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
+  L = {
+    name = "+lsp",
+    t = { "<cmd>lua toggle_diagnostics()<cr>", "Toggle diagnostics" },
+  },
   p = {
     name = "+paste",
     p     = { "a<c-r>+<esc> ", "Paste from system clipboard"},

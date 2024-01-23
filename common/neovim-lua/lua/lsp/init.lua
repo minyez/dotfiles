@@ -14,3 +14,19 @@ handler.setup()
 require(USER_DIR .. ".lsp.signature")
 -- require(USER_DIR .. '.lsp.null-ls') -- not work
 
+-- function for toggling LSP diagnostics per buffer
+-- use
+--   lua.toggle_diagnostics()
+--     or
+--   :lua toggle_diagnostics()
+-- https://github.com/neovim/neovim/issues/14825#issuecomment-1017482249
+vim.g.diagnostics_visible = true
+function _G.toggle_diagnostics()
+  if vim.g.diagnostics_visible then
+    vim.g.diagnostics_visible = false
+    vim.diagnostic.disable()
+  else
+    vim.g.diagnostics_visible = true
+    vim.diagnostic.enable()
+  end
+end

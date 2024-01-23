@@ -148,7 +148,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects", -- enhance texetobject selection
-      "romgrk/nvim-treesitter-context", -- show class/function at top
+      "nvim-treesitter/nvim-treesitter-context", -- show class/function at top
       "JoosepAlviste/nvim-ts-context-commentstring", -- help with comment string
     },
     build = ":TSUpdate",
