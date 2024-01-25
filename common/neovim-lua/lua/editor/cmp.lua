@@ -156,6 +156,7 @@ cmp.setup {
     { name = "orgmode" },
     { name = "env" },
     { name = "rg" },
+    { name = "vimtex" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

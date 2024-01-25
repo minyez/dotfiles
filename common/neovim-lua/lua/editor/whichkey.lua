@@ -23,6 +23,7 @@ configs.register({
   p = {
     name = "+paste",
     p     = { "a<c-r>+<esc> ", "Paste from system clipboard"},
+    i     = { "<cmd>PasteImage<cr>", "Paste clipboard image"},
     ["1"] = { "a<c-r>*<esc> ", "Paste from mouse clip"},
   },
   d = {

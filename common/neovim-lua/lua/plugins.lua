@@ -72,6 +72,21 @@ local plugins = {
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
+  {
+    'lewis6991/spaceless.nvim', -- remove additional space when editing, not touch those unedited
+    -- might have issue with numToStr/Comment, see https://github.com/lewis6991/spaceless.nvim/issues/9
+    config = function()
+      require('spaceless').setup()
+    end
+  },
+  {
+    "HakonHarnes/img-clip.nvim", -- Effortlessly embed images into any markup language
+    event = "BufEnter",
+    opts = {
+      -- add options here
+      -- or leave it empty to use the default settings
+    },
+  },
   "lewis6991/gitsigns.nvim",
   {
     "TimUntersberger/neogit",
@@ -202,6 +217,7 @@ local plugins = {
       { "paopaol/cmp-doxygen" }, -- doxygen. require treesitter
       -- { "amarakon/nvim-cmp-lua-latex-symbols" }, -- latex symbols
       { "lukas-reineke/cmp-rg" }, -- ripgrep
+      { "micangl/cmp-vimtex" }, -- vimtex support
     }
   },
   --  to allow completion in code snippets inside markdown (maybe org?)
