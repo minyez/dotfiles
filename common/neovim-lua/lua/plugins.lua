@@ -157,7 +157,7 @@ local plugins = {
   "gpanders/editorconfig.nvim", -- respect editorconfig
   "tpope/vim-sleuth", -- respect tab and indentation in current file
   "ethanholz/nvim-lastplace", -- auto return back to the last modified positon when open a file
-  -- "nathom/filetype.nvim",
+  "nathom/filetype.nvim",
 
   {
     "nvim-treesitter/nvim-treesitter",

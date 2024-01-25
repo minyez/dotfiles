@@ -15,6 +15,7 @@ configs.setup({
     },
     literal = {
       [".gitignore"] = "config",
+      [".vibesrc"] = "toml",
       [".envrc"] = "bash",
       [".clangd"] = "yaml",
       ["INCAR"] = "bash",
