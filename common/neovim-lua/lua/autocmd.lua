@@ -38,3 +38,8 @@ vim.cmd [[
 "    augroup end
 "  endif
 ]]
+
+-- TODO: use lua api for autocmd, see eg
+-- https://github.com/Jarmos-san/dotfiles/blob/main/dotfiles/.config/nvim/lua/autocmds.lua
+-- vim.api.nvim_create_autocmd
+-- vim.api.nvim_create_augroup("augroup name", { clear = true })
