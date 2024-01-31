@@ -10,8 +10,8 @@ configs.setup {
   org_default_notes_file = '~/Library/CloudStorage/Dropbox/org-roam/inbox.org',
   org_highlight_latex_and_related = 'native',
   -- disable indent after heading and list
-  -- org_indent_mode = 'noindent', -- commented out according to deprecation note
-  org_startup_indented = false
+  -- org_indent_mode = 'noindent', -- commented out according to deprecation note, also not working
+  org_startup_indented = true
 }
 
 local status_ok, tsconfigs = pcall(require, "nvim-treesitter.configs")
