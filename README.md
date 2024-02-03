@@ -35,13 +35,14 @@ Current machines:
 - `taiyi`  : MBP 14 (2023), M2 Max, 64G + 2T, macOS Sonoma
 
 Some directories:
-- `public`: rc files that is not quite machine-specific and directly loaded by the script
-- `common`: common ingredients that may be linked into machine-specific directories, hence only indirectly loaded.
+- `public`: rc files that is not quite machine-specific
+- `common`: common ingredients that may be linked into machine-specific directories
 
 Usage
 ```shell
 python set_dotfiles.py
 ```
+
 To use Doom Emacs literate configuration, make sure Doom works
 ```shell
 git submodule update --init --recursive

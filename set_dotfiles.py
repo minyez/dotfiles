@@ -143,7 +143,7 @@ def main():
         _user = getpwuid(os.geteuid()).pw_name
         _host = gethostname()
         iden = "{}-{}".format(_user, _host)
-        jsonfns = ["public", ]
+        jsonfns = []
         try:
             jfn = iden_jsonfn[iden]
             print("Set JSON '{}' for identifier: {}".format(jfn, iden))

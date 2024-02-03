@@ -1,8 +1,0 @@
-{
-  "public/mushroomrc.py" : "~/.mushroomrc",
-  "public/gnuplotrc" : "~/.gnuplot",
-  "public/git/" : "~/.config/git",
-  "public/gdbinit" : "~/.gdbinit",
-  "public/ssh.config" : "~/.ssh/config",
-  "public/matplotlibrc/" : "~/.matplotlib"
-}

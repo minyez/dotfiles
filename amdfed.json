@@ -6,5 +6,11 @@
   "amdfed/module": "~/.module",
   "public/rime" : "~/.config/ibus/rime",
   "public/tmux.conf" : "~/.tmux.conf",
+  "public/mushroomrc.py" : "~/.mushroomrc",
+  "public/gnuplotrc" : "~/.gnuplot",
+  "public/git/" : "~/.config/git",
+  "public/gdbinit" : "~/.gdbinit",
+  "public/ssh.config" : "~/.ssh/config",
+  "public/matplotlibrc/" : "~/.matplotlib",
   "amdfed/zshrc" : "~/.zshrc"
 }
