@@ -1,0 +1,21 @@
+{
+  "../public/mushroomrc.py" : "~/.mushroomrc",
+  "../public/gnuplotrc" : "~/.gnuplot",
+  "../public/git/" : "~/.config/git",
+  "../public/gdbinit" : "~/.gdbinit",
+  "../public/ssh.config" : "~/.ssh/config",
+  "../public/matplotlibrc/" : "~/.matplotlib",
+  "../public/vim-dir/" : "~/.vim",
+  "../public/pyim-dcache/" : "~/.emacs.d/.local/etc/pyim/dcache",
+  "../public/texstudio/texstudioen_US.ign" : "/Applications/texstudio.app/Contents/Resources/en_US.ign",
+  "../../latex/latex-cls-and-sty/" : "/Library/TeX/Local/tex/latex/local",
+  "zshrc" : "~/.zshrc",
+  "p10k.zsh" : "~/.p10k.zsh",
+  "bashrc" : "~/.bashrc",
+  "alacritty.yml" : "~/.alacritty.yml",
+  "vimrc" : "~/.vimrc",
+  "module" : "~/.module",
+  "modulefiles" : "~/.modulefiles",
+  "neovim-lua/" : "~/.config/nvim",
+  "doom.d/" : "~/.doom.d"
+}

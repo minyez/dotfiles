@@ -99,16 +99,22 @@ def symlink_dotfile(src, target, dry=False, verbose=False):
                 (src, target))
 
 
-def load_setup_json(*jsonfns):
-    """load the link setup from json files"""
+def load_setup(machine_identity):
+    """load the link setup for a particular machine"""
+    if not os.path.isdir(machine_identity):
+        raise FileNotFoundError("directory {}/ not found".format(machine_identity))
+    jsonfile = os.path.join(machine_identity, "setup.json")
+    if not os.path.exists(jsonfile):
+        raise FileNotFoundError("setup file {} not found".format(jsonfile))
     d = {}
-    for jfn in jsonfns:
-        try:
-            with open(jfn, 'r') as h:
-                d.update(json.load(h))
-                print("Loaded link setup from {}.json".format(jfn))
-        except FileNotFoundError:
-            print("link setup {}.json is not found, skip".format(jfn))
+    with open(jsonfile, 'r') as h:
+        setup = json.load(h)
+    for k, v in setup.items():
+        if k.startswith("/"):
+            d[k] = v
+        else:
+            d[os.path.join(machine_identity, k)] = v
+    print("Loaded link setup from {}".format(jsonfile))
     return d
 
 
@@ -122,7 +128,7 @@ def main():
     """main stream"""
     try:
         with open(MACHINE_JSON_FILE, 'r') as h:
-            machine_json: dict = json.load(h)
+            machine_json = json.load(h)
     except FileNotFoundError as e:
         raise FileNotFoundError("Required file {} is not found".format(MACHINE_JSON_FILE)) from e
     AVAILABLE_SETUPS = set(machine_json.values())
@@ -152,8 +158,7 @@ def main():
         except KeyError as e:
             raise KeyError("No machine found for {}. Check {}".format(user_machine, MACHINE_JSON_FILE)) from e
 
-    jsonfn = os.path.join("{}.json".format(identity))
-    src_target_pair = load_setup_json(jsonfn)
+    src_target_pair = load_setup(identity)
 
     if args.showname:
         for s, t in src_target_pair.items():

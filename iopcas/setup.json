@@ -1,0 +1,19 @@
+{
+  "../public/rime" : "~/.config/ibus/rime",
+  "../public/tmux.conf" : "~/.tmux.conf",
+  "../public/mushroomrc.py" : "~/.mushroomrc",
+  "../public/gnuplotrc" : "~/.gnuplot",
+  "../public/git/" : "~/.config/git",
+  "../public/gdbinit" : "~/.gdbinit",
+  "../public/ssh.config" : "~/.ssh/config",
+  "../public/matplotlibrc/" : "~/.matplotlib",
+  "vimrc" : "~/.vimrc",
+  "neovim-lua" : "~/.config/nvim",
+  "flameshot" : "~/.config/flameshot",
+  "doom.d" : "~/.doom.d",
+  "bashrc" : "~/.bashrc",
+  "module": "~/.module",
+  "modulefiles": "~/.modulefiles",
+  "zshrc" : "~/.zshrc",
+  "p10k.zsh" : "~/.p10k.zsh"
+}
