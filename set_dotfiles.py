@@ -21,6 +21,9 @@ from socket import gethostname
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
+MACHINE_JSON_FILE = "machine.json"
+
+
 def decode_src(src):
     """decode the path of dotfile source"""
     if src.startswith("/"):
@@ -101,7 +104,7 @@ def load_setup_json(*jsonfns):
     d = {}
     for jfn in jsonfns:
         try:
-            with open(jfn + ".json", 'r') as h:
+            with open(jfn, 'r') as h:
                 d.update(json.load(h))
                 print("Loaded link setup from {}.json".format(jfn))
         except FileNotFoundError:
@@ -109,9 +112,20 @@ def load_setup_json(*jsonfns):
     return d
 
 
+def get_user_machine():
+    _user = getpwuid(os.geteuid()).pw_name
+    _host = gethostname()
+    return "{}-{}".format(_user, _host)
+
+
 def main():
     """main stream"""
-    AVAILABLE_SETUPS = ("public", "darwin", "taiyi", "y9kfed", "amdfed", "iopcas")
+    try:
+        with open(MACHINE_JSON_FILE, 'r') as h:
+            machine_json: dict = json.load(h)
+    except FileNotFoundError as e:
+        raise FileNotFoundError("Required file {} is not found".format(MACHINE_JSON_FILE)) from e
+    AVAILABLE_SETUPS = set(machine_json.values())
 
     parser = ArgumentParser(__doc__,
                             formatter_class=RawDescriptionHelpFormatter)
@@ -124,36 +138,22 @@ def main():
     parser.add_argument("--showname",
                         action="store_true",
                         help="show the OS name and files to link, then exit")
-    parser.add_argument("--setups", nargs="+", type=str, default=None,
-                        choices=AVAILABLE_SETUPS, help="manually chosen setups")
+    parser.add_argument("--setup", type=str, default=None,
+                        choices=AVAILABLE_SETUPS, help="manually chosen setup")
     args = parser.parse_args()
 
-    # identifier from name and host
-    iden_jsonfn = {
-        "stevezhang-stevezhangMacBook-Pro.local": "darwin",
-        "stevezhang-localhost": "darwin",
-        "stevezhang-stevezhangMBP.lan": "darwin",
-        "minyez-myz-amd-fedora": "amdfed",
-        "minyez-iopcas-fedora": "iopcas",
-        "minyez-y9kfed": "y9kfed",
-        "minyez-taiyi": "taiyi",
-    }
-    jsonfns = []
-    if args.setups is None:
-        _user = getpwuid(os.geteuid()).pw_name
-        _host = gethostname()
-        iden = "{}-{}".format(_user, _host)
-        jsonfns = []
+    # machine name
+    identity = args.setup
+    if identity is None:
         try:
-            jfn = iden_jsonfn[iden]
-            print("Set JSON '{}' for identifier: {}".format(jfn, iden))
-            jsonfns.append(jfn)
-        except KeyError:
-            print("No JSON set for identifier: {}".format(iden))
-            print("Public only")
-    else:
-        jsonfns = args.setups
-    src_target_pair = load_setup_json(*jsonfns)
+            user_machine = get_user_machine()
+            identity = machine_json[user_machine]
+            print("Find machine '{}' for {}".format(identity, user_machine))
+        except KeyError as e:
+            raise KeyError("No machine found for {}. Check {}".format(user_machine, MACHINE_JSON_FILE)) from e
+
+    jsonfn = os.path.join("{}.json".format(identity))
+    src_target_pair = load_setup_json(jsonfn)
 
     if args.showname:
         for s, t in src_target_pair.items():
