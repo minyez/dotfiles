@@ -279,7 +279,7 @@ unset info_opt
 
 if is_on_hpc; then
 # query my jobs
-  alias sq="squeue --me -o '%.10i %.18j %.8T %.10M %.6D %R'"
+  alias sq="squeue --me -o '%.8i %.18j %.2t %.8M %.3D %.10L %Z'"
 # query jobs in my group. Group is obtained by checking accounting of jobs by sacct
   _SLURM_GROUP="$(sacct -n --starttime 1900-01-01 --format=group | head -1)"
   alias sqg="squeue -o '%g %.18j %.8u %.10M %.6D %R' | grep $_SLURM_GROUP"

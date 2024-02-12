@@ -277,3 +277,6 @@ TSWLatexianTemp*
 *.vtc
 # glossaries
 *.glstex
+
+# build directories
+build_*/
