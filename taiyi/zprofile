@@ -11,7 +11,7 @@ unset __brew
 # do not auto clean up cmake to avoid failure in rebuilding after homebrew update
 # see https://docs.brew.sh/FAQ#how-do-i-keep-old-versions-of-a-formula-when-upgrading
 # and https://github.com/Homebrew/homebrew-core/issues/84312
-export HOMEBREW_NO_CLEANUP_FORMULAE=cmake,cmake-doc
+export HOMEBREW_NO_CLEANUP_FORMULAE=cmake,cmake-doc,mpich,gcc
 
 export XDG_CONFIG_HOME="$HOME/.config"
 

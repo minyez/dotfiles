@@ -72,13 +72,13 @@ local plugins = {
   "folke/which-key.nvim",
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
-  {
-    'lewis6991/spaceless.nvim', -- remove additional space when editing, not touch those unedited
-    -- might have issue with numToStr/Comment, see https://github.com/lewis6991/spaceless.nvim/issues/9
-    config = function()
-      require('spaceless').setup()
-    end
-  },
+  -- {
+  --   'lewis6991/spaceless.nvim', -- remove additional space when editing, not touch those unedited
+  --   -- might have issue with numToStr/Comment, see https://github.com/lewis6991/spaceless.nvim/issues/9
+  --   config = function()
+  --     require('spaceless').setup()
+  --   end
+  -- },
   {
     "HakonHarnes/img-clip.nvim", -- Effortlessly embed images into any markup language
     event = "BufEnter",

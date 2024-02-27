@@ -74,6 +74,11 @@ export DYLD_LIBRARY_PATH
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Here, with vi/vim/nvim, ignore files with particular suffixes
+zstyle ':completion:*:*:(vi|vim|nvim|git):*' file-patterns \
+	'^*.(aux|nav|snm|pdf|dvi|bbl|mod|pyc|o|exe|fdb_latexmk|synctex.gz|blg|run.xml|toc|fls|bcf|gif|png|jpg|jpeg|eps|dSYM):source-files' \
+	'*:all-files'
+
 # zplug to handle plugins
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
 if [[ -d "$ZPLUG_HOME" ]]; then
