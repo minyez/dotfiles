@@ -19,6 +19,8 @@ module use [getenv HOME]/.module/math
 
 module use [getenv HOME]/.module/compiler
 # module load gcc/12.3.0
+#
+module use [getenv HOME]/.module/mpi
 
 # personal projects
 module use [getenv HOME]/.module/project

@@ -1,6 +1,6 @@
-####%Module1.0#####################################################################
+#%Module1.0#####################################################################
 
-set docstr "LIBXC 4.3.4 compiled by Intel 2022.2"
+set docstr "LIBXC 6.2.2 compiled by GCC 13.2.1"
 
 proc ModulesHelp { } {
         global dotversion
@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 
 module-whatis      $docstr
 
-set LIBXC_HOME      "[getenv HOME]/software/libxc/4.3.4/intel-2022.2"
+set          LIBXC_HOME       "/opt/packages/libxc/6.2.2/gcc-13.2.1"
 setenv       LIBXCDIR         "$LIBXC_HOME"
 prepend-path PATH             "$LIBXC_HOME/bin"
 prepend-path LIBRARY_PATH     "$LIBXC_HOME/lib"

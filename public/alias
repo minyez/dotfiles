@@ -205,7 +205,7 @@ function gac {
 # ssh related
 
 # verbose rsync with general object and cache files excluded
-rsync_exclude="--exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude 'build*/' --exclude '.pytest_cache'"
+rsync_exclude="--exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
 info_opt="--info=progress2 --human-readable"
 alias scsyc="rsync $rsync_exclude -vazru $info_opt "
 alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
