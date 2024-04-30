@@ -11,7 +11,7 @@ module-whatis $docstr
 
 set prefix "/opt/packages/scalapack/2.2.0/gcc-13.2.1-mpich-4.1.2-openblas"
 
-setenv       SCALAPCK_HOME    "$prefix"
+setenv       SCALAPACK_HOME   "$prefix"
 
 prepend-path LIBRARY_PATH     "$prefix"
 prepend-path LD_LIBRARY_PATH  "$prefix"
