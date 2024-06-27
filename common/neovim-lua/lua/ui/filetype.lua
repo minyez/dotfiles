@@ -74,3 +74,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
   pattern = '.vibesrc',
   command = 'set filetype=toml',
 })
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
+  pattern = '.envrc',
+  command = 'set filetype=bash',
+})

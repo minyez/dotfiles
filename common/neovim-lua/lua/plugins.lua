@@ -126,25 +126,16 @@ local plugins = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-live-grep-raw.nvim",
-      { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = "MattesGroeger/vim-bookmarks" }
+      { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = "MattesGroeger/vim-bookmarks" },
+      { -- mintelligent prioritization when selecting files from editing history
+        "nvim-telescope/telescope-frecency.nvim",
+        dependencies = {
+          "kkharji/sqlite.lua",
+        },
+      },
     }
   },
   "salsifis/vim-transpose",
-  { -- mintelligent prioritization when selecting files from editing history
-    "nvim-telescope/telescope-frecency.nvim",
-    config = function()
-      require("telescope").load_extension "frecency"
-      require("telescope").setup {
-        extensions = {
-          frecency = {
-            -- force prune files that no longer exist from the database
-            db_safe_mode = false,
-          }
-        },
-      }
-    end,
-    dependencies = { "kkharji/sqlite.lua" },
-  },
   {
     'nvim-orgmode/orgmode', -- for Emacs orgmode file
     ft = {'org'},
@@ -327,8 +318,8 @@ local plugins = {
   "simrat39/symbols-outline.nvim", -- symbols overview
   'karb94/neoscroll.nvim', -- smooth scroll
 
-  { 'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu', },
+  -- { 'weilbith/nvim-code-action-menu',
+  --   cmd = 'CodeActionMenu', },
 
   "fladson/vim-kitty",
   "junegunn/vim-easy-align",

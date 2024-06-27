@@ -159,6 +159,10 @@ telescope.setup {
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
     },
+    frecency = {
+      -- force prune files that no longer exist from the database
+      db_safe_mode = false,
+    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts
@@ -169,6 +173,7 @@ telescope.setup {
 
 -- telescope.load_extension("frecency")
 telescope.load_extension('fzf')
+telescope.load_extension("frecency")
 telescope.load_extension("ui-select")
 telescope.load_extension("vim_bookmarks")
 -- telescope.load_extension('dap')
