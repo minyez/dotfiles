@@ -320,6 +320,7 @@ local plugins = {
 
   -- { 'weilbith/nvim-code-action-menu',
   --   cmd = 'CodeActionMenu', },
+  "aznhe21/actions-preview.nvim",
 
   "fladson/vim-kitty",
   "junegunn/vim-easy-align",

@@ -135,7 +135,7 @@ configs.register({
   s = {
     name = "+search",
     -- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions" },
-    a = { "<cmd>CodeActionMenu<cr>", "Code Actions" },
+    a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Actions"},
     c = { "<cmd>Telescope commands<cr>", "Search Commands" },
     S = { "<cmd>Telescope grep_string<cr>", "Search Cursor String" },
     b = { "<cmd>Telescope vim_bookmarks<cr>", "Search Bookmarks" },
