@@ -112,8 +112,8 @@ uname_platforms = {
 }
 
 aims_paths = [
-    os.path.expanduser("~/software/FHIaims-develop/species_defaults"),
     os.path.expanduser("~/software/FHIaims-latest-master-3/species_defaults"),
+    os.path.expanduser("~/software/FHIaims-develop/species_defaults"),
     os.path.expanduser("~/programs/FHIaims-latest-master/species_defaults"),
     os.path.expanduser("~/programs/FHIaims-master/species_defaults"),
 ]

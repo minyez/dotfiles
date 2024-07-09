@@ -181,6 +181,7 @@ alias cdtd="cd \$(date +\"%Y-%m-%d\")"
 # module related
 alias ma="module avail"
 alias mls="module list"
+alias mrl="module reload"
 alias ms="module show"
 alias mld="module load"
 alias mul="module unload"

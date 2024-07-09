@@ -124,8 +124,8 @@ configs.register({
     -- d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
     -- r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
     -- Trouble was updated but seems not work for now. Open diagnostics will give many "attempt to index field 'icons'" error
-    -- So comment out until I have time.
-    b = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)" },
+    -- So comment out until I have time to fix it.
+    -- b = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)" },
     -- d = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Buffer Diagnostics (Trouble)" },
     -- r = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Def./Ref./... (Trouble)" },
     s = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },

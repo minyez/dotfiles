@@ -325,7 +325,19 @@ local plugins = {
   "fladson/vim-kitty",
   "junegunn/vim-easy-align",
   "echasnovski/mini.align",
-  "rmagatti/alternate-toggler", -- quick toggle between true/false
+  {
+    "rmagatti/alternate-toggler", -- quick toggle between true/false
+    config = function()
+    require("alternate-toggler").setup {
+      alternates = {
+        ["=="] = "!=",
+        ["ON"] = "OFF",
+        ["On"] = "Off",
+      }
+    }
+    end,
+    event = "VeryLazy"
+  },
   -- comment out hologram for some error on macos
   -- {
   --   "edluffy/hologram.nvim",
