@@ -69,7 +69,19 @@ local plugins = {
         })
     end
   },
-  "folke/which-key.nvim",
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
   "folke/todo-comments.nvim",
   "numToStr/Comment.nvim",
   -- {

@@ -1,178 +1,154 @@
 -- https://github.com/folke/which-key.nvim
 local pkg = "which-key"
-local status_ok, configs = pcall(require, pkg)
+local status_ok, wk = pcall(require, pkg)
 if not status_ok then
   vim.notify(pkg .. " not found!")
   return
 end
 
--- register keymapping
--- configs.register(mappings, opts)
-
 -- normal mapping with leader
-configs.register({
-  -- files
-  ["<leader>"] = { "<cmd>Telescope frecency workspace=CWD<cr>", "Find File" },
-  [']'] = { "<cmd>AerialNext<cr>", "(Aerial) Next Symbol" },
-  ['['] = { "<cmd>AerialPrev<cr>", "(Aerial) Prev Symbol" },
-  l = { "<cmd>nohlsearch<cr>", "Stop the highlighting"},
-  L = {
-    name = "+lsp",
-    t = { "<cmd>lua toggle_diagnostics()<cr>", "Toggle diagnostics" },
-  },
-  p = {
-    name = "+paste",
-    p     = { "a<c-r>+<esc> ", "Paste from system clipboard"},
-    i     = { "<cmd>PasteImage<cr>", "Paste clipboard image"},
-    ["1"] = { "a<c-r>*<esc> ", "Paste from mouse clip"},
-  },
-  d = {
-    name = "+definition",
-    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions" },
-    s = { "<c-w><c-]>", "Open Definitions in vertical split" },
-    v = { "<c-w>v<c-]>", "Open Definitions in horizontal split" },
-  },
-  e = {
-    name = "+edit",
-    ["s"] = { "<cmd>%s/\\s\\+$//g<cr>", "Remove trailing spaces" },
-    ["S"] = { "<cmd>sort<cr>", "Sort" },
-  },
-  f = {
-    name = "+file",
-    f = { "<cmd>Telescope find_files<cr>", "Find File" },
-    e = { "<cmd>Telescope find_files hidden=true<cr>", "Find File (including hidden)" },
-    p = { "<cmd>Telescope git_files<cr>", "Find File (Git project)" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-    N = { "<cmd>enew<cr>", "New File" },
-    -- n = { "<cmd>NvimTreeFocus<cr>a", "New File (From NvimTree)" },
-    s = { "<cmd>w<cr>", "Save File" },
-    a = { "<cmd>wa<cr>", "Save All Files" },
-  },
-  h = {
-    name = "+help",
-    b = { "<cmd>Gitsigns blame_line<cr>", "Blame line" },
-  },
-  q = {
-    name = "+quit",
-    q = { "<cmd>wqa<cr>", "Save All and Quit" },
-    s = { "<cmd>wq<cr>", "Quit After Save" },
-    f = { "<cmd>q!<cr>", "Force Quit" },
-    a = { "<cmd>qa!<cr>", "Force Quit All" },
-  },
-  m = {
-    name = "+make",
-    m = { "<cmd>make<cr>", "Make" },
-    c = {
-      name = "+CMake",
-      c = { "<cmd>:CMake configure<cr>", "Configure" },
-      s = { "<cmd>:CMake select_target<cr>", "Select Target" },
-      a = { "<cmd>:CMake build_all<cr>", "Build all" },
-    },
-  },
-  -- n = {
-  --   name = "+tree",
-  -- },
-  g = {
-    name = "+git",
-    d = {
-      name = "+diff",
-      d = { "<cmd>Gitsigns diffthis<cr>", "Diff This" },
-      w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
-    },
-    u = { "<cmd>Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk" },
-    R = { "<cmd>Gitsigns reset_buffer<cr>", "Reset buffer" },
-    r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
-    s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
-    a = { "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer" },
-    v = { "<cmd>DiffviewOpen<cr>", "DiffviewOpen" },
-    ["["] = { "<cmd>Gitsigns prev_hunk<cr>", "Previous Hunk" },
-    ["]"] = { "<cmd>Gitsigns next_hunk<cr>", "Next Hunk" },
-    g = { "<cmd>Neogit<cr>", "Neogit" },
-  },
-  w = {
-    name = "+window",
-    v = { "<cmd>vsplit<cr>", "Vertical split" },
-    ["-"] = { "<cmd>vsplit<cr>", "Vertical split" },
-    ["\\"] = { "<cmd>split<cr>", "Horizontal split" },
-    s = { "<cmd>split<cr>", "(Horizontal) split" },
-    ["."] = { "<cmd>:vertical resize +5<cr>", "increase width by 5" },
-    [","] = { "<cmd>:vertical resize -5<cr>", "decrease width by 5" },
-  },
-  -- tab operations
-  b = {
-    name = "+tab",
-    x = { "<cmd>tabclose<cr>", "tabclose" },
-    n = { "<cmd>tabnew<cr>", "tabnew" },
-  },
+wk.add({
+  mode = "n",
+
+  -- Symbols
+  { "<leader>]", "<cmd>AerialNext<cr>", desc = "(Aerial) Next Symbol" },
+  { "<leader>[", "<cmd>AerialPrev<cr>", desc = "(Aerial) Prev Symbol" },
+
+  { "<leader>l", "<cmd>nohlsearch<cr>", desc = "Stop the highlighting"},
+  -- File search
+  { "<leader><leader>", "<cmd>Telescope frecency workspace=CWD<cr>", desc = "Find File" },
+  { "<leader>f",  group = "+file"},
+  { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+  { "<leader>fe", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find File (including hidden)" },
+  { "<leader>fp", "<cmd>Telescope git_files<cr>", desc = "Find File (Git project)" },
+  { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
+  { "<leader>fN", "<cmd>enew<cr>", desc = "New File" },
+  -- { "<leader>fn", "<cmd>NvimTreeFocus<cr>a", desc = "New File (From NvimTree)" },
+  { "<leader>fs", "<cmd>w<cr>", desc = "Save File" },
+  { "<leader>fa", "<cmd>wa<cr>", desc = "Save All Files" },
+
+  -- Toggle
+  { "<leader>t",  group = "+toggle"},
+  { "<leader>tv", "<cmd>ToggleAlternate<cr>", desc = "Alternate Boolean Value" },
+  { "<leader>ta", "<cmd>AerialToggle!<cr>", desc = "Aerial" },
+  { "<leader>tt", "<cmd>NvimTreeToggle<cr>", desc = "NvimTree" },
+  { "<leader>tl", "<cmd>set number! relativenumber!<cr>", desc = "Line Numbers" },
+  { "<leader>tL", "<cmd>set number!<cr>", desc = "Absolute Line Number" },
+  { "<leader>tR", "<cmd>set relativenumber!<cr>", desc = "Relative Line Number" },
+  { "<leader>ti", "<cmd>IndentBlanklineToggle<cr>", desc = "indent-blankline"},
+  { "<leader>ts", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" },
+  { "<leader>tg", "<cmd>Gitsigns toggle_linehl<cr><cmd>Gitsigns toggle_deleted<cr>", desc = "Toggle git diff inline" },
+  -- -- Trouble was updated but seems not work for now. Open diagnostics will give many "attempt to index field 'icons'" error
+  -- -- So comment out until I have time to fix it.
+  -- { "<leader>tb", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+  -- { "<leader>td", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+  -- { "<leader>tr", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Def./Ref./... (Trouble)" },
+  -- -- { "<leader>tb", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
+  -- -- { "<leader>tw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Trouble Workspace" },
+  -- -- { "<leader>td", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Trouble Document" },
+  -- -- { "<leader>tr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble References" },
+
+  -- LSP
+  { "<leader>L",  group = "+lsp" },
+  { "<leader>Lt", "<cmd>lua toggle_diagnostics()<cr>", desc = "Toggle diagnostics" },
+
+  -- Paste
+  { "<leader>p",  group = "+paste" },
+  { "<leader>pp", "a<c-r>+<esc> ", desc = "Paste from system clipboard"},
+  { "<leader>pi", "<cmd>PasteImage<cr>", desc = "Paste clipboard image"},
+  { "<leader>p1", "a<c-r>*<esc> ", desc = "Paste from mouse clip"},
+
+  -- Definition
+  { "<leader>d",  group = "+definition" },
+  { "<leader>dd", "<cmd>Telescope lsp_definitions<cr>", desc = "LSP Definitions" },
+  { "<leader>ds", "<c-w><c-]>", desc = "Open Definitions in vertical split" },
+  { "<leader>dv", "<c-w>v<c-]>", desc = "Open Definitions in horizontal split" },
+
+  -- Definition
+  { "<leader>e",  group = "+edit" },
+  { "<leader>es", "<cmd>%s/\\s\\+$//g<cr>", desc = "Remove trailing spaces" },
+  { "<leader>eS", "<cmd>sort<cr>", desc = "Sort" },
+
+  -- Make
+  { "<leader>m",  group = "+make" },
+  { "<leader>mm", "<cmd>make<cr>", desc = "Make" },
+  { "<leader>mc",  group = "+CMake" },
+  { "<leader>mcc", "<cmd>:CMake configure<cr>", desc = "Configure" },
+  { "<leader>mcs", "<cmd>:CMake select_target<cr>", desc = "Select Target" },
+  { "<leader>mca", "<cmd>:CMake build_all<cr>", desc = "Build all" },
+
   -- Refactor
-  r = {
-    name = "+refactor",
-    p = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Prettify by LSP Format" },
-  },
-  -- toggle things
-  t = {
-    name = "+toggle",
-    v = { "<cmd>ToggleAlternate<cr>", "Alternate Boolean Value" },
-    a = { "<cmd>AerialToggle!<cr>", "Aerial" },
-    t = { "<cmd>NvimTreeToggle<cr>", "NvimTree" },
-    l = { "<cmd>set number! relativenumber!<cr>", "Line Numbers" },
-    L = { "<cmd>set number!<cr>", "Absolute Line Number" },
-    R = { "<cmd>set relativenumber!<cr>", "Relative Line Number" },
-    i = { "<cmd>IndentBlanklineToggle<cr>", "indent-blankline"},
-    -- b = { "<cmd>TroubleToggle<cr>", "Trouble" },
-    -- w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble Workspace" },
-    -- d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble Document" },
-    -- r = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble References" },
-    -- Trouble was updated but seems not work for now. Open diagnostics will give many "attempt to index field 'icons'" error
-    -- So comment out until I have time to fix it.
-    -- b = { "<cmd>Trouble diagnostics toggle<cr>", "Diagnostics (Trouble)" },
-    -- d = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Buffer Diagnostics (Trouble)" },
-    -- r = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Def./Ref./... (Trouble)" },
-    s = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
-    g = { "<cmd>Gitsigns toggle_linehl<cr><cmd>Gitsigns toggle_deleted<cr>", "Toggle git diff inline" },
-  },
-  -- search
-  s = {
-    name = "+search",
-    -- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Actions" },
-    a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Actions"},
-    c = { "<cmd>Telescope commands<cr>", "Search Commands" },
-    S = { "<cmd>Telescope grep_string<cr>", "Search Cursor String" },
-    b = { "<cmd>Telescope vim_bookmarks<cr>", "Search Bookmarks" },
-    r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
-    g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-    s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
-    t = { "<cmd>TodoTelescope<cr>", "Search TODOs" },
-    w = { 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', 'Live Grep Cursor Word' },
-  },
-  -- ["/"] = { "<cmd>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
-  ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" }, -- Comment-nvim, new
-}, { mode = "n", prefix = "<leader>" })
+  { "<leader>r",  group = "+refactor" },
+  { "<leader>rp", "<cmd>lua vim.lsp.buf.format { async = true }<cr>", desc = "Prettify by LSP Format" },
+
+  -- help
+  { "<leader>h",  group = "+help" },
+
+  -- quit
+  { "<leader>q",  group = "+quit" },
+  { "<leader>qq", "<cmd>wqa<cr>", desc = "Save All and Quit" },
+  { "<leader>qs", "<cmd>wq<cr>", desc = "Quit After Save" },
+  { "<leader>qf", "<cmd>q!<cr>", desc = "Force Quit" },
+  { "<leader>qa", "<cmd>qa!<cr>", desc = "Force Quit All" },
+
+  -- window
+  { "<leader>w",  group = "+window" },
+  { "<leader>wv", "<cmd>vsplit<cr>", desc = "Vertical split" },
+  { "<leader>w-", "<cmd>vsplit<cr>", desc = "Vertical split" },
+  { "<leader>w\\", "<cmd>split<cr>", desc = "Horizontal split" },
+  { "<leader>ws", "<cmd>split<cr>", desc = "(Horizontal) split" },
+  { "<leader>w.", "<cmd>:vertical resize +5<cr>", desc = "increase width by 5" },
+  { "<leader>w,", "<cmd>:vertical resize -5<cr>", desc = "decrease width by 5" },
+
+  -- tab operations
+  { "<leader>b",  group = "+tab" },
+  { "<leader>bx", "<cmd>tabclose<cr>", desc = "tabclose" },
+  { "<leader>bn", "<cmd>tabnew<cr>", desc = "tabnew" },
+
+  -- git
+  { "<leader>g",  group = "+git" },
+  { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+  { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+  { "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset buffer" },
+  { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset hunk" },
+  { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+  { "<leader>ga", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
+  { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen" },
+  { "<leader>g[", "<cmd>Gitsigns prev_hunk<cr>", desc = "Previous Hunk" },
+  { "<leader>g]", "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+  { "<leader>gb", "<cmd>Gitsigns blame_line<cr>", desc = "Blame line" },
+  { "<leader>gd",  group = "+diff" },
+  { "<leader>gdd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff This" },
+  { "<leader>gdw", "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word diff" },
+
+  -- Searching
+  { "<leader>s",  group = "+search" },
+  { "<leader>sa", "<cmd>lua require('actions-preview').code_actions()<cr>", desc = "Code Actions"},
+  { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Search Commands" },
+  { "<leader>sS", "<cmd>Telescope grep_string<cr>", desc = "Search Cursor String" },
+  { "<leader>sb", "<cmd>Telescope vim_bookmarks<cr>", desc = "Search Bookmarks" },
+  { "<leader>sr", "<cmd>Telescope lsp_references<cr>", desc = "Search LSP References" },
+  { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+  { "<leader>ss", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "LSP Workspace Symbols" },
+  { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Search TODOs" },
+  { "<leader>sw", 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', desc = 'Live Grep Cursor Word' },
+  -- { "<leader>/", "<cmd>CommentToggle<cr>", desc = "Comment" }, -- nvim-comment, old
+  { "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment" }, -- Comment-nvim, new
+})
 
 -- visual mapping of leader
-configs.register({
-  s = {
-    name = "+search",
-    -- from https://www.reddit.com/r/neovim/comments/p8wtmn/telescopenvim_how_to_take_what_i_selected_in
-    g = { '"zy:exec \'Telescope grep_string default_text=\' .escape(@z, \' \')<cr>', 'Grep Selection' },
-    -- c = { "y<cmd>Telescope commands default_text=<cr>", "Search Commands" },
-    -- r = { "<cmd>Telescope lsp_references<cr>", "Search LSP References" },
-    -- s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
-    -- o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" },
-  },
-  y = {
-    name = "+yank",
-    ["1"] = { "\"*y", "Yank to mouse clip"},
-  },
+wk.add({
+  mode = "v",
+  { "<leader>s",  group = "+search" },
+  { "<leader>sg", '"zy:exec \'Telescope grep_string default_text=\' .escape(@z, \' \')<cr>', desc = 'Grep Selection' },
+  { "<leader>y",  group = "+yank" },
+  { "<leader>y1", "\"*y", desc = "Yank to mouse clip" },
   -- ["/"] = { "<cmd>'<,'>CommentToggle<cr>", "Comment" }, -- nvim-comment, old
-  ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment" }, -- Comment-nvim, new
-}, { mode = "v", prefix = "<leader>" })
+  { "<leader>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Comment" }, -- Comment-nvim, new
+})
 
-configs.register({
-  g = {
-    name = "+goto",
-    d = { "<cmd>Telescope lsp_definitions<cr>", "LSP Definitions (Telescope)" },
-    -- D = { "<cmd>Telescope lsp_implementations<cr>", "LSP Implementations (Telescope)" },
-    t = { "<cmd>Telescope lsp_type_definitions<cr>", "LSP Type Definitions (Telescope)" },
-  },
+wk.add({
+  { "g",  group = "+goto" },
+  { "gd", "<cmd>Telescope lsp_definitions<cr>",      desc = "LSP Definitions (Telescope)" },
+  { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "LSP Type Definitions (Telescope)" },
 })
