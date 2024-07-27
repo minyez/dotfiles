@@ -5,7 +5,7 @@ M.settings = {
   Lua = {
     diagnostics = {
     -- https://www.reddit.com/r/neovim/comments/khk335/lua_configuration_global_vim_is_undefined/
-      globals = { 'vim', 'use', 'USER_DIR' }
+      globals = { 'vim', 'use', 'USER_DIR', 'pandoc' }
     }
   }
 }
