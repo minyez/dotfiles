@@ -18,16 +18,56 @@ function is_linux {
   [[ ${OSTYPE} != "${OSTYPE##linux}" ]]
 }
 
-# check if it is on a HPC system
+# system check for BSD
+function is_bsd {
+  [[ ${OSTYPE} != "${OSTYPE##freebsd}" ]]
+}
+
+# system check for Solaris
+function is_solaris {
+  [[ ${OSTYPE} != "${OSTYPE##solaris}" ]]
+}
+
+# check the current shell
+# https://unix.stackexchange.com/questions/9501/how-to-test-what-shell-i-am-using-in-a-terminal
+function _get_current_shell {
+  ss="unknown"
+  if is_macos || is_bsd; then
+    ss="$(ps -p$$ -ocommand=)"
+  elif is_linux; then
+    ss="$(ps -p$$ -ocmd=)"
+  elif is_solaris; then
+    ss="$(ps -p$$ -ofname=)"
+  fi
+  echo "$ss"
+}
+
+# check if the current shell is zshell
+function is_zsh {
+  ss=$(_get_current_shell)
+  [[ $ss == "-zsh" ]]
+}
+
+# check if the current shell is bash
+function is_bash {
+  ss=$(_get_current_shell)
+  [[ $ss == "-bash" ]]
+}
+
+# check if it is on an HPC system
+# a more general version would be to check executables (slurmctld, qmgr)
+# or environment variables (SLURM, PBS) of scheduler
 function is_on_hpc {
   hsn=$(hostname)
   if [[ $hsn == mgmt ]]; then
     return 0
-  elif [[ $hsn != ${hsn#raven} ]]; then
+  elif [[ $hsn == talos01 ]]; then
     return 0
-  elif [[ $hsn != ${hsn#cobra} ]]; then
+  elif [[ $hsn != "${hsn#raven}" ]]; then
     return 0
-  elif [[ $hsn != ${hsn#uan} ]]; then
+  elif [[ $hsn != "${hsn#cobra}" ]]; then
+    return 0
+  elif [[ $hsn != "${hsn#yuan}" ]]; then
     return 0
   fi
   return 1
@@ -94,7 +134,9 @@ function vim4 {
 # quick navigation to higher-level directoires
 if is_on_hpc; then
 # avoid overwrite zsh - (cd -)
-  alias -="cd ../"
+  if is_zsh; then
+    alias -="cd ../"
+  fi
   alias ..="cd ../"
   alias ...="cd ../../"
   alias ....="cd ../../../"
@@ -112,7 +154,7 @@ alias 7-="cd ../../../../../../../"
 alias 8-="cd ../../../../../../../../"
 alias 9-="cd ../../../../../../../../../"
 
-# personal directory related
+# personal directory related, only for local development
 if ! is_on_hpc; then
   export M="$HOME/Documents/minyez"
   export MY="$M"
@@ -171,6 +213,8 @@ function targzd {
 alias td="date +\"%Y-%m-%d\""
 # datetime, isoformat
 alias dt="date +\"%Y-%m-%d %H:%M:%S\""
+# datetime with time zone, isoformat
+alias dtz="date +\"%Y-%m-%d %H:%M:%S %z\""
 # datetime, org-mode timestamp
 alias odt="date +\"%Y-%m-%d %a %H:%M\""
 
@@ -189,8 +233,170 @@ alias mul="module unload"
 #=====================================================
 # git related
 alias gih="git rev-parse --short HEAD"
-
 alias gib="git branch --show-current"
+
+# add git alias in bash shell. In zshell, they are defined by the omz plugin
+if ! is_zsh; then
+  alias gst="git status"
+  alias g=git
+  alias ga='git add'
+  alias gaa='git add --all'
+  alias gb='git branch'
+  alias gbD='git branch --delete --force'
+  alias gba='git branch --all'
+  alias gbd='git branch --delete'
+  alias gbl='git blame -w'
+  alias gbm='git branch --move'
+  alias gbnm='git branch --no-merged'
+  alias gbr='git branch --remote'
+  alias gbs='git bisect'
+  alias gbsb='git bisect bad'
+  alias gbsg='git bisect good'
+  alias gbsn='git bisect new'
+  alias gbso='git bisect old'
+  alias gbsr='git bisect reset'
+  alias gbss='git bisect start'
+  alias gc='git commit --verbose'
+  alias 'gc!'='git commit --verbose --amend'
+  alias gcB='git checkout -B'
+  alias gca='git commit --verbose --all'
+  alias 'gca!'='git commit --verbose --all --amend'
+  alias gcam='git commit --all --message'
+  alias 'gcan!'='git commit --verbose --all --no-edit --amend'
+  alias 'gcans!'='git commit --verbose --all --signoff --no-edit --amend'
+  alias gcas='git commit --all --signoff'
+  alias gcasm='git commit --all --signoff --message'
+  alias gcb='git checkout -b'
+  alias gcf='git config --list'
+  alias gcl='git clone --recurse-submodules'
+  alias gclean='git clean --interactive -d'
+  alias gcmsg='git commit --message'
+  alias 'gcn!'='git commit --verbose --no-edit --amend'
+  alias gco='git checkout'
+  alias gcor='git checkout --recurse-submodules'
+  alias gcount='git shortlog --summary --numbered'
+  alias gcp='git cherry-pick'
+  alias gcpa='git cherry-pick --abort'
+  alias gcpc='git cherry-pick --continue'
+  alias gcs='git commit --gpg-sign'
+  alias gcsm='git commit --signoff --message'
+  alias gcss='git commit --gpg-sign --signoff'
+  alias gcssm='git commit --gpg-sign --signoff --message'
+  alias gd='git diff'
+  alias gdca='git diff --cached'
+  alias gdct='git describe --tags $(git rev-list --tags --max-count=1)'
+  alias gdcw='git diff --cached --word-diff'
+  alias gds='git diff --staged'
+  alias gdt='git diff-tree --no-commit-id --name-only -r'
+  alias gdup='git diff @{upstream}'
+  alias gdw='git diff --word-diff'
+  alias gf='git fetch'
+  alias gfa='git fetch --all --prune --jobs=10'
+  alias gfg='git ls-files | grep'
+  alias gfo='git fetch origin'
+  alias gg='git gui citool'
+  alias gga='git gui citool --amend'
+  alias ghh='git help'
+  alias gib='git branch --show-current'
+  alias gignore='git update-index --assume-unchanged'
+  alias gih='git rev-parse --short HEAD'
+  alias gl='git pull'
+  alias glg='git log --stat'
+  alias glgg='git log --graph'
+  alias glgga='git log --graph --decorate --all'
+  alias glgm='git log --graph --max-count=10'
+  alias glgp='git log --stat --patch'
+  alias glo='git log --oneline --decorate'
+  alias globurl='noglob urlglobber '
+  alias glod='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
+  alias glods='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
+  alias glog='git log --oneline --decorate --graph'
+  alias gloga='git log --oneline --decorate --graph --all'
+  alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
+  alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
+  alias glols='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
+  alias gm='git merge'
+  alias gma='git merge --abort'
+  alias gms='git merge --squash'
+  alias gmtl='git mergetool --no-prompt'
+  alias gmtlvim='git mergetool --no-prompt --tool=vimdiff'
+  alias gp='git push'
+  alias gpd='git push --dry-run'
+  alias gpf='git push --force-with-lease --force-if-includes'
+  alias 'gpf!'='git push --force'
+  alias gpoat='git push origin --all && git push origin --tags'
+  alias gpod='git push origin --delete'
+  alias gpr='git pull --rebase'
+  alias gpra='git pull --rebase --autostash'
+  alias gprav='git pull --rebase --autostash -v'
+  alias gpristine='git reset --hard && git clean --force -dfx'
+  alias gprv='git pull --rebase -v'
+  alias gpu='git push upstream'
+  alias gpv='git push --verbose'
+  alias gr='git remote'
+  alias gra='git remote add'
+  alias grb='git rebase'
+  alias grba='git rebase --abort'
+  alias grbc='git rebase --continue'
+  alias grbi='git rebase --interactive'
+  alias grbo='git rebase --onto'
+  alias grbs='git rebase --skip'
+  alias grev='git revert'
+  alias grh='git reset'
+  alias grhh='git reset --hard'
+  alias grhk='git reset --keep'
+  alias grhs='git reset --soft'
+  alias grm='git rm'
+  alias grmc='git rm --cached'
+  alias grmv='git remote rename'
+  alias grrm='git remote remove'
+  alias grs='git restore'
+  alias grset='git remote set-url'
+  alias grss='git restore --source'
+  alias grst='git restore --staged'
+  alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
+  alias gru='git reset --'
+  alias grup='git remote update'
+  alias grv='git remote --verbose'
+  alias gsb='git status --short --branch'
+  alias gsd='git svn dcommit'
+  alias gsh='git show'
+  alias gsi='git submodule init'
+  alias gsps='git show --pretty=short --show-signature'
+  alias gsr='git svn rebase'
+  alias gss='git status --short'
+  alias gst='git status'
+  alias gsta='git stash push'
+  alias gstaa='git stash apply'
+  alias gstall='git stash --all'
+  alias gstc='git stash clear'
+  alias gstd='git stash drop'
+  alias gstl='git stash list'
+  alias gstp='git stash pop'
+  alias gsts='git stash show --patch'
+  alias gstu='gsta --include-untracked'
+  alias gsu='git submodule update'
+  alias gsw='git switch'
+  alias gswc='git switch --create'
+  alias gta='git tag --annotate'
+  function _gtl()
+  {
+    git tag --sort=-v:refname -n --list "${1}*"
+    noglob gtl
+  }
+  alias gtl="noglob _gtl"
+  alias gts='git tag --sign'
+  alias gtv='git tag | sort -V'
+  alias gunignore='git update-index --no-assume-unchanged'
+  alias gunwip='git rev-list --max-count=1 --format="%s" HEAD | grep -q "\--wip--" && git reset HEAD~1'
+  alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
+  alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
+  alias gwt='git worktree'
+  alias gwta='git worktree add'
+  alias gwtls='git worktree list'
+  alias gwtmv='git worktree move'
+  alias gwtrm='git worktree remove'
+fi
 
 function gac {
 # Auto commit
@@ -206,7 +412,7 @@ function gac {
 # ssh related
 
 # verbose rsync with general object and cache files excluded
-rsync_exclude="--exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
+rsync_exclude="--exclude '.DS_Store' --exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
 info_opt="--info=progress2 --human-readable"
 alias scsyc="rsync $rsync_exclude -vazru $info_opt "
 alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
@@ -245,33 +451,36 @@ function _syncf {
   unset relap
 }
 
-# PKU-big-data server
-alias sync2bd="_sync2 phbd /gpfs/share/home/1501210186"
-alias syncfbd="_syncf phbd /gpfs/share/home/1501210186"
+# HPC related sync, only added to non-HPC case
+if ! is_on_hpc; then
+  # PKU-big-data server
+  alias sync2bd="_sync2 phbd /gpfs/share/home/1501210186"
+  alias syncfbd="_syncf phbd /gpfs/share/home/1501210186"
 
-# IOP Huairou
-alias sync2hr="_sync2 iophr /home/zhangmy"
-alias syncfhr="_syncf iophr /home/zhangmy"
+  # IOP Huairou
+  alias sync2hr="_sync2 iophr /home/zhangmy"
+  alias syncfhr="_syncf iophr /home/zhangmy"
 
-# CAS XDB
-alias sync2xd="_sync2 xdb /public/home/zhangmy_xdb"
-alias syncfxd="_syncf xdb /public/home/zhangmy_xdb"
+  # CAS XDB
+  alias sync2xd="_sync2 xdb /public/home/zhangmy_xdb"
+  alias syncfxd="_syncf xdb /public/home/zhangmy_xdb"
 
-# CAS Yuan
-alias sync2y="_sync2 yuan /home/users/zhangmy"
-alias syncfy="_syncf yuan /home/users/zhangmy"
+  # CAS Yuan
+  alias sync2y="_sync2 yuan /home/users/zhangmy"
+  alias syncfy="_syncf yuan /home/users/zhangmy"
 
-# y9000k laptop
-alias sync2y9="_sync2 y9k /home/minyez"
-alias syncfy9="_syncf y9k /home/minyez"
+  # y9000k laptop
+  alias sync2y9="_sync2 y9k /home/minyez"
+  alias syncfy9="_syncf y9k /home/minyez"
 
-# MPCDF Cobra
-alias sync2cob="_sync2 cobra /u/minyez"
-alias syncfcob="_syncf cobra /u/minyez"
+  # MPCDF Cobra
+  alias sync2cob="_sync2 cobra /u/minyez"
+  alias syncfcob="_syncf cobra /u/minyez"
 
-# MPCDF Raven
-alias sync2rav="_sync2 raven /u/minyez"
-alias syncfrav="_syncf raven /u/minyez"
+  # MPCDF Raven
+  alias sync2rav="_sync2 raven /u/minyez"
+  alias syncfrav="_syncf raven /u/minyez"
+fi
 
 unset info_opt
 
@@ -279,6 +488,12 @@ unset info_opt
 # slurm related
 
 if is_on_hpc; then
+# enter working directory
+  function ej()
+  {
+    wkd=$(sacct -j $1 -o WorkDir%1000 | awk 'FNR == 3 {print $1}')
+    cd "$wkd"
+  }
 # query my jobs
   alias sq="squeue --me -o '%.8i %.18j %.2t %.8M %.3D %.10L %Z'"
 # query jobs in my group. Group is obtained by checking accounting of jobs by sacct
@@ -347,3 +562,5 @@ fi
 if is_macos; then
   alias vesta="/Applications/VESTA.app/Contents/MacOS/VESTA "
 fi
+
+# vim: filetype=sh
