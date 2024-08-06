@@ -103,7 +103,7 @@ plugins=(
   git
   autojump
   jsontools
-  ripgrep
+  # ripgrep
   zsh-completions
   zsh-autosuggestions
 )
