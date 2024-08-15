@@ -36,3 +36,6 @@ public/helix/helix
 public/helix/runtime
 
 lazy-lock.json
+
+# matplotlib font cache
+fontlist-v*.json
