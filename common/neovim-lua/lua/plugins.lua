@@ -202,6 +202,7 @@ local plugins = {
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
+  "mhartington/formatter.nvim",
   "ray-x/lsp_signature.nvim", -- show function signature when typing
   -- ====== end LSP
   -- ====== start cmp
@@ -360,6 +361,10 @@ local plugins = {
   --       })
   --   end
   -- },
+  -- Integration with cmake.
+  -- I don't understand how the cache work.
+  -- It seems I have to edit using the CMakeSetting command, but cannot edit the cache file directly.
+  'Civitasv/cmake-tools.nvim',
   {
     "ekickx/clipboard-image.nvim", -- for pasting images to markdown
     config = function()

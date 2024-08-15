@@ -38,4 +38,4 @@ require(USER_DIR .. '.ui.todo-comments')
 require(USER_DIR .. '.ui.trouble')
 -- require(USER_DIR .. '.ui.neoscroll')
 
--- require(USER_DIR .. '.tool.neovim-cmake')
+-- require(USER_DIR .. '.tool.cmake-tools')
