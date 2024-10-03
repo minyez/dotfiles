@@ -88,6 +88,10 @@ if is_macos; then
   function ls {
     gls "$@"
   }
+
+  export ICD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+  # enter CloudDocs
+  alias cicd="cd \"\$ICD\""
 fi
 
 #=====================================================
@@ -426,12 +430,12 @@ unset rsync_exclude
 function _sync2 {
   relap="$(realpath . --relative-to="$HOME/")"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt '$HOME/$relap' $1:"$2/$(dirname "$relap")""
+    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $info_opt '$HOME/$relap' $1:"$2/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   elif [[ -n "$rsyncex" ]]; then
-    rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   else
-    rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   fi
   unset relap
 }
@@ -441,12 +445,12 @@ function _sync2 {
 function _syncf {
   relap="$(realpath . --relative-to="$HOME/")"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p ~/$relap; rsync' $rsyncopts -vazru $info_opt $1:'$2/$relap' "$HOME/$(dirname "$relap")""
+    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $info_opt $1:'$2/$relap' "$HOME/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   elif [[ -n "$rsyncex" ]]; then
-    rsync --rsync-path="mkdir -p ~/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   else
-    rsync --rsync-path="mkdir -p ~/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   fi
   unset relap
 }
@@ -484,6 +488,10 @@ if ! is_on_hpc; then
   # MPCDF Talos
   alias sync2ta="_sync2 talos /u/minyez"
   alias syncfta="_syncf talos /u/minyez"
+
+  # NHR platform
+  alias sync2nhr="_sync2 nhr /scratch/projects/bep00114/myz_temp"
+  alias syncfnhr="_syncf nhr /scratch/projects/bep00114/myz_temp"
 fi
 
 unset info_opt

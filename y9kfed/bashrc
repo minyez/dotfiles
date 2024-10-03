@@ -8,6 +8,20 @@ fi
 # only use english in command line
 export LANGUAGE=en_US
 
+paths=(
+  "$HOME/.cargo/bin"
+  "$HOME/scripts"
+  "$HOME/bin"
+  "$HOME/.local/bin"
+  "$HOME/.local/share/JetBrains/Toolbox/scripts"
+)
+for p in "${paths[@]}"; do
+  if ! [[ "$PATH" =~ "$p": ]]; then
+    PATH="$p:$PATH"
+  fi
+done
+export PATH
+
 # # User specific environment
 # if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 # then

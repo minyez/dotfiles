@@ -1,6 +1,6 @@
 #%Module1.0#####################################################################
 
-set docstr  "MPICH 4.2.2 (Homebrew) compiled by GCC 14.2.0"
+set docstr  "OpenMPI 5.0.3 compiled by GCC 14.2.0 from homebrew"
 
 proc ModulesHelp { } {
         global dotversion
@@ -8,14 +8,14 @@ proc ModulesHelp { } {
 }
 
 module-whatis $docstr
+conflict mpich
 
-conflict openmpi
+set prefix "/opt/homebrew/Cellar/open-mpi/5.0.3_1"
 
-set prefix "/opt/homebrew/Cellar/mpich/4.2.2"
-
+setenv       OPENMPI_HOME       "$prefix"
 prepend-path CPATH              "$prefix/include"
 prepend-path PATH               "$prefix/bin"
-prepend-path MANPATH            "$prefix/share/man"
-prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"
 prepend-path LIBRARY_PATH       "$prefix/lib"
 prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"
+prepend-path MANPATH            "$prefix/share/man"
+prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"

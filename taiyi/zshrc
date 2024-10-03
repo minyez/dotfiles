@@ -14,14 +14,17 @@ export ZSH="$HOME/.oh-my-zsh"
 export DYLD_LIBRARY_PATH
 export OMP_NUM_THREADS=1
 
-# MPICH and OpenMPI always uses GCC, not Apple Clang
 _GCC_VER=14
-export MPICH_FC=gfortran-$_GCC_VER
-export MPICH_CC=gcc-$_GCC_VER
-export MPICH_CXX=g++-$_GCC_VER
-export OMPI_FC=gfortran-$_GCC_VER
-export OMPI_CC=gcc-$_GCC_VER
-export OMPI_CXX=g++-$_GCC_VER
+export FC=gfortran-$_GCC_VER
+export CC=gcc-$_GCC_VER
+export CXX=g++-$_GCC_VER
+# MPICH and OpenMPI always uses GCC, not Apple Clang
+export MPICH_FC=$FC
+export MPICH_CC=$CC
+export MPICH_CXX=$CXX
+export OMPI_FC=$FC
+export OMPI_CC=$CC
+export OMPI_CXX=$CXX
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
