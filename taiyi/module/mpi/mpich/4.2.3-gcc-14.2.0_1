@@ -1,0 +1,21 @@
+#%Module1.0#####################################################################
+
+set docstr  "MPICH 4.2.3 (Homebrew) compiled by GCC 14.2.0_1"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis $docstr
+
+conflict openmpi
+
+set prefix "/opt/homebrew/Cellar/mpich/4.2.3"
+
+prepend-path CPATH              "$prefix/include"
+prepend-path PATH               "$prefix/bin"
+prepend-path MANPATH            "$prefix/share/man"
+prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"
+prepend-path LIBRARY_PATH       "$prefix/lib"
+prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"

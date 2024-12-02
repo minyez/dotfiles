@@ -165,14 +165,14 @@ if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-export PATH="$HOME/scripts:$PATH"
-export PYTHONPATH="$HOME/scripts:$PYTHONPATH"
+export PATH="$HOME/projects/mushroom/scripts:$HOME/scripts:$PATH"
+export PYTHONPATH="$HOME/projects/mushroom:$HOME/scripts:$PYTHONPATH"
 
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
 # [[ ! -f "$MYRM/scripts/check_inbox" ]] || "$MYRM/scripts/check_inbox"
 # [[ ! -f "$MYRM/scripts/check_leftwork" ]] || "$MYRM/scripts/check_leftwork"
 # module load ssh
-module load mushroom
+# module load mushroom
 
 [[ ! -f "$HOME/.alias" ]] || source "$HOME/.alias"
 
@@ -180,6 +180,7 @@ source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # module load intel/2023.1.0
 # gcc/latest  mpich/4.1.1-intel-2023.1.0  scalapack/2.2.0-intel-2023.1.0-mpich-4.1.1
+module load mpich/4.2.3-gcc-14.2.0_1
 
 # Fig post block. Keep at the bottom of this file.
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

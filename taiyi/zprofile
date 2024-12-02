@@ -8,6 +8,7 @@ if [ ! -x $__brew ]; then
 fi
 eval "$($__brew shellenv)"
 unset __brew
+
 # do not auto clean up cmake to avoid failure in rebuilding after homebrew update
 # see https://docs.brew.sh/FAQ#how-do-i-keep-old-versions-of-a-formula-when-upgrading
 # and https://github.com/Homebrew/homebrew-core/issues/84312

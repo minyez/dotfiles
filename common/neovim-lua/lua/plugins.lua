@@ -346,6 +346,7 @@ local plugins = {
         ["=="] = "!=",
         ["ON"] = "OFF",
         ["On"] = "Off",
+        ["false"] = "true",
       }
     }
     end,

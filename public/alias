@@ -492,6 +492,10 @@ if ! is_on_hpc; then
   # NHR platform
   alias sync2nhr="_sync2 nhr /scratch/projects/bep00114/myz_temp"
   alias syncfnhr="_syncf nhr /scratch/projects/bep00114/myz_temp"
+
+  # FHI laptop platform
+  alias sync2fhi="_sync2 fhi /home/minyez"
+  alias syncffhi="_syncf fhi /home/minyez"
 fi
 
 unset info_opt
