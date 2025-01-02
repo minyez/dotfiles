@@ -489,6 +489,10 @@ if ! is_on_hpc; then
   alias sync2ta="_sync2 talos /u/minyez"
   alias syncfta="_syncf talos /u/minyez"
 
+  # MPCDF Talos, scratch
+  alias sync2tas="_sync2 talos /u/minyez/scratch"
+  alias syncftas="_syncf talos /u/minyez/scratch"
+
   # NHR platform
   alias sync2nhr="_sync2 nhr /scratch/projects/bep00114/myz_temp"
   alias syncfnhr="_syncf nhr /scratch/projects/bep00114/myz_temp"
