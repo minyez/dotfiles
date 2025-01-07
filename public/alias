@@ -103,7 +103,7 @@ fi
 #=====================================================
 # ls
 alias ls="ls --color=auto --group-directories-first"
-alias ll="ls -lh"
+alias ll="ls -lh --time-style=\"+%Y-%m-%d %H:%M:%S\""
 alias la="ls -ah"
 
 #=====================================================
@@ -416,27 +416,29 @@ function gac {
 # ssh related
 
 # verbose rsync with general object and cache files excluded
-rsync_exclude="--exclude '.DS_Store' --exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
+rsync_exclude="--exclude '*.exe' --exclude '.DS_Store' --exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
 info_opt="--info=progress2 --human-readable"
 alias scsyc="rsync $rsync_exclude -vazru $info_opt "
 alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
 alias scsycdel="rsync $rsync_exclude --remove-source-files -vazru $info_opt "
 
-unset rsync_exclude
+unset info_opt
 
 # sync directory structure from/to HPC center
 # a general wrapper to sync to
 # $1: HPC ssh target  $2: absolute home dir on HPC
 function _sync2 {
   relap="$(realpath . --relative-to="$HOME/")"
+  _info_opt="--human-readable"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $info_opt '$HOME/$relap' $1:"$2/$(dirname "$relap")""
+    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $(eval echo $_info_opt) '$HOME/$relap' $1:"$2/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   elif [[ -n "$rsyncex" ]]; then
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
   else
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
   fi
+  unset _info_opt
   unset relap
 }
 
@@ -444,14 +446,21 @@ function _sync2 {
 # $1: ssh target  $2: absolute home dir on HPC
 function _syncf {
   relap="$(realpath . --relative-to="$HOME/")"
+  # _info_opt="--info=progress2 --human-readable"
+  _info_opt="--human-readable"
+  _rsync_exclude="--exclude '.DS_Store' --exclude '*.o' --exclude __pycache__ --exclude '*.pyc' --exclude '*.mod' --exclude '.pytest_cache'"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $info_opt $1:'$2/$relap' "$HOME/$(dirname "$relap")""
+    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $(eval echo $_rsync_exclude) $rsyncopts -vazru $(eval echo $_info_opt) $1:'$2/$relap' "$HOME/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   elif [[ -n "$rsyncex" ]]; then
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+    echo "rsync --rsync-path=\"mkdir -p $2/$relap; rsync\" $_rsync_exclude --exclude \"$rsyncex\" -vazru $_info_opt $1:$2/$relap $HOME/$(dirname "$relap")"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" $(eval echo $_rsync_exclude) --exclude "$rsyncex" -vazru $(eval echo $info_opt) $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   else
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $info_opt $1:"$2/$relap" "$HOME/$(dirname "$relap")"
+    echo "rsync --rsync-path=\"mkdir -p $2/$relap; rsync\" $_rsync_exclude -vazru $_info_opt $1:$2/$relap $HOME/$(dirname "$relap")"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" $(eval echo $_rsync_exclude) -vazru $(eval echo $info_opt) $1:"$2/$relap" "$HOME/$(dirname "$relap")"
   fi
+  unset _rsync_exclude
+  unset _info_opt
   unset relap
 }
 
@@ -501,8 +510,6 @@ if ! is_on_hpc; then
   alias sync2fhi="_sync2 fhi /home/minyez"
   alias syncffhi="_syncf fhi /home/minyez"
 fi
-
-unset info_opt
 
 #=====================================================
 # slurm related
