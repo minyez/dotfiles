@@ -165,7 +165,7 @@ if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-export PATH="$HOME/projects/mushroom/scripts:$HOME/scripts:$PATH"
+export PATH="$HOME/projects/mushroom/scripts:$HOME/scripts:$HOME/.cargo/bin:$PATH"
 export PYTHONPATH="$HOME/projects/mushroom:$HOME/scripts:$PYTHONPATH"
 
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
@@ -176,7 +176,9 @@ source $HOMEBREW_PREFIX/opt/modules/init/zsh
 
 [[ ! -f "$HOME/.alias" ]] || source "$HOME/.alias"
 
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
+# asdf completion
+# source /opt/homebrew/opt/asdf/libexec/asdf.sh
+source /opt/homebrew/opt/asdf/etc/bash_completion.d
 
 # module load intel/2023.1.0
 # gcc/latest  mpich/4.1.1-intel-2023.1.0  scalapack/2.2.0-intel-2023.1.0-mpich-4.1.1
@@ -187,3 +189,11 @@ module load mpich/4.2.3-gcc-14.2.0_1
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Activate a default micromamba envrionment
+if command -v micromamba 1>/dev/null 2>&1; then
+  micromamba activate py3124
+fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/minyez/.lmstudio/bin"

@@ -59,15 +59,26 @@ function is_bash {
 # or environment variables (SLURM, PBS) of scheduler
 function is_on_hpc {
   hsn=$(hostname)
+  # IOP-CAS Huairou cluster
   if [[ $hsn == mgmt ]]; then
     return 0
+  # MPCDF Talos
   elif [[ $hsn == talos01 ]]; then
     return 0
+  # MPCDF Raven
   elif [[ $hsn != "${hsn#raven}" ]]; then
     return 0
+  # MPCDF Cobra
   elif [[ $hsn != "${hsn#cobra}" ]]; then
     return 0
+  # CAS Yuan
   elif [[ $hsn != "${hsn#yuan}" ]]; then
+    return 0
+  # GWDG
+  elif [[ $hsn != "${hsn#glogin}" ]]; then
+    return 0
+  # Koushare
+  elif [[ $hsn != "${hsn#dln}" ]]; then
     return 0
   fi
   return 1
@@ -88,7 +99,7 @@ if is_macos; then
   function ls {
     gls "$@"
   }
-
+  # iCloud driver
   export ICD="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
   # enter CloudDocs
   alias cicd="cd \"\$ICD\""
@@ -510,9 +521,17 @@ if ! is_on_hpc; then
   alias sync2fhi="_sync2 fhi /home/minyez"
   alias syncffhi="_syncf fhi /home/minyez"
 
-  # Emmy center, test account
+  # Emmy center, account 1: u13909 of test project
   alias sync2em="_sync2 emmy /user/minye.zhang/u13909"
   alias syncfem="_syncf emmy /user/minye.zhang/u13909"
+
+  # Emmy center, account 2: u14745 of Wahib's project
+  alias sync2em2="_sync2 emmy2 /user/minye.zhang/u14745"
+  alias syncfem2="_syncf emmy2 /user/minye.zhang/u14745"
+
+  # IOPCAS Koushare
+  alias sync2ks="_sync2 ks /mnt/sg001/home/ks_iopcas_minyez"
+  alias syncfks="_syncf ks /mnt/sg001/home/ks_iopcas_minyez"
 fi
 
 #=====================================================

@@ -134,6 +134,11 @@ wk.add({
   { "<leader>sw", 'bve"zy:Telescope live_grep default_text=<c-r>z<cr>', desc = 'Live Grep Cursor Word' },
   -- { "<leader>/", "<cmd>CommentToggle<cr>", desc = "Comment" }, -- nvim-comment, old
   { "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Comment" }, -- Comment-nvim, new
+
+  -- Open at cursor
+  { "<leader>o",  group = "+open" },
+  -- { "<leader>od", 'yiW:!open https://doi.org/<C-r>"<cr>', desc = "DOI"},
+
 })
 
 -- visual mapping of leader
