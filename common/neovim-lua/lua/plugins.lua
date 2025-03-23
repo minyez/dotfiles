@@ -205,6 +205,18 @@ local plugins = {
   "mhartington/formatter.nvim",
   "ray-x/lsp_signature.nvim", -- show function signature when typing
   -- ====== end LSP
+
+  -- ====== start LLM related
+  {
+    'ggml-org/llama.vim',
+    init = function()
+      vim.g.llama_config = {
+        endpoint = 8012,
+      }
+    end,
+  },
+  -- ====== end LLM related
+
   -- ====== start cmp
   {
     "hrsh7th/nvim-cmp",

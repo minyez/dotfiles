@@ -6,7 +6,11 @@
 # This is originally in an alias module file, but later I
 # found that zsh history fails to record alias there, which
 # is not convenient.
-#
+
+# Alias to reload the alias
+# alias myalias="source $(grealpath "${BASH_SOURCE[0]}")"
+alias myalias="source $(grealpath "$0")"
+
 #=====================================================
 # system check for macOS
 function is_macos {
@@ -513,9 +517,13 @@ if ! is_on_hpc; then
   alias sync2tas="_sync2 talos /u/minyez/scratch"
   alias syncftas="_syncf talos /u/minyez/scratch"
 
-  # NHR platform
-  alias sync2nhr="_sync2 nhr /scratch/projects/bep00114/myz_temp"
-  alias syncfnhr="_syncf nhr /scratch/projects/bep00114/myz_temp"
+  # # NHR platform, Akhil
+  # alias sync2nhr="_sync2 nhr /scratch/projects/bep00114/myz_temp"
+  # alias syncfnhr="_syncf nhr /scratch/projects/bep00114/myz_temp"
+
+  # # NHR platform, Shuo
+  alias sync2nhr="_sync2 nhr /scratch/usr/bepshuoz/data_zmy_temp"
+  alias syncfnhr="_syncf nhr /scratch/usr/bepshuoz/data_zmy_temp"
 
   # FHI laptop platform
   alias sync2fhi="_sync2 fhi /home/minyez"
@@ -573,7 +581,9 @@ if is_on_hpc; then
 
 # show the start time of all my jobs
   function showjobstall() {
-    _getmyjobids | xargs -I {} scontrol show job {} | grep "StartTime="
+    alljobss=$(_getmyjobids)
+    alljobs=($alljobss)
+    for j in "${alljobs[@]}"; do echo -n "$j "; scontrol show job $j | grep "StartTime="; done | sort
   }
   alias sjta="showjobstall"
 
