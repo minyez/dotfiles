@@ -280,3 +280,6 @@ TSWLatexianTemp*
 
 # build directories
 build_*/
+
+# Mushroom log
+mushroom.log

@@ -14,17 +14,22 @@ export ZSH="$HOME/.oh-my-zsh"
 export DYLD_LIBRARY_PATH
 export OMP_NUM_THREADS=1
 
-_GCC_VER=14
-export FC=gfortran-$_GCC_VER
-export CC=gcc-$_GCC_VER
-export CXX=g++-$_GCC_VER
-# MPICH and OpenMPI always uses GCC, not Apple Clang
-export MPICH_FC=$FC
-export MPICH_CC=$CC
-export MPICH_CXX=$CXX
-export OMPI_FC=$FC
-export OMPI_CC=$CC
-export OMPI_CXX=$CXX
+_GCC_VER=13
+function set_gcc_version() {
+  _ver=$1
+  export FC=gfortran-$_ver
+  export CC=gcc-$_ver
+  export CXX=g++-$_ver
+  # MPICH and OpenMPI always uses GCC, not Apple Clang
+  export MPICH_FC=$FC
+  export MPICH_CC=$CC
+  export MPICH_CXX=$CXX
+  export OMPI_FC=$FC
+  export OMPI_CC=$CC
+  export OMPI_CXX=$CXX
+  unset _ver
+}
+set_gcc_version $_GCC_VER
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -182,7 +187,8 @@ source /opt/homebrew/opt/asdf/etc/bash_completion.d
 
 # module load intel/2023.1.0
 # gcc/latest  mpich/4.1.1-intel-2023.1.0  scalapack/2.2.0-intel-2023.1.0-mpich-4.1.1
-module load mpich/4.2.3-gcc-14.2.0_1
+# module load mpich/4.2.3-gcc-14.2.0_1
+module load mpich/4.3.0-gcc-13.4.0
 
 # Fig post block. Keep at the bottom of this file.
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
