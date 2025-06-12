@@ -1,6 +1,6 @@
-#####%Module1.0#####################################################################
+#%Module1.0#####################################################################
 
-set docstr  "MPICH 4.2.2 (Homebrew) compiled by GCC 14.2.0"
+set docstr  "MPICH 4.3.0 (Homebrew), along with GCC 13.2.0"
 
 proc ModulesHelp { } {
         global dotversion
@@ -11,7 +11,7 @@ module-whatis $docstr
 
 conflict openmpi
 
-set prefix "/opt/homebrew/Cellar/mpich/4.2.2"
+set prefix "/opt/homebrew/Cellar/mpich/4.3.0"
 
 prepend-path CPATH              "$prefix/include"
 prepend-path PATH               "$prefix/bin"

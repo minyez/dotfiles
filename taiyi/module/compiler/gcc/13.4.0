@@ -1,14 +1,14 @@
 #%Module1.0
 ##
-## gcc@13.2.0
+## gcc@13.4.0
 ##
 
 set hbc "[getenv HOMEBREW_CELLAR]"
 set arch "aarch64"
-set darwinver "22"
+set darwinver "23"
 set gcc_majorver "13"
 set aarch "${arch}-apple-darwin${darwinver}"
-set gcc_home "$hbc/gcc/13.2.0"
+set gcc_home "$hbc/gcc@13/13.4.0"
 setenv GCC_HOME "$gcc_home"
 
 prepend-path MANPATH    "$gcc_home/share/man"
