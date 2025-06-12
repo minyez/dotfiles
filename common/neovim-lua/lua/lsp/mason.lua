@@ -44,27 +44,27 @@ local handler = require(USER_DIR .. ".lsp.handlers")
 -- end
 
 -- global setup
-mason_lsp_config.setup_handlers {
-  function (server_name) -- default handler (optional)
-    lspconfig[server_name].setup {
-      on_attach = handler.on_attach,
-      capabilities = handler.capabilities,
-    }
-  end,
-}
-
-local server_settings = require(USER_DIR .. ".lsp._settings")
-
--- renew for local
-for name, settings in pairs(server_settings) do
-  mason_lsp_config.setup_handlers {
-    [name] = function()
-      local setup = {
-        on_attach = handler.on_attach,
-        capabilities = handler.capabilities,
-      }
-      setup = vim.tbl_deep_extend("force", settings, setup)
-      lspconfig[name].setup(setup)
-    end
-  }
-end
+-- mason_lsp_config.setup_handlers {
+--   function (server_name) -- default handler (optional)
+--     lspconfig[server_name].setup {
+--       on_attach = handler.on_attach,
+--       capabilities = handler.capabilities,
+--     }
+--   end,
+-- }
+--
+-- local server_settings = require(USER_DIR .. ".lsp._settings")
+--
+-- -- renew for local
+-- for name, settings in pairs(server_settings) do
+--   mason_lsp_config.setup_handlers {
+--     [name] = function()
+--       local setup = {
+--         on_attach = handler.on_attach,
+--         capabilities = handler.capabilities,
+--       }
+--       setup = vim.tbl_deep_extend("force", settings, setup)
+--       lspconfig[name].setup(setup)
+--     end
+--   }
+-- end
