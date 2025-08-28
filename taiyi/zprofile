@@ -23,17 +23,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 #    ${HOMEBREW_PREFIX}/opt/micromamba/bin/micromamba shell init -s $(basename "${SHELL}") -p ${HOME}/micromamba
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="$HOMEBREW_PREFIX/opt/micromamba/bin/micromamba";
+# export MAMBA_EXE="$HOMEBREW_PREFIX/opt/micromamba/bin/micromamba";
+export MAMBA_EXE="$HOME/.local/bin/micromamba";
 export MAMBA_ROOT_PREFIX="$HOME/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh 2> /dev/null)"
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
-    if [ -f "$MAMBA_ROOT_PREFIX/etc/profile.d/micromamba.sh" ]; then
-        . "$MAMBA_ROOT_PREFIX/etc/profile.d/micromamba.sh"
-    else
-        export  PATH="$MAMBA_ROOT_PREFIX/bin:$PATH"  # extra space after export prevents interference from conda init
-    fi
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<

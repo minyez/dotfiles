@@ -170,7 +170,7 @@ if command -v direnv 1>/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-export PATH="$HOME/projects/mushroom/scripts:$HOME/scripts:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/projects/mushroom/scripts:$HOME/scripts:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 export PYTHONPATH="$HOME/projects/mushroom:$HOME/scripts:$PYTHONPATH"
 
 source $HOMEBREW_PREFIX/opt/modules/init/zsh
@@ -198,6 +198,7 @@ module load mpich/4.3.0-gcc-13.4.0
 
 # Activate a default micromamba envrionment
 if command -v micromamba 1>/dev/null 2>&1; then
+  # export CONDA_OVERRIDE_OSX=$(sw_vers -productVersion)
   micromamba activate py3124
 fi
 
