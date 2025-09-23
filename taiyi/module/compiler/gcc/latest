@@ -5,8 +5,8 @@
 
 set hbp "[getenv HOMEBREW_PREFIX]"
 set arch "aarch64"
-set darwinver "22"
-set gcc_majorver "13"
+set darwinver "23"
+set gcc_majorver "15"
 set aarch "${arch}-apple-darwin${darwinver}"
 set gcc_home "$hbp/opt/gcc"
 setenv GCC_HOME "$gcc_home"
