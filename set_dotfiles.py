@@ -136,7 +136,7 @@ def main():
     parser = ArgumentParser(__doc__,
                             formatter_class=RawDescriptionHelpFormatter)
     parser.add_argument("--dry", action="store_true", help="dry mode")
-    parser.add_argument("--verbose", action="store_true", help="verbose mode")
+    parser.add_argument("-v", "--verbose", action="store_true", help="verbose mode")
     parser.add_argument("-r",
                         dest="remove",
                         action="store_true",

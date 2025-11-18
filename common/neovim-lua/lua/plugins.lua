@@ -295,8 +295,8 @@ local plugins = {
     dependencies = {"honza/vim-snippets"}, -- default snippets
     config = function()
       -- add local snippet directory to search and set as the edit path
-      vim.cmd [[ let g:UltiSnipsSnippetDirectories=[$HOME.'/snippets/UltiSnips'] ]]
-      vim.cmd [[ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$HOME.'/snippets/UltiSnips' ]]
+      vim.cmd [[ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/snippets/UltiSnips'] ]]
+      vim.cmd [[ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$HOME.'/.config/snippets/UltiSnips' ]]
     end
   },
   -- -- for inserting license in file. Commented out due to error on init.el:373

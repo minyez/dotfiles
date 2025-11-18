@@ -22,5 +22,5 @@
   "../public/alias": "~/.alias",
   "../public/hushlogin": "~/.hushlogin",
   "../public/mambarc": "~/.mambarc",
-  "../public/UltiSnips/" : "~/snippets/UltiSnips"
+  "../public/UltiSnips/" : "~/.config/snippets/UltiSnips"
 }

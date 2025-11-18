@@ -1,14 +1,14 @@
-######%Module1.0
+#%Module1.0
 ##
-## gcc@13.2.0
+## gcc, latest under opt
 ##
 
-set hbc "[getenv HOMEBREW_CELLAR]"
+set hbp "[getenv HOMEBREW_PREFIX]"
 set arch "aarch64"
-set darwinver "22"
-set gcc_majorver "13"
+set darwinver "23"
+set gcc_majorver "15"
 set aarch "${arch}-apple-darwin${darwinver}"
-set gcc_home "$hbc/gcc/13.2.0"
+set gcc_home "$hbp/Cellar/gcc/15.2.0"
 setenv GCC_HOME "$gcc_home"
 
 prepend-path MANPATH    "$gcc_home/share/man"
@@ -23,17 +23,17 @@ prepend-path PATH       "$gcc_home/bin"
 # prepend-path LIBRARY_PATH "/usr/lib"
 # prepend-path DYLD_LIBRARY_PATH "/usr/lib"
 # prepend-path LD_LIBRARY_PATH "/usr/lib"
-prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/$gcc_majorver"
-prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/$gcc_majorver/gcc/$aarch/$gcc_majorver"
-prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/$gcc_majorver/"
-prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/$gcc_majorver/gcc/$aarch/$gcc_majorver"
+prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current"
+prepend-path LIBRARY_PATH      "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
+prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/"
+prepend-path DYLD_LIBRARY_PATH "$gcc_home/lib/gcc/current/gcc/$aarch/$gcc_majorver"
 prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver/$aarch/"
 prepend-path CPATH             "$gcc_home/include/c++/$gcc_majorver"
 
 # default clang++ use libc++. This is for compatibility with LLVM clang
 #set-alias clang++ { clang++ -stdlib=libstdc++ }
 
-set mpfr_home "$hbc/mpfr/4.2.2"
+set mpfr_home "$hbp/opt/mpfr"
 setenv MPFR_HOME "$mpfr_home"
 prepend-path LIBRARY_PATH      "$mpfr_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$mpfr_home/lib"
@@ -41,7 +41,7 @@ prepend-path PKG_CONFIG_PATH   "$mpfr_home/lib/pkgconfig"
 prepend-path CPATH             "$mpfr_home/include"
 prepend-path INFOPATH          "$mpfr_home/share/info"
 
-set gmp_home "$hbc/gmp/6.3.0"
+set gmp_home "$hbp/opt/gmp"
 setenv GMP_HOME "$gmp_home"
 prepend-path LIBRARY_PATH      "$gmp_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$gmp_home/lib"
@@ -49,7 +49,7 @@ prepend-path PKG_CONFIG_PATH   "$gmp_home/lib/pkgconfig"
 prepend-path CPATH             "$gmp_home/include"
 prepend-path INFOPATH          "$gmp_home/share/info"
 
-set libmpc_home "$hbc/libmpc/1.3.1"
+set libmpc_home "$hbp/opt/libmpc"
 setenv LIBMPC_HOME  "$libmpc_home"
 prepend-path LIBRARY_PATH      "$libmpc_home/lib"
 prepend-path DYLD_LIBRARY_PATH "$libmpc_home/lib"

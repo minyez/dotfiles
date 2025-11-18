@@ -144,7 +144,7 @@ function vi4 {
   _vi4 $_vi "$1" "$2" "$3" "$4"
 }
 function vim4 {
-  _vi4 $_vim "$1" "$2" "$3" "$4"
+  _vi4 $_vim "$3" "$4" "$1" "$2"
 }
 
 #=====================================================
@@ -431,7 +431,7 @@ function gac {
 # ssh related
 
 # verbose rsync with general object and cache files excluded
-rsync_exclude="--exclude '*.{exe,o,pyc,mod}' --exclude '.DS_Store' --exclude __pycache__ --exclude '.pytest_cache' --exclude 'mushroom.log'"
+rsync_exclude="--exclude '*.{exe,o,pyc,mod}' --exclude '.DS_Store' --exclude __pycache__ --exclude '.pytest_cache' --exclude 'mushroom.log' --exclude '.mypy_cache'"
 info_opt="--info=progress2 --human-readable"
 alias scsyc="rsync $rsync_exclude -vazru $info_opt "
 alias scsycfoc="rsync $rsync_exclude -vazr  $info_opt "
@@ -446,12 +446,12 @@ function _sync2 {
   relap="$(realpath . --relative-to="$HOME/")"
   _info_opt="--human-readable"
   if [[ -n "$rsyncopts" ]]; then
-    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts -vazru $(eval echo $_info_opt) '$HOME/$relap' $1:"$2/$(dirname "$relap")""
+    sh -c "rsync --rsync-path='mkdir -p $2/$relap; rsync' $rsyncopts --exclude '*.{exe,o,pyc,mod}' --exclude '.DS_Store' --exclude __pycache__ --exclude '.pytest_cache' --exclude 'mushroom.log' --exclude '.mypy_cache' -vazru $(eval echo $_info_opt) '$HOME/$relap' $1:"$2/$(dirname "$relap")""
     # rsync --rsync-path="mkdir -p ~/$relap; rsync" $rsyncopts -vazru $info_opt "$HOME/$relap" $1:"$2/$(dirname $relap)"
   elif [[ -n "$rsyncex" ]]; then
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude "$rsyncex" -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude '*.{exe,o,pyc,mod}' --exclude '.DS_Store' --exclude __pycache__ --exclude '.pytest_cache' --exclude 'mushroom.log' --exclude '.mypy_cache' --exclude "$rsyncex" -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
   else
-    rsync --rsync-path="mkdir -p $2/$relap; rsync" -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
+    rsync --rsync-path="mkdir -p $2/$relap; rsync" --exclude '*.{exe,o,pyc,mod}' --exclude '.DS_Store' --exclude __pycache__ --exclude '.pytest_cache' --exclude 'mushroom.log' --exclude '.mypy_cache' -vazru $(eval echo $_info_opt) "$HOME/$relap" $1:"$2/$(dirname $relap)"
   fi
   unset _info_opt
   unset relap

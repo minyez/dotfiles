@@ -15,6 +15,10 @@
 \definecolor{mlecgithubblue}{RGB}{0,63,126}
 \definecolor{mlecpkured}{cmyk}{0,1,1,0.45}
 \definecolor{mlecbyzantium}{rgb}{0.44, 0.16, 0.39}
+\newif\ifmleckeepfnid
+\mleckeepfnidfalse
+\newif\ifmlecnocont
+\mlecnocontfalse
 
 \mode<presentation>
 %%% Some useful commands
@@ -39,6 +43,9 @@
 \apptocmd{\itemize}{}{\justifying}{}
 \apptocmd{\enumerate}{}{\justifying}{}
 }
+% Keep footnote identification counter
+\DeclareOption{keepfnid}{\mleckeepfnidtrue}
+\DeclareOption{nocont}{\mlecnoconttrue}
 \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
@@ -131,7 +138,8 @@
 \mode<presentation>
 % Font sizes
 \setbeamerfont{title}{series=\bfseries, size=\Large}
-\setbeamerfont{author}{shape=\itshape, size=\normalsize}
+% \setbeamerfont{author}{shape=\itshape, size=\normalsize}
+\setbeamerfont{author}{size=\normalsize}
 \setbeamerfont{institute}{size=\footnotesize}
 \setbeamerfont{date}{size=\footnotesize}
 \setbeamerfont{frametitle}{size=\large}
@@ -269,11 +277,18 @@
 
 \setbeamertemplate{blocks}[rounded]
 
-% supress Roman numbering in frame breaks
-\setbeamertemplate{frametitle continuation}{}
+\ifmlecnocont
+  % supress Roman numbering in frame breaks
+  \setbeamertemplate{frametitle continuation}{}
+\else
+  % use numeric numbering for continued slide
+  \setbeamertemplate{frametitle continuation}{(cont.~\insertcontinuationcount)}
+\fi
 
 %%% Bibliography styling
 \setbeamertemplate{bibliography item}[text]
+
+%%% Footnote related
 
 %%% redefine the footnoterule
 \renewcommand{\footnoterule}{%
@@ -282,6 +297,34 @@
   \kern 1pt % all down vertically by 1pt
   % the skip gives separation between the rule and footnote text
 }
+
+% footnote without marker, useful for footnote below columns and group citation
+% https://tex.stackexchange.com/questions/30720/footnote-without-a-marker
+\newcommand\blfootnote[1]{%
+  \begingroup
+%% old version
+%  \renewcommand\thefootnote{}\footnote{#1}%
+%  \addtocounter{footnote}{-1}%
+%% new version
+  \renewcommand\thefootnote{\fnsymbol{footnote}}%
+  \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}%
+  \footnotetext[0]{#1}%
+  \endgroup
+}
+
+% change the template to remove the indentation
+% https://tex.stackexchange.com/questions/455917/how-to-remove-footnote-marker-number-in-beamer
+% with this, simply \footnote will introduce a marker outside the footnote region.
+% so if you want to have mixed number and unnumbered footnotes, comment the following out,
+% or use option "keepfnind"
+% otherwise, stick to \blfootnote
+\ifmleckeepfnid\else
+  \setbeamertemplate{footnote}{%
+    \parindent 1em\noindent%
+    \raggedright
+    \insertfootnotetext\par%
+  }
+\fi
 
 % redefine framebreak footnote behavior
 % see https://tex.stackexchange.com/questions/267793/latex-beamer-allowframebreaks-with-footnotes

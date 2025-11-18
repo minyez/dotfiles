@@ -12,7 +12,7 @@ unset __brew
 # do not auto clean up cmake to avoid failure in rebuilding after homebrew update
 # see https://docs.brew.sh/FAQ#how-do-i-keep-old-versions-of-a-formula-when-upgrading
 # and https://github.com/Homebrew/homebrew-core/issues/84312
-export HOMEBREW_NO_CLEANUP_FORMULAE=cmake,cmake-doc,mpich,gcc,openblas
+export HOMEBREW_NO_CLEANUP_FORMULAE=cmake,cmake-doc,mpich,gcc,gcc@13,openblas,cereal
 # Let homebrew respect local changes to the homebrew/core formulas
 # See https://docs.brew.sh/FAQ#can-i-edit-formulae-myself
 export HOMEBREW_NO_INSTALL_FROM_API=1
@@ -25,6 +25,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # !! Contents within this block are managed by 'mamba init' !!
 # export MAMBA_EXE="$HOMEBREW_PREFIX/opt/micromamba/bin/micromamba";
 export MAMBA_EXE="$HOME/.local/bin/micromamba";
+export MAMBA_ROOT_PREFIX="$HOME/.local/share/micromamba";
 export MAMBA_ROOT_PREFIX="$HOME/micromamba";
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
