@@ -10,6 +10,7 @@ proc ModulesHelp { } {
 module-whatis $docstr
 
 conflict openmpi
+conflict mpich
 
 set prefix "/opt/homebrew/Cellar/mpich/4.3.0"
 
@@ -20,9 +21,10 @@ prepend-path PKG_CONFIG_PATH    "$prefix/lib/pkgconfig"
 prepend-path LIBRARY_PATH       "$prefix/lib"
 prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"
 
+# Underlying compiler that the MPI wrappers use
 setenv       MPICH_CC           "gcc-13"
 setenv       MPICH_CXX          "g++-13"
-setenv       MPICH_FC           "gfortran"
+setenv       MPICH_FC           "gfortran-13"
 
 setenv       MPICC              "mpicc"
 setenv       MPICXX             "mpicxx"

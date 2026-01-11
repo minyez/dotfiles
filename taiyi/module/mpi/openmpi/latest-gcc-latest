@@ -1,6 +1,6 @@
-####%Module1.0#####################################################################
+#%Module1.0#####################################################################
 
-set docstr  "OpenMPI 5.0.3 compiled by GCC 14.2.0 from homebrew"
+set docstr  "OpenMPI compiled by GCC from homebrew"
 
 proc ModulesHelp { } {
         global dotversion
@@ -10,7 +10,7 @@ proc ModulesHelp { } {
 module-whatis $docstr
 conflict mpich
 
-set prefix "/opt/homebrew/Cellar/open-mpi/5.0.3_1"
+set prefix "/opt/homebrew/opt/open-mpi"
 
 setenv       OPENMPI_HOME       "$prefix"
 prepend-path CPATH              "$prefix/include"

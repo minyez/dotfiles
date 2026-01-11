@@ -1,4 +1,4 @@
-#%Module1.0#####################################################################
+####%Module1.0#####################################################################
 
 set docstr  "MPICH 4.3.2 (Homebrew), along with GCC 13.4.0"
 
@@ -10,6 +10,7 @@ proc ModulesHelp { } {
 module-whatis $docstr
 
 conflict openmpi
+conflict mpich
 
 set prefix "/opt/homebrew/Cellar/mpich/4.3.2"
 
@@ -22,7 +23,7 @@ prepend-path DYLD_LIBRARY_PATH  "$prefix/lib"
 
 setenv       MPICH_CC           "gcc-13"
 setenv       MPICH_CXX          "g++-13"
-setenv       MPICH_FC           "gfortran"
+setenv       MPICH_FC           "gfortran-13"
 
 setenv       MPICC              "mpicc"
 setenv       MPICXX             "mpicxx"

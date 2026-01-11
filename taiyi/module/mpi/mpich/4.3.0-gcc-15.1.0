@@ -10,6 +10,7 @@ proc ModulesHelp { } {
 module-whatis $docstr
 
 conflict openmpi
+conflict mpich
 
 set prefix "/opt/homebrew/Cellar/mpich/4.3.0"
 
