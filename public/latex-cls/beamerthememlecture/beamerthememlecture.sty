@@ -19,6 +19,8 @@
 \mleckeepfnidfalse
 \newif\ifmlecnocont
 \mlecnocontfalse
+\newif\ifmlecverbfoot
+\mlecverbfootfalse
 
 \mode<presentation>
 %%% Some useful commands
@@ -46,6 +48,7 @@
 % Keep footnote identification counter
 \DeclareOption{keepfnid}{\mleckeepfnidtrue}
 \DeclareOption{nocont}{\mlecnoconttrue}
+\DeclareOption{verbosefoot}{\mlecverbfoottrue}
 \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
@@ -78,6 +81,7 @@
 \setbeamercolor*{author in head/foot}{parent=palette tertiary}
 \setbeamercolor*{title in head/foot}{parent=palette secondary}
 \setbeamercolor*{date in head/foot}{parent=palette primary}
+\setbeamercolor*{footline}{parent=palette secondary}
 \setbeamercolor*{link}{parent=palette secondary,bg=white}
 \setbeamercolor*{author}{fg=black}
 \setbeamercolor*{title}{fg=themefg}
@@ -143,12 +147,13 @@
 \setbeamerfont{author}{size=\normalsize}
 \setbeamerfont{institute}{size=\footnotesize}
 \setbeamerfont{date}{size=\footnotesize}
-\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{frametitle}{size=\Large}
 \setbeamerfont{titlelike}{series=\bfseries}
 %\setbeamerfont{framesubtitle}{size=\normalsize}
 %\setbeamerfont{title in head/foot}{size=\footnotesize}
 %\setbeamerfont{page in head/foot}{size=\footnotesize}
-%\setbeamerfont{author in head/foot}{size=\footnotesize}
+\setbeamerfont{author in head/foot}{size=\footnotesize}
+\setbeamerfont{date in head/foot}{size=\footnotesize}
 
 \setbeamerfont{block title}{size={}}
 \setbeamerfont{alerted text}{series=\bfseries}
@@ -156,7 +161,7 @@
 % \setbeamerfont*{bibliography entry author}{series=\bfseries}
 % \setbeamerfont*{bibliography entry title}{series=\bfseries}
 \setbeamerfont*{description item}{series=\bfseries}
-\setbeamerfont*{page number in head/foot}{size=\small}
+\setbeamerfont*{page number in head/foot}{size=\footnotesize}
 
 \setbeamerfont*{footnote}{size=\scriptsize}
 
@@ -251,12 +256,33 @@
 {%
   \leavevmode%
   \ifnum\thepage>1
+  \ifmlecverbfoot
   \hbox{
-  \begin{beamercolorbox}[wd=\paperwidth,ht=1em,dp=1ex,right]{date in head/foot}%
-  \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex}
-  \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.4pt,dp=0pt]{footline}
+      \rule{\paperwidth}{0.4pt}
+    \end{beamercolorbox}%
   }
+  \vskip1.0ex
+  \hbox{
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=1em,dp=1ex,left]{date in head/foot}%
+    \usebeamerfont{author in head/foot}\hspace*{2ex}\insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=1em,dp=1ex,center]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=1em,dp=1ex,right]{date in head/foot}%
+    \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex}
+    \end{beamercolorbox}%
+  }
+  \vskip0.4ex  % <-- move footline upward (increase if needed)
   \else
+  \hbox{
+    \begin{beamercolorbox}[wd=1.0\paperwidth,ht=1em,dp=1ex,right]{date in head/foot}%
+    \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex}
+    \end{beamercolorbox}%
+  }
+  \fi
+  \else%no page number after title
   \begin{beamercolorbox}[wd=\paperwidth,ht=1em,dp=1ex,right]{}%
   \end{beamercolorbox}%
   \fi
