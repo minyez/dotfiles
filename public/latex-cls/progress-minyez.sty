@@ -1,0 +1,89 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{progress-minyez}[2025/10/06 v1.0 simple progress logging]
+\RequirePackage{xcolor}
+\RequirePackage{datetime2} % for \DTMdate
+\DTMsetdatestyle{iso}
+
+\makeatletter
+% ================= Storage =================
+% We store records as a sequence of \progressrecord{<type>}{<text>}
+\newcommand{\progresslog}{}
+
+% ================= Inline marker =================
+\newif\ifprogressinline
+\progressinlinetrue
+
+% Type -> color (customize; unknown types fallback to black)
+\colorlet{progtypeadd}{green!50!black}
+\colorlet{progtypeupdate}{blue!60!black}
+\colorlet{progtypefix}{orange!80!black}
+\colorlet{progtyperemove}{red!70!black}
+
+\def\progressgetcolor#1{%
+  \@ifundefinedcolor{progtype#1}{black}{progtype#1}%
+}
+
+\newcommand{\progressinline}[2]{% #1=date, #2=type
+  \textcolor{\progressgetcolor{#2}}{(\DTMdate{#1}~#2)}%
+}
+
+% ================= Public logger =================
+% \proglog{<date>}{<type>}{<message>}
+\newcommand{\proglog}[3]{%
+  % Save a preformatted, color-free summary line:
+  \g@addto@macro\progresslog{%
+    \progressrecord{#2}{\noindent\textbf{[#2]} (\DTMdate{#1}) — #3\par}%
+  }%
+  % Inline compact tag next to current text:
+  \ifprogressinline \progressinline{#1}{#2}\fi
+}
+
+% ================= Emitters =================
+\newcommand{\progress@emit}[2]{#2}% print everything
+\newif\ifprogress@keep
+\newcommand{\progress@emitfiltered}[2]{% #1=type, #2=text
+  \progress@keepfalse
+  \def\progress@target{#1}%
+  % iterate comma-separated filter list; \@for trims spaces around items
+  \@for\progress@tok:=\progress@filterlist\do{%
+    \edef\progress@tokA{\progress@tok}%
+    \edef\progress@targetA{\progress@target}%
+    \ifx\progress@tokA\progress@targetA
+      \progress@keeptrue
+    \fi
+  }%
+  \ifprogress@keep #2\fi
+}
+
+% ================= Summary printers =================
+% 1) Preferred: optional-arg version
+\newcommand{\printprogress}{%
+  \@ifnextchar[{\progress@printwith}{\progress@printall}%
+}
+
+\newcommand{\progress@printall}{%
+  \begingroup
+    \let\progressrecord\progress@emit
+    \progresslog
+  \endgroup
+}
+
+% NOTE: bracket-delimited parameter consumes the [..] properly
+\def\progress@printwith[#1]{%
+  \begingroup
+    \def\progress@filterlist{#1}% e.g. add,fix  (spaces OK)
+    \let\progressrecord\progress@emitfiltered
+    \progresslog
+  \endgroup
+}
+
+% 2) Rock-solid fallback (no optional arg): \printprogressfilter{add,fix}
+\newcommand{\printprogressfilter}[1]{%
+  \begingroup
+    \def\progress@filterlist{#1}%
+    \let\progressrecord\progress@emitfiltered
+    \progresslog
+  \endgroup
+}
+
+\makeatother

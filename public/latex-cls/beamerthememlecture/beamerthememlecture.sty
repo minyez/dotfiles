@@ -137,6 +137,7 @@
 
 \mode<presentation>
 % Font sizes
+\setbeamerfont{title page title}{size=\Large}
 \setbeamerfont{title}{series=\bfseries, size=\Large}
 % \setbeamerfont{author}{shape=\itshape, size=\normalsize}
 \setbeamerfont{author}{size=\normalsize}
@@ -151,7 +152,7 @@
 
 \setbeamerfont{block title}{size={}}
 \setbeamerfont{alerted text}{series=\bfseries}
-\setbeamerfont*{bibliography item}{size=\scriptsize}
+% \setbeamerfont*{bibliography item}{size=\scriptsize}
 % \setbeamerfont*{bibliography entry author}{series=\bfseries}
 % \setbeamerfont*{bibliography entry title}{series=\bfseries}
 \setbeamerfont*{description item}{series=\bfseries}
@@ -196,10 +197,29 @@
 %% may use textblock to add additional information
 \setbeamertemplate{title page}[default]{
 \relax
+\vspace*{1.0cm}
 %\begin{textblock*}{10cm}(2cm,8.1cm)
 %{\usebeamercolor[fg]{author}\usebeamerfont{author}\insertdate}
 %\end{textblock*}
 }
+% % a custom title page template use title page title
+% \setbeamertemplate{title page}{
+%   \vbox{}
+%   \vfill
+%   \vspace*{0.8cm}
+%   \begin{centering}
+%     {\usebeamercolor[fg]{title}\usebeamerfont{title page title}\inserttitle\par}
+%     \ifx\insertsubtitle\@empty\else
+%       \vskip0.5em
+%       {\usebeamercolor[fg]{subtitle}\usebeamerfont{subtitle}\insertsubtitle\par}
+%     \fi
+%     \vskip1em
+%     {\usebeamercolor[fg]{author}\usebeamerfont{author}\insertauthor\par}
+%     {\usebeamercolor[fg]{institute}\usebeamerfont{institute}\insertinstitute\par}
+%     {\usebeamercolor[fg]{date}\usebeamerfont{date}\insertdate\par}
+%   \end{centering}
+%   \vfill
+% }
 
 % Lists
 \setbeamercolor*{item}{fg=themefg}
