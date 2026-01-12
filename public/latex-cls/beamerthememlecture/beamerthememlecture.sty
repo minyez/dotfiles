@@ -21,6 +21,8 @@
 \mlecnocontfalse
 \newif\ifmlecverbfoot
 \mlecverbfootfalse
+\newif\ifmlecfootrule
+\mlecfootruletrue
 
 \mode<presentation>
 %%% Some useful commands
@@ -49,6 +51,8 @@
 \DeclareOption{keepfnid}{\mleckeepfnidtrue}
 \DeclareOption{nocont}{\mlecnoconttrue}
 \DeclareOption{verbosefoot}{\mlecverbfoottrue}
+\DeclareOption{footnoterule}{\mlecfootruletrue}
+\DeclareOption{nofootnoterule}{\mlecfootrulefalse}
 \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
@@ -337,12 +341,16 @@
 %%% Footnote related
 
 %%% redefine the footnoterule
+\ifmlecfootrule
 \renewcommand{\footnoterule}{%
   \kern -2pt % all TeX backs up vertically by 2pt
   {\color{themefg}\hrule width 0.3\textwidth height 1pt}
   \kern 1pt % all down vertically by 1pt
   % the skip gives separation between the rule and footnote text
 }
+\else
+\renewcommand{\footnoterule}{}% remove footnote rule
+\fi
 
 % footnote without marker, useful for footnote below columns and group citation
 % https://tex.stackexchange.com/questions/30720/footnote-without-a-marker
