@@ -6,7 +6,8 @@ It can also stand for the north pole star.
 
 - [yabai](yabai/yabairc)
 - [skhd](skhd/skhdrc)
-- zsh: [zshrc](zshrc) and [zprofile](zprofile]
+- zsh: [zshrc](zshrc) and [zprofile](zprofile)
 - ubersicht: [Ubersicht](https://github.com/felixhageloh/uebersicht) widgets
-  - [polybar](ubersicht/widgets/polybar): adapted from [knazarov/ubersicht-polybar-widget](https://github.com/knazarov/ubersicht-polybar-widget)
+  - [~polybar~](ubersicht/widgets/polybar): adapted from [knazarov/ubersicht-polybar-widget](https://github.com/knazarov/ubersicht-polybar-widget), use deprecated
   - [~~calendar~~](ubersicht/widgets/calendar): adapted from [knazarov/ubersicht-calendar-widget](https://github.com/knazarov/ubersicht-calendar-widget), use deprecated
+- neovim: previously using [this](neovim-lua), now use a [LazyVim-based one](../public/neovim-lua-lazyvim)
