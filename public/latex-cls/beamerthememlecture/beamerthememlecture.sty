@@ -122,11 +122,13 @@
 \RequirePackage{ifxetex,ifluatex}
 \ifxetex
   \RequirePackage{fontspec}
+% My default font setting on macOS with CJK
 %  \setmainfont[BoldFont=Times Bold,%
 %               ItalicFont=Times Italic,%
 %               BoldItalicFont=Times Bold Italic]{Times}
   \setmainfont{Palatino} % the font as default in my pdflatex
-  \setmonofont{DejaVu Sans Mono for Powerline}
+% \setmonofont{DejaVu Sans Mono for Powerline}
+  \setmonofont{Sarasa Term SC}
   \RequirePackage{xeCJK}
   \setCJKmainfont[ItalicFont=Kaiti SC Regular,%
                   BoldItalicFont=Kaiti SC Bold]{Songti SC}
