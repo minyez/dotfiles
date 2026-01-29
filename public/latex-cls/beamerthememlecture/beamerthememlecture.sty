@@ -23,6 +23,9 @@
 \mlecverbfootfalse
 \newif\ifmlecfootrule
 \mlecfootruletrue
+% if use a filled, solid frame title header
+\newif\ifmlecsolidft
+\mlecsolidftfalse
 
 \mode<presentation>
 %%% Some useful commands
@@ -53,6 +56,7 @@
 \DeclareOption{verbosefoot}{\mlecverbfoottrue}
 \DeclareOption{footnoterule}{\mlecfootruletrue}
 \DeclareOption{nofootnoterule}{\mlecfootrulefalse}
+\DeclareOption{solidframetitle}{\mlecsolidfttrue}
 \DeclareOption*{\PackageWarning{descartes}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
@@ -61,6 +65,7 @@
 \setbeamercolor{section in toc}{fg=black,bg=white}
 \setbeamercolor{alerted text}{fg=themefg!80!gray}
 \setbeamercolor*{palette primary}{fg=themefg,bg=white}
+\setbeamercolor*{palette primary inverse}{bg=themefg,fg=white}
 \setbeamercolor*{palette secondary}{fg=themefg,bg=gray!10!white}
 \setbeamercolor*{palette tertiary}{bg=themefg,fg=gray!10!white}
 \setbeamercolor*{palette quaternary}{fg=themefg,bg=gray!5!white}
@@ -74,8 +79,14 @@
 
 %\setbeamercolor*{titlelike}{parent=palette primary}
 \setbeamercolor{titlelike}{parent=palette primary}
-\setbeamercolor{frametitle}{bg=white}
-\setbeamercolor{frametitle right}{bg=white}
+%\setbeamercolor{frametitle}{bg=white}
+\ifmlecsolidft
+\setbeamercolor{frametitle}{parent=palette primary inverse}
+\setbeamercolor{frametitle right}{parent=palette primary inverse}
+\else
+\setbeamercolor{frametitle}{parent=palette primary}
+\setbeamercolor{frametitle right}{parent=palette primary}
+\fi
 
 \setbeamercolor*{separation line}{}
 \setbeamercolor*{fine separation line}{}
