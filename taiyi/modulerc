@@ -4,6 +4,7 @@
 module unuse "[getenv HOMEBREW_CELLAR]/modules/*/modulefiles"
 
 module use "[getenv HOME]/.module/compiler"
-module use "[getenv HOME]/.module/projects"
 module use "[getenv HOME]/.module/mpi"
 module use "[getenv HOME]/.module/math"
+module use "[getenv HOME]/.module/projects"
+module use "[getenv HOME]/.module/tool"
