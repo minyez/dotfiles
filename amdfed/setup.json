@@ -1,0 +1,8 @@
+{
+  "../taiyi/doom-literate": "~/.config/doom",
+  "../public/neovim-lua-lazyvim" : "~/.config/nvim",
+  "../public/git/" : "~/.config/git",
+  "../public/matplotlibrc/" : "~/.matplotlib",
+  "../public/alias": "~/.alias",
+  "../public/mambarc": "~/.mambarc"
+}
