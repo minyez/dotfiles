@@ -90,16 +90,16 @@ install_config_tools() {
     make cmake ninja-build autoconf automake git binutils binutils-devel tcsh \
     bzip2 gzip p7zip \
     environment-modules \
-    vim-enhanced neovim \
+    vim-enhanced neovim editorconfig \
     jq \
     ripgrep fd-find \
-    lshw htop
+    lshw htop btop
 }
 
 install_network_tools() {
   cecho i "Installing network tools..."
   ((_DRY_RUN)) && return
-  sudo dnf -y install openssl-devel curl libcurl-devel wget clash
+  sudo dnf -y install openssl-devel curl libcurl-devel wget
 }
 
 install_texlive_full() {
@@ -164,6 +164,7 @@ install_sci_tools() {
   cecho i "  - Qalculate! a multi-purpose desktop calculator"
   ((_DRY_RUN)) && return
   sudo dnf -y install qalculate-gtk
+  # TODO: zotero
 }
 
 help_info

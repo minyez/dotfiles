@@ -2,7 +2,8 @@
   "stevezhang-stevezhangMacBook-Pro.local": "darwin",
   "stevezhang-localhost": "darwin",
   "stevezhang-stevezhangMBP.lan": "darwin",
-  "minyez-myz-amd-fedora": "amdfed",
+  "minyez-myz-amd-fedora": "amdfed_legacy",
+  "minyez-amdfed": "amdfed",
   "minyez-iopcas-fedora": "iopcas",
   "minyez-y9kfed": "y9kfed",
   "minyez-taiyi": "taiyi"
