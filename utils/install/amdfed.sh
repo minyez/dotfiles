@@ -6,12 +6,13 @@ IS_LINUX=0
 USE_DNF=0
 IS_FEDORA=0
 FEDORA_VERSION_MIN=30
-if (( IS_LINUX )); then
+if ((IS_LINUX)); then
   which dnf 1>/dev/null 2>&1 && USE_DNF=1
   [[ $(awk -F = '/^NAME/ {print $2}' /etc/os-release) == "Fedora" ]] && IS_FEDORA=1
   FEDORA_VERSION=$(awk -F = '/VERSION_ID/ {print $2}' /etc/os-release)
 fi
 YES_NO_P=("No" "Yes")
+ENABLE_UPDATES=1
 _DRY_RUN=1
 
 wgetopts="-nv --show-progress --progress=bar:force"
@@ -19,11 +20,11 @@ wgetopts="-nv --show-progress --progress=bar:force"
 cecho() {
   # colorize echo
   case $1 in
-    "s" | "success" ) color="\e[1;32m";;
-    "e" | "error" ) color="\e[1;31m";;
-    "i" | "info" ) color="\e[1;34m";;
-    "w" | "warn" ) color="\e[38;2;234;80;3m";;
-    *) color="\e[0m"
+  "s" | "success") color="\e[1;32m" ;;
+  "e" | "error") color="\e[1;31m" ;;
+  "i" | "info") color="\e[1;34m" ;;
+  "w" | "warn") color="\e[38;2;234;80;3m" ;;
+  *) color="\e[0m" ;;
   esac
   shift 1
   echo -e "$color$*\e[0m"
@@ -34,19 +35,19 @@ help_info() {
   cecho i "Install script of minyez Fedora (AMD CPU)"
   cecho i "========================================="
   echo "  Your OS: $(uname -snr)"
-  (( IS_LINUX )) && \
-  echo "      CPU: $(lscpu | awk '/Model name/ {sep = ""; for (i = 3; i <= NF; i++) {printf("%s%s", sep, $i); sep=OFS}; printf("\n")}')"
-  (( _DRY_RUN )) && cecho w "Dry mode is switched on. Change _DRY_RUN to 0 to actually install"
+  ((IS_LINUX)) &&
+    echo "      CPU: $(lscpu | awk '/Model name/ {sep = ""; for (i = 3; i <= NF; i++) {printf("%s%s", sep, $i); sep=OFS}; printf("\n")}')"
+  ((_DRY_RUN)) && cecho w "Dry mode is switched on. Change _DRY_RUN to 0 to actually install"
 }
 
 check_prereq() {
   echo "Is Fedora: ${YES_NO_P[$IS_FEDORA]}"
   echo "  Use DNF: ${YES_NO_P[$USE_DNF]}"
-  if (( IS_FEDORA == 0 )) || (( USE_DNF == 0 )); then
+  if ((IS_FEDORA == 0)) || ((USE_DNF == 0)); then
     cecho e "Error: This script require Fedora Linux and DNF for package manager. Exit"
     exit 1
   fi
-  if (( FEDORA_VERSION < FEDORA_VERSION_MIN )); then
+  if ((FEDORA_VERSION < FEDORA_VERSION_MIN)); then
     cecho e "Error: Fedora version $FEDORA_VERSION < minimal version $FEDORA_VERSION_MIN. Exit"
     exit 1
   fi
@@ -54,29 +55,37 @@ check_prereq() {
 
 while [ ${#} -gt 0 ]; do
   case "$1" in
-  -h | --help | help | h ) help_info; \
-    exit ;;
+  -h | --help | help | h)
+    help_info
+    exit
+    ;;
   esac
   shift 1
 done
 
 update_dnf() {
   cecho i "Updating Fedora..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y update
 }
 
 install_compiler() {
   cecho i "Installing compilers..."
-  (( _DRY_RUN )) && return
-  sudo dnf --disablerepo="*" --enablerepo=fedora -y install \
-    gcc gfortran gcc-c++ \
-    llvm clang clang-tools-extra
+  ((_DRY_RUN)) && return
+  if ((ENABLE_UPDATES)); then
+    sudo dnf -y install \
+      gcc gfortran gcc-c++ \
+      llvm clang clang-tools-extra
+  else
+    sudo dnf --disablerepo="*" --enablerepo=fedora -y install \
+      gcc gfortran gcc-c++ \
+      llvm clang clang-tools-extra
+  fi
 }
 
 install_config_tools() {
   cecho i "Installing config tools..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install \
     make cmake ninja-build autoconf automake git binutils binutils-devel tcsh \
     bzip2 gzip p7zip \
@@ -89,19 +98,19 @@ install_config_tools() {
 
 install_network_tools() {
   cecho i "Installing network tools..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install openssl-devel curl libcurl-devel wget clash
 }
 
 install_texlive_full() {
   cecho i "Installing full texlive..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install texlive-scheme-full
 }
 
 install_basic_python_tools() {
   cecho i "Installing system python and basic python tools with the system pip..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install python \
     mkdocs
   if [[ $(which pip) != "/usr/bin/pip" ]]; then
@@ -120,7 +129,7 @@ install_basic_python_tools() {
 #}
 install_language_tools() {
   cecho i "Installing languages tools: Rime, sdcv..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install ibus-rime
   ibus-daemon -drx
   cecho s "Rime installed, but you need to run ibus-setup to add Rime to input method"
@@ -138,13 +147,13 @@ install_language_tools() {
 install_wine() {
   # add winehq repo and install stable branch
   cecho i "Installing Wine: winehq, winetricks and dependencies..."
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install dnf-plugins-core
   sudo dnf config-manager --add-repo "https://dl.winehq.org/wine-builds/fedora/${FEDORA_VERSION}/winehq.repo"
   sudo dnf -y install winehq-stable
   # download the latest winetricks
-  sudo wget $wgetopts https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/local/bin/winetricks \
-    && sudo chmod +x /usr/local/bin/winetricks || exit 1
+  sudo wget $wgetopts https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/local/bin/winetricks &&
+    sudo chmod +x /usr/local/bin/winetricks || exit 1
   # install prerequisites, including fonts
   sudo dnf -y install wine-mono cabextract p7zip-plugins wqy-zenhei-fonts
   cecho s "You are now prepared to run winecfg!"
@@ -153,7 +162,7 @@ install_wine() {
 install_sci_tools() {
   cecho i "Installing scientific tools:"
   cecho i "  - Qalculate! a multi-purpose desktop calculator"
-  (( _DRY_RUN )) && return
+  ((_DRY_RUN)) && return
   sudo dnf -y install qalculate-gtk
 }
 
@@ -166,5 +175,5 @@ install_compiler
 install_network_tools
 install_texlive_full
 install_language_tools
-install_wine
-
+# install_wine
+install_sci_tools
