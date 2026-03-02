@@ -5,11 +5,7 @@ My personal configuration files.
 Files included:
 
 - [x] Vim
-- [x] NeoVim
-- [ ] [helix](https://github.com/helix-editor/helix) (WIP)
-    Okay with 0.5 release.
-    Not able to install the latest commit, possibly due to incomplete submodule clone.
-    Also check issue 773 therein
+- [x] NeoVim (Lua based)
 - [x] Doom Emacs. Both lisp and org-mode [literate configuration](https://github.com/minyez/doom) (as a submodule).
 - [x] Bash Shell
 - [x] Z shell
@@ -24,15 +20,17 @@ More functionalities
 
 - [x] JSON metadata for source-target pair
 - [x] Platform-specific linking
-- [ ] installing script (WIP)
+- [x] installing script (see [`utils/install`](utils/install/))
 
 Current machines:
 
 - `darwin` : MBP 15 (2016), Intel i7-6820HQ, AMD Radeon Pro 455, 16G + 512G, macOS Catalina 10.15.7
-- `amdfed` : DIY PC, AMD R5 5600X, AMD Radeon RX 6700XT, 32G + (500G + 2T), Fedora 34 Gnome (dual boot Windows 10)
+- `amdfed` : DIY PC, AMD R5 5600X, AMD Radeon RX 6700XT, 32G, dual boot Windows 10
+  - ~500G SSD + 2T HDD, Fedora 34 Gnome (deprecated 2026-03-01)~
+  - 2T SSD, Fedora 43 KDE (dual boot Windows 10)
 - `iopcas` : Dell workstation, i9-11900, Radeon RX 640, 32G + (500G + 2T), Fedora 34 Gnome
 - `y9kfed` : Y9000P, i7-12700H, RTX 3060, 16G + 1T, Fedora 38 KDE (dual boot Windows 11, 500G)
-- `taiyi`  : MBP 14 (2023), M2 Max, 64G + 2T, macOS Sonoma
+- `taiyi`  : MBP 14 (2023), M2 Max, 64G + 2T, macOS Sequoia
 
 Some directories:
 - `public`: rc files that is not quite machine-specific
