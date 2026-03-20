@@ -88,12 +88,18 @@ install_config_tools() {
   ((_DRY_RUN)) && return
   sudo dnf -y install \
     make cmake ninja-build autoconf automake git binutils binutils-devel tcsh \
+    zsh autojump \
     bzip2 gzip p7zip \
     environment-modules \
     vim-enhanced neovim editorconfig \
     jq \
     ripgrep fd-find \
     lshw htop btop
+  sudo dnf -y micromamba direnv fzf
+  sudo dnf -y pass pandoc
+  # follow homebrew requirement
+  sudo dnf -y group install development-tools
+  sudo dnf -y install procps-ng curl file
 }
 
 install_network_tools() {

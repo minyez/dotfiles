@@ -1,0 +1,129 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) Compiler oneAPI 2025.3.1, using the hpc toolkit installer"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt prefix before using this modulefile
+set    prefix      "/opt/intel/oneapi"
+
+setenv ONEAPI_ROOT ${prefix}
+
+# license
+prepend-path    INTEL_LICENSE_FILE /opt/intel/licenses
+prepend-path    INTEL_LICENSE_FILE [getenv HOME]/intel/licenses
+prepend-path    INTEL_LICENSE_FILE {/Users/Shared/Library/Application Support/Intel/Licenses}
+
+# tbb
+set           tbbroot           ${prefix}/tbb/2022.3
+setenv        TBBROOT           ${tbbroot}
+prepend-path  CMAKE_PREFIX_PATH ${tbbroot}
+prepend-path  CPATH             ${tbbroot}/include
+prepend-path  LD_LIBRARY_PATH   ${tbbroot}/lib/intel64/gcc4.8
+prepend-path  LIBRARY_PATH      ${tbbroot}/lib/intel64/gcc4.8
+prepend-path  PKG_CONFIG_PATH   ${tbbroot}/lib/pkgconfig
+
+# compiler public
+set           cmplr_root          ${prefix}/compiler/2025.3
+setenv        CMPLR_ROOT          ${cmplr_root}
+prepend-path  CMAKE_PREFIX_PATH   ${cmplr_root}
+prepend-path  PATH                ${cmplr_root}/bin
+prepend-path  MANPATH             ${cmplr_root}/share/man
+prepend-path  LIBRARY_PATH        ${cmplr_root}/lib
+prepend-path  LD_LIBRARY_PATH     ${cmplr_root}/lib
+prepend-path  DIAGUTIL_PATH       ${cmplr_root}/etc/compiler/sys_check/sys_check.sh
+prepend-path  LD_LIBRARY_PATH     ${cmplr_root}/opts/compiler/lib
+prepend-path  NLSPATH             ${cmplr_root}/lib/compiler/locale/%l_%t/%N
+prepend-path  PKG_CONFIG_PATH     ${cmplr_root}/lib/pkgconfig
+append-path   OCL_ICD_FILENAMES   ${cmplr_root}/lib/libintelocl.so
+
+# # ccl
+# set           ccl_root          ${prefix}/ccl/2021.6.0
+# setenv        CCL_ROOT          ${ccl_root}
+# prepend-path  CPATH             ${ccl_root}/include/cpu_gpu_dpcpp
+# prepend-path  PKG_CONFIG_PATH   ${ccl_root}/lib/pkgconfig
+# prepend-path  LIBRARY_PATH      ${ccl_root}/lib/cpu_gpu_dpcpp
+# prepend-path  LD_LIBRARY_PATH   ${ccl_root}/lib/cpu_gpu_dpcpp
+# setenv        CCL_CONFIGURATION cpu_gpu_dpcpp
+
+# dpl
+set           dpl_root          ${prefix}/dpl/2022.10
+setenv        DPL_ROOT          ${dpl_root}
+prepend-path  PKG_CONFIG_PATH   ${dpl_root}/lib/pkgconfig
+prepend-path  CMAKE_PREFIX_PATH ${dpl_root}/lib/cmake
+prepend-path  CPATH             ${dpl_root}/linux/include
+
+# dpct
+set           dpct_bundle_root ${prefix}/dpcpp-ct/2025.3
+setenv        DPCT_BUNDLE_ROOT   ${dpct_bundle_root}
+prepend-path  CPLUS_INCLUDE_PATH ${dpct_bundle_root}/include
+prepend-path  PATH               ${dpct_bundle_root}/bin
+
+# # ippcp
+# set           ippcryptoroot     ${prefix}/ippcp/2021.6.0
+# setenv        IPPCRYPTOROOT     ${ippcryptoroot}
+# setenv        IPPCP_TARGET_ARCH intel64
+# prepend-path  PKG_CONFIG_PATH   ${ippcryptoroot}/lib/pkgconfig
+# prepend-path  LIBRARY_PATH      ${ippcryptoroot}/lib/intel64
+# prepend-path  CPATH             ${ippcryptoroot}/include
+# prepend-path  LD_LIBRARY_PATH   ${ippcryptoroot}/lib/intel64
+
+# # itac
+# set           vt_root         ${prefix}/itac/2021.6.0
+# setenv        VT_ADD_LIBS     { -ldwarf -lelf -lvtunwind -lm -lpthread }
+# setenv        VT_MPI          impi4
+# setenv        VT_ROOT         ${vt_root}
+# setenv        VT_LIB_DIR      ${vt_root}/lib
+# setenv        VT_SLIB_DIR     ${vt_root}/slib
+# prepend-path  LD_LIBRARY_PATH ${vt_root}/slib
+# prepend-path  MANPATH         ${vt_root}/man
+# prepend-path  PATH            ${vt_root}/bin
+
+# dev-utils
+set           dev_util_root ${prefix}/dev-utilities/2025.3.0
+prepend-path  CPATH         ${dev_util_root}/include
+prepend-path  PATH          ${dev_util_root}/bin
+
+# vtune was overwritten by installing Intel 2025
+# # vtune
+# set          vtune_profiler_dir      ${prefix}/vtune/2022.2.0
+# setenv       VTUNE_PROFILER_2022_DIR ${vtune_profiler_dir}
+# prepend-path PATH                    ${vtune_profiler_dir}/bin64
+# prepend-path PKG_CONFIG_PATH         ${vtune_profiler_dir}/include/pkgconfig/lib64
+# # advisor
+# set           advisor_dir      ${prefix}/advisor/2022.1.0
+# setenv        ADVISOR_2022_DIR ${advisor_dir}
+# setenv        APM              ${advisor_dir}/perfmodels
+# prepend-path  PYTHONPATH       ${advisor_dir}/pythonapi
+# prepend-path  PKG_CONFIG_PATH  ${advisor_dir}/include/pkgconfig/lib64
+# prepend-path  PATH             ${advisor_dir}/bin64
+# set           inspector_dir      ${prefix}/inspector/2022.1.0
+# setenv        INSPECTOR_2022_DIR ${inspector_dir}
+# prepend-path  PATH               ${inspector_dir}/bin64
+# prepend-path  PKG_CONFIG_PATH    ${inspector_dir}/include/pkgconfig/lib64
+
+# debugger
+set           debugger_root    ${prefix}/debugger/2025.3
+prepend-path  PATH             ${debugger_root}/bin
+prepend-path  LD_LIBRARY_PATH  ${debugger_root}/opt/debugger/lib
+setenv        INTEL_PYTHONHOME ${debugger_root}/opt/debugger
+prepend-path  MANPATH          ${debugger_root}/share/man
+prepend-path  INFOPATH         ${debugger_root}/share/info
+prepend-path  GDB_INFO         ${debugger_root}/share/info/
+
+# # clck
+# set           clck_root          ${prefix}/clck/2021.6.0
+# setenv        CLCK_ROOT          ${clck_root}
+# setenv        CPLUS_INCLUDE_PATH ${clck_root}/include
+# prepend-path  INTEL_LICENSE_FILE ${clck_root}/licensing
+# prepend-path  LIBRARY_PATH       ${clck_root}/lib/intel64
+# prepend-path  MANPATH            ${clck_root}/man
+# prepend-path  PATH               ${clck_root}/bin/intel64

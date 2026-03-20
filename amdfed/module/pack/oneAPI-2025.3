@@ -1,0 +1,27 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) Compiler oneAPI 2025.3.1, using the hpc toolkit installer"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt prefix before using this modulefile
+set    prefix      "/opt/intel/oneapi"
+
+setenv ONEAPI_ROOT ${prefix}
+
+# license
+prepend-path    INTEL_LICENSE_FILE /opt/intel/licenses
+prepend-path    INTEL_LICENSE_FILE [getenv HOME]/intel/licenses
+prepend-path    INTEL_LICENSE_FILE {/Users/Shared/Library/Application Support/Intel/Licenses}
+
+module load intel/2025.3
+module load mkl/2025.3
+module load impi/2021.17

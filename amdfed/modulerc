@@ -1,0 +1,11 @@
+#%Module5.0
+
+# purge examples
+module unuse "/usr/share/Modules/modulefiles"
+
+module use "[getenv HOME]/.module/compiler"
+module use "[getenv HOME]/.module/mpi"
+module use "[getenv HOME]/.module/math"
+module use "[getenv HOME]/.module/pack"
+module use "[getenv HOME]/.module/project"
+module use "[getenv HOME]/.module/tool"

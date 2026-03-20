@@ -1,0 +1,34 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) MPI 2021.17, distributed with oneAPI 2025.3.1"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt prefix before using this modulefile
+set    prefix      "/opt/intel/oneapi"
+
+# mpi
+set           i_mpi_root        ${prefix}/mpi/2021.17
+setenv        I_MPI_ROOT        ${i_mpi_root}
+setenv        CLASSPATH         ${i_mpi_root}/share/jave/mpi.jar
+prepend-path  MANPATH           ${i_mpi_root}/share/man
+prepend-path  CPATH             ${i_mpi_root}/include
+prepend-path  PKG_CONFIG_PATH   ${i_mpi_root}/lib/pkgconfig
+prepend-path  PATH              ${i_mpi_root}/bin
+prepend-path  LD_LIBRARY_PATH   ${i_mpi_root}/lib
+prepend-path  LIBRARY_PATH      ${i_mpi_root}/lib
+prepend-path  PATH              ${i_mpi_root}/libfabric/bin
+prepend-path  LD_LIBRARY_PATH   ${i_mpi_root}/libfabric/lib
+prepend-path  LIBRARY_PATH      ${i_mpi_root}/libfabric/lib
+# prepend-path  FI_PROVIDER_PATH /usr/lib64/libfabric
+prepend-path  FI_PROVIDER_PATH  ${i_mpi_root}/libfabric/lib/prov
+# bind to physical core
+setenv        I_MPI_PIN_DOMAIN  core

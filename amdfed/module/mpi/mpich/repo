@@ -1,0 +1,22 @@
+#%Module1.0#####################################################################
+##
+## MPICH from DNF repository
+##
+
+set docstr  "MPICH from Fedora DNF repository"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+set prefix   "/usr/lib64/mpich"
+
+# mpi
+prepend-path  PATH              ${prefix}/bin
+prepend-path  CPATH             /usr/include/mpich-x86_63
+prepend-path  LD_LIBRARY_PATH   ${prefix}/lib
+prepend-path  LIBRARY_PATH      ${prefix}/lib
+prepend-path  PKG_CONFIG_PATH   ${prefix}/lib/pkgconfig

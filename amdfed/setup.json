@@ -1,8 +1,14 @@
 {
+  "zprofile" : "~/.zprofile",
+  "vimrc" : "~/.vimrc",
+  "zshrc" : "~/.zshrc",
+  "modulerc" : "~/.modulerc",
+  "module" : "~/.module",
   "../taiyi/doom-literate": "~/.config/doom",
   "../public/neovim-lua-lazyvim" : "~/.config/nvim",
   "../public/git/" : "~/.config/git",
   "../public/matplotlibrc/" : "~/.matplotlib",
+  "../public/p10k.zsh" : "~/.p10k.zsh",
   "../public/alias": "~/.alias",
   "../public/mambarc": "~/.mambarc"
 }

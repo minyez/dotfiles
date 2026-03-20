@@ -1,0 +1,22 @@
+#%Module1.0#####################################################################
+##
+## OpenMPI from DNF repository
+##
+
+set docstr  "OpenMPI from Fedora DNF repository"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+set prefix   "/usr/lib64/openmpi"
+
+# mpi
+prepend-path  PATH              ${prefix}/bin
+prepend-path  CPATH             /usr/include/openmpi-x86_64
+prepend-path  LD_LIBRARY_PATH   ${prefix}/lib
+prepend-path  LIBRARY_PATH      ${prefix}/lib
+prepend-path  PKG_CONFIG_PATH   ${prefix}/lib/pkgconfig

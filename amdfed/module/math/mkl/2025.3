@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+##
+## Intel(R) Compiler modulefile
+##
+
+set docstr  "Intel(R) MKL with oneAPI 2025.3.1, using the hpc toolkit installer"
+
+proc ModulesHelp { } {
+        global dotversion
+        puts stderr $docstr
+}
+
+module-whatis       $docstr
+
+# You must adapt prefix before using this modulefile
+set    prefix      "/opt/intel/oneapi"
+
+# mkl
+set           mklroot            ${prefix}/mkl/2025.3
+setenv        MKLROOT            ${mklroot}
+prepend-path  CPATH              ${mklroot}/include
+prepend-path  C_INCLUDE_PATH     ${mklroot}/include
+prepend-path  CPLUS_INCLUDE_PATH ${mklroot}/include
+prepend-path  PATH               ${mklroot}/bin
+prepend-path  LIBRARY_PATH       ${mklroot}/lib
+prepend-path  LD_LIBRARY_PATH    ${mklroot}/lib
+prepend-path  PKG_CONFIG_PATH    ${mklroot}/lib/pkgconfig
+prepend-path  CMAKE_PREFIX_PATH  ${mklroot}/lib/cmake
+# prepend-path  NLSPATH            ${mklroot}/lib/intel64/locale/%l_%t/%N

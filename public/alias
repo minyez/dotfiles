@@ -7,9 +7,9 @@
 # found that zsh history fails to record alias there, which
 # is not convenient.
 
-# Alias to reload the alias
-# alias myalias="source $(grealpath "${BASH_SOURCE[0]}")"
-alias myalias="source $(grealpath "$0")"
+#=====================================================
+# Machine check
+_host_s="$(hostname -s)"
 
 #=====================================================
 # system check for macOS
@@ -87,6 +87,16 @@ function is_on_hpc {
   fi
   return 1
 }
+
+#=====================================================
+# Alias to reload the alias
+if is_macos; then
+  # realpath is not available on macos, use grealpath from homebrew
+  # alias myalias="source $(grealpath "${BASH_SOURCE[0]}")"
+  alias myalias="source $(grealpath "$0")"
+else
+  alias myalias="source $(realpath "$0")"
+fi
 
 #=====================================================
 # macOS specific
@@ -177,11 +187,9 @@ alias 9-="cd ../../../../../../../../../"
 if ! is_on_hpc; then
   export M="$HOME/Documents/minyez"
   export MY="$M"
-  export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
 
   alias cm="cd \"\$MY\""
   alias cmd="cd \"\$MY/Snippets/dotfiles\""
-  alias cmr="cd \"\$MYRM\""
 
   function practice {
     PATH_PRACTICE="$M/codes/code-practice"
@@ -195,22 +203,39 @@ if ! is_on_hpc; then
   }
 fi
 
+# org-roam note directory, machine-specific.
+# For now it suffices to match short name
+case "$_host_s" in
+taiyi)
+  export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
+  ;;
+amdfed)
+  export MYRM="$HOME/Library/CloudStorage/Dropbox/org-roam"
+  ;;
+esac
+if [[ -n "$MYRM" ]] && [[ -d "$MYRM" ]]; then
+  alias cmr="cd \"\$MYRM\""
+fi
+
 # proxy setups, only on local machines
 if ! is_on_hpc; then
-  function set_proxy {
-    _port=7897
-    (($# > 0)) && _port=$1
+  function _set_proxy {
+    _port=$1
     export https_proxy=http://127.0.0.1:$_port
     export http_proxy=http://127.0.0.1:$_port
     export all_proxy=socks5://127.0.0.1:$_port
+    export proxy_vars="http_proxy=$http_proxy https_proxy=$https_proxy all_proxy=$all_proxy"
     unset _port
   }
+  alias set_proxy="_set_proxy 7897"
   function unset_proxy {
     unset http_proxy
     unset https_proxy
     unset all_proxy
+    unset proxy_vars
   }
 fi
+
 #=====================================================
 # quick command
 
@@ -653,5 +678,9 @@ fi
 if is_macos; then
   alias vesta="/Applications/VESTA.app/Contents/MacOS/VESTA "
 fi
+
+#=====================================================
+# release check variables
+unset _host_s
 
 # vim: filetype=sh
