@@ -97,6 +97,7 @@ install_config_tools() {
     lshw htop btop
   sudo dnf -y micromamba direnv fzf
   sudo dnf -y pass pandoc
+  sudo dnf -y valgrind
   # follow homebrew requirement
   sudo dnf -y group install development-tools
   sudo dnf -y install procps-ng curl file
