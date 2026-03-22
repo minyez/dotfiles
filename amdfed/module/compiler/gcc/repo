@@ -1,0 +1,20 @@
+#%Module########################################################################
+#
+
+set docstr "GCC, latest from Fedora DNF repository"
+
+proc ModulesHelp { } {
+    global dotversion
+    puts stderr $docstr
+}
+
+module-whatis   "$docstr"
+
+set             topdir                  "/usr/"
+prepend-path    PATH                    "${topdir}/bin"
+prepend-path    CPATH                   "${topdir}/include/c++/15"
+prepend-path    CPATH                   "${topdir}/include/c++/15/x86_64-linux"
+prepend-path    CPATH                   "${topdir}/lib/gcc/x86_64-linux/15/include"
+prepend-path    LIBRARY_PATH            "${topdir}/lib64"
+prepend-path    LD_LIBRARY_PATH         "${topdir}/lib64"
+prepend-path    MANPATH                 "${topdir}/share/man"

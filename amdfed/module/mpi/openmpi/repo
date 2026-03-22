@@ -12,6 +12,7 @@ proc ModulesHelp { } {
 
 module-whatis       $docstr
 
+module load gcc/repo
 set prefix   "/usr/lib64/openmpi"
 
 # mpi
