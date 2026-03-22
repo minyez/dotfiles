@@ -8,12 +8,15 @@ IS_FEDORA=0
 FEDORA_VERSION_MIN=30
 if ((IS_LINUX)); then
   which dnf 1>/dev/null 2>&1 && USE_DNF=1
-  [[ $(awk -F = '/^NAME/ {print $2}' /etc/os-release) == "Fedora" ]] && IS_FEDORA=1
+  OSNAME="$(awk -F = '/^NAME/ {print $2}' /etc/os-release)"
+  [[ $OSNAME == "Fedora" ]] && IS_FEDORA=1
+  [[ $OSNAME == "\"Fedora\"" ]] && IS_FEDORA=1
+  [[ $OSNAME == "\"Fedora Linux\"" ]] && IS_FEDORA=1
   FEDORA_VERSION=$(awk -F = '/VERSION_ID/ {print $2}' /etc/os-release)
 fi
 YES_NO_P=("No" "Yes")
 ENABLE_UPDATES=1
-_DRY_RUN=1
+_DRY_RUN=${DRY:=1}
 
 wgetopts="-nv --show-progress --progress=bar:force"
 
@@ -169,9 +172,26 @@ install_wine() {
 install_sci_tools() {
   cecho i "Installing scientific tools:"
   cecho i "  - Qalculate! a multi-purpose desktop calculator"
+  cecho i "  - Zotero"
   ((_DRY_RUN)) && return
   sudo dnf -y install qalculate-gtk
-  # TODO: zotero
+  # Zotero. Check if the desktop icon exists
+  tmpdir="$(mktemp -d)"
+  trap 'rm -rf "$tmpdir"' EXIT
+  ZOTERO_TARBALL="Zotero_linux-x86_64.tar.xz"
+  ZOTERO_INSTALL_DIR="/opt/zotero"
+  ZOTERO_BINLINK="/usr/local/bin/zotero"
+  ZOTERO_DESKTOP_TARGET="/usr/share/applications/zotero.desktop"
+  wget $wgetopts "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64" \
+    -O "$tmpdir/$ZOTERO_TARBALL"
+  tar xf "$tmpdir/$ZOTERO_TARBALL" -C "$tmpdir"
+  sudo rm -rf $ZOTERO_INSTALL_DIR
+  sudo mv "$tmpdir/Zotero_linux-x86_64" "$ZOTERO_INSTALL_DIR"
+  cd "$ZOTERO_INSTALL_DIR" || exit 1
+  ./set_launcher_icon
+  sudo ln -sf "$ZOTERO_INSTALL_DIR/zotero" "$ZOTERO_BINLINK"
+  sudo ln -sf "$ZOTERO_INSTALL_DIR/zotero.desktop" "$ZOTERO_DESKTOP_TARGET"
+  sudo update-desktop-database /usr/share/applications
 }
 
 help_info
