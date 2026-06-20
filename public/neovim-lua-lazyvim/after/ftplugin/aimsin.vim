@@ -2,3 +2,4 @@
 set syntax=aimsin
 setlocal comments=:#
 setlocal commentstring=#%s
+setlocal omnifunc=aimsincomplete#Complete
