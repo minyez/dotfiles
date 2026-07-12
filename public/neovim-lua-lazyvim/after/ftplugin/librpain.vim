@@ -1,0 +1,5 @@
+" This file is generated automatically. Manual edit might be lost
+set syntax=librpain
+setlocal comments=:#
+setlocal commentstring=#%s
+setlocal omnifunc=librpaincomplete#Complete
