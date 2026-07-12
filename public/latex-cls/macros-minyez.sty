@@ -1,157 +1,219 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{macros-minyez}[Preloaded packages and custom LaTeX macros by minyez for personal use]
+\ProvidesPackage{macros-minyez}[2026/07/13 Preloaded packages and custom LaTeX macros by Min-Ye Zhang]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Options handling
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% flags controlled by options
-% --- code toggle
 \newif\iftogglecode
-\togglecodefalse
-% --- bib toggle
 \newif\iftogglebib
-\togglebibfalse
-% --- math symbols toggle
 \newif\iftogglesymbol
-\togglesymboltrue
-% --- debug switch
+\newif\iftogglearticle
 \newif\ifdefbug
+\togglecodefalse
+\togglebibfalse
+\togglesymboltrue
+\togglearticlefalse
 \defbugfalse
-
-% -- option declarations
 \DeclareOption{code}{\togglecodetrue}
-\DeclareOption{bib}{\togglebibtrue}
 \DeclareOption{nocode}{\togglecodefalse}
+\DeclareOption{bib}{\togglebibtrue}
+\DeclareOption{nobib}{\togglebibfalse}
 \DeclareOption{symbol}{\togglesymboltrue}
 \DeclareOption{nosymbol}{\togglesymbolfalse}
+\DeclareOption{article}{\togglearticletrue}
+\DeclareOption{noarticle}{\togglearticlefalse}
 \DeclareOption{debug}{\defbugtrue}
-
-\ExecuteOptions{}%
+\ExecuteOptions{nocode,nobib,symbol,noarticle}
 \ProcessOptions\relax
 
+\RequirePackage{xcolor}
+\RequirePackage{ifxetex,ifluatex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Load dependent packages
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefbug
+  \RequirePackage[absolute,overlay,showboxes]{textpos}
+\else
+  \RequirePackage[absolute,overlay]{textpos}
+\fi
 
-\RequirePackage{xcolor} % colors
+\definecolor{myblue}{RGB}{0,63,126}
+\definecolor{myred}{cmyk}{0,1,1,0.45}
 
-% Build the option list for textpos:
-\begingroup
-  \edef\macros@tp@opts{absolute,overlay}%
-  \ifdefbug\edef\macros@tp@opts{\macros@tp@opts,showboxes}\fi
-\expandafter\endgroup\expandafter
-\RequirePackage\expandafter[\macros@tp@opts]{textpos}
+\iftogglearticle
+  \RequirePackage{amsmath,amssymb,wasysym,mathtools,bm}
+  \ifxetex
+    \RequirePackage{xeCJK}
+  \else
+    \ifluatex
+      \RequirePackage{fontspec}
+    \else
+      \RequirePackage[T1]{fontenc}
+      \RequirePackage{CJKutf8}
+    \fi
+  \fi
+  \RequirePackage{microtype}
+  \RequirePackage{graphicx}
+  \RequirePackage{grffile}
+  \RequirePackage{mdframed}
+  \RequirePackage{float}
+  \RequirePackage{wrapfig}
+  \RequirePackage{subfig}
+  \RequirePackage{rotating}
+  \RequirePackage[normalem]{ulem}
+  \RequirePackage{textcomp}
+  \RequirePackage{capt-of}
+  \RequirePackage[font={small},skip=1pt]{caption}
+  \RequirePackage{parskip}
+  \RequirePackage{enumitem}
+  \RequirePackage{booktabs}
+  \RequirePackage{physics}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Constants
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{myblue}{RGB}{0,63,126}    % GitHub blue
-\definecolor{myred}{cmyk}{0,1,1,0.45}  % PKU red
+  % Article presentation
+  \captionsetup[table]{belowskip=-6pt}
+  \definecolor{bg}{rgb}{0.95,0.95,0.95}
+  \definecolor{bq-border}{RGB}{0,63,126}
+  \providecolor{yfill}{RGB}{255,245,204}
+  \newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,%
+            backgroundcolor=bg,linecolor=bq-border,skipabove=\parskip]{customblockquote}
+  \renewenvironment{quote}{\begin{customblockquote}\itshape
+    \list{}{\rightmargin=6pt\leftmargin=6pt}\item\relax\ignorespaces}
+    {\unskip\unskip\endlist\end{customblockquote}}
+  \let\Oldtextbullet\textbullet
+  \renewcommand{\textbullet}{\textcolor{bq-border}{\Oldtextbullet}}
+\fi
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Bibliography, references
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% link url, doi, issn or isbn to the pages (journal) or title (book)
-% use the first field found.
 \iftogglebib
-\makeatletter%
-\ltx@ifpackageloaded{biblatex}%
-{% Do something if biblatex loaded
-  \newbibmacro{string+doiurlisbn}[1]{%
-    \iffieldundef{url}{%
-      \iffieldundef{doi}{%
-        \iffieldundef{isbn}{%
-          \iffieldundef{issn}{%
-            #1%
-          }{ \href{http://books.google.com/books?vid=ISSN\thefield{issn}}{#1} }%
-        }{ \href{http://books.google.com/books?vid=ISBN\thefield{isbn}}{#1} }%
-      }{ \href{https://dx.doi.org/\thefield{doi}}{#1} }%
-    }{ \href{\thefield{url}}{#1} }%
-  }
-  \DeclareFieldFormat[article,incollection]{pages}{\usebibmacro{string+doiurlisbn}{#1}}%
-  \DeclareFieldFormat[book]{title}{\usebibmacro{string+doiurlisbn}{\mkbibemph{#1}}}
-}
-{%
-    % Do something different if not
-}%
-\makeatother
+  \RequirePackage{biblatex}
 \fi
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Mathematical symbols
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math
 \iftogglesymbol
-% --- General numbers
-  \providecommand{\half}{\frac{1}{2}}
-% --- Roman in math
-  \providecommand{\ii}{\mathrm{i}}
-  \providecommand{\ee}{\mathrm{e}}
-  \providecommand{\BZ}{\mathrm{BZ}}
-  \providecommand{\IP}{\mathrm{IP}}
-  \providecommand{\EA}{\mathrm{EA}}
-  \providecommand{\CBM}{\mathrm{CBM}}
-  \providecommand{\VBM}{\mathrm{VBM}}
-  \providecommand{\KS}{\mathrm{KS}}
-  \providecommand{\QP}{\mathrm{QP}}
-  \providecommand{\GKS}{\mathrm{GKS}}
-  \providecommand{\xc}{\mathrm{xc}}
-  \providecommand{\ext}{\mathrm{ext}}
-% --- bold vectors
-  \providecommand{\bvec}[1]{\mathbf{#1}}
-  \providecommand{\br}{\bvec{r}}
-  \providecommand{\bq}{\bvec{q}}
-  \providecommand{\bk}{\bvec{k}}
-  \providecommand{\bG}{\bvec{G}}
-  \providecommand{\bK}{\bvec{K}}
-  \providecommand{\bx}{\bvec{x}}
-  \providecommand{\bR}{\bvec{R}}
-  \providecommand{\dbR}{\hat{\bR}}
-  \providecommand{\dbG}{\hat{\bG}}
-  \providecommand{\dbr}{\hat{\br}}
-  \providecommand{\dbq}{\hat{\bq}}
-  \providecommand{\dbk}{\hat{\bk}}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\ii}{\mathrm{i}}
+\providecommand{\ee}{\mathrm{e}}
+\providecommand{\bvec}[1]{\mathbf{#1}}
+\providecommand{\br}{\bvec{r}}
+\providecommand{\bq}{\bvec{q}}
+\providecommand{\bp}{\bvec{p}}
+\providecommand{\bk}{\bvec{k}}
+\providecommand{\bG}{\bvec{G}}
+\providecommand{\bK}{\bvec{K}}
+\providecommand{\bx}{\bvec{x}}
+\providecommand{\bt}{\bvec{t}}
+\providecommand{\bR}{\bvec{R}}
+\providecommand{\dbR}{\hat{\bR}}
+\providecommand{\dbG}{\hat{\bG}}
+\providecommand{\dbr}{\hat{\br}}
+\providecommand{\dbq}{\hat{\bq}}
+\providecommand{\dbk}{\hat{\bk}}
+\providecommand{\tran}{\mathsf{T}}
+\providecommand{\herm}{\mathsf{H}}
 
-  \providecommand{\Nk}{N_{\bk}}
-  \providecommand{\invNk}{\frac{1}{\Nk}}
-  \providecommand{\invsqNk}{\frac{1}{\sqrt{\Nk}}}
-  \providecommand{\Nq}{N_{\bq}}
-  \providecommand{\invNq}{\frac{1}{\Nq}}
-  \providecommand{\invsqNq}{\frac{1}{\sqrt{\Nq}}}
-  \providecommand{\kg}[3]{\(#1\times #2 \times #3\)}
-  \providecommand{\kgh}[1]{\kg{#1}{#1}{#1}}
+% QC & DFT
+\providecommand{\KS}{\mathrm{KS}}
+\providecommand{\GKS}{\mathrm{GKS}}
+\providecommand{\BZ}{\mathrm{BZ}}
+\providecommand{\QP}{\mathrm{QP}}
+\providecommand{\IP}{\mathrm{IP}}
+\providecommand{\EA}{\mathrm{EA}}
+\providecommand{\CBM}{\mathrm{CBM}}
+\providecommand{\VBM}{\mathrm{VBM}}
+\providecommand{\xc}{\mathrm{xc}}
+\providecommand{\ext}{\mathrm{ext}}
+\providecommand{\occ}{\mathrm{occ.}}
+\providecommand{\vir}{\mathrm{vir.}}
 
-  \providecommand{\argmin}{\mathop{\mathrm{argmin}}}
-  \providecommand{\argmax}{\mathop{\mathrm{argmax}}}
-% --- text on operator using stackrel, such as \approx, =
-  \providecommand{\textonop}[2]{\ensuremath{\stackrel{\text{#1}}{#2}}}
-  \providecommand{\defeq}{\textonop{def}{=}}
-  \providecommand{\qsgn}{\text{sgn}}
-% --- braces, brakets
-  \providecommand{\lbrb}[1]{\left\lbrace#1\right\rbrace}
-  \providecommand{\pbraket}[2]{\left(#1\middle|#2\right)}
-  \providecommand{\bbraket}[2]{\left[#1\middle|#2\right]}
+% Solid states physics
+\providecommand{\Nk}{N_{\bk}}
+\providecommand{\invNk}{\frac{1}{\Nk}}
+\providecommand{\invsqNk}{\frac{1}{\sqrt{\Nk}}}
+\providecommand{\Nq}{N_{\bq}}
+\providecommand{\invNq}{\frac{1}{\Nq}}
+\providecommand{\invsqNq}{\frac{1}{\sqrt{\Nq}}}
+\providecommand{\kg}[3]{$#1\times #2 \times #3$}
+\providecommand{\kgh}[1]{\kg{#1}{#1}{#1}}
+
+% operators
+\providecommand{\argmin}{\mathop{\mathrm{argmin}}}
+\providecommand{\argmax}{\mathop{\mathrm{argmax}}}
+% text on operator using stackrel, such as \approx, =
+\providecommand{\textonop}[2]{\ensuremath{\stackrel{\text{#1}}{#2}}}
+\providecommand{\defeq}{\textonop{def}{=}}
+\providecommand{\infint}{\int_{-\infty}^{\infty}}
+\providecommand{\qsgn}{\text{sgn}}
+\providecommand{\erfc}{\mathrm{erfc}}
+\providecommand{\cMu}{\mathcal{U}} % emulate uppercase \mu
+\providecommand{\cNu}{\mathcal{V}} % emulate uppercase \nu
+
+% braces
+\providecommand{\lara}[1]{\left\langle #1 \right\rangle}
+\providecommand{\lbrb}[1]{\left\lbrace #1 \right\rbrace}
+\providecommand{\pangle}[1]{\left\langle #1 \right\rangle}
+\providecommand{\pbraket}[2]{\left(#1\middle|#2\right)}
+\providecommand{\bbraket}[2]{\left[#1\middle|#2\right]}
 \fi
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Appearance of code snippets
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code snippets
 \iftogglecode
-% --- minted default behavior
-  \RequirePackage{minted}
+  \RequirePackage{listings}
+  \definecolor{codebg}{RGB}{246,248,250}
+  \definecolor{codeframe}{RGB}{210,215,220}
+  \lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    columns=fullflexible,
+    keepspaces=true,
+    breaklines=true,
+    showstringspaces=false
+  }
+
+  \RequirePackage[newfloat,cache=true]{minted}
   \definecolor{mycodebg}{rgb}{0.95,0.95,0.95}
   \setminted{linenos,mathescape,autogobble,breaklines,bgcolor=mycodebg}
   \setmintedinline{bgcolor=mycodebg}
 
-% --- a fancy verbatim environment
   \RequirePackage{fancyvrb}
   \RequirePackage{fvextra}
   \definecolor{myshadecolor}{RGB}{99,99,99}
-  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{framesep=5pt, frame=single,rulecolor=\color{myshadecolor}, numbers=left, numbersep=10pt, commandchars=\\\{\}}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{framesep=5pt,frame=single,%
+    rulecolor=\color{myshadecolor},numbers=left,numbersep=10pt,commandchars=\\\{\}}
   \renewcommand{\theFancyVerbLine}{\small\arabic{FancyVerbLine}}
+\fi
+
+% use the journal abbreviation when biblatex is on
+% see https://tex.stackexchange.com/questions/66549/short-titles-journal-abbreviations-etc-in-biblatex
+\iftogglebib
+\makeatletter
+\ltx@ifpackageloaded{biblatex}%
+{%
+\DeclareFieldFormat{titlecase}{#1}% otherwise journal names are in sentence case with phys style
+\renewbibmacro*{journal}{%
+\ifboolexpr{ test {\ifcitation} and not test {\iffieldundef{shortjournal}} }
+{\printfield[journaltitle]{shortjournal}}
+{\iffieldundef{journaltitle}
+{}
+{\printtext[journaltitle]{%
+\printfield[titlecase]{journaltitle}%
+\setunit{\subtitlepunct}%
+\printfield[titlecase]{journalsubtitle}}}}}
+% add link to pages according to available fields
+\newbibmacro{string+doiurlisbn}[1]{%
+\iffieldundef{url}{%
+\iffieldundef{doi}{%
+\iffieldundef{isbn}{%
+\iffieldundef{issn}{%
+#1%
+}{ \href{http://books.google.com/books?vid=ISSN\thefield{issn}}{#1} }%
+}{ \href{http://books.google.com/books?vid=ISBN\thefield{isbn}}{#1} }%
+}{ \href{https://dx.doi.org/\thefield{doi}}{#1} }%
+}{ \href{\thefield{url}}{#1} }%
+}
+\DeclareFieldFormat[article,incollection]{pages}{\usebibmacro{string+doiurlisbn}{#1}}%
+\DeclareFieldFormat[book]{title}{\usebibmacro{string+doiurlisbn}{\mkbibemph{#1}}}
+% backref leading text
+\DefineBibliographyStrings{english}{%
+backrefpage  = {p.\addspace},
+backrefpages = {pp.\addspace},
+}
+}
+{}%
+\makeatother
 \fi

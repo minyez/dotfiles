@@ -1,0 +1,157 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{macros-minyez}[Preloaded packages and custom LaTeX macros by minyez for personal use]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Options handling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% flags controlled by options
+% --- code toggle
+\newif\iftogglecode
+\togglecodefalse
+% --- bib toggle
+\newif\iftogglebib
+\togglebibfalse
+% --- math symbols toggle
+\newif\iftogglesymbol
+\togglesymboltrue
+% --- debug switch
+\newif\ifdefbug
+\defbugfalse
+
+% -- option declarations
+\DeclareOption{code}{\togglecodetrue}
+\DeclareOption{bib}{\togglebibtrue}
+\DeclareOption{nocode}{\togglecodefalse}
+\DeclareOption{symbol}{\togglesymboltrue}
+\DeclareOption{nosymbol}{\togglesymbolfalse}
+\DeclareOption{debug}{\defbugtrue}
+
+\ExecuteOptions{}%
+\ProcessOptions\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Load dependent packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{xcolor} % colors
+
+% Build the option list for textpos:
+\begingroup
+  \edef\macros@tp@opts{absolute,overlay}%
+  \ifdefbug\edef\macros@tp@opts{\macros@tp@opts,showboxes}\fi
+\expandafter\endgroup\expandafter
+\RequirePackage\expandafter[\macros@tp@opts]{textpos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Constants
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{myblue}{RGB}{0,63,126}    % GitHub blue
+\definecolor{myred}{cmyk}{0,1,1,0.45}  % PKU red
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography, references
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% link url, doi, issn or isbn to the pages (journal) or title (book)
+% use the first field found.
+\iftogglebib
+\makeatletter%
+\ltx@ifpackageloaded{biblatex}%
+{% Do something if biblatex loaded
+  \newbibmacro{string+doiurlisbn}[1]{%
+    \iffieldundef{url}{%
+      \iffieldundef{doi}{%
+        \iffieldundef{isbn}{%
+          \iffieldundef{issn}{%
+            #1%
+          }{ \href{http://books.google.com/books?vid=ISSN\thefield{issn}}{#1} }%
+        }{ \href{http://books.google.com/books?vid=ISBN\thefield{isbn}}{#1} }%
+      }{ \href{https://dx.doi.org/\thefield{doi}}{#1} }%
+    }{ \href{\thefield{url}}{#1} }%
+  }
+  \DeclareFieldFormat[article,incollection]{pages}{\usebibmacro{string+doiurlisbn}{#1}}%
+  \DeclareFieldFormat[book]{title}{\usebibmacro{string+doiurlisbn}{\mkbibemph{#1}}}
+}
+{%
+    % Do something different if not
+}%
+\makeatother
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematical symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iftogglesymbol
+% --- General numbers
+  \providecommand{\half}{\frac{1}{2}}
+% --- Roman in math
+  \providecommand{\ii}{\mathrm{i}}
+  \providecommand{\ee}{\mathrm{e}}
+  \providecommand{\BZ}{\mathrm{BZ}}
+  \providecommand{\IP}{\mathrm{IP}}
+  \providecommand{\EA}{\mathrm{EA}}
+  \providecommand{\CBM}{\mathrm{CBM}}
+  \providecommand{\VBM}{\mathrm{VBM}}
+  \providecommand{\KS}{\mathrm{KS}}
+  \providecommand{\QP}{\mathrm{QP}}
+  \providecommand{\GKS}{\mathrm{GKS}}
+  \providecommand{\xc}{\mathrm{xc}}
+  \providecommand{\ext}{\mathrm{ext}}
+% --- bold vectors
+  \providecommand{\bvec}[1]{\mathbf{#1}}
+  \providecommand{\br}{\bvec{r}}
+  \providecommand{\bq}{\bvec{q}}
+  \providecommand{\bk}{\bvec{k}}
+  \providecommand{\bG}{\bvec{G}}
+  \providecommand{\bK}{\bvec{K}}
+  \providecommand{\bx}{\bvec{x}}
+  \providecommand{\bR}{\bvec{R}}
+  \providecommand{\dbR}{\hat{\bR}}
+  \providecommand{\dbG}{\hat{\bG}}
+  \providecommand{\dbr}{\hat{\br}}
+  \providecommand{\dbq}{\hat{\bq}}
+  \providecommand{\dbk}{\hat{\bk}}
+
+  \providecommand{\Nk}{N_{\bk}}
+  \providecommand{\invNk}{\frac{1}{\Nk}}
+  \providecommand{\invsqNk}{\frac{1}{\sqrt{\Nk}}}
+  \providecommand{\Nq}{N_{\bq}}
+  \providecommand{\invNq}{\frac{1}{\Nq}}
+  \providecommand{\invsqNq}{\frac{1}{\sqrt{\Nq}}}
+  \providecommand{\kg}[3]{\(#1\times #2 \times #3\)}
+  \providecommand{\kgh}[1]{\kg{#1}{#1}{#1}}
+
+  \providecommand{\argmin}{\mathop{\mathrm{argmin}}}
+  \providecommand{\argmax}{\mathop{\mathrm{argmax}}}
+% --- text on operator using stackrel, such as \approx, =
+  \providecommand{\textonop}[2]{\ensuremath{\stackrel{\text{#1}}{#2}}}
+  \providecommand{\defeq}{\textonop{def}{=}}
+  \providecommand{\qsgn}{\text{sgn}}
+% --- braces, brakets
+  \providecommand{\lbrb}[1]{\left\lbrace#1\right\rbrace}
+  \providecommand{\pbraket}[2]{\left(#1\middle|#2\right)}
+  \providecommand{\bbraket}[2]{\left[#1\middle|#2\right]}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appearance of code snippets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iftogglecode
+% --- minted default behavior
+  \RequirePackage{minted}
+  \definecolor{mycodebg}{rgb}{0.95,0.95,0.95}
+  \setminted{linenos,mathescape,autogobble,breaklines,bgcolor=mycodebg}
+  \setmintedinline{bgcolor=mycodebg}
+
+% --- a fancy verbatim environment
+  \RequirePackage{fancyvrb}
+  \RequirePackage{fvextra}
+  \definecolor{myshadecolor}{RGB}{99,99,99}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{framesep=5pt, frame=single,rulecolor=\color{myshadecolor}, numbers=left, numbersep=10pt, commandchars=\\\{\}}
+  \renewcommand{\theFancyVerbLine}{\small\arabic{FancyVerbLine}}
+\fi
