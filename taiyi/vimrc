@@ -4,6 +4,9 @@ if has('python3')
   silent! python3 1
 endif
 
+filetype plugin on
+syntax enable
+
 " 设置相对行号
 set rnu
 set nu

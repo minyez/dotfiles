@@ -184,6 +184,7 @@ source $HOMEBREW_PREFIX/opt/modules/init/zsh
 # module load mushroom
 
 [[ ! -f "$HOME/.alias" ]] || source "$HOME/.alias"
+set_proxy
 
 # asdf completion
 # source /opt/homebrew/opt/asdf/libexec/asdf.sh
