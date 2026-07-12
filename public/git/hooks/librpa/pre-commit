@@ -1,0 +1,58 @@
+#!/bin/sh
+
+set -eu
+
+repo_root=$(git rev-parse --show-toplevel)
+
+# =======================================================
+# Align the actual and stub Fortran binding
+align_fortran_binding() {
+  cd "$repo_root"
+
+  target="binding/fortran/librpa_f03.f90"
+  output="binding/fortran/librpa_f03_stubs.f90"
+  script="utilities/convert_fortran_module_to_stub.py"
+
+  # Run only if the target file is staged for commit
+  if git diff --cached --quiet -- "$target"; then
+    return 0
+  fi
+
+  echo "pre-commit: regenerating $output from $target"
+  python3 "$script" "$target" "$output"
+
+  # Add regenerated file to the same commit
+  git add "$output"
+  unset target
+  unset output
+  unset script
+}
+# =======================================================
+
+# =======================================================
+# Update README
+update_readme() {
+  cd "$repo_root"
+
+  target="docs/develop/licensing.md"
+  output="README.md"
+  script="utilities/update_readme_licensing_list.py"
+
+  # Run only if the target file is staged for commit
+  if git diff --cached --quiet -- "$target"; then
+    return 0
+  fi
+
+  echo "pre-commit: updating $output from $target"
+  python3 "$script"
+
+  # Add regenerated file to the same commit
+  git add "$output"
+  unset target
+  unset output
+  unset script
+}
+# =======================================================
+
+# align_fortran_binding
+update_readme

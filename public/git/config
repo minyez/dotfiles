@@ -42,3 +42,5 @@
 # 	insteadOf = git://github.com/
 [submodule]
 	recurse = true
+[rebase]
+	instructionFormat = (%an <%ae>) %s
