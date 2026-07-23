@@ -5,11 +5,13 @@
 \newif\iftogglebib
 \newif\iftogglesymbol
 \newif\iftogglearticle
+\newif\iftoggleprogress
 \newif\ifdefbug
 \togglecodefalse
 \togglebibfalse
 \togglesymboltrue
 \togglearticlefalse
+\toggleprogressfalse
 \defbugfalse
 \DeclareOption{code}{\togglecodetrue}
 \DeclareOption{nocode}{\togglecodefalse}
@@ -19,8 +21,10 @@
 \DeclareOption{nosymbol}{\togglesymbolfalse}
 \DeclareOption{article}{\togglearticletrue}
 \DeclareOption{noarticle}{\togglearticlefalse}
+\DeclareOption{progress}{\toggleprogresstrue}
+\DeclareOption{noprogress}{\toggleprogressfalse}
 \DeclareOption{debug}{\defbugtrue}
-\ExecuteOptions{nocode,nobib,symbol,noarticle}
+\ExecuteOptions{nocode,nobib,symbol,noarticle,noprogress}
 \ProcessOptions\relax
 
 \RequirePackage{xcolor}
@@ -80,6 +84,83 @@
 
 \iftogglebib
   \RequirePackage{biblatex}
+\fi
+
+% Progress logging
+\newif\ifprogressinline
+\newif\ifprogresskeep
+\iftoggleprogress
+\RequirePackage{datetime2}
+\DTMsetdatestyle{iso}
+
+\makeatletter
+% Store records as \progressrecord{<type>}{<text>} entries.
+\newcommand{\progresslog}{}
+
+\progressinlinetrue
+
+\colorlet{progtypeadd}{green!50!black}
+\colorlet{progtypeupdate}{blue!60!black}
+\colorlet{progtypefix}{orange!80!black}
+\colorlet{progtyperemove}{red!70!black}
+
+\def\progressgetcolor#1{%
+  \@ifundefinedcolor{progtype#1}{black}{progtype#1}%
+}
+
+\newcommand{\progressinline}[2]{% #1=date, #2=type
+  \textcolor{\progressgetcolor{#2}}{(\DTMdate{#1}~#2)}%
+}
+
+% \proglog{<date>}{<type>}{<message>}
+\newcommand{\proglog}[3]{%
+  \g@addto@macro\progresslog{%
+    \progressrecord{#2}{\noindent\textbf{[#2]} (\DTMdate{#1}) — #3\par}%
+  }%
+  \ifprogressinline \progressinline{#1}{#2}\fi
+}
+
+\newcommand{\progress@emit}[2]{#2}
+\newcommand{\progress@emitfiltered}[2]{% #1=type, #2=text
+  \progresskeepfalse
+  \def\progress@target{#1}%
+  \@for\progress@tok:=\progress@filterlist\do{%
+    \edef\progress@tokA{\progress@tok}%
+    \edef\progress@targetA{\progress@target}%
+    \ifx\progress@tokA\progress@targetA
+      \progresskeeptrue
+    \fi
+  }%
+  \ifprogresskeep #2\fi
+}
+
+\newcommand{\printprogress}{%
+  \@ifnextchar[{\progress@printwith}{\progress@printall}%
+}
+
+\newcommand{\progress@printall}{%
+  \begingroup
+    \let\progressrecord\progress@emit
+    \progresslog
+  \endgroup
+}
+
+\def\progress@printwith[#1]{%
+  \begingroup
+    \def\progress@filterlist{#1}%
+    \let\progressrecord\progress@emitfiltered
+    \progresslog
+  \endgroup
+}
+
+\newcommand{\printprogressfilter}[1]{%
+  \begingroup
+    \def\progress@filterlist{#1}%
+    \let\progressrecord\progress@emitfiltered
+    \progresslog
+  \endgroup
+}
+\makeatother
 \fi
 
 % Math

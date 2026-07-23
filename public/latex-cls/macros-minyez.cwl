@@ -22,6 +22,10 @@
 #include:biblatex
 #endif
 
+#ifOption:progress
+#include:datetime2
+#endif
+
 \bvec{vector}
 \br
 \bq

@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{mlecture}[2019/01/29 Beamer style package]
+\ProvidesPackage{beamerthememlecture}[2026/07/13 Beamer style package]
 
 \RequirePackage{xcolor} % colors
 \RequirePackage{ragged2e} % for justifying
@@ -31,6 +31,11 @@
 %%% Some useful commands
 % pdf-friendly newline in links
 \newcommand{\pdfnewline}{\texorpdfstring{\newline}{ }}
+% Keep presentation-only helpers out of PDF metadata strings.
+\pdfstringdefDisableCommands{%
+  \def\inst#1{}%
+  \def\translate#1{#1}%
+}
 % Fill the vertical space in a slide (to put text at the bottom)
 \newcommand{\framefill}{\vskip0pt plus 1filll}
 % insert at the top of the title page
@@ -366,26 +371,23 @@
 \renewcommand{\footnoterule}{}% remove footnote rule
 \fi
 
-% footnote without marker, useful for footnote below columns and group citation
-% https://tex.stackexchange.com/questions/30720/footnote-without-a-marker
-\newcommand\blfootnote[1]{%
+% Footnote without a marker, useful below columns and for group citations.
+\newcommand{\bottomnote}[1]{%
   \begingroup
-%% old version
-%  \renewcommand\thefootnote{}\footnote{#1}%
-%  \addtocounter{footnote}{-1}%
-%% new version
-  \renewcommand\thefootnote{\fnsymbol{footnote}}%
-  \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}%
-  \footnotetext[0]{#1}%
+  \setbeamertemplate{footnote}{%
+    \parindent0pt\noindent\raggedright
+    \usebeamerfont{footnote}\insertfootnotetext\par}%
+  \footnotetext{#1}%
   \endgroup
 }
+\let\blfootnote\bottomnote
 
 % change the template to remove the indentation
 % https://tex.stackexchange.com/questions/455917/how-to-remove-footnote-marker-number-in-beamer
 % with this, simply \footnote will introduce a marker outside the footnote region.
 % so if you want to have mixed number and unnumbered footnotes, comment the following out,
-% or use option "keepfnind"
-% otherwise, stick to \blfootnote
+% or use option "keepfnid"
+% otherwise, stick to \bottomnote (or its \blfootnote alias)
 \ifmleckeepfnid\else
   \setbeamertemplate{footnote}{%
     \parindent 1em\noindent%
