@@ -1,5 +1,5 @@
 -- autocommands setup
-vim.cmd [[
+vim.cmd([[
 " remember fold state on exit
 " https://stackoverflow.com/questions/37552913/vim-how-to-keep-folds-on-save
 " Note: use silent mkview to get rid of E32: no file name when using telescope,
@@ -37,9 +37,17 @@ vim.cmd [[
 "      autocmd Filetype fortran setlocal formatprg=fprettify\ --silent
 "    augroup end
 "  endif
-]]
+]])
 
 -- TODO: use lua api for autocmd, see eg
 -- https://github.com/Jarmos-san/dotfiles/blob/main/dotfiles/.config/nvim/lua/autocmds.lua
 -- vim.api.nvim_create_autocmd
 -- vim.api.nvim_create_augroup("augroup name", { clear = true })
+
+-- Disable auto-format for specific filetypes
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "tex", "bib" },
+	callback = function()
+		vim.b.autoformat = false
+	end,
+})

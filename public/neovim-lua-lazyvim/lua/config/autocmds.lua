@@ -29,6 +29,7 @@ set_autoformat({ "cpp" }, false)
 set_autoformat({ "fortran" }, false)
 set_autoformat({ "lua" }, true)
 set_autoformat({ "python" }, false)
+set_autoformat({ "bib" }, false)
 
 -- ===========
 -- Indentation
