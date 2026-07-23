@@ -40,7 +40,8 @@ prepend-path  MANPATH             ${cmplr_root}/share/man
 prepend-path  LIBRARY_PATH        ${cmplr_root}/lib
 prepend-path  LD_LIBRARY_PATH     ${cmplr_root}/lib
 prepend-path  DIAGUTIL_PATH       ${cmplr_root}/etc/compiler/sys_check/sys_check.sh
-prepend-path  LD_LIBRARY_PATH     ${cmplr_root}/opts/compiler/lib
+prepend-path  LD_LIBRARY_PATH     ${cmplr_root}/opt/compiler/lib
+prepend-path  CPATH               ${cmplr_root}/opt/compiler/include
 prepend-path  NLSPATH             ${cmplr_root}/lib/compiler/locale/%l_%t/%N
 prepend-path  PKG_CONFIG_PATH     ${cmplr_root}/lib/pkgconfig
 append-path   OCL_ICD_FILENAMES   ${cmplr_root}/lib/libintelocl.so
