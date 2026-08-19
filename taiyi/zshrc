@@ -21,15 +21,12 @@ function set_gcc_version() {
   export CC=gcc-$_ver
   export CXX=g++-$_ver
   # MPICH and OpenMPI always uses GCC, not Apple Clang
-  export MPICH_FC=$FC
-  export MPICH_CC=$CC
-  export MPICH_CXX=$CXX
-  export OMPI_FC=$FC
-  export OMPI_CC=$CC
-  export OMPI_CXX=$CXX
   unset _ver
 }
 set_gcc_version $_GCC_VER
+function unset_gcc_version() {
+  unset FC CC CXX
+}
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
