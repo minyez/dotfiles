@@ -261,9 +261,12 @@ export COPYFILE_DISABLE=1
 alias untargz="tar -zxf "
 alias untarbz="tar -jxf "
 
-function targz {
-  args=("$@")
-  mkdir "$1" && cp -a "${args[@]:1}" "$1" && tar --remove-files -zcf "${1}.tar.gz" "${1}"
+function targz() {
+  local name=$1
+  shift
+  mkdir -- "$name" &&
+    rsync -a "$@" "$name/" &&
+    tar --remove-files -zcf "${name}.tar.gz" -- "$name"
 }
 
 function tarbz {
