@@ -1,0 +1,16 @@
+# Tab 1
+new_tab librpa
+cd ~/codes/LibRPA
+launch
+
+# Tab 2
+new_tab paper
+cd ~/projects/atomic-low-scale-gw/deliver/_paper_overleaf
+launch
+
+# Tab 3
+new_tab paper:ghj
+cd ~/Documents/minyez/Research/Collaboration/GongHuanJing/GW_pseudopotential_NAO
+launch
+
+focus_tab 0

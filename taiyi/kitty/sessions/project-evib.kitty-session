@@ -1,0 +1,16 @@
+# Tab 1
+new_tab work
+cd ~/work/self-energy-unfolding-refactor
+launch
+
+# Tab 2
+new_tab legacy
+cd ~/work/self-energy-unfolding
+launch
+
+# Tab 3
+new_tab python
+cd ~/work/self-energy-unfolding-refactor/src/self_energy_unfolding
+launch
+
+focus_tab 0

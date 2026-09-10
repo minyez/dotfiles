@@ -1,0 +1,31 @@
+# Tab 1
+new_tab librpa
+cd ~/codes/LibRPA
+launch
+
+# Tab 2
+new_tab libri
+cd ~/codes/LibRI
+launch
+
+# Tab 3
+new_tab data
+cd ~/work/atomic-low-scale-gw
+launch
+
+# Tab 4
+new_tab project
+cd ~/projects/atomic-low-scale-gw
+launch
+
+# Tab 5
+new_tab paper
+cd ~/projects/atomic-low-scale-gw/deliver/_paper_overleaf
+launch
+
+# Tab 6
+new_tab weekly
+cd ~/projects/atomic-low-scale-gw/deliver/_meetings
+launch
+
+focus_tab 0

@@ -1,0 +1,11 @@
+# Tab 1
+new_tab project
+cd ~/projects/DCU_Wc
+launch
+
+# Tab 2
+new_tab paper
+cd ~/projects/DCU_Wc/deliver/_paper_overleaf
+launch
+
+focus_tab 0
