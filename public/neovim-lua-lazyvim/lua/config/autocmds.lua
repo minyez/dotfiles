@@ -45,3 +45,14 @@ augroup auto_language_selection
     autocmd Filetype python     setlocal ts=4 sw=4 expandtab
 augroup END
 ]])
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = "*.sh",
+  callback = function()
+    vim.b.sleuth_heuristics = 0
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.softtabstop = -1
+    vim.bo.expandtab = true
+  end,
+})

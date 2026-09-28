@@ -1,0 +1,11 @@
+# Tab 1
+new_tab project
+cd ~/projects/MLGW
+launch
+
+# Tab 2
+new_tab paper-mole
+cd ~/projects/MLGW/deliver/_paper_ML_Self-Energy_Mol
+launch
+
+focus_tab 0

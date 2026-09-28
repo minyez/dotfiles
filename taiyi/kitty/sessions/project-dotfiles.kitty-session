@@ -1,0 +1,26 @@
+# Tab 1
+new_tab doom
+cd ~/.config/doom
+launch
+
+# Tab 2
+new_tab emacs
+cd ~/.config/emacs
+launch
+
+# Tab 3
+new_tab nvim
+cd ~/.config/nvim
+launch
+
+# Tab 4
+new_tab kitty
+cd ~/.config/kitty
+launch
+
+# Tab 5
+new_tab blog
+cd ~/minyez.github.io
+launch
+
+focus_tab 0
